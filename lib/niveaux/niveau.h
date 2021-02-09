@@ -10,5 +10,7 @@ typedef struct niveau_s{
     salle_t ** salles;
 } niveau_t;
 
-
+extern booleen_t niveau_existe(niveau_t * niveau);
+extern chunk_t * niveau_creer(int nbSalle,char nom_fichier);
+extern void niveau_afficher_ref();
 #endif
