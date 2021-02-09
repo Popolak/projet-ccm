@@ -16,8 +16,17 @@ int main(){
 	printf( "Test d'existance sur un perso_t existant\n" ) ;
 	perso_existe(salade_test);
 
+	while(en_vie(salade_test)){
+        printf("test prise d'un coup pv = %i\n", salade_test->vie);
+        prendre_coup(salade_test, 10);
+        printf("pv = %i\n",salade_test->vie);
+	}
+	printf("le perso est mort\n");
+
+	if(perso_existe(salade_test)){
 	printf("test destruction\n");
 	salade_test->detruire(&salade_test);
+	}
 
 	printf( "Test d'existance sur un perso_t inexistant\n" ) ;
 	perso_existe(salade_test);

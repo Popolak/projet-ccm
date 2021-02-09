@@ -33,8 +33,9 @@ void perso_animer( perso_t * const personnage ){
 }
 
 
+
 extern
-perso_t * perso_creer(char * nom, int vie, int taille, pos_t * position, char * nom_sprite, int vitesse){
+perso_t * perso_creer(char * nom, int vie, int taille, pos_t * position, char * nom_sprite, int vitesse, int degats){
 
 	perso_t * personnage = NULL;
 
@@ -46,9 +47,26 @@ perso_t * perso_creer(char * nom, int vie, int taille, pos_t * position, char * 
 	personnage->vitesse = vitesse;
 	personnage->position->x;
 	personnage->position->y;
+	personnage->degats = degats;
 
 	personnage->animer = perso_animer;
 	personnage->detruire = perso_detruire;
 
 	return(personnage);
 }
+extern
+void prendre_coup(perso_t * personnage, int degats){
+
+	personnage->vie -= degats;
+}
+
+extern
+int en_vie(perso_t * personnage){
+
+    if(personnage->vie > 0)
+        return(1);
+    else
+        return(0);
+
+}
+
