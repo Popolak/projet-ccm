@@ -1,12 +1,12 @@
 #include <stdio.h>
-#include "chunk.h"
+#include "../../lib/niveaux/chunk.h"
 
 int main(){
     chunk_t * chunk =NULL;
     printf("Test d'existence:\n");
     chunk_existe(chunk)?printf("-->OK"):printf("-->KO");
     printf("\nCreation :\n");
-    chunk= chunk_creer(0,0);
+    chunk= chunk_creer(0,0,1,"2");
     printf("%p\n", chunk);
     chunk_existe(chunk)?printf("-->OK\n"):printf("-->KO\n");
     printf("\n");

@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "chunk.h"
+#include "../../lib/niveaux/chunk.h"
 
 int cpt_chunk=0;
 
@@ -57,7 +57,7 @@ extern booleen_t chunk_existe(chunk_t * chunk){
     return VRAI;
 }
 
-extern chunk_t * chunk_creer(int x,int y, int nb_portes, porte_t ** portes){
+extern chunk_t * chunk_creer(int x,int y, int nb_portes, char * type){
     unite_t * uniteAct=NULL;
     chunk_t * chunk=malloc(sizeof(chunk_t));
     int i,j;
@@ -70,7 +70,7 @@ extern chunk_t * chunk_creer(int x,int y, int nb_portes, porte_t ** portes){
     chunk->lire_partiel=chunk_lire_partiel;
     chunk->chunk= malloc(sizeof(unite_t**)*CHUNKW);
     if(chunk->chunk == NULL){
-        chunk->detruire(&chunk);    
+        chunk->detruire(&chunk);
         return NULL;
     }
     for (i=0;i<CHUNKW; i++){
@@ -82,7 +82,7 @@ extern chunk_t * chunk_creer(int x,int y, int nb_portes, porte_t ** portes){
     chunk->nb_portes=nb_portes;
     chunk->portes=malloc(sizeof(porte_t*)*nb_portes);
     for(i=0; i<nb_portes; i++){
-        chunk->portes[i]=porte_creer(chunk,portes[i]->porteDest,portes[i]->position);
+        chunk->portes[i]=porte_creer(&chunk,NULL,type[i]-'0');
     }
     cpt_chunk++;
     return chunk;

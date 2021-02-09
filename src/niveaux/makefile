@@ -1,5 +1,5 @@
 fich_test_unite=unite.o test_unite.o
-fich_test_chunk=unite.o chunk.o test_chunk.o
+fich_test_chunk=unite.o chunk.o test_chunk.o porte.o
 fich_test_salle=unite.o chunk.o test_chunk.o porte.o salle.o
 BIN= test_unite test_chunk test_salle
 OBJ= unite.o chunk.o test_chunk.o test_unite.o salle.o porte.o
@@ -16,16 +16,16 @@ test_salle: $(fich_test_salle)
 	gcc $(fich_test_salle) -o test_salle
 
 
-unite.o: unite.c unite.h
+unite.o: unite.c ../../lib/niveaux/unite.h
 	gcc unite.c -c
 
-chunk.o: chunk.c chunk.h
+chunk.o: chunk.c ../../lib/niveaux/chunk.h
 	gcc chunk.c -c
 
-salle.o: salle.c salle.h
+salle.o: salle.c ../../lib/niveaux/salle.h
 	gcc salle.c -c
 
-porte.o: porte.c porte.h
+porte.o: porte.c ../../lib/niveaux/porte.h
 	gcc porte.c -c
 
 test_unite.o: test_unite.c

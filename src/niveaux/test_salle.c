@@ -1,12 +1,12 @@
 #include <stdio.h>
-#include "salle.h"
+#include "../../lib/niveaux/salle.h"
 
 int main(){
     salle_t * salle=NULL;
     printf("Test d'existence:\n");
     salle_existe(salle)?printf("-->OK"):printf("-->KO");
     printf("\nCreation :\n");
-    salle= salle_creer(0);
+    salle= salle_creer("001000");
     printf("%p\n", salle);
     salle_existe(salle)?printf("-->OK\n"):printf("-->KO\n");
     printf("\n");

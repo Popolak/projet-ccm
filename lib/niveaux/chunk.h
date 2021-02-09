@@ -20,6 +20,6 @@ typedef struct chunk_s{
 } chunk_t;
 
 extern booleen_t chunk_existe(chunk_t * chunk);
-extern chunk_t * chunk_creer(int x,int y,int nb_portes, porte_t ** portes);
+extern chunk_t * chunk_creer(int x,int y,int nb_portes, char * type);
 extern void chunk_afficher_ref();
 #endif
