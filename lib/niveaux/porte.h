@@ -9,13 +9,12 @@ typedef struct porte_s porte_t;
 typedef struct porte_s{
     void (*lire)(const struct porte_s * );
     err_t (*detruire)(struct porte_s **);
-    struct porte_s ** porteDest;
-    chunk_t ** chunk;
+    struct porte_s * porteDest;
     int position;
 }porte_t;
 
 /* FONCTIONS */
 extern booleen_t porte_existe(porte_t * porte);
-extern porte_t * porte_creer (chunk_t ** chunk , porte_t * porteDest, int pos);
+extern porte_t * porte_creer ( porte_t * porteDest, int pos);
 
 #endif

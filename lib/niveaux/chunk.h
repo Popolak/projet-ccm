@@ -7,12 +7,13 @@ typedef struct chunk_s chunk_t;
 #include "unite.h"
 #include "porte.h"
 
-static const int CHUNKH=300, CHUNKW=533;
+static const int CHUNKH=20, CHUNKW=20;
 
 typedef struct chunk_s{
     void (*lire)(const struct chunk_s * );
     err_t (*detruire)(struct chunk_s ** );
     void (*lire_partiel)(const struct chunk_s * ,int ,int ,int ,int );
+    porte_t * (*chercher_porte)(const chunk_t *, int);
     unite_t *** chunk;
     porte_t ** portes;
     int nb_portes;

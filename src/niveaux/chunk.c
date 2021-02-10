@@ -4,6 +4,15 @@
 int cpt_chunk=0;
 
 
+static porte_t * chercher_porte(const chunk_t * chunk, int pos){
+    int i;
+    for(i=0; i<chunk->nb_portes; i++){
+        if (chunk->portes[i]->position==pos)
+            return chunk->portes[i];
+    }
+    return NULL;
+}
+
 static void chunk_lire_partiel(const chunk_t * chunk,int x,int y,int w,int h){
     int i,j;
     if (chunk!=NULL){
@@ -68,6 +77,7 @@ extern chunk_t * chunk_creer(int x,int y, int nb_portes, char * type){
     chunk->detruire=chunk_detruire;
     chunk->lire=chunk_lire;
     chunk->lire_partiel=chunk_lire_partiel;
+    chunk->chercher_porte=chercher_porte;
     chunk->chunk= malloc(sizeof(unite_t**)*CHUNKW);
     if(chunk->chunk == NULL){
         chunk->detruire(&chunk);
@@ -82,7 +92,21 @@ extern chunk_t * chunk_creer(int x,int y, int nb_portes, char * type){
     chunk->nb_portes=nb_portes;
     chunk->portes=malloc(sizeof(porte_t*)*nb_portes);
     for(i=0; i<nb_portes; i++){
-        chunk->portes[i]=porte_creer(&chunk,NULL,type[i]-'0');
+        chunk->portes[i]=porte_creer(NULL,type[i]-'0');
+        switch(type[i]-'0'){
+            case(0):
+                chunk->chunk[0][0]->ecrire(&(chunk->chunk[0][0]),PORTE);
+                break;
+            case(1):
+                chunk->chunk[0][CHUNKH-1]->ecrire(&(chunk->chunk[0][CHUNKH-1]),PORTE);
+                break;
+            case(2):
+                chunk->chunk[CHUNKW-1][0]->ecrire(&(chunk->chunk[CHUNKW-1][0]),PORTE);
+                break;
+            case(3):
+                chunk->chunk[CHUNKW-1][CHUNKH-1]->ecrire(&(chunk->chunk[CHUNKW-1][CHUNKH-1]),PORTE);
+                break;
+        }
     }
     cpt_chunk++;
     return chunk;
