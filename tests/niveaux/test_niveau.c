@@ -11,9 +11,15 @@ int main(){
     niveau_existe(niveau)?printf("-->OK\n"):printf("-->KO\n");
     printf("\n");
     niveau->lire(niveau);
+    unite_afficher_ref();
+    chunk_afficher_ref();
+    salle_afficher_ref();
     niveau_afficher_ref();
     printf("\nTest destruction : \n");
     niveau->detruire(&niveau)? printf("-->KO\n"):printf("-->OK\n");
+    unite_afficher_ref();
+    chunk_afficher_ref();
+    salle_afficher_ref();
     niveau_afficher_ref();printf("\n");
     return 0;
 }

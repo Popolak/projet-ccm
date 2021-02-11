@@ -14,10 +14,16 @@ static chunk_t * chercher_chunk(const salle_t * salle, int x, int y){
 }
 
 static void salle_lire(const salle_t * salle){
-    int i;
-    for(i=0; i<salle->nb_chunk; i++){
-        salle->chunks[i]->lire(salle->chunks[i]);
+    int i,j;
+    for(i=0; i<salle->nb_chunk;i++){
+        printf("chunk %d;%d :\nnombre de porte(s): %d \n", salle->chunks[i]->x,salle->chunks[i]->y,salle->chunks[i]->nb_portes);
+        for(j=0;j<salle->chunks[i]->nb_portes;j++){
+            printf("Porte %d : position : %d\nPointeur : %p\n",j,salle->chunks[i]->portes[j]->position,salle->chunks[i]->portes[j]);
+            printf("reliée à %p\n", salle->chunks[i]->portes[j]->porteDest);
+        }
+        printf("\n");
     }
+    printf("\n");
 }
 
 static err_t salle_detruire(salle_t ** salle){
@@ -88,5 +94,5 @@ extern salle_t * salle_creer(char * type){
 }
 
 extern void salle_afficher_ref(){
-    printf("%d\n", cpt_salle);
+    printf("Nombre de ref de salle : %d\n", cpt_salle);
 }

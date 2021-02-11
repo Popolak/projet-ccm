@@ -6,7 +6,6 @@ static void porte_lire(const porte_t * porte){
 }
 
 static err_t porte_detruire(porte_t ** porte){
-    printf("%p\n", (*porte));
     if(*porte){
         (*porte)->porteDest=NULL;
         free(*porte);

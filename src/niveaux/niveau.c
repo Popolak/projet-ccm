@@ -33,7 +33,11 @@ extern void relier_portes(FILE * fichier,niveau_t * niveau){
 }
 
 static void niveau_lire(const niveau_t * niveau){
-    
+    int i;
+    for(i=0;i<niveau->nbSalle;i++){
+        printf("\nSalle %d:\n",i);
+        niveau->salles[i]->lire(niveau->salles[i]);
+    }
 }
 
 static err_t niveau_detruire(niveau_t ** niveau){
@@ -86,5 +90,5 @@ extern niveau_t * niveau_creer(char * nom_fichier){
 }
 
 extern void niveau_afficher_ref(){
-    printf("Nombre de ref :%d\n",cpt_niveau);
+    printf("Nombre de ref de niveau :%d\n",cpt_niveau);
 }

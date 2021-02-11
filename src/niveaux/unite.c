@@ -47,5 +47,5 @@ extern unite_t * unite_creer(int contenu, int x, int y){
 }
 
 extern void unite_afficher_ref(){
-    printf("Nombre ref : %d", cpt_unite);
+    printf("Nombre ref d'unite : %d\n", cpt_unite);
 }
