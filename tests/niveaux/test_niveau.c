@@ -6,7 +6,7 @@ int main(){
     printf("Test d'existence:\n");
     niveau_existe(niveau)?printf("-->OK"):printf("-->KO");
     printf("\nCreation :\n");
-    niveau= niveau_creer("./generation/test_niv.txt");
+    niveau= niveau_creer("../../src/niveaux/generation/test_niv.txt");
     printf("%p\n", niveau);
     niveau_existe(niveau)?printf("-->OK\n"):printf("-->KO\n");
     printf("\n");

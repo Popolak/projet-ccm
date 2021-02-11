@@ -18,20 +18,20 @@ test_salle: $(fich_test_salle)
 test_niveau:$(fich_test_niveau)
 	gcc $(fich_test_niveau) -o test_niveau
 
-unite.o: unite.c ../../lib/niveaux/unite.h
-	gcc unite.c -c
+unite.o: ../../src/niveaux/unite.c ../../lib/niveaux/unite.h
+	gcc ../../src/niveaux/unite.c -c
 
-chunk.o: chunk.c ../../lib/niveaux/chunk.h
-	gcc chunk.c -c
+chunk.o: ../../src/niveaux/chunk.c ../../lib/niveaux/chunk.h
+	gcc ../../src/niveaux/chunk.c -c
 
-salle.o: salle.c ../../lib/niveaux/salle.h
-	gcc salle.c -c
+salle.o: ../../src/niveaux/salle.c ../../lib/niveaux/salle.h
+	gcc ../../src/niveaux/salle.c -c
 
-porte.o: porte.c ../../lib/niveaux/porte.h
-	gcc porte.c -c
+porte.o: ../../src/niveaux/porte.c ../../lib/niveaux/porte.h
+	gcc ../../src/niveaux/porte.c -c
 
-niveau.o: niveau.c ../../lib/niveaux/niveau.h
-	gcc niveau.c -c
+niveau.o: ../../src/niveaux/niveau.c ../../lib/niveaux/niveau.h
+	gcc ../../src/niveaux/niveau.c -c
 
 test_unite.o: test_unite.c
 	gcc test_unite.c -c
@@ -44,3 +44,8 @@ test_salle.o: test_salle.c
 
 test_niveau.o: test_niveau.c
 	gcc test_niveau.c -c
+
+all: $(BIN) $(OBJ) clean
+
+clean:
+	- rm *.o

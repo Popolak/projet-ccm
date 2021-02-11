@@ -3,6 +3,13 @@
 
 #include <stdio.h>
 
+typedef struct position
+{
+	int x;
+	int y;
+}
+pos_t;
+
 /* Definition du type booleen */
 typedef enum booleen_s { FAUX , VRAI } booleen_t ;
 

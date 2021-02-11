@@ -3,7 +3,7 @@
 
 int main(){
     chunk_t * chunk =NULL;
-    printf("Test d'existence:\n");
+    printf("Test d'existence:\n"); 
     chunk_existe(chunk)?printf("-->OK"):printf("-->KO");
     printf("\nCreation :\n");
     chunk= chunk_creer(0,0,1,"0");

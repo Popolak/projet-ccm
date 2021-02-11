@@ -1,9 +1,7 @@
-typedef struct position
-{
-	int x;
-	int y;
-}
-pos_t;
+#ifndef _PERSO_H_
+#define _PERSO_H_
+
+#include "../../lib/commun.h"
 
 typedef struct perso_s
 {
@@ -16,11 +14,13 @@ typedef struct perso_s
 	int degats;
 
 	void (*animer)(struct perso_s * const);
-    void (*detruire)(struct perso_s ** );
+    err_t (*detruire)(struct perso_s ** );
+	void (*prendre_coup)(struct perso_s * , int );
+	booleen_t (*en_vie)(struct perso_s *);
 
 }perso_t;
 
 extern perso_t * perso_creer(char * nom, int vie, int taille, pos_t * position, char * nom_sprite, int vitesse, int degats);
-extern int perso_existe( perso_t * const personnage );
-extern void prendre_coup( perso_t * personnage, int degats);
-extern int en_vie( perso_t * personnage);
+extern booleen_t perso_existe( perso_t * const personnage );
+
+#endif

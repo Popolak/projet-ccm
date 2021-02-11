@@ -1,18 +1,19 @@
-#include <personnage.h>
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "../../lib/personnages/personnage.h"
+
 extern
-void perso_existe( perso_t * const personnage )
+booleen_t perso_existe( perso_t * const personnage )
 {
   if( personnage == NULL )
-    printf("FAUX\n");
+    return FAUX;
   else
-    printf("VRAI\n");
+    return VRAI;
 }
 
 static
-void perso_detruire( perso_t ** personnage){ //correspond à la mort du personnage ?
+err_t perso_detruire( perso_t ** personnage){ //correspond à la mort du personnage ?
 
 	free((*personnage)->nom);
 	free((*personnage)->nom_sprite);
@@ -20,7 +21,7 @@ void perso_detruire( perso_t ** personnage){ //correspond à la mort du personna
 
 	*personnage = NULL;
 
-	return 0;
+	return OK;
 }
 
 static
@@ -29,6 +30,21 @@ void perso_animer( perso_t * const personnage ){
 
 
 
+
+}
+
+static
+void prendre_coup(perso_t * personnage, int degats){
+	personnage->vie -= degats;
+}
+
+static
+booleen_t en_vie(perso_t * personnage){
+
+    if(personnage->vie > 0)
+        return VRAI;
+    else
+        return FAUX;
 
 }
 
@@ -51,22 +67,9 @@ perso_t * perso_creer(char * nom, int vie, int taille, pos_t * position, char * 
 
 	personnage->animer = perso_animer;
 	personnage->detruire = perso_detruire;
+	personnage->prendre_coup=prendre_coup;
+	personnage->en_vie=en_vie;
 
 	return(personnage);
-}
-extern
-void prendre_coup(perso_t * personnage, int degats){
-
-	personnage->vie -= degats;
-}
-
-extern
-int en_vie(perso_t * personnage){
-
-    if(personnage->vie > 0)
-        return(1);
-    else
-        return(0);
-
 }
 
