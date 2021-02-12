@@ -1,16 +1,13 @@
-#ifdef _CHUNK_H_
-typedef struct porte_s porte_t; 
-#endif
-
 #ifndef _PORTE_H_
 #define _PORTE_H_
-#include "chunk.h"
+#include "../commun.h"
+
 
 typedef struct porte_s{
     void (*lire)(const struct porte_s * );
     err_t (*detruire)(struct porte_s **);
-    struct porte_s * porteDest;
-    int position;
+    struct porte_s * porteDest;                   //Porte de destination
+    int position;                                 //0 :haut a gauche, 1: en bas a gauche, 2: en haut a droite, 3: en bas a droite
 }porte_t;
 
 /* FONCTIONS */

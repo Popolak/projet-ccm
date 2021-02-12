@@ -6,7 +6,7 @@ int main(){
     printf("Test d'existence:\n");
     unite_existe(unite)?printf("-->OK"):printf("-->KO");
     printf("Creation :\n");
-    unite=unite_creer(VIDE,0,0);
+    unite=unite_creer(VIDE);
     unite_existe(unite)?printf("-->OK\n"):printf("-->KO\n");
     printf("Contenu : %d\n", unite->lire(unite));
     unite->ecrire(&unite,JOUEUR);

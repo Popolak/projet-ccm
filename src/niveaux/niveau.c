@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <stdlib.h>
 #include "../../lib/niveaux/niveau.h"
 #include <string.h>
@@ -8,7 +7,7 @@ int cpt_niveau=0;
 static salle_t * chercher_salle(const niveau_t * niveau, int x, int y){
     int i;
     for(i=0; i<niveau->nbSalle; i++){
-        if (niveau->salles[i]->x==x && niveau->salles[i]->y==y)
+        if (niveau->salles[i]->position.x==x && niveau->salles[i]->position.y==y)
             return niveau->salles[i];
     }
     return NULL;
