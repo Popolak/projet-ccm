@@ -7,8 +7,8 @@ typedef struct niveau_s{
     void (*lire)(const struct niveau_s * );
     err_t (*detruire)(struct niveau_s ** );
     salle_t * (*chercher_salle)(const struct niveau_s * , int , int );
-    int nbSalle;
-    salle_t ** salles;
+    int nbSalle;                //nombre de salle
+    salle_t ** salles;          //tableau de salles
 } niveau_t;
 
 extern booleen_t niveau_existe(niveau_t * niveau);
