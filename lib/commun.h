@@ -3,6 +3,8 @@
 
 #include <stdio.h>
 
+#include "contenu.h"
+
 typedef struct position
 {
 	int x;
