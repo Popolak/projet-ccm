@@ -13,5 +13,6 @@ typedef struct porte_s{
 /* FONCTIONS */
 extern booleen_t porte_existe(porte_t * porte);
 extern porte_t * porte_creer ( porte_t * porteDest, int pos);
+extern booleen_t pos_correcte(int pos);
 
 #endif

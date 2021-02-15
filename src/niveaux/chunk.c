@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <ctype.h>
 #include "../../lib/niveaux/chunk.h"
 
 /* CONSTANTES */
@@ -66,23 +67,28 @@ static err_t chunk_detruire(chunk_t ** chunk){
     if (*chunk){
         if((*chunk)->chunk){
             for (i=0;i<CHUNKH; i++){
-                for(j=0;j<CHUNKW; j++){                               //Pour chaque lignes de chunk
-                    uniteAct= (*chunk)->chunk[i][j];                 
-                    uniteAct->detruire(&uniteAct);                    //On détruit chaque unité de cette ligne
-                    uniteAct=NULL;
+                if((*chunk)->chunk[i]){
+                    for(j=0;j<CHUNKW; j++){                               //Pour chaque lignes de chunk
+                        if(uniteAct= (*chunk)->chunk[i][j]){                 
+                            uniteAct->detruire(&uniteAct);                    //On détruit chaque unité de cette ligne
+                            uniteAct=NULL;
+                        }
+                    }
+                    free((*chunk)->chunk[i]);                             //Puis on détruit la ligne
+                    (*chunk)->chunk[i]=NULL;
                 }
-                free((*chunk)->chunk[i]);                             //Puis on détruit la ligne
-                (*chunk)->chunk[i]=NULL;
             }
             free((*chunk)->chunk);                                    //Enfin on détruit la  matrice
             (*chunk)->chunk=NULL;
         }
-        for(i=0; i<(*chunk)->nb_portes; i++){                         //On détruit chaque porte
-            (*chunk)->portes[i]->detruire(&((*chunk)->portes[i]));
-            (*chunk)->portes[i]=NULL;
+        if((*chunk)->portes){
+            for(i=0; i<(*chunk)->nb_portes; i++){                         //On détruit chaque porte
+                (*chunk)->portes[i]->detruire(&((*chunk)->portes[i]));
+                (*chunk)->portes[i]=NULL;
+            }
+            free((*chunk)->portes);                                       //On détruit le tableau de portes
+            (*chunk)->portes=NULL;
         }
-        free((*chunk)->portes);                                       //On détruit le tableau de portes
-        (*chunk)->portes=NULL;
         free(*chunk);                                                 //Et on détruit le chunk
         *chunk=NULL;
         cpt_chunk--;
@@ -114,6 +120,11 @@ extern chunk_t * chunk_creer(int x,int y, int nb_portes, char * type){
     int i,j;
     if (!chunk)
         return NULL;
+    if(x <0 || y<0){
+        printf("Position incorecte: %d;%d\n",x,y);
+        free(chunk);
+        return NULL;
+    }
     chunk->position.x=x;                        
     chunk->position.y=y;
     chunk->detruire=chunk_detruire;
@@ -122,33 +133,51 @@ extern chunk_t * chunk_creer(int x,int y, int nb_portes, char * type){
     chunk->chercher_porte=chercher_porte;
     chunk->chunk= malloc(sizeof(unite_t**)*CHUNKH);                     //
     if(chunk->chunk == NULL){                                           //
+        printf("L'allocation du tableau de tableau d'unité a échouée\n");
         chunk->detruire(&chunk);                                        // 
         return NULL;                                                    //
     }                                                                   //
     for (i=0;i<CHUNKH; i++){                                            //allocation de la matrice d'unité
-        chunk->chunk[i]= malloc(sizeof(unite_t*)*CHUNKW);               //
+        if(!(chunk->chunk[i]= malloc(sizeof(unite_t*)*CHUNKW))){        //
+            printf("L'allocation pour le tableau %d d'unités a échouée\n", i);
+            chunk->detruire(&chunk);                                    //
+            return NULL;                                                //
+        }                                                               //
         for(j=0; j<CHUNKW; j++){                                        //
-            chunk->chunk[i][j]= unite_creer(MUR);                       //
+            if(!(chunk->chunk[i][j]= unite_creer(MUR))){                //
+                printf("La création de l'unité a échouée\n");
+                chunk->detruire(&chunk);                                //
+                return NULL;                                            //
+            }                                                           //
         }                                                               //
     }                                                                   
     chunk->nb_portes=nb_portes;                                         
-    chunk->portes=malloc(sizeof(porte_t*)*nb_portes);                   //allocation du tableau de pointeurs vers portes
+    if (!(chunk->portes=malloc(sizeof(porte_t*)*nb_portes))){                   //allocation du tableau de pointeurs vers portes
+        chunk->detruire(&chunk);
+        printf("L'allocation des portes a échouée\n");
+        return NULL;
+    }
     for(i=0; i<nb_portes; i++){
-        chunk->portes[i]=porte_creer(NULL,type[i]-'0');
+        if( !isdigit(type[i]) || !(chunk->portes[i]=porte_creer(NULL,type[i]-'0'))){
+            chunk->detruire(&chunk);
+            printf("L'allocation de la porte %d a échouée: %c\n", i, type[i]);
+            return NULL;
+        }
         switch(type[i]-'0'){                                                //En fonction de la position de la porte, on la place a un certain endroit
             case(0):
-                chunk->chunk[0][0]->ecrire(&(chunk->chunk[0][0]),PORTE);
+                uniteAct=chunk->chunk[0][0];
                 break;
             case(1):
-                chunk->chunk[0][CHUNKW-1]->ecrire(&(chunk->chunk[0][CHUNKW-1]),PORTE);
+                uniteAct=chunk->chunk[CHUNKH-1][0];
                 break;
             case(2):
-                chunk->chunk[CHUNKH-1][0]->ecrire(&(chunk->chunk[CHUNKH-1][0]),PORTE);
+                uniteAct=chunk->chunk[0][CHUNKW-1];
                 break;
             case(3):
-                chunk->chunk[CHUNKH-1][CHUNKW-1]->ecrire(&(chunk->chunk[CHUNKH-1][CHUNKW-1]),PORTE);
+                uniteAct=chunk->chunk[CHUNKH-1][CHUNKW-1];
                 break;
         }
+        uniteAct->ecrire(&uniteAct,PORTE);
     }
     cpt_chunk++;
     return chunk;

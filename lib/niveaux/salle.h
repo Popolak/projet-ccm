@@ -15,5 +15,6 @@ extern booleen_t salle_existe (salle_t *salle);
 extern salle_t * salle_creer_type(char *type);
 extern salle_t * salle_creer(char * type);
 extern void salle_afficher_ref();
+extern booleen_t type_correct(char * type);
 
 #endif

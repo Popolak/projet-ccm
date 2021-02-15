@@ -12,7 +12,7 @@ int cpt_niveau=0;
     paramètres:
         niveau: pointeur sur niveau
         x et y : position de la salle a rechercher dans le niveau
-    retourne un pointeur sur salle_t si la salle est trouvée, NULL sinon 
+    retourne un pointeur sur salle_t si la salle est trouvée, NULL sinon
 */
 
 static salle_t * chercher_salle(const niveau_t * niveau, int x, int y){
@@ -30,7 +30,7 @@ static salle_t * chercher_salle(const niveau_t * niveau, int x, int y){
         niveau: pointeur sur niveau
 */
 
-extern void relier_portes(FILE * fichier,niveau_t * niveau){    //Pour le contenu du fichier cf ./generation/creation_generation_explication.txt
+extern err_t relier_portes(FILE * fichier,niveau_t * niveau){    //Pour le contenu du fichier cf ./generation/creation_generation_explication.txt
     char str[256];
     porte_t * porte1, *porte2;
     salle_t * salle;
@@ -46,6 +46,7 @@ extern void relier_portes(FILE * fichier,niveau_t * niveau){    //Pour le conten
         porte1->porteDest=porte2;                               //Et on relie ces deux portes
         porte2->porteDest=porte1;                               //
     }
+    return OK;
 }
 
 /* fonction niveau_lire
@@ -56,7 +57,6 @@ extern void relier_portes(FILE * fichier,niveau_t * niveau){    //Pour le conten
 static void niveau_lire(const niveau_t * niveau){
     int i;
     for(i=0;i<niveau->nbSalle;i++){                 //On appelle la fonction d'affichage de la salle pour chaque salle
-        printf("\nSalle %d:\n",i);
         niveau->salles[i]->lire(niveau->salles[i]);
     }
 }
@@ -70,13 +70,17 @@ static void niveau_lire(const niveau_t * niveau){
 static err_t niveau_detruire(niveau_t ** niveau){
     int i;
     if(*niveau){
-        for(i=0; i<(*niveau)->nbSalle; i++){                            //Pour chaque salle
-            (*niveau)->salles[i]->detruire(&((*niveau)->salles[i]));    //on détruit la salle
-            (*niveau)->salles[i]=NULL;
+        if((*niveau)->salles){
+            for(i=0; i<(*niveau)->nbSalle; i++){                            //Pour chaque salle
+                if((*niveau)->salles[i]){
+                    (*niveau)->salles[i]->detruire(&((*niveau)->salles[i]));    //on détruit la salle
+                    (*niveau)->salles[i]=NULL;
+                }
+            }
+            free((*niveau)->salles);                                        //On détruit le tableau de salle
+            (*niveau)->salles=NULL;
         }
-        free((*niveau)->salles);                                        //On détruit le tableau de salle
-        (*niveau)->salles=NULL;
-        free(*niveau);                                                  //On détruit le niveau
+        free(*niveau);                                                      //On détruit le niveau
         *niveau=NULL;
     }
     cpt_niveau--;
@@ -114,6 +118,7 @@ extern niveau_t * niveau_creer(char * nom_fichier){
     nbSalle=atoi(str);                                  //On récupère le nombre de salle pour allouer plus tard
     niveau=malloc(sizeof(niveau_t)); 
     if(!niveau){
+        fclose(fichier);
         printf("L'allocation du niveau a échouée\n");
         return NULL;
     }
@@ -121,12 +126,27 @@ extern niveau_t * niveau_creer(char * nom_fichier){
     niveau->detruire=niveau_detruire;                   //
     niveau->lire=niveau_lire;                           // initialisation des méthodes
     niveau->chercher_salle=chercher_salle;              //
-    niveau->salles=malloc(sizeof(salle_t*)*nbSalle);  
+    if(!(niveau->salles=malloc(sizeof(salle_t*)*nbSalle))){
+        fclose(fichier);
+        printf("L'allocation du tableau de salle a échouée\n");
+        niveau->detruire(&niveau);
+        return NULL;
+    }  
     for(i=0;i<nbSalle;i++){                             //On créer nbSalle salle dans le niveau
         fgets(type_salle,255,fichier);
-        niveau->salles[i]=salle_creer(type_salle);
+        if(!(niveau->salles[i]=salle_creer(type_salle))){
+            fclose(fichier);
+            printf("La création de la salle %d a échouée \n", i);
+            niveau->detruire(&niveau);
+            return NULL;
+        }
     }
-    relier_portes(fichier,niveau);                      //Puis on relie les portes entre elles
+    if(relier_portes(fichier,niveau)!=OK){              //Puis on relie les portes entre elles
+        fclose(fichier);
+        printf("Il y a eu un problème pour lier les portes\n");
+        niveau_detruire(&niveau);
+        return NULL;
+    }                     
     fclose(fichier);
     cpt_niveau++;
     return niveau;

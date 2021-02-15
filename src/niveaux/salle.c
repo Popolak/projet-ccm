@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <ctype.h>
 #include "../../lib/niveaux/salle.h"
 
 /* CONSTANTES */
@@ -6,6 +7,16 @@
 int cpt_salle=0;
 
 /* FONCTIONS */
+
+extern 
+booleen_t type_correct(char * type){
+    int i;
+    for(i=0;type[i]!='\n';i++){
+        if(!isdigit(type[i]))
+         return FAUX;
+    }
+    return VRAI;
+}
 
 /*  fonction chercher_chunk
     paramètres:
@@ -31,6 +42,7 @@ static chunk_t * chercher_chunk(const salle_t * salle, int x, int y){
 
 static void salle_lire(const salle_t * salle){
     int i,j;
+    printf("Salle %d;%d : \n",salle->position.x, salle->position.y);
     for(i=0; i<salle->nb_chunk;i++){       //Affiche les chunks qui composent la salle et chaque portes correspondant au chunk
         printf("chunk %d;%d :\nnombre de porte(s): %d \n", salle->chunks[i]->position.x,salle->chunks[i]->position.y,salle->chunks[i]->nb_portes);
         for(j=0;j<salle->chunks[i]->nb_portes;j++){
@@ -53,8 +65,10 @@ static err_t salle_detruire(salle_t ** salle){
     if(*salle){
         if((*salle)->chunks){
             for(i=0; i<(*salle)->nb_chunk; i++){                //On détruit chaque chunk composant la salle
-                (*salle)->chunks[i]->detruire(&((*salle)->chunks[i]));
-                (*salle)->chunks[i]=NULL;
+                if((*salle)->chunks[i]){
+                    (*salle)->chunks[i]->detruire(&((*salle)->chunks[i]));
+                    (*salle)->chunks[i]=NULL;
+                }
             }
             free((*salle)->chunks);             //On détruit le tableau de chunks
             (*salle)->chunks=NULL;
@@ -89,21 +103,39 @@ extern salle_t * salle_creer_type(char *type){
     char * type_chunk=NULL;
     salle_t *salle= malloc(sizeof(salle_t));
     if(!salle){
-        printf("Echec de la creation de la salle\n");
+        printf("L'allocation de la salle a échouée\n");
         return NULL;
-    }                                                                   //Exemple : 012001001223
+    }                                                                   
+    if(type_correct(type)==FAUX){
+        printf("Type incorrect: %s\n", type);
+        salle_detruire(&salle);
+        return NULL;
+    }
+                                                                        //Exemple : 012001001223
     salle->position.x=type[0]-'0';                                      //0 12001001223   x pour la salle
-    salle->position.y=type[1]-'0';                                      //0 1 2001001223  y pour la salle
+    salle->position.y=type[1]-'0';                                      //0 1 2001001223  y pour la salle                            
     salle->nb_chunk=type[2]-'0';                                        //01 2 001001223  nombre de chunks dans la salle
-    salle->chunks=malloc(sizeof(chunk_t)*salle->nb_chunk);
+    if(!(salle->chunks=malloc(sizeof(chunk_t)*salle->nb_chunk))){
+        printf("L'allocation pour le tableau de chunk a échouée, nombre de chunk : %d\n", salle->nb_chunk);
+        salle_detruire(&salle);
+        return NULL;
+    }
     for(i=0,k=3; i<salle->nb_chunk; i++){
         xchunk=type[k++]-'0';                                           //012 0 01001223  x pour le premier chunk | 0120010 0 1223 x pour le deuxième
         ychunk=type[k++]-'0';                                           //0120 0 1001223  y pour le premier chunk | 01200100 1 223 y pour le deuxième 
         nbPortes=type[k++]-'0';                                         //01200 1 001223  nombre de portes dans le premier chunk | 012001201 2 23 
-        type_chunk=malloc(sizeof(char)*nbPortes);
+        if(!(type_chunk=malloc(sizeof(char)*nbPortes))){
+            printf("L'allocation de la chaine de caractères pour le type du chunk %d %d a échouée\n", xchunk,ychunk);
+            salle_detruire(&salle);
+            return NULL;
+        }
         for(j=0;j<nbPortes;j++,k++)                                     //A partir de chaque porte, on créer la type pour la chunk
             type_chunk[j]=type[k];                                      //0 pour le premier | 23 pour le deuxième
-        salle->chunks[i]=chunk_creer(xchunk,ychunk,nbPortes,type_chunk);
+        if(!(salle->chunks[i]=chunk_creer(xchunk,ychunk,nbPortes,type_chunk))){
+            printf("La création du chunk %d %d a échouée\n", xchunk,ychunk);
+            salle_detruire(&salle);
+            return NULL;
+        }
         free(type_chunk);
         type_chunk=NULL;
     }
@@ -128,7 +160,6 @@ extern salle_t * salle_creer(char * type){
         return salle;
     }
     else {
-        printf("La creation de la salle a echoue\n");
         return NULL;
     }
 }

@@ -3,7 +3,22 @@
 
 /* FONCTIONS */
 
+/* fonction pos_correcte
+    paramètre:
+        pos: int, position de la porte
+    retourne VRAI si la position est correcte, FAUX sinon
+*/
+
+extern
+booleen_t pos_correcte(int pos){
+    if(pos>=0 && pos<4)
+        return VRAI;
+    printf("Position incorrecte:%d\n", pos);
+    return FAUX;
+}
+
 /* fonction porte_lire
+
 */
 
 static void porte_lire(const porte_t * porte){
@@ -45,9 +60,11 @@ extern booleen_t porte_existe(porte_t * porte){
 
 extern porte_t * porte_creer (porte_t * porteDest, int pos){
     porte_t * porte= malloc(sizeof(porte_t));
-    if (!porte)
+    if (!porte || !pos_correcte(pos)){
+        if(porte)
+            free(porte);
         return NULL;
-    porte->porteDest=NULL;
+    }
     porte->detruire=porte_detruire;             //affectation des méthodes
     porte->lire=porte_lire;
     porte->porteDest=porteDest;
