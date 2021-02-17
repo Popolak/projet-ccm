@@ -3,9 +3,6 @@
 
 #include "../commun.h"
 
-/*Contenus possible d'une unité*/
-enum {MUR=0,VIDE=1,PORTE=2,JOUEUR=4};
-
 /*Structure unite*/
 
 typedef struct unite_s{
