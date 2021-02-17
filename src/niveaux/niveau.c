@@ -30,7 +30,7 @@ static salle_t * chercher_salle(const niveau_t * niveau, int x, int y){
         niveau: pointeur sur niveau
 */
 
-extern err_t relier_portes(FILE * fichier,niveau_t * niveau){    //Pour le contenu du fichier cf ./generation/creation_generation_explication.txt
+extern err_t relier_portes(FILE * fichier,niveau_t * niveau){    //Pour le contenu du fichier cf ./generation/generation_explication.txt
     char str[256];
     porte_t * porte1, *porte2;
     salle_t * salle;
@@ -114,7 +114,7 @@ extern niveau_t * niveau_creer(char * nom_fichier){
         printf("Aucun fichier de ce nom\n");
         return NULL;
     }
-    fgets(str,100,fichier);                             //Pour le contenu du fichier cf ./generation/creation_generation_explication.txt
+    fgets(str,100,fichier);                             //Pour le contenu du fichier cf ./generation/generation_explication.txt
     nbSalle=atoi(str);                                  //On récupère le nombre de salle pour allouer plus tard
     niveau=malloc(sizeof(niveau_t)); 
     if(!niveau){

@@ -1,0 +1,27 @@
+Création non-randomisée:
+La création d'un niveau se fait a partir d'un fichier prévu a cet effet.
+
+Elle se fait en trois parties:
+    -On récupère le nombre de salles(nb_salles) (première ligne)
+    -On crée nb_salles a partir des lignes qui suivent
+    -On relie toutes les portes entre elles
+
+Les salles et les chunk ont besoin d'une chaine de caractère (appelé type) pour être initialisée
+
+    Le type d'une salle est comme suit:                 Exemple en image dans generation_schéma.jpg
+        x et y de la salle
+                v
+        Nombre de chunk dans la salle
+                v
+        x et y du premier chunk                 //
+                v                               //
+        Nombre de portes dans le chunk          //Répete autant de fois qu'il y a de chunk
+                v                               //
+        Type du chunk                           //
+
+    Le type d'un chunk contient les positions de toutes les portes du chunk:
+        Avec deux portes : 02 
+        Une : 1
+        ect...
+
+Une fois toutes les salles créées, on relie toutes les portes entre elles grace aux lignes d'après: explication dans le schéma

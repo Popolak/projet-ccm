@@ -3,7 +3,7 @@
 #include "unite.h"
 #include "porte.h"
 
-static const int CHUNKH=20, CHUNKW=20;  //Hauteur et épaisseur des chunks en unité (ratio ~16/9)
+static const int CHUNKH=300, CHUNKW=533;  //Hauteur et épaisseur des chunks en unité (ratio ~16/9)
 
 typedef struct chunk_s{
     void (*lire)(const struct chunk_s * );

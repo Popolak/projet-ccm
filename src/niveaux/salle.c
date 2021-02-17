@@ -94,7 +94,7 @@ extern booleen_t salle_existe (salle_t *salle){
 
 /*  fonction salle_creer_type
     paramètre:
-        type: chaine de caractères (cf ./generation/creation_generation_explication.txt)
+        type: chaine de caractères (cf ./generation/generation_explication.txt)
     Retourne un pointeur sur salle_t si la salle est crée, NULL sinon 
 */
 
@@ -144,7 +144,7 @@ extern salle_t * salle_creer_type(char *type){
 
 /* fonction salle_creer
     paramètre: 
-        type: chaine de caractères (cf ./generation/creation_generation_explication.txt)
+        type: chaine de caractères (cf ./generation/generation_explication.txt)
     Retourne un pointeur sur salle_t si créer, NULL sinon 
     salle_creer_type sert a initialiser seulement les attributs la ou cette fonction initialise les méthodes
 */
