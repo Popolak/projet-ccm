@@ -1,4 +1,4 @@
-fich_test_unite=test_unite.o unite.o 
+fich_test_unite=test_unite.o unite.o
 fich_test_chunk=test_chunk.o unite.o chunk.o porte.o
 fich_test_salle=test_salle.o unite.o chunk.o porte.o salle.o
 fich_test_niveau=test_niveau.o unite.o chunk.o porte.o salle.o niveau.o
@@ -45,7 +45,7 @@ test_salle.o: test_salle.c
 test_niveau.o: test_niveau.c
 	gcc test_niveau.c -c
 
-all: $(BIN) $(OBJ) clean
+all: clean $(BIN) $(OBJ) clean
 
 clean:
 	- rm *.o
