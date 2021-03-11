@@ -1,6 +1,6 @@
 #include <stdlib.h>
-#include "../../lib/niveaux/niveau.h"
 #include <string.h>
+#include "../../lib/niveaux/niveau.h"
 
 /* CONSTANTES */
 
@@ -107,14 +107,14 @@ extern booleen_t niveau_existe(niveau_t * niveau){
 
 extern niveau_t * niveau_creer(char * nom_fichier){
     int nbSalle,i;                              //nombre de salle dans le niveau et irérateur
-    char type_salle[256],str[101];              //Variable pour récupérer les lignes du fichier
+    char type_salle[256],str[256];              //Variable pour récupérer les lignes du fichier
     niveau_t * niveau=NULL;                     
     FILE * fichier=fopen(nom_fichier,"r");      //On ouvre le fichier de génération pour le lire
     if(!fichier){                            
         printf("Aucun fichier de ce nom\n");
         return NULL;
     }
-    fgets(str,100,fichier);                             //Pour le contenu du fichier cf ./generation/generation_explication.txt
+    fgets(str,255,fichier);                             //Pour le contenu du fichier cf ./generation/generation_explication.txt
     nbSalle=atoi(str);                                  //On récupère le nombre de salle pour allouer plus tard
     niveau=malloc(sizeof(niveau_t)); 
     if(!niveau){

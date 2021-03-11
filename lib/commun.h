@@ -3,7 +3,6 @@
 
 #include <stdio.h>
 
-
 /*Contenus possible d'une unité*/
 enum {MUR=0,VIDE=1,PORTE=2,JOUEUR=4};
 
@@ -26,6 +25,8 @@ typedef int err_t ;
 #define ERR_DEB_MEMOIRE -100 
 
 #define ERR_LISTE_IND_ELEM  -200 
+
+#define CAM_TROP_GRANDE -300
 
 #endif
 

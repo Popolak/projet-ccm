@@ -8,6 +8,34 @@ int cpt_chunk=0;
 
 /* FONCTIONS */
 
+extern
+pos_t prochain_mur (int x, int y, chunk_t * chunk){
+    int i=0,j=0;
+    pos_t pos;
+    for(i=0;x+i<CHUNKH;i+=TAILLE_MUR){
+        for(j=0;y+j<CHUNKW;j++){
+            if(chunk->chunk[x+i][y+j]->contenu==MUR){
+                pos.x=x+i;
+                pos.y=y+j;
+                return pos; 
+            }
+        }
+        y=0;
+    }
+    pos.x=-1;
+    return pos;
+}
+
+extern
+void attribut_mur(int x, int y, int* w, int* h, chunk_t * chunk){
+    int i,j;
+    float ratioSol=1.0*6/72;
+    for(i=0; i<TAILLE_MUR && x+i < CHUNKH-CHUNKH*ratioSol && chunk->chunk[x+i][y]->contenu == MUR; i++);
+    for(j=0; j<TAILLE_MUR && y+j < CHUNKW && chunk->chunk[x][y+j]->contenu == MUR; j++);
+    *h=i;
+    *w=j;
+}
+
 /*  fonction chercher_porte:
     paramètres:
         chunk: pointeur sur chunk_t
@@ -107,6 +135,66 @@ extern booleen_t chunk_existe(chunk_t * chunk){
     return VRAI;
 }
 
+static
+err_t remplir_surface(chunk_t * chunk, int x, int y , int h ,int w, int contenu){
+    int i,j;
+    for(i=x;i<x+h;i++){
+        for(j=y;j<y+w;j++){
+            chunk->chunk[i][j]->contenu=contenu;
+        }
+    }
+}
+
+
+static err_t chunk_remplir(chunk_t * chunk, int chunk_cote){
+    int i;
+    for(i=0;i<chunk->nb_portes;i++){
+        switch (chunk->portes[i]->position){
+            case (0):
+                remplir_surface(chunk,TAILLE_MUR,0,TAILLE_PORTE,TAILLE_MUR,VIDE);
+                chunk->chunk[TAILLE_MUR+TAILLE_PORTE-1][0]->contenu=PORTE;
+                break;
+            case (1):
+                remplir_surface(chunk,CHUNKH-TAILLE_MUR-TAILLE_PORTE,0,TAILLE_PORTE,TAILLE_MUR,VIDE);
+                chunk->chunk[CHUNKH-TAILLE_MUR-1][0]->contenu=PORTE;
+                break;
+            case (2):
+                remplir_surface(chunk,TAILLE_MUR,CHUNKW-TAILLE_MUR,TAILLE_PORTE,TAILLE_MUR,VIDE);
+                chunk->chunk[TAILLE_MUR+TAILLE_PORTE-1][CHUNKW-1]->contenu=PORTE;
+                break;
+            case (3):
+                remplir_surface(chunk,CHUNKH-TAILLE_MUR-TAILLE_PORTE,CHUNKW-TAILLE_MUR,TAILLE_PORTE,TAILLE_MUR,VIDE);
+                chunk->chunk[CHUNKH-TAILLE_MUR-1][CHUNKW-1]->contenu=PORTE;
+                break;
+        }
+    }
+    i=COIN_NO;
+    while(chunk_cote>0){
+        for(;i>chunk_cote;i/=2);
+        chunk_cote-=i;
+        switch(i){
+            case(HAUT):
+                chunk->remplir_surface(chunk,0,TAILLE_MUR,TAILLE_MUR,CHUNKW-2*TAILLE_MUR,VIDE); break;
+            case(DROITE):
+                chunk->remplir_surface(chunk,TAILLE_MUR,CHUNKW-TAILLE_MUR,CHUNKH-2*TAILLE_MUR,TAILLE_MUR,VIDE);break;
+            case(BAS):
+                chunk->remplir_surface(chunk,CHUNKH-TAILLE_MUR,TAILLE_MUR,TAILLE_MUR,CHUNKW-2*TAILLE_MUR,VIDE);break;
+            case(GAUCHE):
+                chunk->remplir_surface(chunk,TAILLE_MUR,0,CHUNKH-2*TAILLE_MUR,TAILLE_MUR,VIDE);break;
+            case(COIN_NE):
+                chunk->remplir_surface(chunk,0,CHUNKW-TAILLE_MUR,TAILLE_MUR,TAILLE_MUR,VIDE);break;
+            case(COIN_SE):
+                chunk->remplir_surface(chunk,CHUNKH-TAILLE_MUR,CHUNKW-TAILLE_MUR,TAILLE_MUR,TAILLE_MUR,VIDE);break;
+            case(COIN_SO):
+                chunk->remplir_surface(chunk,CHUNKH-TAILLE_MUR,0,TAILLE_MUR,TAILLE_MUR,VIDE);break;
+            case(COIN_NO):
+                chunk->remplir_surface(chunk,0,0,TAILLE_MUR,TAILLE_MUR,VIDE);break;
+        }
+        i*=2;
+    }
+    remplir_surface(chunk,TAILLE_MUR,TAILLE_MUR,CHUNKH-2*TAILLE_MUR,CHUNKW-2*TAILLE_MUR,VIDE);
+}
+
 /*  fonction chunk_creer
     paramètres:
         x et y : position du chunk dans la salle
@@ -117,7 +205,8 @@ extern booleen_t chunk_existe(chunk_t * chunk){
 extern chunk_t * chunk_creer(int x,int y, int nb_portes, char * type){
     unite_t * uniteAct=NULL;
     chunk_t * chunk=malloc(sizeof(chunk_t));
-    int i,j;
+    int i,j,k,cote=0;
+    char chaine_cote[3];
     if (!chunk)
         return NULL;
     if(x <0 || y<0){
@@ -128,9 +217,12 @@ extern chunk_t * chunk_creer(int x,int y, int nb_portes, char * type){
     chunk->position.x=x;                        
     chunk->position.y=y;
     chunk->detruire=chunk_detruire;
-    chunk->lire=chunk_lire;                             //Initialisation des méthodes
+    chunk->lire=chunk_lire;                                             //Initialisation des méthodes
     chunk->lire_partiel=chunk_lire_partiel;
     chunk->chercher_porte=chercher_porte;
+    chunk->remplir=chunk_remplir;
+    chunk->remplir_surface=remplir_surface;
+
     chunk->chunk= malloc(sizeof(unite_t**)*CHUNKH);                     //
     if(chunk->chunk == NULL){                                           //
         printf("L'allocation du tableau de tableau d'unité a échouée\n");
@@ -163,22 +255,9 @@ extern chunk_t * chunk_creer(int x,int y, int nb_portes, char * type){
             printf("L'allocation de la porte %d a échouée: %c\n", i, type[i]);
             return NULL;
         }
-        switch(type[i]-'0'){                                                //En fonction de la position de la porte, on la place a un certain endroit
-            case(0):
-                uniteAct=chunk->chunk[0][0];
-                break;
-            case(1):
-                uniteAct=chunk->chunk[CHUNKH-1][0];
-                break;
-            case(2):
-                uniteAct=chunk->chunk[0][CHUNKW-1];
-                break;
-            case(3):
-                uniteAct=chunk->chunk[CHUNKH-1][CHUNKW-1];
-                break;
-        }
-        uniteAct->ecrire(&uniteAct,PORTE);
     }
+    cote= atoi(&type[i]);
+    chunk->remplir(chunk,cote);
     cpt_chunk++;
     return chunk;
 }

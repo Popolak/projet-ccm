@@ -23,5 +23,7 @@ Les salles et les chunk ont besoin d'une chaine de caractère (appelé type) pou
         Avec deux portes : 02 
         Une : 1
         ect...
+   Et les chunks auquel il est relié directement (ou on peut aller sans passer de porte):
+        cf RIEN=0,HAUT=1,DROITE=2,BAS=4,GAUCHE=8,COIN_NE=16,COIN_SE=32,COIN_SO=64,COIN_NO=128
 
 Une fois toutes les salles créées, on relie toutes les portes entre elles grace aux lignes d'après: explication dans le schéma

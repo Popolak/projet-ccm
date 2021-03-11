@@ -6,7 +6,7 @@ int main(){
     printf("Test d'existence:\n"); 
     chunk_existe(chunk)?printf("-->OK"):printf("-->KO");
     printf("\nCreation :\n");
-    chunk= chunk_creer(0,0,4,"0123");
+    chunk= chunk_creer(0,0,3,"023");
     printf("%p\n", chunk);
     chunk_existe(chunk)?printf("-->OK\n"):printf("-->KO\n");
     printf("\n");

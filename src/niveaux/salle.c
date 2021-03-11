@@ -7,6 +7,38 @@
 int cpt_salle=0;
 
 /* FONCTIONS */
+/*
+
+extern 
+int chunk_entoure(salle_t * salle, chunk_t*  chunk){
+    int tot=RIEN;
+    if (chercher_chunk(salle,chunk->position.x-1,chunk->position.y)){
+        tot+=HAUT;
+    }
+    if (chercher_chunk(salle,chunk->position.x,chunk->position.y+1)){
+        tot+=DROITE;
+    }
+    if (chercher_chunk(salle,chunk->position.x+1,chunk->position.y)){
+        tot+=BAS;
+    }
+    if (chercher_chunk(salle,chunk->position.x,chunk->position.y-1)){
+        tot+=GAUCHE;
+    }
+    if (chercher_chunk(salle,chunk->position.x-1,chunk->position.y) && chercher_chunk(salle,chunk->position.x,chunk->position.y+1) && chercher_chunk(salle,chunk->position.x-1,chunk->position.y+1)){
+        tot+=COIN_NE;
+    }
+    if (chercher_chunk(salle,chunk->position.x+1,chunk->position.y) && chercher_chunk(salle,chunk->position.x,chunk->position.y+1) && chercher_chunk(salle,chunk->position.x+1,chunk->position.y+1)){
+        tot+=COIN_SE;
+    }
+    if (chercher_chunk(salle,chunk->position.x+1,chunk->position.y) && chercher_chunk(salle,chunk->position.x,chunk->position.y-1) && chercher_chunk(salle,chunk->position.x+1,chunk->position.y-1)){
+        tot+=COIN_SO;
+    }
+    if (chercher_chunk(salle,chunk->position.x-1,chunk->position.y) && chercher_chunk(salle,chunk->position.x,chunk->position.y-1) && chercher_chunk(salle,chunk->position.x-1,chunk->position.y-1)){
+        tot+=COIN_NO;
+    }
+    return tot;
+}
+*/
 
 extern 
 booleen_t type_correct(char * type){
@@ -34,6 +66,24 @@ static chunk_t * chercher_chunk(const salle_t * salle, int x, int y){
     }
     return NULL;
 }
+
+
+static int chercher_max_x_chunk(salle_t * salle){
+    int i,xmax=0;
+    for(i=0;i<salle->nb_chunk;i++){
+        xmax = xmax > salle->chunks[i]->position.x ? xmax : salle->chunks[i]->position.x;
+    }
+    return xmax;
+}
+
+static int chercher_max_y_chunk(salle_t * salle){
+    int i,ymax=0;
+    for(i=0;i<salle->nb_chunk;i++){
+        ymax = ymax > salle->chunks[i]->position.y ? ymax : salle->chunks[i]->position.y;
+    }
+    return ymax;
+}
+
 
 /*  fonction salle_lire
     paramètre:
@@ -99,7 +149,7 @@ extern booleen_t salle_existe (salle_t *salle){
 */
 
 extern salle_t * salle_creer_type(char *type){
-    int i=0,j=0,k=0, xchunk=0,ychunk=0,nbPortes=0;
+    int i=0,j=0,k=0, xchunk=0,ychunk=0,nbPortes=0, tot=0;
     char * type_chunk=NULL;
     salle_t *salle= malloc(sizeof(salle_t));
     if(!salle){
@@ -124,13 +174,14 @@ extern salle_t * salle_creer_type(char *type){
         xchunk=type[k++]-'0';                                           //012 0 01001223  x pour le premier chunk | 0120010 0 1223 x pour le deuxième
         ychunk=type[k++]-'0';                                           //0120 0 1001223  y pour le premier chunk | 01200100 1 223 y pour le deuxième 
         nbPortes=type[k++]-'0';                                         //01200 1 001223  nombre de portes dans le premier chunk | 012001201 2 23 
-        if(!(type_chunk=malloc(sizeof(char)*nbPortes))){
+        if(!(type_chunk=malloc(sizeof(char)*(nbPortes+3)))){
             printf("L'allocation de la chaine de caractères pour le type du chunk %d %d a échouée\n", xchunk,ychunk);
             salle_detruire(&salle);
             return NULL;
         }
-        for(j=0;j<nbPortes;j++,k++)                                     //A partir de chaque porte, on créer la type pour la chunk
-            type_chunk[j]=type[k];                                      //0 pour le premier | 23 pour le deuxième
+        for(j=0;j<nbPortes+3;j++,k++){                                     //On créer la type pour le chunk
+            type_chunk[j]=type[k];                                         //0 pour le premier | 23 pour le deuxième
+        }
         if(!(salle->chunks[i]=chunk_creer(xchunk,ychunk,nbPortes,type_chunk))){
             printf("La création du chunk %d %d a échouée\n", xchunk,ychunk);
             salle_detruire(&salle);
@@ -156,6 +207,8 @@ extern salle_t * salle_creer(char * type){
         salle->detruire=salle_detruire;
         salle->lire=salle_lire;
         salle->chercher_chunk=chercher_chunk;
+        salle->max_x=chercher_max_x_chunk;
+        salle->max_y=chercher_max_y_chunk;
         cpt_salle++;
         return salle;
     }

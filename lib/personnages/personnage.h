@@ -2,6 +2,7 @@
 #define _PERSO_H_
 
 #include "../../lib/commun.h"
+#include "../../lib/niveaux/chunk.h"
 
 typedef struct perso_s
 {
@@ -12,6 +13,7 @@ typedef struct perso_s
 	char * nom_sprite; //pour animer après
 	int vitesse; //gestion de déplacement
 	int degats;
+	chunk_t * chunk;
 
 	void (*animer)(struct perso_s * const);
     err_t (*detruire)(struct perso_s ** );
