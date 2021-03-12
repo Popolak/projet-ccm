@@ -51,7 +51,7 @@ booleen_t en_vie(perso_t * personnage){
 
 
 extern
-perso_t * perso_creer(char * nom, int vie, int taille, pos_t * position, char * nom_sprite, int vitesse, int degats){
+perso_t * perso_creer(char * nom, int vie, int taille, pos_t * position, char * nom_sprite, int vitesse, int vit_attack, int degats, chunk_t chunk, salle_t, salle){
 
 	perso_t * personnage = NULL;
 
@@ -61,9 +61,12 @@ perso_t * perso_creer(char * nom, int vie, int taille, pos_t * position, char * 
 	personnage->taille = taille;
 	personnage->nom_sprite = malloc(sizeof(char)*25);
 	personnage->vitesse = vitesse;
+	personnage-vit_attack = vit_attack;
 	personnage->position->x;
 	personnage->position->y;
 	personnage->degats = degats;
+	personnage->chunk = chunk;
+	personnage->salle = salle;
 
 	personnage->animer = perso_animer;
 	personnage->detruire = perso_detruire;

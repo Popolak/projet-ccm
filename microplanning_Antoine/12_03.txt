@@ -1,0 +1,2 @@
+Début boucle gameplay
+Modifications structures

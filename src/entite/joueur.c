@@ -1,21 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../../lib/entite/personnage.h"
-#include "../../lib/entite/joueur.h"
-#include "../../SDL/include/SDL.h"
+#include "../lib/entite/personnage.h"
+#include "../lib/entite/joueur.h"
+#include "../lib/entite/entite.h"
+#include "../SDL/include/SDL.h"
 
 SDL_Event events; 
 
 extern
-void creation(perso_t * tomate, perso_t  * carotte, perso_t * viande){
+void creation(perso_t * tomate, perso_t  * carotte, perso_t * viande,chunk_t chunk_dep, salle_t salle_dep){
 
 	pos_t position;
 	position.x = 50;
 	position.y = 50;
 
-	tomate = perso_creer("tomate", 50, 10, &position, "tomate.png", 10, 5);
-	carotte = perso_creer("carotte", 50, 10, &position, "carotte.png", 10, 5);
-	viande = perso_creer("viande", 50, 10, &position, "viande.png", 10, 5);
+	tomate = perso_creer("tomate", 50, 10, &position, "tomate.png", 10,1,5, chunk_dep, salle_dep);
+	carotte = perso_creer("carotte", 50, 10, &position, "carotte.png", 10, 5, chunk_dep, salle_dep);
+	viande = perso_creer("viande", 50, 10, &position, "viande.png", 10, 5, chunk_dep, salle_dep);
 }
 
 extern
@@ -25,23 +26,24 @@ void deplacement(){
 }
 
 extern
-void control(perso_t * tomate, perso_t  * carotte, perso_t * viande){ //choix du personnage qu'on controle, probablement a mettre dans la boucle de jeu plutôt que dans une fonction
+perso_t attaque1(perso_t perso_control){ //actuellement théorique
 
-	perso_t perso_control;
+	//if(perso_control == *tomate){ //couteau
+		//animation attaque;
 
-	perso_t roulette[2];
-	int i = 0;
+		//if(hitbox_joueur == hitbox_ennemi){?????????
 
-	roulette[0] = (*tomate);
-	roulette[1] = (*carotte);
-	roulette[2] = (*viande);
+			//prendre_coup(ennemi, 10);
 
-	if(events.key.keysym.sym == SDLK_e){
-		if(i+1 > 2)
-			perso_control = roulette[0];
-		else
-			perso_control = roulette[i++];
-		SDL_Log("je controle %s", perso_control.nom);
-	}
+		//}
+
+
+	//}
+
 }
 
+extern
+perso_t attaque2(perso_t perso_control){
+
+
+}
