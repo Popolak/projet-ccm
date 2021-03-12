@@ -26,7 +26,9 @@ typedef int err_t ;
 
 #define ERR_LISTE_IND_ELEM  -200 
 
-#define CAM_TROP_GRANDE -300
+#define CAM_TROP_GRANDE 1
+
+#define PAS_DALLOC 2
 
 #endif
 

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "../../lib/personnages/personnage.h"
+#include "../../lib/entite/personnage.h"
 
 extern
 booleen_t perso_existe( perso_t * const personnage )

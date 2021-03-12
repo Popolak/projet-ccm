@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../../lib/personnages/personnage.h"
-#include "../../lib/joueur/joueur.h"
+#include "../../lib/entite/personnage.h"
+#include "../../lib/entite/joueur.h"
 #include "../../SDL/include/SDL.h"
 
 SDL_Event events; 

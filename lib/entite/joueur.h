@@ -1,7 +1,7 @@
 #ifndef _JOUEUR_H_
 #define _JOUEUR_H_
 
-#include "../personnages/personnage.h"
+#include "personnage.h"
 
 extern void creation(perso_t * tomate, perso_t  * carotte, perso_t * viande);
 extern void deplacement();

@@ -1,8 +1,8 @@
 #ifndef _PERSO_H_
 #define _PERSO_H_
 
-#include "../../lib/commun.h"
-#include "../../lib/niveaux/chunk.h"
+#include "../commun.h"
+#include "../niveaux/chunk.h"
 
 typedef struct perso_s
 {
