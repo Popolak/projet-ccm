@@ -2,6 +2,8 @@
 #define _PORTE_H_
 #include "../commun.h"
 
+enum {HG,BG,HD,BD};
+
 
 typedef struct porte_s{
     void (*lire)(const struct porte_s * );

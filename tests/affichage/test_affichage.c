@@ -34,7 +34,7 @@ int main(){
 
     SDL_Event events;
     SDL_bool run=SDL_TRUE;
-    SDL_Texture * bgTexture=creer_texture_image(ren,"../../graphics/texture/room_textures/fond haricot.png");
+    SDL_Texture * bgTexture=creer_texture_image(ren,"../../graphics/texture/room_textures/fond haricot2.png");
     SDL_Texture * murTexture=creer_texture_image(ren, "../../graphics/texture/room_textures/texture_mur.bmp");
     SDL_Texture * joueurTexture=creer_texture_image(ren,"../../graphics/sprite/personnage_sprites/Tom neutre.png");
     if(bgTexture==NULL || murTexture==NULL || joueurTexture==NULL){
@@ -55,6 +55,15 @@ int main(){
                 if (events.window.event == SDL_WINDOWEVENT_CLOSE) 
                     run = SDL_FALSE;
                 break;
+            case SDL_KEYDOWN:
+                if(events.key.keysym.sym==SDLK_LSHIFT){
+                    cam.chunk=salle->chercher_chunk(salle,0,1);
+                }
+                break;
+            case SDL_KEYUP:
+                if(events.key.keysym.sym==SDLK_LSHIFT){
+                    cam.chunk=salle->chercher_chunk(salle,0,0);
+                }
             }
         }
         SDL_RenderClear(ren);

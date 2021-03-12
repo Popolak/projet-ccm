@@ -150,19 +150,19 @@ static err_t chunk_remplir(chunk_t * chunk, int chunk_cote){
     int i;
     for(i=0;i<chunk->nb_portes;i++){
         switch (chunk->portes[i]->position){
-            case (0):
+            case (HG):
                 remplir_surface(chunk,TAILLE_MUR,0,TAILLE_PORTE,TAILLE_MUR,VIDE);
                 chunk->chunk[TAILLE_MUR+TAILLE_PORTE-1][0]->contenu=PORTE;
                 break;
-            case (1):
+            case (BG):
                 remplir_surface(chunk,CHUNKH-TAILLE_MUR-TAILLE_PORTE,0,TAILLE_PORTE,TAILLE_MUR,VIDE);
                 chunk->chunk[CHUNKH-TAILLE_MUR-1][0]->contenu=PORTE;
                 break;
-            case (2):
+            case (HD):
                 remplir_surface(chunk,TAILLE_MUR,CHUNKW-TAILLE_MUR,TAILLE_PORTE,TAILLE_MUR,VIDE);
                 chunk->chunk[TAILLE_MUR+TAILLE_PORTE-1][CHUNKW-1]->contenu=PORTE;
                 break;
-            case (3):
+            case (BD):
                 remplir_surface(chunk,CHUNKH-TAILLE_MUR-TAILLE_PORTE,CHUNKW-TAILLE_MUR,TAILLE_PORTE,TAILLE_MUR,VIDE);
                 chunk->chunk[CHUNKH-TAILLE_MUR-1][CHUNKW-1]->contenu=PORTE;
                 break;
