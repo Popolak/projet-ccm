@@ -12,7 +12,7 @@ extern
 pos_t prochain_mur (int x, int y, chunk_t * chunk){
     int i=0,j=0;
     pos_t pos;
-    for(i=0;x+i<CHUNKH;i+=TAILLE_MUR){
+    for(i=0;x+i<CHUNKH-CHUNKH*ratioSol;i+=TAILLE_MUR){
         for(j=0;y+j<CHUNKW;j++){
             if(chunk->chunk[x+i][y+j]->contenu==MUR){
                 pos.x=x+i;
@@ -29,7 +29,6 @@ pos_t prochain_mur (int x, int y, chunk_t * chunk){
 extern
 void attribut_mur(int x, int y, int* w, int* h, chunk_t * chunk){
     int i,j;
-    float ratioSol=1.0*6/72;
     for(i=0; i<TAILLE_MUR && x+i < CHUNKH-CHUNKH*ratioSol && chunk->chunk[x+i][y]->contenu == MUR; i++);
     for(j=0; j<TAILLE_MUR && y+j < CHUNKW && chunk->chunk[x][y+j]->contenu == MUR; j++);
     *h=i;
@@ -151,20 +150,20 @@ static err_t chunk_remplir(chunk_t * chunk, int chunk_cote){
     for(i=0;i<chunk->nb_portes;i++){
         switch (chunk->portes[i]->position){
             case (HG):
-                remplir_surface(chunk,TAILLE_MUR,0,TAILLE_PORTE,TAILLE_MUR,VIDE);
+                chunk->remplir_surface(chunk,TAILLE_MUR,0,TAILLE_PORTE,TAILLE_MUR,VIDE);
                 chunk->chunk[TAILLE_MUR+TAILLE_PORTE-1][0]->contenu=PORTE;
                 break;
             case (BG):
-                remplir_surface(chunk,CHUNKH-TAILLE_MUR-TAILLE_PORTE,0,TAILLE_PORTE,TAILLE_MUR,VIDE);
-                chunk->chunk[CHUNKH-TAILLE_MUR-1][0]->contenu=PORTE;
+                chunk->remplir_surface(chunk,CHUNKH-(ratioSol*CHUNKH)-TAILLE_PORTE,0,TAILLE_PORTE,TAILLE_MUR,VIDE);
+                chunk->chunk[CHUNKH-(int)(ratioSol*CHUNKH)-1][0]->contenu=PORTE;
                 break;
             case (HD):
-                remplir_surface(chunk,TAILLE_MUR,CHUNKW-TAILLE_MUR,TAILLE_PORTE,TAILLE_MUR,VIDE);
+                chunk->remplir_surface(chunk,TAILLE_MUR,CHUNKW-TAILLE_MUR,TAILLE_PORTE,TAILLE_MUR,VIDE);
                 chunk->chunk[TAILLE_MUR+TAILLE_PORTE-1][CHUNKW-1]->contenu=PORTE;
                 break;
             case (BD):
-                remplir_surface(chunk,CHUNKH-TAILLE_MUR-TAILLE_PORTE,CHUNKW-TAILLE_MUR,TAILLE_PORTE,TAILLE_MUR,VIDE);
-                chunk->chunk[CHUNKH-TAILLE_MUR-1][CHUNKW-1]->contenu=PORTE;
+                chunk->remplir_surface(chunk,CHUNKH-ratioSol*CHUNKH-TAILLE_PORTE,CHUNKW-TAILLE_MUR,TAILLE_PORTE,TAILLE_MUR,VIDE);
+                chunk->chunk[CHUNKH-(int)(ratioSol*CHUNKH)-1][CHUNKW-1]->contenu=PORTE;
                 break;
         }
     }
@@ -176,23 +175,23 @@ static err_t chunk_remplir(chunk_t * chunk, int chunk_cote){
             case(HAUT):
                 chunk->remplir_surface(chunk,0,TAILLE_MUR,TAILLE_MUR,CHUNKW-2*TAILLE_MUR,VIDE); break;
             case(DROITE):
-                chunk->remplir_surface(chunk,TAILLE_MUR,CHUNKW-TAILLE_MUR,CHUNKH-2*TAILLE_MUR,TAILLE_MUR,VIDE);break;
+                chunk->remplir_surface(chunk,TAILLE_MUR,CHUNKW-TAILLE_MUR,CHUNKH-TAILLE_MUR-ratioSol*CHUNKH,TAILLE_MUR,VIDE);break;
             case(BAS):
-                chunk->remplir_surface(chunk,CHUNKH-TAILLE_MUR,TAILLE_MUR,TAILLE_MUR,CHUNKW-2*TAILLE_MUR,VIDE);break;
+                chunk->remplir_surface(chunk,CHUNKH-ratioSol*CHUNKH,TAILLE_MUR,CHUNKH*ratioSol,CHUNKW-2*TAILLE_MUR,VIDE);break;
             case(GAUCHE):
-                chunk->remplir_surface(chunk,TAILLE_MUR,0,CHUNKH-2*TAILLE_MUR,TAILLE_MUR,VIDE);break;
+                chunk->remplir_surface(chunk,TAILLE_MUR,0,CHUNKH-TAILLE_MUR-ratioSol*CHUNKH,TAILLE_MUR,VIDE);break;
             case(COIN_NE):
                 chunk->remplir_surface(chunk,0,CHUNKW-TAILLE_MUR,TAILLE_MUR,TAILLE_MUR,VIDE);break;
             case(COIN_SE):
-                chunk->remplir_surface(chunk,CHUNKH-TAILLE_MUR,CHUNKW-TAILLE_MUR,TAILLE_MUR,TAILLE_MUR,VIDE);break;
+                chunk->remplir_surface(chunk,CHUNKH-ratioSol*CHUNKH,CHUNKW-TAILLE_MUR,CHUNKH*ratioSol,TAILLE_MUR,VIDE);break;
             case(COIN_SO):
-                chunk->remplir_surface(chunk,CHUNKH-TAILLE_MUR,0,TAILLE_MUR,TAILLE_MUR,VIDE);break;
+                chunk->remplir_surface(chunk,CHUNKH-ratioSol*CHUNKH,0,ratioSol*CHUNKH,TAILLE_MUR,VIDE);break;
             case(COIN_NO):
                 chunk->remplir_surface(chunk,0,0,TAILLE_MUR,TAILLE_MUR,VIDE);break;
         }
         i*=2;
     }
-    remplir_surface(chunk,TAILLE_MUR,TAILLE_MUR,CHUNKH-2*TAILLE_MUR,CHUNKW-2*TAILLE_MUR,VIDE);
+    remplir_surface(chunk,TAILLE_MUR,TAILLE_MUR,CHUNKH-TAILLE_MUR-CHUNKH*ratioSol,CHUNKW-2*TAILLE_MUR,VIDE);
 }
 
 /*  fonction chunk_creer

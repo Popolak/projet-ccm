@@ -71,7 +71,7 @@ err_t render_mur_chunk(SDL_Renderer * ren, SDL_Texture * texture_mur, camera_t *
     int i, j, taille=0, w_mur,h_mur,n;
     pos_t pos;
     const float ratioPtoU= 1.0 * WINW/CHUNKW;
-    float ratioTaille, ratioSol=1.0*6/72;
+    float ratioTaille;
     SDL_Rect src, dst, srcModif;
     src.x=0;
     src.y=0;
@@ -105,5 +105,4 @@ err_t render_mur_chunk(SDL_Renderer * ren, SDL_Texture * texture_mur, camera_t *
     }
     return OK;
 }
-
 

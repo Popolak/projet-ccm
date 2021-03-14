@@ -5,8 +5,34 @@
 
 
 extern 
-est_obstacle(int contenu){
+int est_obstacle(int contenu,  int dir){
     return (contenu==MUR);
+}
+
+static err_t afficher_dans_chunk(SDL_Renderer *ren,entite_t *entite,int WINH,int WINW){
+    entite->afficher_fenetre(ren,entite,entite->w*WINW/CHUNKW,entite->h*WINW/CHUNKW,entite->pos.x*WINW/CHUNKW, entite->pos.y*WINW/CHUNKW, entite->textures[0]);
+}
+
+static err_t afficher_dans_fenetre(SDL_Renderer * ren,entite_t * entite, int w, int h, int x, int y, SDL_Texture * texture){
+    float ratioTaille;
+    SDL_Rect src,dst;
+    if(!texture){
+        printf("Pas de textures donnée pour l'entité : %s\n",entite->nom);
+        return PAS_DALLOC;
+    }
+    src.x=0;
+    src.y=0;
+    dst.h=h;
+    dst.w=w;
+    dst.x=y;
+    dst.y=x;
+    SDL_QueryTexture(texture,NULL,NULL,&(src.w),&(src.h));
+    if(x>=0 && y>=0){
+        SDL_RenderCopy(ren,texture,&src,&dst);
+    }
+    return OK;
+    
+
 }
 
 static 
@@ -19,9 +45,10 @@ int mur_a_gauche(entite_t * ent){
     int i,j;
     for(i=-ent->h/2; ent->pos.x + i <0;i++);
     for(;i < ent->h/2 && ent->pos.x+i<CHUNKH;i++){
+        printf("oui");
         for(j=-ent->w/2; ent->pos.y + j <0;j++);
         for(;j>=0;j++){
-            if(est_obstacle(ent->chunk->chunk[i][j]->contenu)){
+            if(est_obstacle(ent->chunk->chunk[i][j]->contenu,GAUCHE)){
                 return GAUCHE;
             }
         }
@@ -35,7 +62,7 @@ int mur_a_droite(entite_t * ent){
     for(;i < ent->h/2 && ent->pos.x+i<CHUNKH;i++){
         for(j=ent->w/2; ent->pos.y + j >=CHUNKW;j--);
         for(;j>=0;j--){
-            if(est_obstacle(ent->chunk->chunk[i][j]->contenu)){
+            if(est_obstacle(ent->chunk->chunk[i][j]->contenu,DROITE)){
                 return DROITE;
             }
         }
@@ -49,7 +76,7 @@ int mur_en_haut(entite_t * ent){
     for(;j < ent->w/2 && ent->pos.y+j<CHUNKW;j++){
         for(i=-ent->h/2; ent->pos.x + i <0;i++);
         for(;i>=0;i++){
-            if(est_obstacle(ent->chunk->chunk[i][j]->contenu)){
+            if(est_obstacle(ent->chunk->chunk[i][j]->contenu,HAUT)){
                 return HAUT;
             }
         }
@@ -63,7 +90,7 @@ int mur_en_bas(entite_t * ent){
     for(;j < ent->w/2 && ent->pos.y+j<CHUNKW;j++){
         for(i=ent->h/2; ent->pos.x + i >=CHUNKH;i--);
         for(;i>=0;i--){
-            if(est_obstacle(ent->chunk->chunk[i][j]->contenu)){
+            if(est_obstacle(ent->chunk->chunk[i][j]->contenu,BAS)){
                 return GAUCHE;
             }
         }
@@ -100,16 +127,17 @@ booleen_t en_contact(entite_t * ent_courante, entite_t * ent_a_verif){
 
 
 extern 
-err_t str_creer_copier(char * chaine_dest, char * chaine_src){
-    chaine_dest=NULL;
-    chaine_dest=malloc(sizeof(char)*strlen(chaine_src)+1);
+char * str_creer_copier( char * chaine_src){
+    char *chaine_dest=NULL;
+
+    chaine_dest=malloc(sizeof(char)*(strlen(chaine_src)+1));
     if(!chaine_dest){
         printf("L'allocation de l'entite n'a pas pu etre effectuee\n");
-        return PAS_DALLOC;
+        return NULL;
     }
     strcpy(chaine_dest,chaine_src);
     chaine_dest[strlen(chaine_src)]='\0';
-    return OK;
+    return chaine_dest;
 }
 
 static 
@@ -155,7 +183,7 @@ entite_t * entite_creer(char * nom,
 {
     entite_t * entite=NULL;
     if (!(entite=malloc(sizeof(entite_t)))){
-        printf("L'allocation de l'entite n'a pas pu etre effeectuee\n");
+        printf("L'allocation de l'entite %s n'a pas pu etre effeectuee\n", nom);
         return  NULL;
     }
 
@@ -175,15 +203,19 @@ entite_t * entite_creer(char * nom,
 
     entite->detruire=entite_detruire;
     entite->lire=entite_lire;
+    entite->afficher_chunk=afficher_dans_chunk;
+    entite->afficher_fenetre=afficher_dans_fenetre;
+    entite->contact_obstacle=en_contact_obstacle;
 
-    if(str_creer_copier(entite->nom,nom)==PAS_DALLOC){
+    if((entite->nom = str_creer_copier(nom))==NULL){
+        printf("Le nom %s n'a pas pu etre attribué\n",nom);
         entite->detruire(&entite);
-        return PAS_DALLOC;
+        return NULL;
     }
-    if(str_creer_copier(entite->description, description)==PAS_DALLOC){
+    if((entite->description=str_creer_copier( description))==NULL){
+        printf("La description de  %s n'a pas pu etre attribué\n",description);
         entite->detruire(&entite);
-        return PAS_DALLOC;
+        return NULL;
     }
-
-
+    return entite;
 }

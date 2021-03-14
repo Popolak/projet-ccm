@@ -13,14 +13,21 @@ booleen_t perso_existe( perso_t * const personnage )
 }
 
 static
-err_t perso_detruire( perso_t ** personnage){ //correspond à la mort du personnage ?
-
-	free((*personnage)->nom);
-	free((*personnage)->nom_sprite);
-	free(*personnage);
-
-	*personnage = NULL;
-
+err_t perso_detruire( perso_t ** personnage){ //ré-alloue l'espace donné au personnage, meme après la mort d'un personnage on peut garder cet espace 
+	pos_t pos={0,0};
+	entite_t * ent=NULL;
+	entite_t * ent2=entite_creer("oui","oui",pos,0,0,0,0,0,NULL,NULL,NULL,0,0);
+	if(!(*personnage))
+		return OK;
+	ent=realloc((entite_t*)(*personnage),sizeof(entite_t));
+	*personnage=NULL;
+	ent->detruire=ent2->detruire;
+	ent2->detruire(&ent2);
+	if(!ent){
+		printf("La réallocation de personnage pour sa destruction a échouée");
+		return PAS_DALLOC;
+	}
+	ent->detruire(&ent);
 	return OK;
 }
 
@@ -34,44 +41,38 @@ void perso_animer( perso_t * const personnage ){
 }
 
 static
-void prendre_coup(perso_t * personnage, int degats){
+void perso_prendre_coup(perso_t * personnage, int degats){
 	personnage->vie -= degats;
 }
 
-static
-booleen_t en_vie(perso_t * personnage){
-
-    if(personnage->vie > 0)
-        return VRAI;
-    else
-        return FAUX;
-
-}
-
-
-
 extern
-perso_t * perso_creer(char * nom, int vie, int taille, pos_t * position, char * nom_sprite, int vitesse, int vit_attack, int degats, chunk_t chunk, salle_t, salle){
+perso_t * perso_creer(char * nom, char * desc,
+					 int vie,
+					 pos_t position,
+					 int w, int h, int w_hitbox, int h_hitbox,
+					 int nbTextures,SDL_Texture ** textures,
+					 int vitesse_x, int vitesse_y, int vitesse_max, 
+					 int vit_attack, int degats, 
+					 chunk_t *chunk, salle_t * salle){
 
 	perso_t * personnage = NULL;
-
-	personnage = malloc(sizeof(perso_t));
-	personnage->nom = malloc(sizeof(char)*25);
+	if ((personnage=(perso_t*)entite_creer(nom,desc,position,w,h,w_hitbox,h_hitbox,nbTextures,textures,chunk,salle,vitesse_x,vitesse_y))==NULL){
+		return NULL;
+	}
+	personnage=realloc(personnage,sizeof(perso_t));
+	if(personnage==NULL){
+		printf("La réallocation du personnage %s n'a pas pu etre effectuée\n", nom);
+		personnage->detruire(&personnage);
+		return NULL;
+	}
 	personnage->vie = vie;
-	personnage->taille = taille;
-	personnage->nom_sprite = malloc(sizeof(char)*25);
-	personnage->vitesse = vitesse;
-	personnage-vit_attack = vit_attack;
-	personnage->position->x;
-	personnage->position->y;
+	personnage->vitesse_max = vitesse_max;
+	personnage->vit_attack = vit_attack;
 	personnage->degats = degats;
-	personnage->chunk = chunk;
-	personnage->salle = salle;
 
 	personnage->animer = perso_animer;
 	personnage->detruire = perso_detruire;
-	personnage->prendre_coup=prendre_coup;
-	personnage->en_vie=en_vie;
+	personnage->prendre_coup=perso_prendre_coup;
 
 	return(personnage);
 }

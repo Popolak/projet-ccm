@@ -1,5 +1,3 @@
-err_t (*detruire)(struct entite_s ** ent);
-void (*lire)(struct entite_s * ent);
 char * nom, *description;
 pos_t pos;
 int w,h,w_hitbox,h_hitbox, nbTextures;
