@@ -23,8 +23,8 @@ perso_t * perso_creer(char * nom, char * desc,
 					 pos_t position,
 					 int w, int h, int w_hitbox, int h_hitbox,
 					 int nbTextures,SDL_Texture ** textures,
-					 int vitesse_x, int vitesse_y, int vitesse_max, 
-					 int vit_attack, int degats, 
+					 float vitesse_x, float vitesse_y, float vitesse_max, 
+					 float vit_attack, int degats, 
 					 chunk_t *chunk, salle_t * salle);
 
 extern booleen_t perso_existe( perso_t * const personnage );

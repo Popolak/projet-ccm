@@ -1,4 +1,4 @@
-fichier_test_perso= perso_test.o personnage.o entite.o
+fichier_test_perso= perso_test.o  unite.o porte.o chunk.o personnage.o entite.o
 fich_test_affichage= perso_test_affich.o room_rendering.o  unite.o porte.o chunk.o salle.o niveau.o entite.o personnage.o
 
 BIN= test_perso test_perso_affichage

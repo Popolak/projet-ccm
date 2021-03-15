@@ -6,14 +6,15 @@
 
 int main(){
     SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "0" );
-    int WINW=1280, WINH=720,x=CHUNKH-CHUNKH*1.0*6/72-40,y=TAILLE_MUR+30,i=1;
+    int WINW=1280, WINH=720,x=CHUNKH-CHUNKH*ratioSol-30,y=TAILLE_MUR+40;
+    float i=0.1;
     camera_t cam;
     niveau_t * niv=NULL;
     salle_t * salle=NULL;
     perso_t *Tom=NULL;
     SDL_Window * win=NULL;
     SDL_Renderer * ren=NULL;
-    pos_t pos={CHUNKH-CHUNKH*ratioSol-80,0};
+    pos_t pos={CHUNKH-CHUNKH*ratioSol-40,TAILLE_MUR+80};
     if(SDL_Init(SDL_INIT_VIDEO)<0){
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Erreur : %s", SDL_GetError());
         return 1;
@@ -34,7 +35,7 @@ int main(){
     salle=niv->chercher_salle(niv,0,0);
     cam.chunk=salle->chercher_chunk(salle,0,0);
     niv->lire(niv);
-
+    
     SDL_Event events;
     SDL_bool run=SDL_TRUE;
     SDL_Texture * bgTexture=creer_texture_image(ren,"../../../graphics/texture/room_textures/fond haricot2.png");
@@ -42,6 +43,7 @@ int main(){
     SDL_Texture * joueurTexture=creer_texture_image(ren,"../../../graphics/sprite/personnage_sprites/Tom neutre.png");
     Tom=perso_creer("Tom","tomate",20,pos,60,80,60,80,1,&joueurTexture,0,0,0,0,0,cam.chunk,cam.salle);
     
+    Tom->pos.x=CHUNKH-CHUNKH*ratioSol-Tom->h/2;
     if(bgTexture==NULL || murTexture==NULL || joueurTexture==NULL){
         printf("La création de la texture a échouée\n");
         SDL_DestroyTexture(murTexture);
@@ -52,12 +54,15 @@ int main(){
         SDL_Quit();
         return ERR_DEB_MEMOIRE;
     }
+    cam.chunk->lire_partiel(cam.chunk,CHUNKH-CHUNKH*ratioSol-1,100,CHUNKH*ratioSol,30);
     while(run){
-        if(Tom->pos.y>=CHUNKW-1)
-                i=-1;
-            if(Tom->pos.y<=0)
-                i=1;
-            Tom->pos.y+=i;
+        if(appartient_a_dir(Tom->contact_obstacle(Tom),DROITE) || Tom->pos.y>=CHUNKW-Tom->w/2){
+            i=-0.10;
+        }
+        if(appartient_a_dir(Tom->contact_obstacle(Tom),GAUCHE) || Tom->pos.y<0){
+            i=0.10;
+        }
+        Tom->pos.y+=i;
         while(SDL_PollEvent(&events)){
             switch (events.type)
             {

@@ -92,9 +92,9 @@ static int chercher_max_y_chunk(salle_t * salle){
 
 static void salle_lire(const salle_t * salle){
     int i,j;
-    printf("Salle %d;%d : \n",salle->position.x, salle->position.y);
+    printf("Salle %.0f;%.0f : \n",salle->position.x, salle->position.y);
     for(i=0; i<salle->nb_chunk;i++){       //Affiche les chunks qui composent la salle et chaque portes correspondant au chunk
-        printf("chunk %d;%d :\nnombre de porte(s): %d \n", salle->chunks[i]->position.x,salle->chunks[i]->position.y,salle->chunks[i]->nb_portes);
+        printf("chunk %.0f;%.0f :\nnombre de porte(s): %d \n", salle->chunks[i]->position.x,salle->chunks[i]->position.y,salle->chunks[i]->nb_portes);
         for(j=0;j<salle->chunks[i]->nb_portes;j++){
             printf("Porte %d : position : %d\nPointeur : %p\n",j,salle->chunks[i]->portes[j]->position,salle->chunks[i]->portes[j]);
             printf("reliée à %p\n", salle->chunks[i]->portes[j]->porteDest);

@@ -9,6 +9,20 @@ int est_obstacle(int contenu,  int dir){
     return (contenu==MUR);
 }
 
+extern 
+booleen_t appartient_a_dir(int dir, int recherche){
+    int i=COIN_NO;
+    for(;i>dir;i/=2);
+    for(;i>0;i/=2){
+        if(dir>=i){
+            dir-=i;
+            if(i==recherche)
+                return VRAI;
+        }
+    }
+    return FAUX;
+}
+
 static err_t afficher_dans_chunk(SDL_Renderer *ren,entite_t *entite,int WINH,int WINW){
     entite->afficher_fenetre(ren,entite,entite->w*WINW/CHUNKW,entite->h*WINW/CHUNKW,entite->pos.x*WINW/CHUNKW, entite->pos.y*WINW/CHUNKW, entite->textures[0]);
 }
@@ -24,8 +38,8 @@ static err_t afficher_dans_fenetre(SDL_Renderer * ren,entite_t * entite, int w, 
     src.y=0;
     dst.h=h;
     dst.w=w;
-    dst.x=y;
-    dst.y=x;
+    dst.x=y-w/2;
+    dst.y=x-h/2;
     SDL_QueryTexture(texture,NULL,NULL,&(src.w),&(src.h));
     if(x>=0 && y>=0){
         SDL_RenderCopy(ren,texture,&src,&dst);
@@ -45,14 +59,16 @@ int mur_a_gauche(entite_t * ent){
     int i,j;
     for(i=-ent->h/2; ent->pos.x + i <0;i++);
     for(;i < ent->h/2 && ent->pos.x+i<CHUNKH;i++){
-        printf("oui");
         for(j=-ent->w/2; ent->pos.y + j <0;j++);
-        for(;j>=0;j++){
-            if(est_obstacle(ent->chunk->chunk[i][j]->contenu,GAUCHE)){
+        if(ent->pos.y+j>1)
+            j--;
+        for(;j<0;j++){
+            if(est_obstacle(ent->chunk->chunk[(int)ent->pos.x+i][(int)ent->pos.y+j]->contenu,GAUCHE)){
                 return GAUCHE;
             }
         }
     }
+    return 0;
 }
 
 static 
@@ -61,12 +77,15 @@ int mur_a_droite(entite_t * ent){
     for(i=-ent->h/2; ent->pos.x + i <0;i++);
     for(;i < ent->h/2 && ent->pos.x+i<CHUNKH;i++){
         for(j=ent->w/2; ent->pos.y + j >=CHUNKW;j--);
-        for(;j>=0;j--){
-            if(est_obstacle(ent->chunk->chunk[i][j]->contenu,DROITE)){
+        if(ent->pos.y+j<CHUNKW-1)
+            j++;
+        for(;j>0;j--){
+            if(est_obstacle(ent->chunk->chunk[(int)ent->pos.x+i][(int)ent->pos.y+j]->contenu,DROITE)){
                 return DROITE;
             }
         }
     }
+    return 0;
 }
 
 static 
@@ -75,12 +94,15 @@ int mur_en_haut(entite_t * ent){
     for(j=-ent->w/2; ent->pos.y + j <0;j++);
     for(;j < ent->w/2 && ent->pos.y+j<CHUNKW;j++){
         for(i=-ent->h/2; ent->pos.x + i <0;i++);
-        for(;i>=0;i++){
-            if(est_obstacle(ent->chunk->chunk[i][j]->contenu,HAUT)){
+        if(ent->pos.x+i>1)
+            i--;
+        for(;i>0;i++){
+            if(est_obstacle(ent->chunk->chunk[(int)ent->pos.x+i][(int)ent->pos.y+j]->contenu,HAUT)){
                 return HAUT;
             }
         }
     }
+    return 0;
 }
 
 static 
@@ -89,12 +111,15 @@ int mur_en_bas(entite_t * ent){
     for(j=-ent->w/2; ent->pos.y + j <0;j++);
     for(;j < ent->w/2 && ent->pos.y+j<CHUNKW;j++){
         for(i=ent->h/2; ent->pos.x + i >=CHUNKH;i--);
-        for(;i>=0;i--){
-            if(est_obstacle(ent->chunk->chunk[i][j]->contenu,BAS)){
-                return GAUCHE;
+        if(ent->pos.x+i<CHUNKH-1)
+            i++;
+        for(;i>0;i--){
+            if(est_obstacle(ent->chunk->chunk[(int)ent->pos.x+i][(int)ent->pos.y+j]->contenu,BAS)){
+                return BAS;
             }
         }
     }
+    return 0;
 }
 
 static 
@@ -102,8 +127,8 @@ int en_contact_obstacle(entite_t * ent){
     int tot=RIEN;
     tot+=mur_a_gauche(ent);
     tot+=mur_a_droite(ent);
-    tot+=mur_en_haut(ent);
     tot+=mur_en_bas(ent);
+    tot+=mur_en_haut(ent);
     return tot;
     
 }
@@ -179,7 +204,7 @@ entite_t * entite_creer(char * nom,
                         SDL_Texture ** textures,
                         chunk_t * chunk,
                         salle_t * salle,
-                        int vitesse_x,int vitesse_y)
+                        float vitesse_x,float vitesse_y)
 {
     entite_t * entite=NULL;
     if (!(entite=malloc(sizeof(entite_t)))){

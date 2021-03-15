@@ -26,7 +26,7 @@ entite_t * entite_creer(char * nom,
                         SDL_Texture ** textures,
                         chunk_t * chunk,
                         salle_t * salle,
-                        int vitesse_x, int vitesse_y);
+                        float vitesse_x, float vitesse_y);
 
 
 extern 
@@ -38,5 +38,7 @@ int est_obstacle(int contenu,  int dir);
 extern 
 char * str_creer_copier( char * chaine_src);
 
+extern 
+booleen_t appartient_a_dir(int dir, int recherche);
 
 #endif

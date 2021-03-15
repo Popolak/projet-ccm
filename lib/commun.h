@@ -10,8 +10,8 @@ enum {MUR=0,VIDE=1,PORTE=2,JOUEUR=4};
 
 typedef struct position
 {
-	int x;
-	int y;
+	float x;
+	float y;
 }
 pos_t;
 

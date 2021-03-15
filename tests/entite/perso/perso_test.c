@@ -5,13 +5,13 @@
 int main(){
 
 	perso_t * salade_test = NULL;
-
+	chunk_t * chunk=chunk_creer(0,0,0,"000");
     pos_t position;
 	position.x = 80;
-	position.y = 80;
+	position.y = CHUNKW-TAILLE_MUR;
 
 	printf("test creation\n");
-	salade_test = perso_creer("salade","oui",80,position,80,80,80,80,2,NULL,20,20,20,2,20,NULL,NULL);
+	salade_test = perso_creer("salade","oui",80,position,80,80,80,80,2,NULL,20,20,20,2,20,chunk,NULL);
 
 	printf( "Test d'existance sur un perso_t existant\n" ) ;
 	if (perso_existe(salade_test)==VRAI)

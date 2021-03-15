@@ -189,7 +189,7 @@ static err_t chunk_remplir(chunk_t * chunk, int chunk_cote){
             case(COIN_NO):
                 chunk->remplir_surface(chunk,0,0,TAILLE_MUR,TAILLE_MUR,VIDE);break;
         }
-        i*=2;
+        i/=2;
     }
     remplir_surface(chunk,TAILLE_MUR,TAILLE_MUR,CHUNKH-TAILLE_MUR-CHUNKH*ratioSol,CHUNKW-2*TAILLE_MUR,VIDE);
 }
