@@ -20,8 +20,35 @@ void creation(perso_t * tomate, perso_t  * carotte, perso_t * viande,chunk_t chu
 }
 
 extern
-void deplacement(){
+void deplacement(perso_t *perso_control.position, int direction){
 
+	switch(direction){
+		case GAUCHE:
+		*perso_control.position->x--;
+		break;
+
+		case DROITE:
+		*perso_control.position->x++;
+		break;
+	}
+}
+
+extern
+
+void saut(*perso_control.position){
+
+	double v_x = 1.5;
+	double v_saut = -4;
+	double v_gravite = 0.08;
+	double v_y = v_saut;
+
+	*perso_control.position.x += v_x;
+	*perso_control.position.y += v_y;
+
+	v_y += v_grav;
+
+	if (*perso_control.position.y > 300)
+	v_y = v_saut;
 
 }
 

@@ -45,6 +45,16 @@ void perso_prendre_coup(perso_t * personnage, int degats){
 	personnage->vie -= degats;
 }
 
+static
+booleen_t en_vie(perso_t * personnage){
+
+    if(personnage->vie > 0)
+        return VRAI;
+    else
+        return FAUX;
+
+}
+
 extern
 perso_t * perso_creer(char * nom, char * desc,
 					 int vie,

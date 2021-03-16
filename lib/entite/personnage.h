@@ -6,6 +6,7 @@
 
 typedef struct perso_s
 {
+	pos_t * position;
 	err_t (*detruire)(struct perso_s ** ent);
     void (*lire)(struct perso_s * ent);
 	err_t (*afficher_chunk)(SDL_Renderer *ren,struct perso_s *entite,int WINH,int WINW);
@@ -28,5 +29,7 @@ perso_t * perso_creer(char * nom, char * desc,
 					 chunk_t *chunk, salle_t * salle);
 
 extern booleen_t perso_existe( perso_t * const personnage );
+static void perso_prendre_coup(perso_t * personnage, int degats);
+static booleen_t en_vie(perso_t * personnage);
 
 #endif
