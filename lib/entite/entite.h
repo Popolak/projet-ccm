@@ -6,7 +6,7 @@
 #include "../../SDL/include/SDL.h"
 #include "../niveaux/salle.h"
 
-#define GRAVITE CHUNKH*5
+#define GRAVITE CHUNKH*7
 
 
 typedef struct entite_s{
