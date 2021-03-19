@@ -16,7 +16,7 @@ static
 err_t perso_detruire( perso_t ** personnage){ //ré-alloue l'espace donné au personnage, meme après la mort d'un personnage on peut garder cet espace 
 	pos_t pos={0,0};
 	entite_t * ent=NULL;
-	entite_t * ent2=entite_creer("oui","oui",pos,0,0,0,0,0,NULL,NULL,NULL,0,0);
+	entite_t * ent2=entite_creer("oui","oui",pos,0,0,0,0,0,NULL,NULL,NULL,0,0,0);
 	if(!(*personnage))
 		return OK;
 	ent=realloc((entite_t*)(*personnage),sizeof(entite_t));
@@ -40,6 +40,22 @@ void perso_animer( perso_t * const personnage ){
 
 }
 
+static 
+void input_update_speed (perso_t * perso, int touche){
+	switch (touche){
+		case (SDLK_q):
+			perso->vitesse_y=-perso->vitesse_max_y; break;
+		case (SDLK_d):
+			perso->vitesse_y=perso->vitesse_max_y; break;
+		case (SDLK_SPACE):
+			if(!perso->en_l_air((entite_t*)perso))
+				perso->vitesse_x=-perso->vitesse_saut; 
+			break;
+		default:
+			perso->vitesse_y=0;
+	}
+}
+
 static
 void perso_prendre_coup(perso_t * personnage, int degats){
 	personnage->vie -= degats;
@@ -51,12 +67,12 @@ perso_t * perso_creer(char * nom, char * desc,
 					 pos_t position,
 					 int w, int h, int w_hitbox, int h_hitbox,
 					 int nbTextures,SDL_Texture ** textures,
-					 float vitesse_x, float vitesse_y, float vitesse_max, 
+					 float vitesse_x, float vitesse_y, float vitesse_saut,float vitesse_max_y,
 					 float vit_attack, int degats, 
-					 chunk_t *chunk, salle_t * salle){
-
+					 chunk_t *chunk, salle_t * salle)
+{
 	perso_t * personnage = NULL;
-	if ((personnage=(perso_t*)entite_creer(nom,desc,position,w,h,w_hitbox,h_hitbox,nbTextures,textures,chunk,salle,vitesse_x,vitesse_y))==NULL){
+	if ((personnage=(perso_t*)entite_creer(nom,desc,position,w,h,w_hitbox,h_hitbox,nbTextures,textures,chunk,salle,vitesse_x,vitesse_y,vitesse_max_y))==NULL){
 		return NULL;
 	}
 	personnage=realloc(personnage,sizeof(perso_t));
@@ -65,14 +81,15 @@ perso_t * perso_creer(char * nom, char * desc,
 		personnage->detruire(&personnage);
 		return NULL;
 	}
+	personnage->vitesse_saut=vitesse_saut;
 	personnage->vie = vie;
-	personnage->vitesse_max = vitesse_max;
 	personnage->vit_attack = vit_attack;
 	personnage->degats = degats;
 
 	personnage->animer = perso_animer;
 	personnage->detruire = perso_detruire;
 	personnage->prendre_coup=perso_prendre_coup;
+	personnage->update_speed=input_update_speed;
 
 	return(personnage);
 }

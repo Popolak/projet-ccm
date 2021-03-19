@@ -9,6 +9,11 @@ int cpt_chunk=0;
 /* FONCTIONS */
 
 extern
+booleen_t coord_correcte(int x, int y){
+    return (x>=0 && x<CHUNKH && y >=0 && y<CHUNKW);
+}
+
+extern
 pos_t prochain_mur (int x, int y, chunk_t * chunk){
     int i=0,j=0;
     pos_t pos;

@@ -11,8 +11,8 @@ int main(){
 	position.y = CHUNKW-TAILLE_MUR;
 
 	printf("test creation\n");
-	salade_test = perso_creer("salade","oui",80,position,80,80,80,80,2,NULL,20,20,20,2,20,chunk,NULL);
-
+	salade_test = perso_creer("salade","oui",80,position,80,80,80,80,2,NULL,20,20,20,2,20,0,chunk,NULL);
+	salade_test->pos.x=10;
 	printf( "Test d'existance sur un perso_t existant\n" ) ;
 	if (perso_existe(salade_test)==VRAI)
 		printf("oui\n");
@@ -21,7 +21,6 @@ int main(){
 		return 1;
 	}
 	printf("%s\n", salade_test->nom);
-	printf("%d\n", salade_test->contact_obstacle(salade_test));
 	
 	while(salade_test->en_vie){
         printf("test prise d'un coup pv = %i\n", salade_test->vie);
@@ -35,7 +34,7 @@ int main(){
 	printf("test destruction\n");
 	salade_test->detruire(&salade_test);
 	}
-
+	chunk->detruire(&chunk);
 	printf( "Test d'existance sur un perso_t inexistant\n" ) ;
 	if(perso_existe(salade_test))
 		printf("oui\n");

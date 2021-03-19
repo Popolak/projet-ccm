@@ -6,12 +6,11 @@
 #include "SDL2/SDL.h"
 #include "../niveaux/salle.h"
 
+#define GRAVITE CHUNKH*2
+
+
 typedef struct entite_s{
     err_t (*detruire)(struct entite_s ** );
-    void (*lire)(struct entite_s * );
-    err_t (*afficher_chunk)(SDL_Renderer *ren,struct entite_s *,int ,int );
-    err_t (*afficher_fenetre)(SDL_Renderer * ,struct entite_s * , int , int , int , int , SDL_Texture * );
-    int (*contact_obstacle)(struct entite_s * );
     #include "attribut_entite.h"
 }entite_t;
 
@@ -26,7 +25,7 @@ entite_t * entite_creer(char * nom,
                         SDL_Texture ** textures,
                         chunk_t * chunk,
                         salle_t * salle,
-                        float vitesse_x, float vitesse_y);
+                        float vitesse_x, float vitesse_y, float vitesse_max_y);
 
 
 extern 
@@ -40,5 +39,8 @@ char * str_creer_copier( char * chaine_src);
 
 extern 
 booleen_t appartient_a_dir(int dir, int recherche);
+
+extern
+pos_t pos_proche_mur(entite_t * ent);
 
 #endif

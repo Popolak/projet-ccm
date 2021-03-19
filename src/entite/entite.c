@@ -6,7 +6,7 @@
 
 extern 
 int est_obstacle(int contenu,  int dir){
-    return (contenu==MUR);
+    return (contenu==MUR );
 }
 
 extern 
@@ -45,92 +45,233 @@ static err_t afficher_dans_fenetre(SDL_Renderer * ren,entite_t * entite, int w, 
         SDL_RenderCopy(ren,texture,&src,&dst);
     }
     return OK;
-    
 
 }
 
-static 
-void entite_deplacement(entite_t * ent){
-    
-}
 
-static 
-int mur_a_gauche(entite_t * ent){
-    int i,j;
-    for(i=-ent->h/2; ent->pos.x + i <0;i++);
-    for(;i < ent->h/2 && ent->pos.x+i<CHUNKH;i++){
-        for(j=-ent->w/2; ent->pos.y + j <0;j++);
-        if(ent->pos.y+j>1)
-            j--;
-        for(;j<0;j++){
-            if(est_obstacle(ent->chunk->chunk[(int)ent->pos.x+i][(int)ent->pos.y+j]->contenu,GAUCHE)){
-                return GAUCHE;
+pos_t mur_a_gauche(entite_t * ent){
+    int i,j, add=0;
+    pos_t pos_mur={-1,-1};
+    for(i=0;i < ent->h/2-1 && i > -ent->h/2 && ent->pos.x+i<CHUNKH;i=-(i+add%2),add++){
+        for(j=1;ent->pos.y+j>1 && j>-ent->w/2;j--){
+            if(est_obstacle(ent->chunk->chunk[(int)ent->pos.x+i][(int)ent->pos.y+j-1]->contenu,GAUCHE)){
+                pos_mur.x=(int)ent->pos.x+i;
+                pos_mur.y=(int)ent->pos.y+j;
+                break;
             }
         }
+        if(pos_mur.x!=-1)
+            break;
     }
-    return 0;
+    /*
+    for(i=0;i < ent->h/2-1 && i > -ent->h/2 && ent->pos.x+i<CHUNKH;i=-(i+add%2),add++){
+    */
+    return pos_mur;
 }
 
-static 
-int mur_a_droite(entite_t * ent){
-    int i,j;
-    for(i=-ent->h/2; ent->pos.x + i <0;i++);
-    for(;i < ent->h/2 && ent->pos.x+i<CHUNKH;i++){
-        for(j=ent->w/2; ent->pos.y + j >=CHUNKW;j--);
-        if(ent->pos.y+j<CHUNKW-1)
-            j++;
-        for(;j>0;j--){
-            if(est_obstacle(ent->chunk->chunk[(int)ent->pos.x+i][(int)ent->pos.y+j]->contenu,DROITE)){
-                return DROITE;
+
+booleen_t est_dans_mur (entite_t * ent){
+
+}
+
+pos_t mur_a_droite(entite_t * ent){
+    int i,j, add=0;
+    pos_t pos_mur={-1,-1};
+    for(i=0;i < ent->h/2-1 && i > -ent->h/2 && ent->pos.x+i<CHUNKH;i=-(i+add%2),add++){
+        for(j=0;ent->pos.y+j<CHUNKW-1 && j<ent->w/2;j++){
+            if(est_obstacle(ent->chunk->chunk[(int)ent->pos.x+i][(int)ent->pos.y+j+1]->contenu,DROITE)){
+                pos_mur.x=(int)ent->pos.x+i;
+                pos_mur.y=(int)ent->pos.y+j+1;
+                break;
             }
         }
+    /*
+    for(i=0;i < ent->h/2-1 && i > -ent->h/2 && ent->pos.x+i<CHUNKH;i=-(i+add%2),add++){
+    */
+        if(pos_mur.x!=-1)
+            break;
     }
-    return 0;
+    return pos_mur;
 }
 
-static 
-int mur_en_haut(entite_t * ent){
-    int i,j;
-    for(j=-ent->w/2; ent->pos.y + j <0;j++);
-    for(;j < ent->w/2 && ent->pos.y+j<CHUNKW;j++){
-        for(i=-ent->h/2; ent->pos.x + i <0;i++);
-        if(ent->pos.x+i>1)
-            i--;
-        for(;i>0;i++){
+
+pos_t mur_en_haut(entite_t * ent){
+    int i,j, add=0;
+    pos_t pos_mur={-1,-1};
+    for(j=0;j < ent->w/2-1 && j > -ent->w/2 && ent->pos.x+j<CHUNKH;j=-(j+add%2),add++){
+        for(i=0;i>-ent->h/2 && ent->pos.x+i > 0;i--){
             if(est_obstacle(ent->chunk->chunk[(int)ent->pos.x+i][(int)ent->pos.y+j]->contenu,HAUT)){
-                return HAUT;
+                pos_mur.x=(int)ent->pos.x+i+1;
+                pos_mur.y=(int)ent->pos.y+j;
+                break;
             }
         }
+        if(pos_mur.x!=-1)
+            break;
     }
-    return 0;
+    /*
+    for(j=0;j < ent->w/2-1 && j > -ent->w/2 && ent->pos.x+j<CHUNKH;j=-(j+add%2),add++){
+    */
+    return pos_mur;
+}
+
+
+pos_t mur_en_bas(entite_t * ent){
+    int i,j, add=0;
+    pos_t pos_mur={-1,-1};
+    for(j=0;j < ent->w/2-1 && j > -ent->w/2 && ent->pos.x+j<CHUNKH;j=-(j+add%2),add++){
+        for(i=0;i<ent->h/2 && ent->pos.x+i < CHUNKH;i++){
+            if(est_obstacle(ent->chunk->chunk[(int)ent->pos.x+i][(int)ent->pos.y+j]->contenu,HAUT)){
+                pos_mur.x=(int)ent->pos.x+i+1;
+                pos_mur.y=(int)ent->pos.y+j;
+                break;
+            }
+        }
+        if(pos_mur.x!=-1)
+            break;
+    }
+    return pos_mur;
 }
 
 static 
-int mur_en_bas(entite_t * ent){
-    int i,j;
-    for(j=-ent->w/2; ent->pos.y + j <0;j++);
-    for(;j < ent->w/2 && ent->pos.y+j<CHUNKW;j++){
-        for(i=ent->h/2; ent->pos.x + i >=CHUNKH;i--);
-        if(ent->pos.x+i<CHUNKH-1)
-            i++;
-        for(;i>0;i--){
-            if(est_obstacle(ent->chunk->chunk[(int)ent->pos.x+i][(int)ent->pos.y+j]->contenu,BAS)){
-                return BAS;
-            }
-        }
+booleen_t en_lair(entite_t * ent){
+    pos_t pos_mur;
+    pos_mur=mur_en_bas(ent);
+    return pos_mur.x==-1;
+}
+
+void replacer(entite_t * ent, pos_t pos_mur, int direction){
+    switch (direction){
+        case (DROITE):
+            ent->vitesse_y=0;
+            ent->pos.y=pos_mur.y-ent->w/2;
+            break;
+        case (BAS):
+            ent->pos.x=pos_mur.x-ent->h/2;
+            break;
+        case (GAUCHE):
+            ent->vitesse_y=0;
+            ent->pos.y=pos_mur.y+ent->w/2;
+            break;
+        case (HAUT):
+            ent->vitesse_x=0;
+            ent->pos.x=pos_mur.x+ent->h/2;
+            break;
     }
-    return 0;
 }
 
 static 
-int en_contact_obstacle(entite_t * ent){
-    int tot=RIEN;
-    tot+=mur_a_gauche(ent);
-    tot+=mur_a_droite(ent);
-    tot+=mur_en_bas(ent);
-    tot+=mur_en_haut(ent);
-    return tot;
+void entite_deplacement(entite_t * ent,double temps){
+    pos_t pos_mur,pos_mur_verif, pos_mur_double_verif,ent_pos_verif;
+    chunk_t * chunk;
+    booleen_t deja=FAUX;
+    int w,h;
+    float vitesse_tempo;
+    (ent->pos.x)+= (ent->vitesse_x)*temps;
+    (ent->pos.y)+= (ent->vitesse_y)*temps;
+    pos_mur=mur_en_bas(ent);
+    if(pos_mur.x!=-1){
+
+        /*ent_pos_verif=ent->pos;
+        replacer(ent,pos_mur,BAS);
+        pos_mur_verif=mur_a_droite(ent);
+        if(pos_mur_verif.x!=-1){
+            deja=VRAI;
+            ent->pos=ent_pos_verif;
+            pos_mur_double_verif=mur_en_haut(ent);
+            if(pos_mur_double_verif.x==1){
+                replacer(ent,pos_mur_verif,DROITE);
+            }
+            else {
+                replacer(ent,pos_mur_double_verif,HAUT);
+            }
+        }
+        replacer(ent,pos_mur,BAS);
+        pos_mur_verif=mur_a_gauche(ent);
+        if(pos_mur_verif.x!=-1){
+            deja=VRAI;
+            ent->pos=ent_pos_verif;
+            pos_mur_double_verif=mur_a_gauche(ent);
+            if(pos_mur_double_verif.x!=-1)
+                replacer(ent,pos_mur_verif,GAUCHE);
+        }
+        pos_mur=mur_en_bas(ent);
+        if(pos_mur.x!=-1){
+            replacer(ent,pos_mur,BAS);
+        }
+        if(!deja)
+            ent->vitesse_x=0;*/
+
+    }
     
+    pos_mur=mur_en_haut(ent);
+    if(pos_mur.x!=-1){
+        replacer(ent,pos_mur,HAUT);
+    }
+
+    pos_mur=mur_en_bas(ent);
+    if(pos_mur.x!=-1){
+        replacer(ent,pos_mur,BAS);
+    }
+
+    
+    
+    pos_mur=mur_a_gauche(ent);
+    if(pos_mur.x!=-1){
+        replacer(ent,pos_mur,GAUCHE);
+    }
+    
+    pos_mur=mur_a_droite(ent);
+    if(pos_mur.x!=-1){
+        replacer(ent,pos_mur,DROITE);
+    }
+    if(ent->en_l_air(ent)){
+        ent->vitesse_x+=GRAVITE*temps;
+    }
+    
+    
+
+    if(ent->pos.y>=CHUNKW){
+        printf("oui\n");
+        if((chunk=ent->salle->chercher_chunk(ent->salle,ent->chunk->position.x, ent->chunk->position.y+1))!=NULL){
+            ent->chunk=chunk;
+            ent->pos.y=ent->pos.y-CHUNKW;
+        }
+        else{
+            printf("Erreur de segmentation\n");
+            exit(1);
+        }
+    }
+    if(ent->pos.y<0){
+        if((chunk=ent->salle->chercher_chunk(ent->salle,ent->chunk->position.x, ent->chunk->position.y-1))!=NULL){
+            ent->chunk=chunk;
+            ent->pos.y=CHUNKW+ent->pos.y;
+        }
+        else{
+            printf("Erreur de segmentation\n");
+            exit(1);
+        }
+    }
+    if(ent->pos.x>=CHUNKH){
+        if((chunk=ent->salle->chercher_chunk(ent->salle,ent->chunk->position.x+1, ent->chunk->position.y))!=NULL){
+            ent->chunk=chunk;
+            ent->pos.x=ent->pos.x-CHUNKH;
+        }
+        else{
+            printf("Erreur de segmentation\n");
+            exit(1);
+        }
+    }
+    if(ent->pos.x<0){
+        if((chunk=ent->salle->chercher_chunk(ent->salle,ent->chunk->position.x-1, ent->chunk->position.y))!=NULL){
+            ent->chunk=chunk;
+            ent->pos.x=CHUNKH+ent->pos.y;
+        }
+        else{
+            printf("Erreur de segmentation\n");
+            exit(1);
+        }
+    }
 }
 
 static
@@ -204,7 +345,7 @@ entite_t * entite_creer(char * nom,
                         SDL_Texture ** textures,
                         chunk_t * chunk,
                         salle_t * salle,
-                        float vitesse_x,float vitesse_y)
+                        float vitesse_x, float vitesse_y ,float vitesse_max_y)
 {
     entite_t * entite=NULL;
     if (!(entite=malloc(sizeof(entite_t)))){
@@ -221,6 +362,7 @@ entite_t * entite_creer(char * nom,
     entite->nbTextures=nbTextures;
     entite->vitesse_x=vitesse_x;
     entite->vitesse_y=vitesse_y;
+    entite->vitesse_max_y=vitesse_max_y;
     entite->chunk=chunk;
     entite->salle=salle;
     entite->textures=textures;
@@ -230,7 +372,8 @@ entite_t * entite_creer(char * nom,
     entite->lire=entite_lire;
     entite->afficher_chunk=afficher_dans_chunk;
     entite->afficher_fenetre=afficher_dans_fenetre;
-    entite->contact_obstacle=en_contact_obstacle;
+    entite->deplacer=entite_deplacement;
+    entite->en_l_air=en_lair;
 
     if((entite->nom = str_creer_copier(nom))==NULL){
         printf("Le nom %s n'a pas pu etre attribué\n",nom);
