@@ -40,20 +40,40 @@ void perso_animer( perso_t * const personnage ){
 
 }
 
+extern 
+int fait_partie_bin (int tot_bin, int nombre_puis_2){
+	return (tot_bin & nombre_puis_2);
+}
+
+static
+float val_absol(float n){
+	return (n>=0 ? n: -n);
+}
+
 static 
-void input_update_speed (perso_t * perso, int touche){
-	switch (touche){
-		case (SDLK_q):
-			perso->vitesse_y=-perso->vitesse_max_y; break;
-		case (SDLK_d):
-			perso->vitesse_y=perso->vitesse_max_y; break;
-		case (SDLK_SPACE):
-			if(!perso->en_l_air((entite_t*)perso))
-				perso->vitesse_x=-perso->vitesse_saut; 
-			break;
-		default:
+void input_update_speed (perso_t * perso, int tot_touche, float temps){
+	float vit_tempo;
+	if(fait_partie_bin(tot_touche,KEY_JUMP) && !perso->en_l_air((entite_t*)perso)){
+		perso->vitesse_x=-perso->vitesse_saut;
+	}
+	else if(!fait_partie_bin(tot_touche, KEY_LEFT)  && !fait_partie_bin(tot_touche, KEY_RIGHT)){
+		vit_tempo=val_absol(perso->vitesse_y);
+		printf("%f\n" , perso->vitesse_y);
+		perso->vitesse_y= perso->vitesse_y -  DECEL* temps * (perso->vitesse_y>0 ? 1 : -1)  ;
+		printf("%f\n\n\n" , perso->vitesse_y);
+		if(vit_tempo<val_absol(perso->vitesse_y))
 			perso->vitesse_y=0;
 	}
+	if(fait_partie_bin(tot_touche, KEY_LEFT) && fait_partie_bin(tot_touche, KEY_RIGHT)){
+		perso->vitesse_y=0;
+	}
+	else if(fait_partie_bin(tot_touche, KEY_LEFT)){
+		perso->vitesse_y=-perso->vitesse_max_y;
+	}
+	else if(fait_partie_bin(tot_touche, KEY_RIGHT)){
+		perso->vitesse_y=perso->vitesse_max_y;
+	}
+	
 }
 
 static

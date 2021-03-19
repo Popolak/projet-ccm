@@ -63,9 +63,6 @@ pos_t mur_a_gauche(entite_t * ent){
         if(pos_mur.x!=-1)
             break;
     }
-    /*
-    for(i=0;i < ent->h/2-1 && i > -ent->h/2 && ent->pos.x+i<CHUNKH;i=-(i+add%2),add++){
-    */
     return pos_mur;
 }
 
@@ -85,9 +82,6 @@ pos_t mur_a_droite(entite_t * ent){
                 break;
             }
         }
-    /*
-    for(i=0;i < ent->h/2-1 && i > -ent->h/2 && ent->pos.x+i<CHUNKH;i=-(i+add%2),add++){
-    */
         if(pos_mur.x!=-1)
             break;
     }
@@ -98,7 +92,7 @@ pos_t mur_a_droite(entite_t * ent){
 pos_t mur_en_haut(entite_t * ent){
     int i,j, add=0;
     pos_t pos_mur={-1,-1};
-    for(j=0;j < ent->w/2-1 && j > -ent->w/2 && ent->pos.x+j<CHUNKH;j=-(j+add%2),add++){
+    for(j=0;j < ent->w/2-1 && j > -ent->w/2 && ent->pos.x+j<CHUNKW && ent->pos.x+j>0;j=-(j+add%2),add++){
         for(i=0;i>-ent->h/2 && ent->pos.x+i > 0;i--){
             if(est_obstacle(ent->chunk->chunk[(int)ent->pos.x+i][(int)ent->pos.y+j]->contenu,HAUT)){
                 pos_mur.x=(int)ent->pos.x+i+1;
@@ -109,9 +103,6 @@ pos_t mur_en_haut(entite_t * ent){
         if(pos_mur.x!=-1)
             break;
     }
-    /*
-    for(j=0;j < ent->w/2-1 && j > -ent->w/2 && ent->pos.x+j<CHUNKH;j=-(j+add%2),add++){
-    */
     return pos_mur;
 }
 
@@ -119,7 +110,7 @@ pos_t mur_en_haut(entite_t * ent){
 pos_t mur_en_bas(entite_t * ent){
     int i,j, add=0;
     pos_t pos_mur={-1,-1};
-    for(j=0;j < ent->w/2-1 && j > -ent->w/2 && ent->pos.x+j<CHUNKH;j=-(j+add%2),add++){
+    for(j=0;j < ent->w/2-1 && j > -ent->w/2 && ent->pos.x+j<CHUNKW && ent->pos.x+j>0;j=-(j+add%2),add++){
         for(i=0;i<ent->h/2 && ent->pos.x+i < CHUNKH;i++){
             if(est_obstacle(ent->chunk->chunk[(int)ent->pos.x+i][(int)ent->pos.y+j]->contenu,HAUT)){
                 pos_mur.x=(int)ent->pos.x+i+1;
@@ -147,6 +138,7 @@ void replacer(entite_t * ent, pos_t pos_mur, int direction){
             ent->pos.y=pos_mur.y-ent->w/2;
             break;
         case (BAS):
+            ent->vitesse_x=0;
             ent->pos.x=pos_mur.x-ent->h/2;
             break;
         case (GAUCHE):
@@ -160,6 +152,8 @@ void replacer(entite_t * ent, pos_t pos_mur, int direction){
     }
 }
 
+
+
 static 
 void entite_deplacement(entite_t * ent,double temps){
     pos_t pos_mur,pos_mur_verif, pos_mur_double_verif,ent_pos_verif;
@@ -167,55 +161,8 @@ void entite_deplacement(entite_t * ent,double temps){
     booleen_t deja=FAUX;
     int w,h;
     float vitesse_tempo;
-    (ent->pos.x)+= (ent->vitesse_x)*temps;
     (ent->pos.y)+= (ent->vitesse_y)*temps;
-    pos_mur=mur_en_bas(ent);
-    if(pos_mur.x!=-1){
 
-        /*ent_pos_verif=ent->pos;
-        replacer(ent,pos_mur,BAS);
-        pos_mur_verif=mur_a_droite(ent);
-        if(pos_mur_verif.x!=-1){
-            deja=VRAI;
-            ent->pos=ent_pos_verif;
-            pos_mur_double_verif=mur_en_haut(ent);
-            if(pos_mur_double_verif.x==1){
-                replacer(ent,pos_mur_verif,DROITE);
-            }
-            else {
-                replacer(ent,pos_mur_double_verif,HAUT);
-            }
-        }
-        replacer(ent,pos_mur,BAS);
-        pos_mur_verif=mur_a_gauche(ent);
-        if(pos_mur_verif.x!=-1){
-            deja=VRAI;
-            ent->pos=ent_pos_verif;
-            pos_mur_double_verif=mur_a_gauche(ent);
-            if(pos_mur_double_verif.x!=-1)
-                replacer(ent,pos_mur_verif,GAUCHE);
-        }
-        pos_mur=mur_en_bas(ent);
-        if(pos_mur.x!=-1){
-            replacer(ent,pos_mur,BAS);
-        }
-        if(!deja)
-            ent->vitesse_x=0;*/
-
-    }
-    
-    pos_mur=mur_en_haut(ent);
-    if(pos_mur.x!=-1){
-        replacer(ent,pos_mur,HAUT);
-    }
-
-    pos_mur=mur_en_bas(ent);
-    if(pos_mur.x!=-1){
-        replacer(ent,pos_mur,BAS);
-    }
-
-    
-    
     pos_mur=mur_a_gauche(ent);
     if(pos_mur.x!=-1){
         replacer(ent,pos_mur,GAUCHE);
@@ -225,14 +172,25 @@ void entite_deplacement(entite_t * ent,double temps){
     if(pos_mur.x!=-1){
         replacer(ent,pos_mur,DROITE);
     }
+
+
+    (ent->pos.x)+= (ent->vitesse_x)*temps;
+
+    pos_mur=mur_en_bas(ent);
+    if(pos_mur.x!=-1){
+        replacer(ent,pos_mur,BAS);
+    }
+
+    pos_mur=mur_en_haut(ent);
+    if(pos_mur.x!=-1 ){
+        replacer(ent,pos_mur,HAUT);
+    }
+    
     if(ent->en_l_air(ent)){
         ent->vitesse_x+=GRAVITE*temps;
     }
-    
-    
 
     if(ent->pos.y>=CHUNKW){
-        printf("oui\n");
         if((chunk=ent->salle->chercher_chunk(ent->salle,ent->chunk->position.x, ent->chunk->position.y+1))!=NULL){
             ent->chunk=chunk;
             ent->pos.y=ent->pos.y-CHUNKW;
@@ -288,9 +246,6 @@ booleen_t en_contact(entite_t * ent_courante, entite_t * ent_a_verif){
         return VRAI;
     return FAUX;
 }
-
-
-
 
 extern 
 char * str_creer_copier( char * chaine_src){
@@ -353,7 +308,7 @@ entite_t * entite_creer(char * nom,
         return  NULL;
     }
 
-    entite->en_vie=VRAI;
+    entite->envie=VRAI;
     entite->pos=pos;
     entite->w=w;
     entite->h=h;

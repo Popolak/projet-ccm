@@ -22,12 +22,12 @@ int main(){
 	}
 	printf("%s\n", salade_test->nom);
 	
-	while(salade_test->en_vie){
+	while(salade_test->envie){
         printf("test prise d'un coup pv = %i\n", salade_test->vie);
     	salade_test->prendre_coup(salade_test, 10);
         printf("pv = %i\n",salade_test->vie);
 		if(salade_test->vie <= 0)
-			salade_test->en_vie=FAUX;
+			salade_test->envie=FAUX;
 	}
 	printf("le perso est mort\n");
 	if(perso_existe(salade_test)){

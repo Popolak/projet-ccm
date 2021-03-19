@@ -14,7 +14,7 @@ void creation(perso_t * tomate, perso_t  * carotte, perso_t * viande,chunk_t chu
 	position.x = 50;
 	position.y = 50;
 
-	tomate = perso_creer("tomate", 50, 10, &position, "tomate.png", 10,1,5, chunk_dep, salle_dep);
+	tomate = perso_creer("tomate",50, 10, &position, "tomate.png", 10,1,5, chunk_dep, salle_dep);
 	carotte = perso_creer("carotte", 50, 10, &position, "carotte.png", 10, 5, chunk_dep, salle_dep);
 	viande = perso_creer("viande", 50, 10, &position, "viande.png", 10, 5, chunk_dep, salle_dep);
 }

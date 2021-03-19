@@ -14,7 +14,7 @@ int main(){
     perso_t *Tom=NULL;
     SDL_Window * win=NULL;
     SDL_Renderer * ren=NULL;
-    pos_t pos={CHUNKH-CHUNKH*ratioSol-40,TAILLE_MUR+80};
+    pos_t pos={300,200};
     float sec,secAvant, secMaint;
     if(SDL_Init(SDL_INIT_VIDEO)<0){
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Erreur : %s", SDL_GetError());
@@ -42,8 +42,8 @@ int main(){
     SDL_Texture * murTexture=creer_texture_image(ren, "../../../graphics/texture/room_textures/texture_mur.bmp");
     SDL_Texture * joueurTexture=creer_texture_image(ren,"../../../graphics/sprite/personnage_sprites/Tom neutre.png");
     Tom=perso_creer("Tom","tomate",20,pos,60,80,60,80,1,&joueurTexture,0,0,700,200,0,0,cam.chunk,cam.salle);
-    Tom->pos.x=CHUNKH-CHUNKH*ratioSol-Tom->h/2;
-    Tom->pos.x=200; //
+    Tom->pos.x=300;
+    Tom->pos.y=200; 
     if(bgTexture==NULL || murTexture==NULL || joueurTexture==NULL){
         printf("La création de la texture a échouée\n");
         SDL_DestroyTexture(murTexture);
@@ -56,15 +56,17 @@ int main(){
     }
     cam.chunk->lire_partiel(cam.chunk,CHUNKH-CHUNKH*ratioSol-1,100,CHUNKH*ratioSol,30);
     secAvant= 1.0*SDL_GetTicks()/1000;
-    int q=SDLK_q,d=SDLK_d, tot=0;
+    int tot_key=0;
 
 
-    printf("%f %f\n",Tom->pos.x, Tom->pos.y);
+    
     while(run){
         secMaint=1.0*SDL_GetTicks()/1000;
         sec=secMaint-secAvant;
         secAvant=secMaint;
-        Tom->deplacer((entite_t *)Tom,sec);
+        if(sec>0.001)
+            Tom->deplacer((entite_t *)Tom,sec);
+        
         while(SDL_PollEvent(&events)){
             switch (events.type)
             {
@@ -77,29 +79,39 @@ int main(){
 
                 if (events.key.keysym.sym == SDLK_q){ // Regarde si le scancode W est enfoncé (Z sous un azerty)
                     SDL_Log("Q\n"); // Affiche un message
-                    tot=q;
+                    tot_key = tot_key | KEY_LEFT;
                 }
                 if (events.key.keysym.sym == SDLK_d){ // Regarde si le scancode W est enfoncé (Z sous un azerty)
                     SDL_Log("D\n"); // Affiche un message
-                    tot=d;
+                    tot_key= tot_key | KEY_RIGHT;
                 }
                 if (events.key.keysym.sym == SDLK_SPACE){ // Regarde si le scancode W est enfoncé (Z sous un azerty)
                     SDL_Log("D\n"); // Affiche un message
-                    tot=SDLK_SPACE;
+                    tot_key = tot_key | KEY_JUMP;
                 }
 
                 break;
             case SDL_KEYUP:// Un événement de type touche relâchée
-                SDL_Log("-key");
-                break;
+                SDL_Log("-key");  // Affiche un message +key (pour dire qu'on appuie sur une touche du clavier)
+
+                if (events.key.keysym.sym == SDLK_q){ // Regarde si le scancode W est enfoncé (Z sous un azerty)
+                    SDL_Log("Q\n"); // Affiche un message
+                    tot_key = tot_key ^ KEY_LEFT;
+                }
+                if (events.key.keysym.sym == SDLK_d){ // Regarde si le scancode W est enfoncé (Z sous un azerty)
+                    SDL_Log("D\n"); // Affiche un message
+                    tot_key= tot_key ^ KEY_RIGHT;
+                }
+                if (events.key.keysym.sym == SDLK_SPACE){ // Regarde si le scancode W est enfoncé (Z sous un azerty)
+                    SDL_Log("D\n"); // Affiche un message
+                    tot_key= tot_key ^ KEY_JUMP;
+                }
             }
         }
-        Tom->update_speed(Tom, tot);
-        //printf("%f\n", Tom->acceleration_y);
+        Tom->update_speed(Tom, tot_key,sec);
         SDL_RenderClear(ren);
         SDL_RenderCopy(ren,bgTexture,NULL,NULL);
         Tom->afficher_chunk(ren,(entite_t*)Tom,WINH,WINW);
-        
         if(render_mur_chunk(ren,murTexture,&cam,WINW,WINH )==ERR_DEB_MEMOIRE){
             Tom->detruire(&Tom);
             niv->detruire(&niv);

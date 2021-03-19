@@ -6,7 +6,7 @@
 #include "../../SDL/include/SDL.h"
 #include "../niveaux/salle.h"
 
-#define GRAVITE CHUNKH*2
+#define GRAVITE CHUNKH*5
 
 
 typedef struct entite_s{
@@ -41,6 +41,6 @@ extern
 booleen_t appartient_a_dir(int dir, int recherche);
 
 extern
-pos_t pos_proche_mur(entite_t * ent);
+pos_t pos_proche_mur(entite_t * ent, pos_t pos_mur);
 
 #endif

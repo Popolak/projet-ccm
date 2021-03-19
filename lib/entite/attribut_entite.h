@@ -11,4 +11,4 @@ chunk_t * chunk;
 salle_t * salle;
 float vitesse_x,vitesse_y;
 float vitesse_max_y;
-booleen_t en_vie;
+booleen_t envie;
