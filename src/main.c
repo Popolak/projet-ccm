@@ -4,12 +4,54 @@
 #include "../lib/entite/joueur.h"
 #include "../lib/entite/entite.h"
 #include "../SDL/include/SDL.h"
+#include
 #include "../lib/commun.h"
 
 SDL_Event events; 
 
-void menu(){//menu d'accueil du jeu
+void menu_accueil(){//menu d'accueil du jeu
 
+	
+
+	SDL_Surface *ecran =NULL;
+	SDL_Surface *menu[3] =NULL;
+
+	SDL_Rect positionMenu;
+
+	int continuer = 1;
+	int = 0;
+
+	SDL_Init(SDL_INIT_VIDEO);
+
+		ecran = SDL_SetVideoMode(1920,1080,32, SDL_HWSURFACE | SDL_DOUBLEBUF);
+		SDL_WM_SetCaption("Roguelike", NULL);
+
+	menu[0] = IMG_Load("../graphics/menu/menu.png");
+	menu[1] = IMG_Load("../graphics/menu/jouer.png");
+	menu[2] = IMG_Load("../graphics/menu/quit.png");
+
+
+	positionMenu.x=0
+	positionMenu.y=0;
+
+	while(continuer){
+
+		SDL_WaitEvent(&event);
+		switch(event.type){
+			case SDL_QUIT:
+				continuer = 0; break;
+			default :
+				switch(events.key.keysym.sym){
+					case SDLK_s: 
+					
+
+
+			}
+		}
+		SDL_BlitSurface(menu[0], NULL,ecran,&positionMenu);
+		SDL_flip(ecran);
+	}
+	SDL_FreeSurface(menu;)
 
 }
 
@@ -37,7 +79,13 @@ int main(int argc, char* argv[]){
 	int i = 0;
 
 
-	menu();
+	menu_accueil();
+
+	/*
+	//
+	// Initialisation SDL
+	// Ouverture fenêtre de jeu
+	*/
 
 	while((en_vie(tomate) && en_vie(carotte)) && en_vie(viande)){//boucle de gameplay
 
