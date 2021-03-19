@@ -7,19 +7,22 @@
 #include
 #include "../lib/commun.h"
 
-SDL_Event events; 
+SDL_Event event; 
 
 void menu_accueil(){//menu d'accueil du jeu
 
 	
-
+	//création de tout les potentielles surfaces
 	SDL_Surface *ecran =NULL;
+	SDL_Surface *affichage =NULL;
 	SDL_Surface *menu[3] =NULL;
+	SDL_Surface *jouer =NULL;
+	SDL_Surface *quit =NULL;
 
 	SDL_Rect positionMenu;
 
 	int continuer = 1;
-	int = 0;
+	int i = 0;
 
 	SDL_Init(SDL_INIT_VIDEO);
 
@@ -30,29 +33,38 @@ void menu_accueil(){//menu d'accueil du jeu
 	menu[1] = IMG_Load("../graphics/menu/jouer.png");
 	menu[2] = IMG_Load("../graphics/menu/quit.png");
 
+	affichage = menu[0];
 
 	positionMenu.x=0
 	positionMenu.y=0;
 
 	while(continuer){
 
+		//contrôle par clavier
 		SDL_WaitEvent(&event);
-		switch(event.type){
-			case SDL_QUIT:
-				continuer = 0; break;
-			default :
-				switch(events.key.keysym.sym){
-					case SDLK_s: 
-					
-
-
-			}
+		switch(events.key.keysym.sym){
+			case SDLK_s: 
+				affichage = menu[++i];break;
+			case SDLK_z:
+				affichage = menu[--i];break;
+			case SDLK_SPACE:
+				if(affichage == jouer){
+					continuer = 0;
+					break;
+				}
+				else if(affichage == quit){	
+				SDL_FreeSurface(menu); 
+				SDL_QUIT(); 
+				exit(1); 
+				}
+			default: break;
 		}
-		SDL_BlitSurface(menu[0], NULL,ecran,&positionMenu);
+		//affichage et raffraichissement
+		SDL_BlitSurface(affichage, NULL,ecran,&positionMenu);
 		SDL_flip(ecran);
 	}
-	SDL_FreeSurface(menu;)
-
+	SDL_FreeSurface(menu);
+	SDL_QUIT();
 }
 
 int main(int argc, char* argv[]){
@@ -78,8 +90,7 @@ int main(int argc, char* argv[]){
 
 	int i = 0;
 
-
-	menu_accueil();
+	menu_accueil(); //le menu se contrôle avec S,Z et espace
 
 	/*
 	//
