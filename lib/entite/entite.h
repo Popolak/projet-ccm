@@ -3,7 +3,7 @@
 
 
 #include "../commun.h"
-#include "SDL2/SDL.h"
+#include "../../SDL/include/SDL.h"
 #include "../niveaux/salle.h"
 
 #define GRAVITE CHUNKH*2
