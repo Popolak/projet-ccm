@@ -60,12 +60,12 @@ void input_update_speed (perso_t * perso, int tot_touche, float temps){
 		vit_tempo=val_absol(perso->vitesse_y);
 		
 		if(!perso->en_l_air((entite_t*)perso))
-			perso->vitesse_y= perso->vitesse_y -  DECEL*3* temps * (perso->vitesse_y>0 ? 1 : -1)  ;
+			perso->vitesse_y= perso->vitesse_y -  DECEL*5* temps * (perso->vitesse_y>0 ? 1 : -1)  ;
 
 		else
 			perso->vitesse_y= perso->vitesse_y -  DECEL*temps * (perso->vitesse_y>0 ? 1 : -1)  ;
 
-		if(vit_tempo<val_absol(perso->vitesse_y))
+		if(perso->vitesse_y > 0 && perso->dir == GAUCHE || perso->vitesse_y < 0 && perso->dir == DROITE)
 			perso->vitesse_y=0;
 	}
 	if(fait_partie_bin(tot_touche, KEY_LEFT) && fait_partie_bin(tot_touche, KEY_RIGHT)){

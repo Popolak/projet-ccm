@@ -5,7 +5,7 @@ void (*deplacer)(struct entite_s * ent,double temps);
 booleen_t (*en_l_air)(struct entite_s * ent);
 char * nom, *description;
 pos_t pos;
-int w,h,w_hitbox,h_hitbox, nbTextures;
+int dir,w,h,w_hitbox,h_hitbox, nbTextures;
 SDL_Texture ** textures;
 chunk_t * chunk;
 salle_t * salle;

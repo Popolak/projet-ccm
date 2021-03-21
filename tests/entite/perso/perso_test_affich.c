@@ -41,7 +41,7 @@ int main(){
     SDL_Texture * bgTexture=creer_texture_image(ren,"../../../graphics/texture/room_textures/fond haricot.png");
     SDL_Texture * murTexture=creer_texture_image(ren, "../../../graphics/texture/room_textures/texture_mur.bmp");
     SDL_Texture * joueurTexture=creer_texture_image(ren,"../../../graphics/sprite/personnage_sprites/Tom neutre.png");
-    Tom=perso_creer("Tom","tomate",20,pos,60,80,60,80,1,&joueurTexture,0,0,700,200,0,0,cam.chunk,cam.salle);
+    Tom=perso_creer("Tom","tomate",20,pos,60,80,60,80,1,&joueurTexture,0,0,700,400,0,0,cam.chunk,cam.salle);
     Tom->pos.x=300;
     Tom->pos.y=200; 
     if(bgTexture==NULL || murTexture==NULL || joueurTexture==NULL){
@@ -61,6 +61,7 @@ int main(){
 
     
     while(run){
+        printf("%f\n", Tom->vitesse_y);
         secMaint=1.0*SDL_GetTicks()/1000;
         sec=secMaint-secAvant;
         secAvant=secMaint;

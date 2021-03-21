@@ -30,6 +30,8 @@ static err_t afficher_dans_chunk(SDL_Renderer *ren,entite_t *entite,int WINH,int
 static err_t afficher_dans_fenetre(SDL_Renderer * ren,entite_t * entite, int w, int h, int x, int y, SDL_Texture * texture){
     float ratioTaille;
     SDL_Rect src,dst;
+    SDL_Point centre;
+    SDL_RendererFlip flip = entite->dir == DROITE ?  (SDL_RendererFlip)SDL_FLIP_NONE : (SDL_RendererFlip)SDL_FLIP_HORIZONTAL;
     if(!texture){
         printf("Pas de textures donnée pour l'entité : %s\n",entite->nom);
         return PAS_DALLOC;
@@ -41,8 +43,10 @@ static err_t afficher_dans_fenetre(SDL_Renderer * ren,entite_t * entite, int w, 
     dst.x=y-w/2;
     dst.y=x-h/2;
     SDL_QueryTexture(texture,NULL,NULL,&(src.w),&(src.h));
+    centre.x=src.w/2;
+    centre.y=src.h/2;
     if(x>=0 && y>=0){
-        SDL_RenderCopy(ren,texture,&src,&dst);
+        SDL_RenderCopyEx(ren,texture,&src,&dst,0,&centre,flip);
     }
     return OK;
 
@@ -190,6 +194,11 @@ void entite_deplacement(entite_t * ent,double temps){
         ent->vitesse_x+=GRAVITE*temps;
     }
 
+    if(ent->vitesse_y > 0)
+        ent->dir=DROITE;
+   else if(ent->vitesse_y < 0)
+        ent->dir=GAUCHE;
+
     if(ent->pos.y>=CHUNKW){
         if((chunk=ent->salle->chercher_chunk(ent->salle,ent->chunk->position.x, ent->chunk->position.y+1))!=NULL){
             ent->chunk=chunk;
@@ -321,7 +330,7 @@ entite_t * entite_creer(char * nom,
     entite->chunk=chunk;
     entite->salle=salle;
     entite->textures=textures;
-
+    entite->dir= vitesse_y >= 0 ? DROITE : GAUCHE;
 
     entite->detruire=entite_detruire;
     entite->lire=entite_lire;
