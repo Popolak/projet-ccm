@@ -56,7 +56,7 @@ void input_update_speed (perso_t * perso, int tot_touche, float temps){
 	if(fait_partie_bin(tot_touche,KEY_JUMP) && !perso->en_l_air((entite_t*)perso)){
 		perso->vitesse_x=-perso->vitesse_saut;
 	}
-	else if(!fait_partie_bin(tot_touche, KEY_LEFT)  && !fait_partie_bin(tot_touche, KEY_RIGHT)){
+	else if(!fait_partie_bin(tot_touche, KEY_LEFT)  && !fait_partie_bin(tot_touche, KEY_RIGHT) && perso->vitesse_y !=0){
 		vit_tempo=val_absol(perso->vitesse_y);
 		
 		if(!perso->en_l_air((entite_t*)perso))
