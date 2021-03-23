@@ -239,6 +239,17 @@ void entite_deplacement(entite_t * ent,double temps){
             exit(1);
         }
     }
+
+    if(ent->vitesse_y){
+        if(!ent->en_l_air(ent))
+            ent->vitesse_y= ent->vitesse_y -  DECEL*COEFF_DECEL_SOL* temps * (ent->vitesse_y>0 ? 1 : -1)  ;
+
+        else
+            ent->vitesse_y= ent->vitesse_y -  DECEL*temps * (ent->vitesse_y>0 ? 1 : -1)  ;
+
+        if(ent->vitesse_y > 0 && ent->dir == GAUCHE || ent->vitesse_y < 0 && ent->dir == DROITE)
+            ent->vitesse_y=0;
+    }
 }
 
 static

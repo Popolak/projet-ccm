@@ -6,8 +6,15 @@
 #include "../../SDL/include/SDL.h"
 #include "../niveaux/salle.h"
 
-#define GRAVITE CHUNKH*7
+/* Constantes */
 
+#define GRAVITE CHUNKH*7   //Valeur de la gravité (changera surement encore quelques fois)
+
+#define DECEL 500	//Décélération des éntités lorsqu'elles sont en l'air 
+
+#define COEFF_DECEL_SOL 5
+
+/* Structures */
 
 typedef struct entite_s{
     err_t (*detruire)(struct entite_s ** );
