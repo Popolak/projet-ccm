@@ -302,14 +302,14 @@ booleen_t entite_existe(entite_t * ent){
 extern 
 entite_t * entite_creer(char * nom, 
                         char *description,
+                        salle_t * salle,
+                        chunk_t * chunk,
                         pos_t pos,
+                        float vitesse_x, float vitesse_y, float vitesse_max_y,
                         int w, int h, 
                         int w_hitbox, int h_hitbox, 
                         int nbTextures,
-                        SDL_Texture ** textures,
-                        chunk_t * chunk,
-                        salle_t * salle,
-                        float vitesse_x, float vitesse_y ,float vitesse_max_y)
+                        SDL_Texture ** textures)
 {
     entite_t * entite=NULL;
     if (!(entite=malloc(sizeof(entite_t)))){

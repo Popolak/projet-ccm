@@ -16,7 +16,7 @@ static
 err_t perso_detruire( perso_t ** personnage){ //ré-alloue l'espace donné au personnage, meme après la mort d'un personnage on peut garder cet espace 
 	pos_t pos={0,0};
 	entite_t * ent=NULL;
-	entite_t * ent2=entite_creer("oui","oui",pos,0,0,0,0,0,NULL,NULL,NULL,0,0,0);
+	entite_t * ent2=entite_creer("","",NULL,NULL,pos,0,0,0,0,0,0,0,0,NULL);
 	if(!(*personnage))
 		return OK;
 	ent=realloc((entite_t*)(*personnage),sizeof(entite_t));
@@ -96,17 +96,21 @@ booleen_t en_vie(perso_t * personnage){
 }
 
 extern
-perso_t * perso_creer(char * nom, char * desc,
+perso_t * perso_creer(char * nom, 
+					 char *description,
 					 int vie,
-					 pos_t position,
-					 int w, int h, int w_hitbox, int h_hitbox,
-					 int nbTextures,SDL_Texture ** textures,
-					 float vitesse_x, float vitesse_y, float vitesse_saut,float vitesse_max_y,
-					 float vit_attack, int degats, 
-					 chunk_t *chunk, salle_t * salle)
+					 salle_t * salle,
+					 chunk_t * chunk,
+					 pos_t pos,
+					 float vitesse_x, float vitesse_y, float vitesse_max_y,float vitesse_saut,
+				     int w, int h, 
+					 int w_hitbox, int h_hitbox,
+					 float vit_attack, int degats,
+					 int nbTextures,
+					 SDL_Texture ** textures)
 {
 	perso_t * personnage = NULL;
-	if ((personnage=(perso_t*)entite_creer(nom,desc,position,w,h,w_hitbox,h_hitbox,nbTextures,textures,chunk,salle,vitesse_x,vitesse_y,vitesse_max_y))==NULL){
+	if ((personnage=(perso_t*)entite_creer(nom,description,salle,chunk,pos,vitesse_x,vitesse_y,vitesse_max_y,w,h,w_hitbox,h_hitbox,nbTextures,textures))==NULL){
 		return NULL;
 	}
 	personnage=realloc(personnage,sizeof(perso_t));
