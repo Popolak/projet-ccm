@@ -22,6 +22,8 @@ typedef struct entite_s{
 }entite_t;
 
 
+/* Fonctions */
+
 extern 
 entite_t * entite_creer(char * nom, 
                         char *description,

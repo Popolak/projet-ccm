@@ -42,7 +42,10 @@ SDL_Texture * creer_texture_image( SDL_Renderer * ren,char * nom_image){
         SDL_Renderer * ren le pointeur sur renderer
         SDL_Texture * texture_mur, la texture du mur créer au préalable
         camera_t * cam, pointeur sur la camera pour savoir quel chunk afficher
-        int WINW et int WINH hight et width de la fenetre 
+        int WINW et int WINH hight et width de la fenetre
+    retourne:
+        OK Si tout s'est bien passé
+    render tous les murs d'un chunk 
 */
 extern 
 err_t render_mur_chunk(SDL_Renderer * ren, SDL_Texture * texture_mur, camera_t * cam, int WINW, int WINH){

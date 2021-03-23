@@ -6,10 +6,12 @@
 
 /* Constantes */
 
-#define NO_KEYS 0
+#define NO_KEYS 0		//Touches pour le déplacement (changera peut etre de fichier)
 #define KEY_RIGHT 1
 #define KEY_LEFT 2
 #define KEY_JUMP 4
+
+/* Structure */
 
 typedef struct perso_s
 {
@@ -18,6 +20,7 @@ typedef struct perso_s
 	
 }perso_t;
 
+/* Fonctions */
 extern
 perso_t * perso_creer(char * nom, 
 					 char *description,

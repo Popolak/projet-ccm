@@ -66,7 +66,6 @@ int main(){
         secAvant=secMaint;
         if(sec>0.001)
             Tom->deplacer((entite_t *)Tom,sec);
-        
         while(SDL_PollEvent(&events)){
             switch (events.type)
             {
@@ -108,10 +107,12 @@ int main(){
                 }
             }
         }
+        
         Tom->update_speed(Tom, tot_key,sec);
         SDL_RenderClear(ren);
         SDL_RenderCopy(ren,bgTexture,NULL,NULL);
         Tom->afficher_chunk(ren,(entite_t*)Tom,WINH,WINW);
+        cam.chunk=Tom->chunk;
         if(render_mur_chunk(ren,murTexture,&cam,WINW,WINH )==ERR_DEB_MEMOIRE){
             Tom->detruire(&Tom);
             niv->detruire(&niv);

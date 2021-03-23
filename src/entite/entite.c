@@ -56,8 +56,8 @@ static err_t afficher_dans_fenetre(SDL_Renderer * ren,entite_t * entite, int w, 
 pos_t mur_a_gauche(entite_t * ent){
     int i,j, add=0;
     pos_t pos_mur={-1,-1};
-    for(i=0;i < ent->h/2-1 && i > -ent->h/2 && ent->pos.x+i<CHUNKH;i=-(i+add%2),add++){
-        for(j=1;ent->pos.y+j>1 && j>-ent->w/2;j--){
+    for(i=0;i < ent->h/2-1 && i > -ent->h/2 && (int)ent->pos.x+i<CHUNKH;i=-(i+add%2),add++){
+        for(j=1;(int)ent->pos.y+j>=1 && j>-ent->w/2  && (int)ent->pos.y+j <CHUNKW;j--){
             if(est_obstacle(ent->chunk->chunk[(int)ent->pos.x+i][(int)ent->pos.y+j-1]->contenu,GAUCHE)){
                 pos_mur.x=(int)ent->pos.x+i;
                 pos_mur.y=(int)ent->pos.y+j;
@@ -78,8 +78,8 @@ booleen_t est_dans_mur (entite_t * ent){
 pos_t mur_a_droite(entite_t * ent){
     int i,j, add=0;
     pos_t pos_mur={-1,-1};
-    for(i=0;i < ent->h/2-1 && i > -ent->h/2 && ent->pos.x+i<CHUNKH;i=-(i+add%2),add++){
-        for(j=0;ent->pos.y+j<CHUNKW-1 && j<ent->w/2;j++){
+    for(i=0;i < ent->h/2-1 && i > -ent->h/2 && (int)ent->pos.x+i<CHUNKH;i=-(i+add%2),add++){
+        for(j=1;(int)ent->pos.y+j<CHUNKW-1 && j<ent->w/2 && (int)ent->pos.y+j <CHUNKW;j++){
             if(est_obstacle(ent->chunk->chunk[(int)ent->pos.x+i][(int)ent->pos.y+j+1]->contenu,DROITE)){
                 pos_mur.x=(int)ent->pos.x+i;
                 pos_mur.y=(int)ent->pos.y+j+1;
@@ -96,8 +96,8 @@ pos_t mur_a_droite(entite_t * ent){
 pos_t mur_en_haut(entite_t * ent){
     int i,j, add=0;
     pos_t pos_mur={-1,-1};
-    for(j=0;j < ent->w/2-1 && j > -ent->w/2 && ent->pos.x+j<CHUNKW && ent->pos.x+j>0;j=-(j+add%2),add++){
-        for(i=0;i>-ent->h/2 && ent->pos.x+i > 0;i--){
+    for(j=0;j < ent->w/2-1 && j > -ent->w/2 && (int)ent->pos.y+j<CHUNKW && ent->pos.y+j>0;j=-(j+add%2),add++){
+        for(i=0;i>-ent->h/2 && (int)ent->pos.x+i > 0;i--){
             if(est_obstacle(ent->chunk->chunk[(int)ent->pos.x+i][(int)ent->pos.y+j]->contenu,HAUT)){
                 pos_mur.x=(int)ent->pos.x+i+1;
                 pos_mur.y=(int)ent->pos.y+j;
@@ -114,8 +114,8 @@ pos_t mur_en_haut(entite_t * ent){
 pos_t mur_en_bas(entite_t * ent){
     int i,j, add=0;
     pos_t pos_mur={-1,-1};
-    for(j=0;j < ent->w/2-1 && j > -ent->w/2 && ent->pos.x+j<CHUNKW && ent->pos.x+j>0;j=-(j+add%2),add++){
-        for(i=0;i<ent->h/2 && ent->pos.x+i < CHUNKH;i++){
+    for(j=0;j < ent->w/2-1 && j > -ent->w/2 && (int)ent->pos.y+j<CHUNKW && ent->pos.y+j>0;j=-(j+add%2),add++){
+        for(i=0;i<ent->h/2 && (int)ent->pos.x+i < CHUNKH;i++){
             if(est_obstacle(ent->chunk->chunk[(int)ent->pos.x+i][(int)ent->pos.y+j]->contenu,HAUT)){
                 pos_mur.x=(int)ent->pos.x+i+1;
                 pos_mur.y=(int)ent->pos.y+j;
@@ -177,9 +177,7 @@ void entite_deplacement(entite_t * ent,double temps){
         replacer(ent,pos_mur,DROITE);
     }
 
-
     (ent->pos.x)+= (ent->vitesse_x)*temps;
-
     pos_mur=mur_en_bas(ent);
     if(pos_mur.x!=-1){
         replacer(ent,pos_mur,BAS);
@@ -189,6 +187,7 @@ void entite_deplacement(entite_t * ent,double temps){
     if(pos_mur.x!=-1 ){
         replacer(ent,pos_mur,HAUT);
     }
+
     
     if(ent->en_l_air(ent)){
         ent->vitesse_x+=GRAVITE*temps;
@@ -196,16 +195,18 @@ void entite_deplacement(entite_t * ent,double temps){
 
     if(ent->vitesse_y > 0)
         ent->dir=DROITE;
-   else if(ent->vitesse_y < 0)
+    else if(ent->vitesse_y < 0)
         ent->dir=GAUCHE;
 
+    
+    
     if(ent->pos.y>=CHUNKW){
         if((chunk=ent->salle->chercher_chunk(ent->salle,ent->chunk->position.x, ent->chunk->position.y+1))!=NULL){
             ent->chunk=chunk;
             ent->pos.y=ent->pos.y-CHUNKW;
         }
         else{
-            printf("Erreur de segmentation\n");
+            printf("Erreur de segmentation, pas de chunk a droite\n");
             exit(1);
         }
     }
@@ -215,7 +216,7 @@ void entite_deplacement(entite_t * ent,double temps){
             ent->pos.y=CHUNKW+ent->pos.y;
         }
         else{
-            printf("Erreur de segmentation\n");
+            printf("Erreur de segmentation, pas de chunk a gauche\n");
             exit(1);
         }
     }
@@ -225,7 +226,7 @@ void entite_deplacement(entite_t * ent,double temps){
             ent->pos.x=ent->pos.x-CHUNKH;
         }
         else{
-            printf("Erreur de segmentation\n");
+            printf("Erreur de segmentation, pas de chunk en bas\n");
             exit(1);
         }
     }
@@ -235,7 +236,7 @@ void entite_deplacement(entite_t * ent,double temps){
             ent->pos.x=CHUNKH+ent->pos.y;
         }
         else{
-            printf("Erreur de segmentation\n");
+            printf("Erreur de segmentation,pas de chunk en haut\n");
             exit(1);
         }
     }
