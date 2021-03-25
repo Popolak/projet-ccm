@@ -40,12 +40,12 @@ int main(){
     SDL_Texture * bgTexture=creer_texture_image(ren,"../../../graphics/texture/room_textures/fond haricot.png");
     SDL_Texture * murTexture=creer_texture_image(ren, "../../../graphics/texture/room_textures/texture_mur.bmp");
     SDL_Texture * joueurTextures[POS_MOUV2+1];
-    joueurTextures[NEUTRE]=creer_texture_image(ren,"../../../graphics/sprite/personnage_sprites/Tom neutre.png");
+    joueurTextures[NEUTRE]=creer_texture_image(ren,"../../../graphics/sprite/personnage_sprites/Tom vrai neutre.png");
     joueurTextures[POS_MOUV1]=creer_texture_image(ren,"../../../graphics/sprite/personnage_sprites/Tom marche 1.png");
     joueurTextures[POS_MOUV2]=creer_texture_image(ren,"../../../graphics/sprite/personnage_sprites/Tom marche 2.png");
     SDL_Texture * entite_test_texture=creer_texture_image(ren,"../../../graphics/sprite/entite_sprites/test.png");
 
-    Tom=perso_creer("Tom","tomate",30,salle,chunk,pos,0,0,300,700,40,50,30,35,0.3,0,0,2,joueurTextures);
+    Tom=perso_creer("Tom","tomate",30,salle,chunk,pos,0,0,100,700,60,80,30,60,0.3,0,0,2,joueurTextures);
     entite_test=entite_creer("test","test",salle,chunk,pos2,200,-100,400,0.1,40,40,30,30,1,&entite_test_texture);
     if(bgTexture==NULL || murTexture==NULL || joueurTextures[0]==NULL || joueurTextures[1]==NULL || joueurTextures[2]==NULL){
         printf("La création de la texture a échouée\n");

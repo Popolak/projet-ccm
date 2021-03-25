@@ -102,8 +102,8 @@ void afficher_hitbox(SDL_Renderer * ren, entite_t * ent, int WINH, int WINW){
 
 static err_t afficher_dans_fenetre(SDL_Renderer * ren,entite_t * entite, int w, int h, int x, int y, SDL_Texture * texture){
     
-      
-    SDL_Rect src,dst;
+    float ratio;// ratio_width, ratio_height;
+    SDL_Rect src,dst, src_neutre;
     SDL_Point centre;
     SDL_RendererFlip flip = entite->dir == DROITE ?  (SDL_RendererFlip)SDL_FLIP_NONE : (SDL_RendererFlip)SDL_FLIP_HORIZONTAL;
     if(!texture){
@@ -112,6 +112,8 @@ static err_t afficher_dans_fenetre(SDL_Renderer * ren,entite_t * entite, int w, 
     }
     src.x=0;
     src.y=0;
+    src_neutre.x=0;
+    src_neutre.y=0;
     dst.h=h;
     dst.w=w;
     dst.x=y-w/2;
@@ -119,6 +121,10 @@ static err_t afficher_dans_fenetre(SDL_Renderer * ren,entite_t * entite, int w, 
     
     
     SDL_QueryTexture(texture,NULL,NULL,&(src.w),&(src.h));
+    SDL_QueryTexture(entite->textures[NEUTRE],NULL,NULL,&(src_neutre.w),&(src_neutre.h));
+    
+    ratio=1.0*src.w/src.h;
+
     centre.x=src.w/2;
     centre.y=src.h/2;
     if(x>=0 && y>=0){
