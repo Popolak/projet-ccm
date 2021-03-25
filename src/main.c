@@ -8,25 +8,24 @@
 #include "../lib/niveaux/niveau.h"
 #include "../lib/affichage/room_rendering.h"
 
-/*
+
 void menu_accueil(){//menu d'accueil du jeu
 
 	SDL_Event event;
 	//création de tout les potentielles surfaces
-	SDL_Surface *ecran =NULL;
+	SDL_Window *win =NULL;
+	SDL_Renderer *ren =NULL;
+	SDL_Texture *texture_menu =NULL;
 	SDL_Surface *affichage =NULL;
 	SDL_Surface *menu[3];
-	SDL_Surface *jouer =NULL;
-	SDL_Surface *quit =NULL;
-
-	SDL_Rect positionMenu;
 
 	int continuer = 1;
 	int i = 0;
+	int WINW=1280, WINH=720;
 
 	SDL_Init(SDL_INIT_VIDEO);
 
-		ecran = SDL_SetVideoMode(1920,1080,32, SDL_HWSURFACE | SDL_DOUBLEBUF);
+		SDL_CreateWindowAndRenderer(WINW, WINH,SDL_WINDOW_SHOWN,&win, &ren);
 		SDL_WM_SetCaption("Roguelike", NULL);
 
 	menu[0] = IMG_Load("../graphics/menu/menu.png");
@@ -35,9 +34,8 @@ void menu_accueil(){//menu d'accueil du jeu
 
 	affichage = menu[0];
 
-	positionMenu.x=0;
-	positionMenu.y=0;
-
+	texture_menu = SDL_CreateTextureFromSurface(ecran,affichage);
+	
 	while(continuer){
 
 		//contrôle par clavier
@@ -48,24 +46,31 @@ void menu_accueil(){//menu d'accueil du jeu
 			case SDLK_z:
 				affichage = menu[--i];break;
 			case SDLK_SPACE:
-				if(affichage == jouer){
+				if(affichage == menu[1]){
 					continuer = 0;
 					break;
 				}
-				else if(affichage == quit){	
-				SDL_FreeSurface(menu); 
-				SDL_Quit(); 
-				exit(1); 
+				else if(affichage == menu[2]){	
+					SDL_DestroyTexture(texture_menu);
+					SDL_FreeSurface(affichage);
+					SDL_FreeSurface(menu);
+					SDL_DestroyRenderer(&ren);
+					SDL_DestroyWindow(win);
+					SDL_Quit(); 
+					exit(1); 
 				}
 			default: break;
 		}
 		//affichage et raffraichissement
-		SDL_BlitSurface(affichage, NULL,ecran,&positionMenu);
-		SDL_flip(ecran);
+		texture_menu = SDL_CreateTextureFromSurface(ecran,affichage);
 	}
+	SDL_DestroyTexture(texture_menu);
+	SDL_FreeSurface(affichage);
 	SDL_FreeSurface(menu);
+	SDL_DestroyRenderer(&ren);
+	SDL_DestroyWindow(win);
 	SDL_Quit();
-}*/
+}
 
 
 int main(int argc, char* argv[]){
