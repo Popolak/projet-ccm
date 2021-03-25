@@ -1,3 +1,5 @@
+typedef struct salle_s salle_t;
+
 #ifndef _SALLE_H_
 #define _SALLE_H_
 #include "./chunk.h"

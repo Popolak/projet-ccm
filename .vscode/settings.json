@@ -2,6 +2,7 @@
     "files.associations": {
         "salle.h": "c",
         "chunk.h": "c",
-        "unordered_map": "c"
+        "unordered_map": "c",
+        "commun.h": "c"
     }
 }

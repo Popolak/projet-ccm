@@ -8,6 +8,7 @@
 #include "../lib/niveaux/niveau.h"
 #include "../lib/affichage/room_rendering.h"
 
+
 /*
 void menu_accueil(){//menu d'accueil du jeu
 
@@ -78,7 +79,7 @@ int main(int argc, char* argv[]){
     entite_t * entite_test=NULL;
     SDL_Window * win=NULL;
     SDL_Renderer * ren=NULL;
-    pos_t pos={300,200}, pos2={100,200};
+    pos_t pos={300,200}, pos2={100,400};
     float sec,secAvant, secMaint, secInvins=0.5,secDeg=0;
     if(SDL_Init(SDL_INIT_VIDEO)<0){
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Erreur : %s", SDL_GetError());
@@ -106,8 +107,8 @@ int main(int argc, char* argv[]){
     SDL_Texture * murTexture=creer_texture_image(ren, "../graphics/texture/room_textures/texture_mur.bmp");
     SDL_Texture * joueurTexture=creer_texture_image(ren,"../graphics/sprite/personnage_sprites/Tom neutre.png");
     SDL_Texture * entite_test_texture=creer_texture_image(ren,"../graphics/sprite/entite_sprites/test.png");
-    Tom=perso_creer("Tom","tomate",30,salle,chunk,pos,0,0,400,700,60,80,40,60,0,0,1,&joueurTexture);
-    entite_test=entite_creer("test","test",salle,chunk,pos2,200,200,400,40,40,30,30,1,&entite_test_texture);
+    Tom=perso_creer("Tom","tomate",30,salle,chunk,pos,0,0,400,700,60,80,40,60,0.1,0,0,1,&joueurTexture);
+    entite_test=entite_creer("test","test",salle,chunk,pos2,200,-100,400,0.1,40,40,30,30,1,&entite_test_texture);
     if(bgTexture==NULL || murTexture==NULL || joueurTexture==NULL){
         printf("La création de la texture a échouée\n");
         SDL_DestroyTexture(murTexture);

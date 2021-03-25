@@ -31,7 +31,50 @@ int est_obstacle(int contenu,  int dir){
 
 
 static err_t afficher_dans_chunk(SDL_Renderer *ren,entite_t *entite,int WINH,int WINW){
-    entite->afficher_fenetre(ren,entite,entite->w*WINW/CHUNKW,entite->h*WINW/CHUNKW,entite->pos.x*WINW/CHUNKW, entite->pos.y*WINW/CHUNKW, entite->textures[0]);
+    SDL_Texture * a_afficher=NULL;
+    if(entite->lastSprite >= 4*entite->secSprite ){
+        entite->lastSprite=0;
+    }
+    if(entite->vitesse_y==0){
+        entite->lastSprite=0;
+        a_afficher=entite->textures[NEUTRE];
+    }
+
+    if(entite->vitesse_x < 0 ){
+        if(entite->nbTextures <= POS_MOUV2)
+            a_afficher= entite->textures[NEUTRE];
+        else 
+            a_afficher=entite->textures[SAUT];
+    }
+    else if(entite->vitesse_x > 0 ){
+        if(entite->nbTextures <= SAUT)
+            a_afficher= entite->textures[NEUTRE];
+        else 
+            a_afficher=entite->textures[TOMBE];
+    }
+    else {
+
+        if(abs(entite->vitesse_y) && entite->nbTextures > NEUTRE && !entite->en_l_air(entite)){
+            if(entite->secSprite > entite->lastSprite){
+                a_afficher=entite->textures[POS_MOUV1];
+                if(!a_afficher){
+                    a_afficher=entite->textures[NEUTRE];
+                }
+            }
+            
+            else if (entite->lastSprite > 2 * entite->secSprite && entite->lastSprite < 3 * entite->secSprite && entite->nbTextures > POS_MOUV1){
+                a_afficher=entite->textures[POS_MOUV2];
+                if(!a_afficher)
+                    a_afficher=entite->textures[NEUTRE];
+            }
+            else
+                a_afficher=entite->textures[NEUTRE];
+        }
+    }
+    
+
+
+    entite->afficher_fenetre(ren,entite,entite->w*WINW/CHUNKW,entite->h*WINW/CHUNKW,entite->pos.x*WINW/CHUNKW, entite->pos.y*WINW/CHUNKW, a_afficher);
 }
 
 
@@ -59,7 +102,7 @@ void afficher_hitbox(SDL_Renderer * ren, entite_t * ent, int WINH, int WINW){
 
 static err_t afficher_dans_fenetre(SDL_Renderer * ren,entite_t * entite, int w, int h, int x, int y, SDL_Texture * texture){
     
-    
+      
     SDL_Rect src,dst;
     SDL_Point centre;
     SDL_RendererFlip flip = entite->dir == DROITE ?  (SDL_RendererFlip)SDL_FLIP_NONE : (SDL_RendererFlip)SDL_FLIP_HORIZONTAL;
@@ -73,6 +116,8 @@ static err_t afficher_dans_fenetre(SDL_Renderer * ren,entite_t * entite, int w, 
     dst.w=w;
     dst.x=y-w/2;
     dst.y=x-h/2;
+    
+    
     SDL_QueryTexture(texture,NULL,NULL,&(src.w),&(src.h));
     centre.x=src.w/2;
     centre.y=src.h/2;
@@ -416,6 +461,7 @@ entite_t * entite_creer(char * nom,
                         chunk_t * chunk,
                         pos_t pos,
                         float vitesse_x, float vitesse_y, float vitesse_max_y,
+                        float secSprite,
                         int w, int h, 
                         int w_hitbox, int h_hitbox, 
                         int nbTextures,
@@ -437,10 +483,12 @@ entite_t * entite_creer(char * nom,
     entite->vitesse_x=vitesse_x;
     entite->vitesse_y=vitesse_y;
     entite->vitesse_max_y=vitesse_max_y;
+    entite->secSprite=secSprite;
     entite->chunk=chunk;
     entite->salle=salle;
     entite->textures=textures;
     entite->dir= vitesse_y >= 0 ? DROITE : GAUCHE;
+    entite->lastSprite=0;
 
     entite->detruire=entite_detruire;
     entite->lire=entite_lire;
@@ -462,5 +510,6 @@ entite_t * entite_creer(char * nom,
         entite->detruire(&entite);
         return NULL;
     }
+
     return entite;
 }

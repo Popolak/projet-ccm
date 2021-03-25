@@ -31,6 +31,7 @@ perso_t * perso_creer(char * nom,
 					 float vitesse_x, float vitesse_y, float vitesse_max_y,float vitesse_saut,
 				     int w, int h, 
 					 int w_hitbox, int h_hitbox,
+					 float secSprite,
 					 float vit_attack, int degats,
 					 int nbTextures,
 					 SDL_Texture ** textures);

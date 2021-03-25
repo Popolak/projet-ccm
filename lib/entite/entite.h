@@ -1,3 +1,5 @@
+typedef struct entite_s entite_t;
+
 #ifndef _ENTITE_H_
 #define _ENTITE_H_
 
@@ -14,7 +16,13 @@
 
 #define COEFF_DECEL_SOL 5
 
-enum {NEUTRE,POS_MOUV1,POS_MOUV2,SAUT,TOMBE,ATTAQUE1,APT};
+#define NEUTRE 0
+#define POS_MOUV1 1
+#define POS_MOUV2 2
+#define SAUT 3
+#define TOMBE 4
+#define ATTAQUE1 5
+#define APT 6
 
 /* Structures */
 
@@ -33,8 +41,9 @@ entite_t * entite_creer(char * nom,
                         chunk_t * chunk,
                         pos_t pos,
                         float vitesse_x, float vitesse_y, float vitesse_max_y,
+                        float secSprite,
                         int w, int h, 
-                        int w_hitbox, int h_hitbox, 
+                        int w_hitbox, int h_hitbox,
                         int nbTextures,
                         SDL_Texture ** textures);
 

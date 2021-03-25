@@ -6,7 +6,7 @@
 /*Contenus possible d'une unité*/
 enum {MUR=0,VIDE=1,PORTE=2,JOUEUR=4};
 
-#define ratioSol 1.0*6/72
+#define ratioSol 1.0*1.1/12.9
 
 typedef struct position
 {

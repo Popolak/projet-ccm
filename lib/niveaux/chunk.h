@@ -1,7 +1,12 @@
+typedef struct chunk_s chunk_t;
+
 #ifndef _CHUNK_H_
 #define _CHUNK_H_
+
+
 #include "./unite.h"
 #include "./porte.h"
+#include "../entite/personnage.h"
 
 #define CHUNKH 360   //Hauteur et épaisseur des chunks en unité (ratio ~16/9)
 #define CHUNKW 640

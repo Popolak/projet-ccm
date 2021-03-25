@@ -43,7 +43,7 @@ static
 err_t perso_detruire( perso_t ** personnage){  
 	pos_t pos={0,0};
 	entite_t * ent=NULL;
-	entite_t * ent2=entite_creer("","",NULL,NULL,pos,0,0,0,0,0,0,0,0,NULL);
+	entite_t * ent2=entite_creer("","",NULL,NULL,pos,0,0,0,0,0,0,0,0,0,NULL);
 	if(!(*personnage))
 		return OK;
 
@@ -98,8 +98,6 @@ void input_update_speed (perso_t * perso, int tot_touche){
 	
 }
 
-
-
 static
 void perso_prendre_coup(perso_t * personnage, int degats){
 	personnage->vie -= degats;
@@ -125,12 +123,13 @@ perso_t * perso_creer(char * nom,
 					 float vitesse_x, float vitesse_y, float vitesse_max_y,float vitesse_saut,
 				     int w, int h, 
 					 int w_hitbox, int h_hitbox,
+					 float secSprite,
 					 float vit_attack, int degats,
 					 int nbTextures,
 					 SDL_Texture ** textures)
 {
 	perso_t * personnage = NULL;
-	if ((personnage=(perso_t*)entite_creer(nom,description,salle,chunk,pos,vitesse_x,vitesse_y,vitesse_max_y,w,h,w_hitbox,h_hitbox,nbTextures,textures))==NULL){
+	if ((personnage=(perso_t*)entite_creer(nom,description,salle,chunk,pos,vitesse_x,vitesse_y,vitesse_max_y,secSprite,w,h,w_hitbox,h_hitbox,nbTextures,textures))==NULL){
 		return NULL;
 	}
 	personnage=realloc(personnage,sizeof(perso_t));
