@@ -1,1 +1,2 @@
 Mettre menu principal en SDL2
+changement personnage
