@@ -61,7 +61,7 @@ static err_t afficher_dans_chunk(SDL_Renderer *ren,entite_t *entite,int WINH,int
                     a_afficher=entite->textures[NEUTRE];
                 }
             }
-            
+             
             else if (entite->lastSprite > 2 * entite->secSprite && entite->lastSprite < 3 * entite->secSprite && entite->nbTextures > POS_MOUV1){
                 a_afficher=entite->textures[POS_MOUV2];
                 if(!a_afficher)
