@@ -14,6 +14,8 @@
 
 #define COEFF_DECEL_SOL 5
 
+enum {NEUTRE,POS_MOUV1,POS_MOUV2,SAUT,TOMBE,ATTAQUE1,APT};
+
 /* Structures */
 
 typedef struct entite_s{
@@ -40,16 +42,26 @@ entite_t * entite_creer(char * nom,
 extern 
 booleen_t entite_existe(entite_t * ent);
 
+
+/*
+    est_obstacle:
+    paramètres:
+        int contenu, contenu d'une unité d'un chunk
+        int dir, direction d'une entité
+    retourne 1 si le contenu est un obstacle a une entité compte tenu de la direction de l'entité 
+*/
 extern 
 int est_obstacle(int contenu,  int dir);
 
+
+/*
+    str_creer_copier
+    paramètre:
+        chaine de caractères, chaine source a copier
+    retourne un pointeur sur char différent de chaine_src mais avec la même chaine de caractères, NULL si ça s'est mal passé 
+*/
 extern 
 char * str_creer_copier( char * chaine_src);
 
-extern 
-booleen_t appartient_a_dir(int dir, int recherche);
-
-extern
-pos_t pos_proche_mur(entite_t * ent, pos_t pos_mur);
 
 #endif

@@ -1,56 +1,46 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../lib/entite/personnage.h"
-#include "../lib/entite/joueur.h"
-#include "../lib/entite/entite.h"
-#include "../SDL/include/SDL.h"
+#include "../../lib/entite/joueur.h"
+#include "../../lib/affichage/room_rendering.h"
 
-SDL_Event events; 
+/*
+extern
+joueur_t * joueur_creer(salle_t * salle, chunk_t * chunk,SDL_Renderer * ren){
+	int i;
+	pos_t pos_i={TAILLE_MUR+21,CHUNKH-CHUNKH*ratioSol-31};
+	joueur_t * joueur=NULL;
+	joueur= malloc(sizeof(joueur_t));
+	if(!joueur){
+		printf("L'allocation du joueur n'a pas fonctionnée\n");
+		return NULL;
+	}
+	joueur->personnages=malloc(sizeof(perso_t)*NB_PERSO);
+	if(!joueur->personnages){
+		printf("L'allocation du tableau de personnages pour le joueur n'a pas pu être effectuée");
+		
+	}
+	joueur->personnages[0]=perso_creer("Tom","tomate",70,salle,chunk,pos_i,0,0,300,700,40,60,30,50,0,0,1,)
+
+}*/
+
+
 
 extern
-void creation(perso_t * tomate, perso_t  * carotte, perso_t * viande,chunk_t chunk_dep, salle_t salle_dep){
+void creation(SDL_Renderer * ren,perso_t * tomate, perso_t  * carotte, perso_t * viande,chunk_t * chunk_dep, salle_t *salle_dep){
 
 	pos_t position;
-	position.x = 50;
-	position.y = 50;
-
-	tomate = perso_creer("tomate",50, 10, &position, "tomate.png", 10,1,5, chunk_dep, salle_dep);
-	carotte = perso_creer("carotte", 50, 10, &position, "carotte.png", 10, 5, chunk_dep, salle_dep);
-	viande = perso_creer("viande", 50, 10, &position, "viande.png", 10, 5, chunk_dep, salle_dep);
+	position.x = CHUNKH-CHUNKH*ratioSol-31;
+	position.y = TAILLE_MUR+21;
+	SDL_Texture * textureTom=creer_texture_image(ren,"../../graphics/sprite/personnage_sprites/Tom neutre.png");
+	tomate = perso_creer("Tom","tomate",80,salle_dep,chunk_dep,position,0,0,300,700,60,40,50,30,0,0,1,&textureTom);
 }
 
 extern
-void deplacement(perso_t *perso_control.position, int direction){
-
-	switch(direction){
-		case GAUCHE:
-		*perso_control.position->x--;
-		break;
-
-		case DROITE:
-		*perso_control.position->x++;
-		break;
-	}
+void deplacement(perso_t * perso_control, int tot_touche){
+	perso_control->update_speed(perso_control,tot_touche);
 }
 
-extern
 
-void saut(*perso_control.position){
-
-	double v_x = 1.5;
-	double v_saut = -4;
-	double v_gravite = 0.08;
-	double v_y = v_saut;
-
-	*perso_control.position.x += v_x;
-	*perso_control.position.y += v_y;
-
-	v_y += v_grav;
-
-	if (*perso_control.position.y > 300)
-	v_y = v_saut;
-
-}
 
 extern
 perso_t attaque1(perso_t perso_control){ //actuellement théorique

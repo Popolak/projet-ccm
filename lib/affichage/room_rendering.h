@@ -42,7 +42,8 @@ extern SDL_Texture * creer_texture_image( SDL_Renderer * ren, char * nom_image);
         OK Si tout s'est bien passé
     render tous les murs d'un chunk 
 */
-extern err_t render_mur_chunk(SDL_Renderer * ren, SDL_Texture * texture_mur, camera_t * cam, int WINW, int WINH);
+extern 
+err_t render_mur_chunk(SDL_Renderer * ren, SDL_Texture * texture_mur, chunk_t * chunk, int WINW, int WINH);
 
 
 

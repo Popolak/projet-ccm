@@ -3,6 +3,25 @@
 
 #include "../../lib/entite/personnage.h"
 
+/* Fonctions */
+
+static
+err_t perso_depop(perso_t * perso){
+	perso->chunk=NULL;
+	perso->salle=NULL;
+	return OK;
+}
+
+static 
+err_t perso_copie_partiel(perso_t * persoDst, perso_t * persoSrc){
+	persoDst->pos=persoSrc->pos;
+	persoDst->vitesse_x=persoSrc->vitesse_x;
+	persoDst->vitesse_y=persoSrc->vitesse_y;
+	persoDst->salle=persoSrc->salle;
+	persoDst->chunk=persoSrc->chunk;
+	return OK;
+}
+
 extern
 booleen_t perso_existe( perso_t * const personnage )
 {
@@ -12,13 +31,23 @@ booleen_t perso_existe( perso_t * const personnage )
     return VRAI;
 }
 
+/*
+	perso_detruire
+	paramètre:
+		pointeur sur pointeur sur perso_t
+	retourne OK si tout s'est bien passé
+	libère l'espace du personnage et toutes les allocation reliées a lui
+*/
+
 static
-err_t perso_detruire( perso_t ** personnage){ //ré-alloue l'espace donné au personnage, meme après la mort d'un personnage on peut garder cet espace 
+err_t perso_detruire( perso_t ** personnage){  
 	pos_t pos={0,0};
 	entite_t * ent=NULL;
 	entite_t * ent2=entite_creer("","",NULL,NULL,pos,0,0,0,0,0,0,0,0,NULL);
 	if(!(*personnage))
 		return OK;
+
+
 	ent=realloc((entite_t*)(*personnage),sizeof(entite_t));
 	*personnage=NULL;
 	ent->detruire=ent2->detruire;
@@ -31,42 +60,45 @@ err_t perso_detruire( perso_t ** personnage){ //ré-alloue l'espace donné au pe
 	return OK;
 }
 
-static
-void perso_animer( perso_t * const personnage ){
-
-
-
-
-
-}
-
+/*
+	fait_partie_bin
+	paramètres:
+		int tot_bin : nombre total
+		int nombre_puis_2 : puissance de 2 pour vérifier si un certain bit appartient a tot_bin
+	retourne un nombre si vrai, 0 sinon
+*/
 extern 
 int fait_partie_bin (int tot_bin, int nombre_puis_2){
 	return (tot_bin & nombre_puis_2);
 }
 
-static
-float val_absol(float n){
-	return (n>=0 ? n: -n);
-}
-
+/*
+	input_update_speed
+	paramètres:	
+		pointeur sur perso_t
+		int tot_touche, le total des touches (ex: 110 donne KEY_LEFT et KEY_JUMP)
+	
+	En fonction du total de touches on actualise la vitesse du personnage
+*/
 static 
-void input_update_speed (perso_t * perso, int tot_touche, float temps){
+void input_update_speed (perso_t * perso, int tot_touche){
 	float vit_tempo;
 	if(fait_partie_bin(tot_touche,KEY_JUMP) && !perso->en_l_air((entite_t*)perso)){
 		perso->vitesse_x=-perso->vitesse_saut;
 	}
-	if(fait_partie_bin(tot_touche, KEY_LEFT) && fait_partie_bin(tot_touche, KEY_RIGHT)){
-		perso->vitesse_y=0;
-	}
-	else if(fait_partie_bin(tot_touche, KEY_LEFT)){
-		perso->vitesse_y=-perso->vitesse_max_y;
-	}
-	else if(fait_partie_bin(tot_touche, KEY_RIGHT)){
-		perso->vitesse_y=perso->vitesse_max_y;
+	
+	if(!(fait_partie_bin(tot_touche, KEY_LEFT) && fait_partie_bin(tot_touche, KEY_RIGHT))){
+		if(fait_partie_bin(tot_touche, KEY_LEFT)){
+			perso->vitesse_y=-perso->vitesse_max_y;
+		}
+		else if(fait_partie_bin(tot_touche, KEY_RIGHT)){
+			perso->vitesse_y=perso->vitesse_max_y;
+		}
 	}
 	
 }
+
+
 
 static
 void perso_prendre_coup(perso_t * personnage, int degats){
@@ -112,10 +144,11 @@ perso_t * perso_creer(char * nom,
 	personnage->vit_attack = vit_attack;
 	personnage->degats = degats;
 
-	personnage->animer = perso_animer;
 	personnage->detruire = perso_detruire;
 	personnage->prendre_coup=perso_prendre_coup;
 	personnage->update_speed=input_update_speed;
+	personnage->copie_partiel=perso_copie_partiel;
+	personnage->depop=perso_depop;
 
 	return(personnage);
 }

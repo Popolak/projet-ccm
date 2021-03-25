@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "salle.h": "c",
-        "chunk.h": "c"
+        "chunk.h": "c",
+        "unordered_map": "c"
     }
 }

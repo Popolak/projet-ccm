@@ -36,9 +36,14 @@ perso_t * perso_creer(char * nom,
 					 SDL_Texture ** textures);
 
 extern booleen_t perso_existe( perso_t * const personnage );
-static void perso_prendre_coup(perso_t * personnage, int degats);
-static booleen_t en_vie(perso_t * personnage);
 
+/*
+	fait_partie_bin
+	paramètres:
+		int tot_bin : nombre total
+		int nombre_puis_2 : puissance de 2 pour vérifier si un certain bit appartient a tot_bin
+	retourne un nombre si vrai, 0 sinon
+*/
 extern int fait_partie_bin (int tot_bin, int nombre_puis_2);
 
 

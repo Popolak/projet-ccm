@@ -8,7 +8,7 @@ int main(){
     SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "0" );
     int WINW=1280, WINH=720,x=CHUNKH-CHUNKH*ratioSol-30,y=TAILLE_MUR+40;
     float i=0.1;
-    camera_t cam;
+    chunk_t *chunk;
     niveau_t * niv=NULL;
     salle_t * salle=NULL;
     perso_t *Tom=NULL;
@@ -34,14 +34,14 @@ int main(){
         return 1;
     }
     salle=niv->chercher_salle(niv,0,0);
-    cam.chunk=salle->chercher_chunk(salle,0,0);
+    chunk=salle->chercher_chunk(salle,0,0);
     niv->lire(niv);
     SDL_Event events;
     SDL_bool run=SDL_TRUE;
     SDL_Texture * bgTexture=creer_texture_image(ren,"../../../graphics/texture/room_textures/fond haricot.png");
     SDL_Texture * murTexture=creer_texture_image(ren, "../../../graphics/texture/room_textures/texture_mur.bmp");
     SDL_Texture * joueurTexture=creer_texture_image(ren,"../../../graphics/sprite/personnage_sprites/Tom neutre.png");
-    Tom=perso_creer("Tom","tomate",30,salle,cam.chunk,pos,0,0,400,700,60,80,0,0,0,0,1,&joueurTexture);
+    Tom=perso_creer("Tom","tomate",30,salle,chunk,pos,0,0,400,700,60,80,0,0,0,0,1,&joueurTexture);
     Tom->pos.x=300;
     Tom->pos.y=200; 
     if(bgTexture==NULL || murTexture==NULL || joueurTexture==NULL){
@@ -54,7 +54,7 @@ int main(){
         SDL_Quit();
         return ERR_DEB_MEMOIRE;
     }
-    cam.chunk->lire_partiel(cam.chunk,CHUNKH-CHUNKH*ratioSol-1,100,CHUNKH*ratioSol,30);
+    chunk->lire_partiel(chunk,CHUNKH-CHUNKH*ratioSol-1,100,CHUNKH*ratioSol,30);
     secAvant= 1.0*SDL_GetTicks()/1000;
     int tot_key=0;
 
@@ -108,12 +108,11 @@ int main(){
             }
         }
         
-        Tom->update_speed(Tom, tot_key,sec);
+        Tom->update_speed(Tom, tot_key);
         SDL_RenderClear(ren);
         SDL_RenderCopy(ren,bgTexture,NULL,NULL);
         Tom->afficher_chunk(ren,(entite_t*)Tom,WINH,WINW);
-        cam.chunk=Tom->chunk;
-        if(render_mur_chunk(ren,murTexture,&cam,WINW,WINH )==ERR_DEB_MEMOIRE){
+        if(render_mur_chunk(ren,murTexture,Tom->chunk,WINW,WINH )==ERR_DEB_MEMOIRE){
             Tom->detruire(&Tom);
             niv->detruire(&niv);
             SDL_DestroyTexture(bgTexture);

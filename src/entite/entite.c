@@ -1,34 +1,65 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include "string.h"
+#include "math.h"
 #include "../../lib/entite/entite.h"
 
+/*Fonctions*/
 
+/*
+    est_obstacle:
+    paramètres:
+        int contenu, contenu d'une unité d'un chunk
+        int dir, direction d'une entité
+    retourne 1 si le contenu est un obstacle a une entité compte tenu de la direction de l'entité 
+*/
 extern 
 int est_obstacle(int contenu,  int dir){
     return (contenu==MUR );
 }
 
-extern 
-booleen_t appartient_a_dir(int dir, int recherche){
-    int i=COIN_NO;
-    for(;i>dir;i/=2);
-    for(;i>0;i/=2){
-        if(dir>=i){
-            dir-=i;
-            if(i==recherche)
-                return VRAI;
-        }
-    }
-    return FAUX;
-}
+/*
+    afficher_dans_chunk:
+    paramètres: 
+        pointeur sur SDL_Renderer, le renderer
+        pointeur sur entite_t, l'entite a afficher
+        int WINW,int WINH, la hauteur et la largeur de la fenetre
+    retourne OK si tout s'est bien passé, une erreur sinon
+
+    Utilisé pour afficher les entités qui sont sur le chunk a afficher
+*/
+
 
 static err_t afficher_dans_chunk(SDL_Renderer *ren,entite_t *entite,int WINH,int WINW){
     entite->afficher_fenetre(ren,entite,entite->w*WINW/CHUNKW,entite->h*WINW/CHUNKW,entite->pos.x*WINW/CHUNKW, entite->pos.y*WINW/CHUNKW, entite->textures[0]);
 }
 
+
+static 
+void afficher_hitbox(SDL_Renderer * ren, entite_t * ent, int WINH, int WINW){
+    SDL_Rect hitbox;
+    hitbox.x=(ent->pos.y - ent->w_hitbox/2)* WINW/CHUNKW; 
+    hitbox.y=(ent->pos.x - ent->h_hitbox/2)* WINW/CHUNKW; 
+    hitbox.w=ent->w_hitbox*WINW/CHUNKW;
+    hitbox.h=ent->h_hitbox*WINW/CHUNKW;
+    SDL_SetRenderDrawColor(ren,255,0,0,255);
+    SDL_RenderDrawRect(ren,&hitbox);
+}
+
+/*
+    afficher dans fenetre
+    paramètres:
+        pointeur sur SDL_Renderer, le renderer
+        pointeur sur entite_t, l'entite a afficher
+        int w, h la hauteur et largeur (en pixel) de l'entité a afficher
+        int x, y les les coordonées (en pixel) de l'entité a afficher 
+        pointeur sur SDL_Texture, la texture a utiliser
+    retourne OK si tout se passe bien
+*/
+
 static err_t afficher_dans_fenetre(SDL_Renderer * ren,entite_t * entite, int w, int h, int x, int y, SDL_Texture * texture){
-    float ratioTaille;
+    
+    
     SDL_Rect src,dst;
     SDL_Point centre;
     SDL_RendererFlip flip = entite->dir == DROITE ?  (SDL_RendererFlip)SDL_FLIP_NONE : (SDL_RendererFlip)SDL_FLIP_HORIZONTAL;
@@ -46,11 +77,20 @@ static err_t afficher_dans_fenetre(SDL_Renderer * ren,entite_t * entite, int w, 
     centre.x=src.w/2;
     centre.y=src.h/2;
     if(x>=0 && y>=0){
-        SDL_RenderCopyEx(ren,texture,&src,&dst,0,&centre,flip);
+        SDL_RenderCopyEx(ren,texture,&src,&dst,0,&centre,flip);     //En fonction de la direction de l'entité on retourne symétriquement ou pas la texture
     }
     return OK;
 
 }
+
+/*
+    mur_*:
+    paramètre:
+        pointeur sur entite_t
+    retourne la position du premier mur que la fonction croise, -1 s'il n'y en a pas
+
+    Ces 4 fonctions vérifient si l'entité est en collision avec un mur de chaque coté (gauch droit haut bas)
+*/
 
 
 pos_t mur_a_gauche(entite_t * ent){
@@ -128,6 +168,13 @@ pos_t mur_en_bas(entite_t * ent){
     return pos_mur;
 }
 
+/*
+    en_lair
+    paramètre:
+        pointeur sur entite_t
+    retourne VRAI si l'entité ne touche pas d'obstacle en dessous d'elle, FAUX sinon
+*/
+
 static 
 booleen_t en_lair(entite_t * ent){
     pos_t pos_mur;
@@ -135,15 +182,24 @@ booleen_t en_lair(entite_t * ent){
     return pos_mur.x==-1;
 }
 
+/*
+    replacer
+    paramètres:
+        pointeur sur entite_t, l'entité a replacer hors d'un obstacle
+        pos_t pos_mur, la position du mur
+        int direction, la direction dans laquelle on doit replacer l'entité
+    
+*/
+
 void replacer(entite_t * ent, pos_t pos_mur, int direction){
     switch (direction){
         case (DROITE):
             ent->vitesse_y=0;
-            ent->pos.y=pos_mur.y-ent->w/2;
+            ent->pos.y=pos_mur.y-ent->w/2;             //Si direction==DROITE, on replace l'entité vers la gauche du mur
             break;
         case (BAS):
             ent->vitesse_x=0;
-            ent->pos.x=pos_mur.x-ent->h/2;
+            ent->pos.x=pos_mur.x-ent->h/2;             //Si direction==BAS, on replace l'entité vers le haut du mur etc...
             break;
         case (GAUCHE):
             ent->vitesse_y=0;
@@ -156,60 +212,70 @@ void replacer(entite_t * ent, pos_t pos_mur, int direction){
     }
 }
 
+/*
+    entitre_deplacement:
+    paramètres:
+        entite_t * ent, l'entité a déplacer
+        double temps, le temps en secondes depuis le dernier déplacement
+    
+    déplace l'entité en fonction de ses vitesses et du chunk
+*/
 
 
 static 
 void entite_deplacement(entite_t * ent,double temps){
-    pos_t pos_mur,pos_mur_verif, pos_mur_double_verif,ent_pos_verif;
+    pos_t pos_mur;
     chunk_t * chunk;
     booleen_t deja=FAUX;
     int w,h;
     float vitesse_tempo;
-    (ent->pos.y)+= (ent->vitesse_y)*temps;
-
-    pos_mur=mur_a_gauche(ent);
+    (ent->pos.y)+= (ent->vitesse_y)*temps;                  //On actualise la position horizontale grace a vitesse_y
+                                                                
+    pos_mur=mur_a_gauche(ent);                              //Si on se retrouve dans un mur, on se replace
     if(pos_mur.x!=-1){
         replacer(ent,pos_mur,GAUCHE);
     }
     
-    pos_mur=mur_a_droite(ent);
+    pos_mur=mur_a_droite(ent);                              //Pareil
     if(pos_mur.x!=-1){
         replacer(ent,pos_mur,DROITE);
     }
 
-    (ent->pos.x)+= (ent->vitesse_x)*temps;
+    (ent->pos.x)+= (ent->vitesse_x)*temps;                  //Puis on actualise la position verticale
     pos_mur=mur_en_bas(ent);
     if(pos_mur.x!=-1){
-        replacer(ent,pos_mur,BAS);
+        replacer(ent,pos_mur,BAS);                          //Si on se retrouve dans un mur, on se replace
     }
 
     pos_mur=mur_en_haut(ent);
     if(pos_mur.x!=-1 ){
-        replacer(ent,pos_mur,HAUT);
+        replacer(ent,pos_mur,HAUT);                         //Pareil
     }
 
     
-    if(ent->en_l_air(ent)){
-        ent->vitesse_x+=GRAVITE*temps;
+    if(ent->en_l_air(ent)){                                 //Si on est en l'air, on tombe (La vitesse maximale est atteinte après 2 secondes de chute avec v0=0)
+        ent->vitesse_x= (ent->vitesse_x + GRAVITE*temps > GRAVITE*2) ? GRAVITE*2:ent->vitesse_x + GRAVITE*temps;
     }
 
-    if(ent->vitesse_y > 0)
-        ent->dir=DROITE;
+    if(ent->vitesse_y > 0)                          //On adapte la direction de l'entité en fonction de sa vitesse
+        ent->dir=DROITE;                            //Si elle est nulle, on ne change rien 
     else if(ent->vitesse_y < 0)
         ent->dir=GAUCHE;
 
     
     
-    if(ent->pos.y>=CHUNKW){
-        if((chunk=ent->salle->chercher_chunk(ent->salle,ent->chunk->position.x, ent->chunk->position.y+1))!=NULL){
-            ent->chunk=chunk;
-            ent->pos.y=ent->pos.y-CHUNKW;
+    if(ent->pos.y>=CHUNKW){                             //Si le personnage se retrouve trop a droite, il sort du chunk 
+        if((chunk=ent->salle->chercher_chunk(ent->salle,ent->chunk->position.x, ent->chunk->position.y+1))!=NULL){ //alors on vérifie s'il y en a un a droite
+            ent->chunk=chunk;                           //Le chunk a droite devient le nouveau chunk de l'entité
+            ent->pos.y=ent->pos.y-CHUNKW;               //Sa position change en fonction
         }
         else{
             printf("Erreur de segmentation, pas de chunk a droite\n");
             exit(1);
         }
-    }
+    }               
+
+                                            //Meme systeme ensuite
     if(ent->pos.y<0){
         if((chunk=ent->salle->chercher_chunk(ent->salle,ent->chunk->position.x, ent->chunk->position.y-1))!=NULL){
             ent->chunk=chunk;
@@ -220,6 +286,8 @@ void entite_deplacement(entite_t * ent,double temps){
             exit(1);
         }
     }
+
+
     if(ent->pos.x>=CHUNKH){
         if((chunk=ent->salle->chercher_chunk(ent->salle,ent->chunk->position.x+1, ent->chunk->position.y))!=NULL){
             ent->chunk=chunk;
@@ -230,6 +298,8 @@ void entite_deplacement(entite_t * ent,double temps){
             exit(1);
         }
     }
+
+
     if(ent->pos.x<0){
         if((chunk=ent->salle->chercher_chunk(ent->salle,ent->chunk->position.x-1, ent->chunk->position.y))!=NULL){
             ent->chunk=chunk;
@@ -241,32 +311,43 @@ void entite_deplacement(entite_t * ent,double temps){
         }
     }
 
+    //Si la vitesse de l'entité n'est pas actualisée (soit par un input de l'utilisateur, soit par l'algorithme des ennemis)
+    //Alors on la change grace a la décélération
+
     if(ent->vitesse_y){
         if(!ent->en_l_air(ent))
-            ent->vitesse_y= ent->vitesse_y -  DECEL*COEFF_DECEL_SOL* temps * (ent->vitesse_y>0 ? 1 : -1)  ;
+            ent->vitesse_y= ent->vitesse_y -  DECEL*COEFF_DECEL_SOL* temps * (ent->vitesse_y>0 ? 1 : -1)  ; //Sur le sol, la décélération est COEFF_DECEL_SOL fois plus grande
 
         else
-            ent->vitesse_y= ent->vitesse_y -  DECEL*temps * (ent->vitesse_y>0 ? 1 : -1)  ;
+            ent->vitesse_y= ent->vitesse_y -  DECEL*temps * (ent->vitesse_y>0 ? 1 : -1)  ;                  //Que dans l'air
 
         if(ent->vitesse_y > 0 && ent->dir == GAUCHE || ent->vitesse_y < 0 && ent->dir == DROITE)
             ent->vitesse_y=0;
     }
 }
 
+
+/*
+    en_contact
+    paramètres:
+        2 pointeur sur entite_t
+    Retourne VRAI si les deux entités sont en collision de hitbox, FAUX sinon
+*/
 static
 booleen_t en_contact(entite_t * ent_courante, entite_t * ent_a_verif){
     if (ent_courante->w_hitbox == 0 && ent_courante->w_hitbox == 0 )
         return FAUX;
-    if(ent_courante->pos.y + ent_courante->w_hitbox/2 >= ent_a_verif->pos.y - ent_a_verif->w_hitbox/2)
-        return VRAI;
-    if(ent_courante->pos.y - ent_courante->w_hitbox/2 >= ent_a_verif->pos.y + ent_a_verif->w_hitbox/2)
-        return VRAI;
-    if(ent_courante->pos.x + ent_courante->h_hitbox/2 >= ent_a_verif->pos.x - ent_a_verif->h_hitbox/2)
-        return VRAI;
-    if(ent_courante->pos.x - ent_courante->h_hitbox/2 >= ent_a_verif->pos.x + ent_a_verif->h_hitbox/2)
+    if(abs(ent_courante->pos.y - ent_a_verif->pos.y) <= (ent_courante->w_hitbox + ent_a_verif->w_hitbox)/2 && abs(ent_courante->pos.x - ent_a_verif->pos.x) <= (ent_courante->h_hitbox + ent_a_verif->h_hitbox)/2)
         return VRAI;
     return FAUX;
 }
+
+/*
+    str_creer_copier
+    paramètre:
+        chaine de caractères, chaine source a copier
+    retourne un pointeur sur char différent de chaine_src mais avec la même chaine de caractères, NULL si ça s'est mal passé 
+*/
 
 extern 
 char * str_creer_copier( char * chaine_src){
@@ -282,10 +363,25 @@ char * str_creer_copier( char * chaine_src){
     return chaine_dest;
 }
 
+/*
+    entite_lire
+    paramètre:
+        pointeur sur entite_t
+    affiche le nom et la description de l'entité
+*/
 static 
 void entite_lire(entite_t * ent){
     printf ("%s :\n%s", ent->nom, ent->description);
 }
+
+/*
+    entite_detruire 
+    paramètre:
+        pointeur sur pointeur sur entite_t
+    retourne OK si tout s'est bien passé
+
+    libère l'entité et toutes les allocations reliées a celle ci
+*/
 
 static 
 err_t entite_detruire(entite_t ** ent){
@@ -301,8 +397,8 @@ err_t entite_detruire(entite_t ** ent){
     }
     free(*ent);
     *ent=NULL;
+    return OK;
 }
-
 
 extern 
 booleen_t entite_existe(entite_t * ent){
@@ -350,6 +446,9 @@ entite_t * entite_creer(char * nom,
     entite->afficher_fenetre=afficher_dans_fenetre;
     entite->deplacer=entite_deplacement;
     entite->en_l_air=en_lair;
+    entite->contact=en_contact;
+    entite->hitbox=afficher_hitbox;
+
 
     if((entite->nom = str_creer_copier(nom))==NULL){
         printf("Le nom %s n'a pas pu etre attribué\n",nom);
