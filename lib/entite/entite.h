@@ -73,4 +73,8 @@ extern
 char * str_creer_copier( char * chaine_src);
 
 
+
+extern 
+SDL_Texture ** creer_tableau_textures(SDL_Renderer * ren, int *n,...);
+
 #endif

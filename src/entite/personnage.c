@@ -43,20 +43,17 @@ static
 err_t perso_detruire( perso_t ** personnage){  
 	pos_t pos={0,0};
 	entite_t * ent=NULL;
-	entite_t * ent2=entite_creer("","",NULL,NULL,pos,0,0,0,0,0,0,0,0,0,NULL);
 	if(!(*personnage))
 		return OK;
 
 
 	ent=realloc((entite_t*)(*personnage),sizeof(entite_t));
 	*personnage=NULL;
-	ent->detruire=ent2->detruire;
-	ent2->detruire(&ent2);
 	if(!ent){
 		printf("La réallocation de personnage pour sa destruction a échouée");
 		return PAS_DALLOC;
 	}
-	ent->detruire(&ent);
+	ent->detruire_ent(&ent);
 	return OK;
 }
 
@@ -135,7 +132,7 @@ perso_t * perso_creer(char * nom,
 	personnage=realloc(personnage,sizeof(perso_t));
 	if(personnage==NULL){
 		printf("La réallocation du personnage %s n'a pas pu etre effectuée\n", nom);
-		personnage->detruire(&personnage);
+		personnage->detruire_perso(&personnage);
 		return NULL;
 	}
 	personnage->vitesse_saut=vitesse_saut;
@@ -143,7 +140,7 @@ perso_t * perso_creer(char * nom,
 	personnage->vit_attack = vit_attack;
 	personnage->degats = degats;
 
-	personnage->detruire = perso_detruire;
+	personnage->detruire_perso = perso_detruire;
 	personnage->prendre_coup=perso_prendre_coup;
 	personnage->update_speed=input_update_speed;
 	personnage->copie_partiel=perso_copie_partiel;

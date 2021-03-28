@@ -9,7 +9,7 @@
 #include "../lib/affichage/room_rendering.h"
 
 
-void menu_accueil(){//menu d'accueil du jeu
+/*void menu_accueil(){//menu d'accueil du jeu
 
 	SDL_Event event;
 	//création de tout les potentielles surfaces
@@ -70,12 +70,11 @@ void menu_accueil(){//menu d'accueil du jeu
 	SDL_DestroyRenderer(&ren);
 	SDL_DestroyWindow(win);
 	SDL_Quit();
-}
+}*/
 
 
 int main(int argc, char* argv[]){
-	int WINW=1280, WINH=720,x=CHUNKH-CHUNKH*ratioSol-30,y=TAILLE_MUR+40;
-    float i=0.1;
+	int WINW=1280, WINH=720,x=CHUNKH-CHUNKH*ratioSol-30,y=TAILLE_MUR+40, nbText;
     chunk_t * chunk;
     niveau_t * niv=NULL;
     salle_t * salle=NULL;
@@ -83,7 +82,7 @@ int main(int argc, char* argv[]){
     entite_t * entite_test=NULL;
     SDL_Window * win=NULL;
     SDL_Renderer * ren=NULL;
-    pos_t pos={300,200}, pos2={100,200};
+    pos_t pos={300,200}, pos2={100,400};
     float sec,secAvant, secMaint, secInvins=0.5,secDeg=0;
     if(SDL_Init(SDL_INIT_VIDEO)<0){
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Erreur : %s", SDL_GetError());
@@ -109,15 +108,22 @@ int main(int argc, char* argv[]){
     SDL_bool run=SDL_TRUE;
     SDL_Texture * bgTexture=creer_texture_image(ren,"../graphics/texture/room_textures/fond haricot.png");
     SDL_Texture * murTexture=creer_texture_image(ren, "../graphics/texture/room_textures/texture_mur.bmp");
-    SDL_Texture * joueurTexture=creer_texture_image(ren,"../graphics/sprite/personnage_sprites/Tom neutre.png");
-    SDL_Texture * entite_test_texture=creer_texture_image(ren,"../graphics/sprite/entite_sprites/test.png");
-    Tom=perso_creer("Tom","tomate",30,salle,chunk,pos,0,0,400,700,60,80,40,60,0,0,1,&joueurTexture);
-    entite_test=entite_creer("test","test",salle,chunk,pos2,200,200,400,40,40,30,30,1,&entite_test_texture);
-    if(bgTexture==NULL || murTexture==NULL || joueurTexture==NULL){
+    SDL_Texture ** joueurTextures=NULL, **entite_test_textures;
+
+    joueurTextures=creer_tableau_textures(ren,&nbText,"../graphics/sprite/personnage_sprites/Tom vrai neutre.png","../graphics/sprite/personnage_sprites/Tom marche 1.png","../graphics/sprite/personnage_sprites/Tom marche 2.png","");
+    Tom=perso_creer("Tom","tomate",30,salle,chunk,pos,0,0,300,700,60,80,30,60,0.18,0,0,nbText,joueurTextures);
+
+    entite_test_textures=creer_tableau_textures(ren,&nbText,"../graphics/sprite/entite_sprites/test.png","");
+    printf("%d\n", nbText);
+    entite_test=entite_creer("test","test",salle,chunk,pos2,200,-100,400,0.1,40,40,30,30,nbText,entite_test_textures);
+
+
+    if(bgTexture==NULL || murTexture==NULL || joueurTextures[0]==NULL || joueurTextures[1]==NULL || joueurTextures[2]==NULL){
         printf("La création de la texture a échouée\n");
         SDL_DestroyTexture(murTexture);
         SDL_DestroyTexture(bgTexture);
-        SDL_DestroyTexture(joueurTexture);
+        Tom->detruire_perso(&Tom);
+        entite_test->detruire_ent(&entite_test);
         SDL_DestroyRenderer(ren);
         SDL_DestroyWindow(win); 
         SDL_Quit();
@@ -128,12 +134,12 @@ int main(int argc, char* argv[]){
     secDeg=secAvant;
     int tot_key=0;
 
-
     
     while(run){
         secMaint=1.0*SDL_GetTicks()/1000;
         sec=secMaint-secAvant;
         secDeg+=sec;
+        Tom->lastSprite+=sec;
         secAvant=secMaint;
         if(sec>0.001){
             Tom->deplacer((entite_t *)Tom,sec);
@@ -180,35 +186,33 @@ int main(int argc, char* argv[]){
             }
         }
         
-        Tom->update_speed(Tom, tot_key);
         SDL_RenderClear(ren);
         SDL_RenderCopy(ren,bgTexture,NULL,NULL);
+        Tom->update_speed(Tom, tot_key);
         Tom->afficher_chunk(ren,(entite_t*)Tom,WINH,WINW);
         entite_test->afficher_chunk(ren, entite_test,WINH,WINW);
 
         Tom->hitbox(ren,Tom,WINH,WINW);
         entite_test->hitbox(ren, entite_test,WINH,WINW);
         if(render_mur_chunk(ren,murTexture,Tom->chunk,WINW,WINH )==ERR_DEB_MEMOIRE){
-            Tom->detruire(&Tom);
-            entite_test->detruire(&entite_test);
+            Tom->detruire_perso(&Tom);
+            entite_test->detruire_ent(&entite_test);
             niv->detruire(&niv);
             SDL_DestroyTexture(bgTexture);
             SDL_DestroyTexture(murTexture);
-            SDL_DestroyTexture(joueurTexture);
-            SDL_DestroyTexture(entite_test_texture);
             SDL_DestroyRenderer(ren);
             SDL_DestroyWindow(win);
             SDL_Quit();
+            return ERR_DEB_MEMOIRE;
         }
         SDL_RenderPresent(ren);
     }
-    Tom->detruire(&Tom);
-    entite_test->detruire(&entite_test);
+    
+    Tom->detruire_perso(&Tom);
+    entite_test->detruire_ent(&entite_test);
     niv->detruire(&niv);
     SDL_DestroyTexture(bgTexture);
     SDL_DestroyTexture(murTexture);
-    SDL_DestroyTexture(joueurTexture);
-    SDL_DestroyTexture(entite_test_texture);
     SDL_DestroyRenderer(ren);
     SDL_DestroyWindow(win);
     SDL_Quit();

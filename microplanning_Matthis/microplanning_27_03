@@ -1,0 +1,1 @@
+création des tableaux de textures pour les entités par le biais de la fonction : SDL_Texture ** creer_tableau_textures(SDL_Renderer * ren, int *n,...)

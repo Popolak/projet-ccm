@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 /*Contenus possible d'une unité*/
-enum {MUR=0,VIDE=1,PORTE=2,JOUEUR=4};
+enum {MUR=0,VIDE=1,PORTE=2};
 
 #define ratioSol 1.0*1.1/12.9
 

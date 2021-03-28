@@ -23,11 +23,11 @@ typedef struct chunk_s{
     err_t (*remplir)(struct chunk_s * , int );
     err_t (*remplir_surface)(struct chunk_s *, int , int  , int  ,int , int );
     
-    
+    pos_t position;     //Position du chunk dans la salle
     unite_t *** chunk;  //matrice d'unités
     porte_t ** portes;  //Tableau de portes
-    int nb_portes;      //Taille du tableau
-    pos_t position;     //Position du chunk dans la salle
+    int nb_portes, nb_entites;
+    entite_t ** entites;
 } chunk_t;
 
 extern pos_t prochain_mur (int x, int y, chunk_t * chunk);

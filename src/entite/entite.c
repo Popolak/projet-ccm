@@ -3,8 +3,44 @@
 #include "string.h"
 #include "math.h"
 #include "../../lib/entite/entite.h"
+#include "../../lib/affichage/room_rendering.h"
 
 /*Fonctions*/
+
+static
+err_t detruire_tabl_textures(entite_t **ent){
+    int i;
+    for(i=0;i<(*ent)->nbTextures;i++){
+        if((*ent)->textures[i] != NULL){
+            SDL_DestroyTexture( (*ent)->textures[i]);
+            
+            (*ent)->textures[i]=NULL;
+        }
+    }
+    free((*ent)->textures);
+    (*ent)->textures=NULL;
+    
+    return OK;
+}
+
+extern 
+SDL_Texture ** creer_tableau_textures(SDL_Renderer * ren, int *n,...){
+    *n=0;
+    SDL_Texture ** tableau=NULL;
+    va_list ap;
+    char * nom_texture;
+    va_start(ap,n);
+    do{
+        nom_texture= va_arg(ap,char *);
+        if(strlen(nom_texture) >0){
+            (*n)++;
+            tableau=realloc(tableau,sizeof(SDL_Texture*) * (*n));
+            tableau[*n-1]=creer_texture_image(ren,nom_texture);
+        }
+    }while(strlen(nom_texture) >0);
+    va_end(ap);
+    return tableau;
+}
 
 /*
     est_obstacle:
@@ -41,13 +77,13 @@ static err_t afficher_dans_chunk(SDL_Renderer *ren,entite_t *entite,int WINH,int
     }
 
     if(entite->vitesse_x < 0 ){
-        if(entite->nbTextures <= POS_MOUV2)
+        if(entite->nbTextures <= SAUT)
             a_afficher= entite->textures[NEUTRE];
         else 
             a_afficher=entite->textures[SAUT];
     }
     else if(entite->vitesse_x > 0 ){
-        if(entite->nbTextures <= SAUT)
+        if(entite->nbTextures <= TOMBE)
             a_afficher= entite->textures[NEUTRE];
         else 
             a_afficher=entite->textures[TOMBE];
@@ -56,16 +92,17 @@ static err_t afficher_dans_chunk(SDL_Renderer *ren,entite_t *entite,int WINH,int
 
         if(abs(entite->vitesse_y) && entite->nbTextures > NEUTRE && !entite->en_l_air(entite)){
             if(entite->secSprite > entite->lastSprite){
-                a_afficher=entite->textures[POS_MOUV1];
-                if(!a_afficher){
+                if(entite->nbTextures <= POS_MOUV1)
                     a_afficher=entite->textures[NEUTRE];
-                }
+                else   
+                    a_afficher=entite->textures[POS_MOUV1];
             }
              
             else if (entite->lastSprite > 2 * entite->secSprite && entite->lastSprite < 3 * entite->secSprite && entite->nbTextures > POS_MOUV1){
-                a_afficher=entite->textures[POS_MOUV2];
-                if(!a_afficher)
+                if(entite->nbTextures <= POS_MOUV2)
                     a_afficher=entite->textures[NEUTRE];
+                else   
+                    a_afficher=entite->textures[POS_MOUV2];
             }
             else
                 a_afficher=entite->textures[NEUTRE];
@@ -447,8 +484,12 @@ err_t entite_detruire(entite_t ** ent){
             free((*ent)->description);
             (*ent)->description=NULL;
         }
+        if((*ent)->textures){
+            (*ent)->detruire_textures(ent);
+        }
     }
     free(*ent);
+    
     *ent=NULL;
     return OK;
 }
@@ -496,7 +537,7 @@ entite_t * entite_creer(char * nom,
     entite->dir= vitesse_y >= 0 ? DROITE : GAUCHE;
     entite->lastSprite=0;
 
-    entite->detruire=entite_detruire;
+    entite->detruire_ent=entite_detruire;
     entite->lire=entite_lire;
     entite->afficher_chunk=afficher_dans_chunk;
     entite->afficher_fenetre=afficher_dans_fenetre;
@@ -504,16 +545,17 @@ entite_t * entite_creer(char * nom,
     entite->en_l_air=en_lair;
     entite->contact=en_contact;
     entite->hitbox=afficher_hitbox;
+    entite->detruire_textures=detruire_tabl_textures;
 
 
     if((entite->nom = str_creer_copier(nom))==NULL){
         printf("Le nom %s n'a pas pu etre attribué\n",nom);
-        entite->detruire(&entite);
+        entite->detruire_ent(&entite);
         return NULL;
     }
     if((entite->description=str_creer_copier( description))==NULL){
         printf("La description de  %s n'a pas pu etre attribué\n",description);
-        entite->detruire(&entite);
+        entite->detruire_ent(&entite);
         return NULL;
     }
 
