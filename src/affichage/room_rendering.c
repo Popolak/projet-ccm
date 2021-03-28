@@ -53,6 +53,9 @@ err_t render_mur_chunk(SDL_Renderer * ren, SDL_Texture * texture_mur, chunk_t * 
     pos_t pos;
     const float ratioUtoP= 1.0 * WINW/CHUNKW;                       //Ratio entre une unité et un pixel (si une unité vaut deux pixel, une unité affiché = 2*2 pixels affiché)
     float ratioTaille;
+    SDL_RendererFlip flip;
+    SDL_Point centre;
+    double angle;
     SDL_Rect src, dst, srcModif;
     src.x=0;
     src.y=0;
@@ -78,7 +81,23 @@ err_t render_mur_chunk(SDL_Renderer * ren, SDL_Texture * texture_mur, chunk_t * 
             dst.x=pos.y*ratioUtoP;
             dst.w=w_mur*ratioUtoP;
             dst.h=h_mur*ratioUtoP;
-            SDL_RenderCopy(ren,texture_mur,&srcModif,&dst);         //On affiche
+
+            centre.x= dst.w/2;
+            centre.y= dst.h/2;
+            if(dst.y==0){
+                angle=90;
+                flip= SDL_FLIP_NONE;
+            }
+            else if(dst.x > WINW/2){
+                angle=0;
+                flip = SDL_FLIP_HORIZONTAL;
+            }
+            else {
+                angle=0;
+                flip= SDL_FLIP_NONE;
+            }
+
+            SDL_RenderCopyEx(ren,texture_mur,&srcModif,&dst,angle,&centre,flip);         //On affiche
             pos.y+=w_mur;                                           
         }
         pos.x+=h_mur;

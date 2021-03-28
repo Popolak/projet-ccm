@@ -38,7 +38,7 @@ int main(){
     SDL_Event events;
     SDL_bool run=SDL_TRUE;
     SDL_Texture * bgTexture=creer_texture_image(ren,"../../../graphics/texture/room_textures/fond haricot.png");
-    SDL_Texture * murTexture=creer_texture_image(ren, "../../../graphics/texture/room_textures/texture_mur.bmp");
+    SDL_Texture * murTexture=creer_texture_image(ren, "../../../graphics/texture/room_textures/mur 2 essai.png");
     SDL_Texture ** joueurTextures=NULL, **entite_test_textures;
 
     joueurTextures=creer_tableau_textures(ren,&nbText,"../../../graphics/sprite/personnage_sprites/Tom vrai neutre.png","../../../graphics/sprite/personnage_sprites/Tom marche 1.png","../../../graphics/sprite/personnage_sprites/Tom marche 2.png","");
