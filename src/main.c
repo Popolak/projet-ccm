@@ -9,7 +9,7 @@
 #include "../lib/affichage/room_rendering.h"
 
 
-/*void menu_accueil(){//menu d'accueil du jeu
+void menu_accueil(){//menu d'accueil du jeu
 
 	SDL_Event event;
 	//création de tout les potentielles surfaces
@@ -70,7 +70,7 @@
 	SDL_DestroyRenderer(&ren);
 	SDL_DestroyWindow(win);
 	SDL_Quit();
-}*/
+}
 
 
 int main(int argc, char* argv[]){
