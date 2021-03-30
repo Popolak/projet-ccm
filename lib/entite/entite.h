@@ -16,13 +16,14 @@ typedef struct entite_s entite_t;
 
 #define COEFF_DECEL_SOL 5
 
-#define NEUTRE 0
-#define POS_MOUV1 1
-#define POS_MOUV2 2
-#define SAUT 3
-#define TOMBE 4
-#define ATTAQUE1 5
-#define APT 6
+#define IMMO 0
+#define NEUTRE 1
+#define POS_MOUV1 2
+#define POS_MOUV2 3
+#define SAUT 4
+#define TOMBE 5
+#define ATTAQUE1 6
+#define APT 7
 
 /* Structures */
 

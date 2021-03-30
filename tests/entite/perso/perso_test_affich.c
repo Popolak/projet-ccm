@@ -41,8 +41,8 @@ int main(){
     SDL_Texture * murTexture=creer_texture_image(ren, "../../../graphics/texture/room_textures/mur 2 essai.png");
     SDL_Texture ** joueurTextures=NULL, **entite_test_textures;
 
-    joueurTextures=creer_tableau_textures(ren,&nbText,"../../../graphics/sprite/personnage_sprites/Tom vrai neutre.png","../../../graphics/sprite/personnage_sprites/Tom marche 1.png","../../../graphics/sprite/personnage_sprites/Tom marche 2.png","");
-    Tom=perso_creer("Tom","tomate",30,salle,chunk,pos,0,0,300,700,60,80,30,60,0.18,0,0,nbText,joueurTextures);
+    joueurTextures=creer_tableau_textures(ren,&nbText,"../../../graphics/sprite/personnage_sprites/Tom immo.png","../../../graphics/sprite/personnage_sprites/Tom neutre.png","../../../graphics/sprite/personnage_sprites/Tom marche 1.png","../../../graphics/sprite/personnage_sprites/Tom marche 2.png","");
+    Tom=perso_creer("Tom","tomate",30,salle,chunk,pos,0,0,300,700,60,80,30,60,0.2,0,0,nbText,joueurTextures);
 
     entite_test_textures=creer_tableau_textures(ren,&nbText,"../../../graphics/sprite/entite_sprites/test.png","");
     entite_test=entite_creer("test","test",salle,chunk,pos2,200,-100,400,0.1,40,40,30,30,nbText,entite_test_textures);

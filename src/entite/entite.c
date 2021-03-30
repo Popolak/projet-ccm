@@ -68,39 +68,39 @@ int est_obstacle(int contenu,  int dir){
 
 static err_t afficher_dans_chunk(SDL_Renderer *ren,entite_t *entite,int WINH,int WINW){
     SDL_Texture * a_afficher=NULL;
-    if(entite->lastSprite >= 4*entite->secSprite ){
+    if(entite->lastSprite >= 7*entite->secSprite ){
         entite->lastSprite=0;
     }
     if(entite->vitesse_y==0){
         entite->lastSprite=0;
-        a_afficher=entite->textures[NEUTRE];
+        a_afficher=entite->textures[IMMO];
     }
 
     if(entite->vitesse_x < 0 ){
         if(entite->nbTextures <= SAUT)
-            a_afficher= entite->textures[NEUTRE];
+            a_afficher= entite->textures[IMMO];
         else 
             a_afficher=entite->textures[SAUT];
     }
     else if(entite->vitesse_x > 0 ){
         if(entite->nbTextures <= TOMBE)
-            a_afficher= entite->textures[NEUTRE];
+            a_afficher= entite->textures[IMMO];
         else 
             a_afficher=entite->textures[TOMBE];
     }
     else {
 
-        if(abs(entite->vitesse_y) && entite->nbTextures > NEUTRE && !entite->en_l_air(entite)){
+        if(abs(entite->vitesse_y) && entite->nbTextures > IMMO && !entite->en_l_air(entite)){
             if(entite->secSprite > entite->lastSprite){
                 if(entite->nbTextures <= POS_MOUV1)
-                    a_afficher=entite->textures[NEUTRE];
+                    a_afficher=entite->textures[IMMO];
                 else   
                     a_afficher=entite->textures[POS_MOUV1];
             }
              
-            else if (entite->lastSprite > 2 * entite->secSprite && entite->lastSprite < 3 * entite->secSprite && entite->nbTextures > POS_MOUV1){
+            else if (entite->lastSprite > 4 * entite->secSprite && entite->lastSprite < 5 * entite->secSprite && entite->nbTextures > POS_MOUV1){
                 if(entite->nbTextures <= POS_MOUV2)
-                    a_afficher=entite->textures[NEUTRE];
+                    a_afficher=entite->textures[IMMO];
                 else   
                     a_afficher=entite->textures[POS_MOUV2];
             }
@@ -158,7 +158,7 @@ static err_t afficher_dans_fenetre(SDL_Renderer * ren,entite_t * entite, int w, 
     
     
     SDL_QueryTexture(texture,NULL,NULL,&(src.w),&(src.h));
-    SDL_QueryTexture(entite->textures[NEUTRE],NULL,NULL,&(src_neutre.w),&(src_neutre.h));
+    SDL_QueryTexture(entite->textures[IMMO],NULL,NULL,&(src_neutre.w),&(src_neutre.h));
     
     ratio=1.0*src.w/src.h;
 
