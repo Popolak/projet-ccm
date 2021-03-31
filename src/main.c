@@ -72,7 +72,7 @@ void menu_accueil(){//menu d'accueil du jeu
 	SDL_Quit();
 }*/
 
-/*
+
 int main(int argc, char* argv[]){
 
 	//menu_accueil(); // le programme continue uniquement s'il passe le menu
@@ -168,13 +168,13 @@ int main(int argc, char* argv[]){
         if(perso_control[roulette]->contact((entite_t*) perso_control[roulette], entite_test) && secDeg > secInvins){
             perso_control[roulette]->prendre_coup(perso_control[roulette],10);
             printf("Le perso prend un coup %d\n", perso_control[roulette]->vie);
-            if(en_vie(perso_control[roulette]) == FAUX){ //Si le personnage meurt on le remplace par le prochain dans la liste
+            if(perso_control[roulette]->en_vie(perso_control[roulette]) == FAUX){ //Si le personnage meurt on le remplace par le prochain dans la liste
                	morts++;
                 i = roulette;
                 roulette++;
                 if(roulette > 2)
                 	roulette = 0;
-                perso_copie_partiel(perso_control[roulette], perso_control[i]);
+                perso_control[roulette]->perso_copie_partiel(perso_control[roulette], perso_control[i]);
                 perso_control[roulette]->depop(perso_control[roulette]);
             }
             if(morts == 3)
@@ -205,9 +205,9 @@ int main(int argc, char* argv[]){
                 		roulette++;
                 		if(roulette > 2)
                 			roulette = 0;
-                		if(en_vie(perso_control[roulette] == FAUX))
+                		if(perso_control[roulette]->en_vie(perso_control[roulette] == FAUX))
                 			roulette++;
-                		perso_copie_partiel(perso_control[roulette], perso_control[i]);
+                		perso_control[roulette]->perso_copie_partiel(perso_control[roulette], perso_control[i]);
                 		perso_control[roulette]->depop(perso_control[roulette]);
                 	}
                 }
@@ -262,8 +262,8 @@ int main(int argc, char* argv[]){
     SDL_DestroyWindow(win);
     SDL_Quit();
     return 0;
-}*/
-
+}
+/*
 int main(){
     int WINW=1280, WINH=720,x=CHUNKH-CHUNKH*ratioSol-30,y=TAILLE_MUR+40, nbText;
     chunk_t * chunk;
@@ -407,4 +407,4 @@ int main(){
     SDL_DestroyWindow(win);
     SDL_Quit();
     return 0;
-}
+}*/
