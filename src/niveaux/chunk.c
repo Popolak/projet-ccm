@@ -32,11 +32,36 @@ pos_t prochain_mur (int x, int y, chunk_t * chunk){
 }
 
 extern
+pos_t prochain_pont (int x, int y, chunk_t * chunk){
+    int i=0,j=0;
+    pos_t pos;
+    for(i=0;x+i<CHUNKH-CHUNKH*ratioSol;i+=H_PONT){
+        for(j=0;y+j<CHUNKW;j++){
+            if(chunk->chunk[x+i][y+j]->contenu==PONT){
+                pos.x=x+i;
+                pos.y=y+j;
+                return pos; 
+            }
+        }
+        y=0;
+    }
+    pos.x=-1;
+    return pos;
+}
+
+extern
 void attribut_mur(int x, int y, int* w, int* h, chunk_t * chunk){
     int i,j;
     for(i=0; i<TAILLE_MUR && x+i < CHUNKH-CHUNKH*ratioSol && chunk->chunk[x+i][y]->contenu == MUR; i++);
     for(j=0; j<TAILLE_MUR && y+j < CHUNKW && chunk->chunk[x][y+j]->contenu == MUR; j++);
     *h=i;
+    *w=j;
+}
+
+extern
+void attribut_pont(int x, int y, int* w, chunk_t * chunk){
+    int i,j;
+    for(j=0; j<W_PONT && y+j < CHUNKW && chunk->chunk[x][y+j]->contenu == PONT; j++);
     *w=j;
 }
 

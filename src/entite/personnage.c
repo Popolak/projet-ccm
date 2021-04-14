@@ -19,6 +19,7 @@ err_t perso_copie_partiel(perso_t * persoDst, perso_t * persoSrc){
 	persoDst->vitesse_y=persoSrc->vitesse_y;
 	persoDst->salle=persoSrc->salle;
 	persoDst->chunk=persoSrc->chunk;
+	persoDst->dir=persoSrc->dir;
 	return OK;
 }
 
@@ -119,14 +120,14 @@ perso_t * perso_creer(char * nom,
 					 pos_t pos,
 					 float vitesse_x, float vitesse_y, float vitesse_max_y,float vitesse_saut,
 				     int w, int h, 
-					 int w_hitbox, int h_hitbox,
+					 int w_hitbox, int h_hitbox,int offset_hitbox,
 					 float secSprite,
 					 float vit_attack, int degats,
 					 int nbTextures,
 					 SDL_Texture ** textures)
 {
 	perso_t * personnage = NULL;
-	if ((personnage=(perso_t*)entite_creer(nom,description,salle,chunk,pos,vitesse_x,vitesse_y,vitesse_max_y,secSprite,w,h,w_hitbox,h_hitbox,nbTextures,textures))==NULL){
+	if ((personnage=(perso_t*)entite_creer(nom,description,salle,chunk,pos,vitesse_x,vitesse_y,vitesse_max_y,secSprite,w,h,w_hitbox,h_hitbox,offset_hitbox,nbTextures,textures))==NULL){
 		return NULL;
 	}
 	personnage=realloc(personnage,sizeof(perso_t));
@@ -145,6 +146,7 @@ perso_t * perso_creer(char * nom,
 	personnage->update_speed=input_update_speed;
 	personnage->copie_partiel=perso_copie_partiel;
 	personnage->depop=perso_depop;
+	personnage->envie=en_vie;
 
 	return(personnage);
 }

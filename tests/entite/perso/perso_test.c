@@ -10,8 +10,12 @@ int main(){
 	position.x = 80;
 	position.y = CHUNKW-TAILLE_MUR;
 
+
+
+
+	
 	printf("test creation\n");
-	salade_test = perso_creer("salade","oui",80,NULL,chunk,position,0,0,0,0,0,0,0,0,0,0,0,0,NULL);
+	salade_test = perso_creer("salade","oui",80,NULL,chunk,position,0,0,0,0,0,0,0,0,0,0,0,0,0,NULL);
 	salade_test->pos.x=10;
 	printf( "Test d'existance sur un perso_t existant\n" ) ;
 	if (perso_existe(salade_test)==VRAI)

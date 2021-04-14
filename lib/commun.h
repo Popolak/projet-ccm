@@ -4,7 +4,10 @@
 #include <stdio.h>
 
 /*Contenus possible d'une unité*/
-enum {MUR=0,VIDE=1,PORTE=2};
+#define MUR 0
+#define VIDE 1
+#define PORTE 2
+#define PONT 3
 
 #define ratioSol 1.0*1.1/12.9
 

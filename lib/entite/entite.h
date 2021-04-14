@@ -28,7 +28,6 @@ typedef struct entite_s entite_t;
 /* Structures */
 
 typedef struct entite_s{
-    err_t (*detruire)(struct entite_s ** );
     #include "attribut_entite.h"
 }entite_t;
 
@@ -44,7 +43,7 @@ entite_t * entite_creer(char * nom,
                         float vitesse_x, float vitesse_y, float vitesse_max_y,
                         float secSprite,
                         int w, int h, 
-                        int w_hitbox, int h_hitbox,
+                        int w_hitbox, int h_hitbox,int offset_hitbox,
                         int nbTextures,
                         SDL_Texture ** textures);
 
@@ -61,8 +60,10 @@ booleen_t entite_existe(entite_t * ent);
     retourne 1 si le contenu est un obstacle a une entité compte tenu de la direction de l'entité 
 */
 extern 
-int est_obstacle(int contenu,  int dir);
+int est_mur(int contenu);
 
+
+extern int est_pont(int contenu);
 
 /*
     str_creer_copier
@@ -73,9 +74,16 @@ int est_obstacle(int contenu,  int dir);
 extern 
 char * str_creer_copier( char * chaine_src);
 
-
+extern 
+SDL_Texture ** creer_tableau_textures_chaine(SDL_Renderer *ren, int *n,char * chaine);
 
 extern 
-SDL_Texture ** creer_tableau_textures(SDL_Renderer * ren, int *n,...);
+SDL_Texture ** creer_tableau_textures_manuel(SDL_Renderer * ren, int *n,...);
+
+extern 
+long seek_entity_type(FILE * index,char *type);
+
+extern 
+char * entre_guillemet(FILE * file);
 
 #endif

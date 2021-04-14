@@ -117,26 +117,37 @@ int main(int argc, char* argv[]){
     SDL_bool run=SDL_TRUE;
     SDL_Texture * bgTexture=creer_texture_image(ren,"../graphics/texture/room_textures/fond haricot.png");
     SDL_Texture * murTexture=creer_texture_image(ren, "../graphics/texture/room_textures/texture_mur.bmp");
-    SDL_Texture ** joueurTextures=NULL, **entite_test_textures;
+    SDL_Texture ** joueurTextures1=NULL,**joueurTextures2=NULL,**joueurTextures3=NULL, **entite_test_textures;
 
     //A ajouter: textures pour carotte et viande
-    joueurTextures=creer_tableau_textures(ren,&nbText,"../graphics/sprite/personnage_sprites/Tom vrai neutre.png","../graphics/sprite/personnage_sprites/Tom marche 1.png","../graphics/sprite/personnage_sprites/Tom marche 2.png","");
+    joueurTextures1=creer_tableau_textures(ren,&nbText,"../graphics/sprite/personnage_sprites/Tom immo.png","../graphics/sprite/personnage_sprites/Tom marche 1.png","../graphics/sprite/personnage_sprites/Tom marche 2.png","");
+    Tom=perso_creer("Tom","tomate",40,salle,chunk,pos,0,0,300,700,60,80,30,60,0.18,0,0,nbText,joueurTextures1);
+    
+    
+    joueurTextures2=creer_tableau_textures(ren,&nbText,"../graphics/sprite/entite_sprites/potato.png","");
+    Carot=perso_creer("Carot","carotte",30,NULL,NULL,pos,0,0,300,600,60,80,30,60,0.17,0,0,nbText,joueurTextures2);
+    
+    
+    joueurTextures3=creer_tableau_textures(ren,&nbText,"../graphics/sprite/personnage_sprites/Tom immo.png","../graphics/sprite/personnage_sprites/Tom marche 1.png","../graphics/sprite/personnage_sprites/Tom marche 2.png","");
+    Viande=perso_creer("Viande","viande",60,NULL,NULL,pos,0,0,300,500,60,80,30,60,0.15,0,0,nbText,joueurTextures3);
+    
     //Tomate est le premier personnage que l'on contrôle
-    Tom=perso_creer("Tom","tomate",40,salle,chunk,pos,0,0,300,700,60,80,30,60,0.18,0,0,nbText,joueurTextures);
-    Carot=perso_creer("Carot","carotte",30,NULL,NULL,pos,0,0,300,600,60,80,30,60,0.17,0,0,nbText,joueurTextures);
-    Viande=perso_creer("Viande","viande",60,NULL,NULL,pos,0,0,300,500,60,80,30,60,0.15,0,0,nbText,joueurTextures);
+    
+    
+    
 
     //servira au changement de perso
     perso_control[0] = Tom;
     perso_control[1] = Carot;
     perso_control[2] = Viande;
+    printf("%p\n", perso_control[1]);
 
     entite_test_textures=creer_tableau_textures(ren,&nbText,"../graphics/sprite/entite_sprites/test.png","");
     printf("%d\n", nbText);
     entite_test=entite_creer("test","test",salle,chunk,pos2,200,-100,400,0.1,40,40,30,30,nbText,entite_test_textures);
 
 
-    if(bgTexture==NULL || murTexture==NULL || joueurTextures[0]==NULL || joueurTextures[1]==NULL || joueurTextures[2]==NULL){
+    if(bgTexture==NULL || murTexture==NULL ){//|| joueurTextures[0]==NULL || joueurTextures[1]==NULL || joueurTextures[2]==NULL){
         printf("La création de la texture a échouée\n");
         SDL_DestroyTexture(murTexture);
         SDL_DestroyTexture(bgTexture);
@@ -168,14 +179,14 @@ int main(int argc, char* argv[]){
         if(perso_control[roulette]->contact((entite_t*) perso_control[roulette], entite_test) && secDeg > secInvins){
             perso_control[roulette]->prendre_coup(perso_control[roulette],10);
             printf("Le perso prend un coup %d\n", perso_control[roulette]->vie);
-            if(perso_control[roulette]->en_vie(perso_control[roulette]) == FAUX){ //Si le personnage meurt on le remplace par le prochain dans la liste
+            if(perso_control[roulette]->envie(perso_control[roulette]) == FAUX){ //Si le personnage meurt on le remplace par le prochain dans la liste
                	morts++;
                 i = roulette;
                 roulette++;
                 if(roulette > 2)
                 	roulette = 0;
-                perso_control[roulette]->perso_copie_partiel(perso_control[roulette], perso_control[i]);
-                perso_control[roulette]->depop(perso_control[roulette]);
+                perso_control[roulette]->copie_partiel(perso_control[roulette], perso_control[i]);
+                perso_control[roulette]->depop(perso_control[i]);
             }
             if(morts == 3)
             	run=SDL_FALSE;
@@ -203,12 +214,16 @@ int main(int argc, char* argv[]){
                 	if(morts<2){
                 		i = roulette;
                 		roulette++;
+                        
                 		if(roulette > 2)
                 			roulette = 0;
-                		if(perso_control[roulette]->en_vie(perso_control[roulette] == FAUX))
+                        if(perso_control[roulette]->envie(perso_control[roulette]) == FAUX)
                 			roulette++;
-                		perso_control[roulette]->perso_copie_partiel(perso_control[roulette], perso_control[i]);
-                		perso_control[roulette]->depop(perso_control[roulette]);
+                        if(roulette > 2)
+                			roulette = 0;
+                		perso_control[roulette]->copie_partiel(perso_control[roulette], perso_control[i]);
+                		perso_control[roulette]->depop(perso_control[i]);
+                        
                 	}
                 }
 
@@ -226,7 +241,6 @@ int main(int argc, char* argv[]){
                 }
             }
         }
-        
         SDL_RenderClear(ren);
         SDL_RenderCopy(ren,bgTexture,NULL,NULL);
         perso_control[roulette]->update_speed(perso_control[roulette], tot_key);

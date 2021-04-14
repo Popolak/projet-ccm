@@ -12,6 +12,8 @@ typedef struct chunk_s chunk_t;
 #define CHUNKW 640
 #define TAILLE_MUR 20
 #define TAILLE_PORTE 80
+#define W_PONT 60
+#define H_PONT 2
 
 enum {RIEN,HAUT,DROITE,BAS=4,GAUCHE=8,COIN_NE=16,COIN_SE=32,COIN_SO=64,COIN_NO=128};
 
@@ -31,8 +33,10 @@ typedef struct chunk_s{
 } chunk_t;
 
 extern pos_t prochain_mur (int x, int y, chunk_t * chunk);
+extern pos_t prochain_pont (int x, int y, chunk_t * chunk);
 
 extern void attribut_mur(int x, int y, int* w, int* h, chunk_t * chunk);
+extern void attribut_pont(int x, int y, int* w, chunk_t * chunk);
 
 extern booleen_t chunk_existe(chunk_t * chunk);
 extern chunk_t * chunk_creer(int x,int y,int nb_portes, char * type);

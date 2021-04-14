@@ -105,3 +105,40 @@ err_t render_mur_chunk(SDL_Renderer * ren, SDL_Texture * texture_mur, chunk_t * 
     return OK;
 }
 
+extern 
+err_t render_pont_chunk(SDL_Renderer * ren, SDL_Texture * texture_pont, chunk_t * chunk, int WINW, int WINH){
+    int i,j,w_pont;
+    const float ratioUtoP= 1.0 * WINW/CHUNKW;  
+    SDL_Rect src, dst, srcModif;
+    src.x=0;
+    src.y=0;
+    pos_t pos;
+    SDL_Point centre;
+    SDL_QueryTexture(texture_pont,NULL,NULL,&(src.w), &(src.h));
+    srcModif=src;
+    for(pos.x=0;pos.x<CHUNKH;){
+        for(pos.y=0;pos.y<CHUNKW;){
+            pos=prochain_pont(pos.x,pos.y, chunk);
+            if(pos.x==-1)
+                return OK;
+            attribut_pont(pos.x,pos.y,&w_pont,chunk);
+
+            srcModif.w=src.w* w_pont/W_PONT;
+            dst.y=pos.x*ratioUtoP -  (5.0/6)*H_PONT_AFFICH*ratioUtoP;
+            dst.x=pos.y*ratioUtoP;
+            dst.w=w_pont*ratioUtoP/2;
+            dst.h=H_PONT_AFFICH*ratioUtoP;
+
+            centre.x= dst.w/2;
+            centre.y= dst.h/2;
+
+            SDL_RenderCopyEx(ren,texture_pont,&srcModif,&dst,0,&centre,SDL_FLIP_NONE);         //On affiche
+
+            dst.x+=w_pont*ratioUtoP/2 ;
+            SDL_RenderCopyEx(ren,texture_pont,&srcModif,&dst,0,&centre,SDL_FLIP_HORIZONTAL);
+            pos.y+=w_pont;
+        }
+        pos.x+=H_PONT;
+    }
+    return OK;
+}

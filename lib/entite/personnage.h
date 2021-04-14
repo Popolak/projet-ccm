@@ -15,7 +15,6 @@
 
 typedef struct perso_s
 {
-	err_t (*detruire)(struct perso_s ** ent);
 	#include "attribut_perso.h"
 	
 }perso_t;
@@ -30,7 +29,7 @@ perso_t * perso_creer(char * nom,
 					 pos_t pos,
 					 float vitesse_x, float vitesse_y, float vitesse_max_y,float vitesse_saut,
 				     int w, int h, 
-					 int w_hitbox, int h_hitbox,
+					 int w_hitbox, int h_hitbox,int offset_hitbox,
 					 float secSprite,
 					 float vit_attack, int degats,
 					 int nbTextures,

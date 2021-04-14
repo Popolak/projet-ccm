@@ -2,6 +2,7 @@
 
 err_t (*detruire_perso)(struct perso_s ** ent);                           //perso_t hérite des attribut et méthodes d'entite_t (sauf destruction)
 
+booleen_t (*envie)(struct perso_s * personnage);
 void (*prendre_coup)(struct perso_s * , int );
 void (*update_speed) (struct perso_s * ,  int ); // temporaire
 err_t (*depop)(struct perso_s * );

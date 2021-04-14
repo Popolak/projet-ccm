@@ -24,7 +24,53 @@ err_t detruire_tabl_textures(entite_t **ent){
 }
 
 extern 
-SDL_Texture ** creer_tableau_textures(SDL_Renderer * ren, int *n,...){
+char * entre_guillemet(FILE * file){
+    char c,*chaine=NULL;
+    int taille,j;
+    while((c =getc(file))!='\"');
+
+    c=' ';
+    for(taille=0;(c=getc(file))!='\"';taille++);
+
+    chaine=malloc(sizeof(char)* taille+1);
+    fseek(file,-(taille+1),SEEK_CUR);
+    if(!chaine)
+        return NULL;
+    for(j=0;j<taille;chaine[j]=getc(file), j++);
+    chaine[taille]='\0';
+    fseek(file,2,SEEK_CUR);
+    return chaine;
+}
+
+extern 
+SDL_Texture ** creer_tableau_textures_chaine(SDL_Renderer *ren, int *n,char * chaine){
+    *n=0;
+    SDL_Texture ** textures = NULL;
+    char *nom_text=NULL;
+    int i,taille,j;
+    for(i=0;chaine[i];i++){
+        if(chaine[i]== '\"'){
+            for(j=i+1,taille=0;chaine[j]!='\"';j++, taille++);
+            printf("%d\n", taille);
+            nom_text=realloc(nom_text,sizeof(char) * taille+1);
+            for(j=i+1;j<i+taille+1;j++){
+                nom_text[j-i-1]=chaine[j];
+            }
+            nom_text[taille]='\0';
+            printf("%s\n", nom_text);
+            (*n)++;
+            textures=realloc(textures, sizeof(SDL_Texture*) * (*n));
+            textures[*n-1]=creer_texture_image(ren,nom_text);
+            i+=taille+1;
+        }
+    }
+    free(nom_text);
+    return textures;
+    
+}
+
+extern 
+SDL_Texture ** creer_tableau_textures_manuel(SDL_Renderer * ren, int *n,...){
     *n=0;
     SDL_Texture ** tableau=NULL;
     va_list ap;
@@ -42,6 +88,60 @@ SDL_Texture ** creer_tableau_textures(SDL_Renderer * ren, int *n,...){
     return tableau;
 }
 
+extern 
+long seek_entity_type(FILE * index,char *type){
+    char chaine[20];    
+    do{
+        fscanf(index,"%s", chaine);
+    }while( !feof(index) && strcmp(chaine,type));
+    
+    if(feof(index)){
+        printf("Le type %s n'est pas dans l'index\n", type);
+        return -1;
+    }
+    return (ftell(index));
+}
+
+extern 
+entite_t * creer_entite_chaine(SDL_Renderer *ren, const entite_t const * joueur , char * chaine,  FILE * index){
+    entite_t *ent;
+    char type[20], *nom=NULL, *desc=NULL;
+    int cur_pos=0 ,w,h,w_hit,h_hit,offset, nbText;
+    float v_y,secSprite;
+    pos_t pos;
+    SDL_Texture ** textures;
+    char *str[300];
+    if (!index){
+        printf("Le fichier n'existe pas\n");
+        return NULL;
+    }
+    fseek(index,0,SEEK_SET);
+    if(feof(index)){
+        return NULL;
+    }
+    sscanf(chaine, "%s %f %f",type, pos.x,pos.y);
+    cur_pos=strlen(type);
+    seek_entity_type(index,type);
+    nom=entre_guillemet(index);
+    desc=entre_guillemet(index);
+    fscanf(index,"%d",&w);
+    fscanf(index,"%d",&h);
+    fscanf(index,"%d",&w_hit);
+    fscanf(index,"%d",&h_hit);
+    fscanf(index,"%d",&offset);
+    fscanf(index,"%f",&v_y);
+    fscanf(index,"%f",&secSprite);
+
+    fgets(str,300,index);
+    textures=creer_tableau_textures_chaine(ren,&nbText,str);
+
+    ent=entite_creer(nom,desc,joueur->salle, joueur->chunk, pos,0,0,v_y,secSprite,w,h,w_hit,h_hit,offset,nbText,textures);
+    free(nom);
+    free(desc);
+    return ent;
+    
+}
+
 /*
     est_obstacle:
     paramètres:
@@ -50,8 +150,12 @@ SDL_Texture ** creer_tableau_textures(SDL_Renderer * ren, int *n,...){
     retourne 1 si le contenu est un obstacle a une entité compte tenu de la direction de l'entité 
 */
 extern 
-int est_obstacle(int contenu,  int dir){
+int est_mur(int contenu){
     return (contenu==MUR );
+}
+
+extern int est_pont(int contenu){
+    return contenu==PONT;
 }
 
 /*
@@ -98,14 +202,18 @@ static err_t afficher_dans_chunk(SDL_Renderer *ren,entite_t *entite,int WINH,int
                     a_afficher=entite->textures[POS_MOUV1];
             }
              
-            else if (entite->lastSprite > 4 * entite->secSprite && entite->lastSprite < 5 * entite->secSprite && entite->nbTextures > POS_MOUV1){
+            else if (entite->lastSprite > 4 * entite->secSprite && entite->lastSprite < 5 * entite->secSprite ){
                 if(entite->nbTextures <= POS_MOUV2)
                     a_afficher=entite->textures[IMMO];
                 else   
                     a_afficher=entite->textures[POS_MOUV2];
             }
-            else
-                a_afficher=entite->textures[NEUTRE];
+            else {
+                if(entite->nbTextures <= NEUTRE)
+                    a_afficher=entite->textures[IMMO];
+                else    
+                    a_afficher=entite->textures[NEUTRE];
+            }
         }
     }
     
@@ -118,7 +226,7 @@ static err_t afficher_dans_chunk(SDL_Renderer *ren,entite_t *entite,int WINH,int
 static 
 void afficher_hitbox(SDL_Renderer * ren, entite_t * ent, int WINH, int WINW){
     SDL_Rect hitbox;
-    hitbox.x=(ent->pos.y - ent->w_hitbox/2)* WINW/CHUNKW; 
+    hitbox.x=(ent->pos.y - ent->w_hitbox/2 + ent->offset_hitbox * (ent->dir ==DROITE ? 1 : -1))* WINW/CHUNKW; 
     hitbox.y=(ent->pos.x - ent->h_hitbox/2)* WINW/CHUNKW; 
     hitbox.w=ent->w_hitbox*WINW/CHUNKW;
     hitbox.h=ent->h_hitbox*WINW/CHUNKW;
@@ -186,7 +294,7 @@ pos_t mur_a_gauche(entite_t * ent){
     pos_t pos_mur={-1,-1};
     for(i=0;i < ent->h/2-1 && i > -ent->h/2 && (int)ent->pos.x+i<CHUNKH;i=-(i+add%2),add++){
         for(j=1;(int)ent->pos.y+j>=1 && j>-ent->w/2  && (int)ent->pos.y+j <CHUNKW;j--){
-            if(est_obstacle(ent->chunk->chunk[(int)ent->pos.x+i][(int)ent->pos.y+j-1]->contenu,GAUCHE)){
+            if(est_mur(ent->chunk->chunk[(int)ent->pos.x+i][(int)ent->pos.y+j-1]->contenu)){
                 pos_mur.x=(int)ent->pos.x+i;
                 pos_mur.y=(int)ent->pos.y+j;
                 break;
@@ -208,7 +316,7 @@ pos_t mur_a_droite(entite_t * ent){
     pos_t pos_mur={-1,-1};
     for(i=0;i < ent->h/2-1 && i > -ent->h/2 && (int)ent->pos.x+i<CHUNKH;i=-(i+add%2),add++){
         for(j=1;(int)ent->pos.y+j<CHUNKW-1 && j<ent->w/2 && (int)ent->pos.y+j <CHUNKW;j++){
-            if(est_obstacle(ent->chunk->chunk[(int)ent->pos.x+i][(int)ent->pos.y+j+1]->contenu,DROITE)){
+            if(est_mur(ent->chunk->chunk[(int)ent->pos.x+i][(int)ent->pos.y+j+1]->contenu)){
                 pos_mur.x=(int)ent->pos.x+i;
                 pos_mur.y=(int)ent->pos.y+j+1;
                 break;
@@ -226,7 +334,7 @@ pos_t mur_en_haut(entite_t * ent){
     pos_t pos_mur={-1,-1};
     for(j=0;j < ent->w/2-1 && j > -ent->w/2 && (int)ent->pos.y+j<CHUNKW && ent->pos.y+j>0;j=-(j+add%2),add++){
         for(i=0;i>-ent->h/2 && (int)ent->pos.x+i > 0;i--){
-            if(est_obstacle(ent->chunk->chunk[(int)ent->pos.x+i][(int)ent->pos.y+j]->contenu,HAUT)){
+            if(est_mur(ent->chunk->chunk[(int)ent->pos.x+i][(int)ent->pos.y+j]->contenu)){
                 pos_mur.x=(int)ent->pos.x+i+1;
                 pos_mur.y=(int)ent->pos.y+j;
                 break;
@@ -244,7 +352,25 @@ pos_t mur_en_bas(entite_t * ent){
     pos_t pos_mur={-1,-1};
     for(j=0;j < ent->w/2-1 && j > -ent->w/2 && (int)ent->pos.y+j<CHUNKW && ent->pos.y+j>0;j=-(j+add%2),add++){
         for(i=0;i<ent->h/2 && (int)ent->pos.x+i < CHUNKH;i++){
-            if(est_obstacle(ent->chunk->chunk[(int)ent->pos.x+i][(int)ent->pos.y+j]->contenu,HAUT)){
+            if(est_mur(ent->chunk->chunk[(int)ent->pos.x+i][(int)ent->pos.y+j]->contenu)){
+                pos_mur.x=(int)ent->pos.x+i+1;
+                pos_mur.y=(int)ent->pos.y+j;
+                break;
+                
+            }
+        }
+        if(pos_mur.x!=-1)
+            break;
+    }
+    return pos_mur;
+}
+
+pos_t pont_en_bas(entite_t * ent ){
+    int i,j, add=0;
+    pos_t pos_mur={-1,-1};
+    for(j=0;j < ent->w/2-1 && j > -ent->w/2 && (int)ent->pos.y+j<CHUNKW && ent->pos.y+j>0;j=-(j+add%2),add++){
+        for(i=0;i<ent->h/2 && (int)ent->pos.x+i < CHUNKH;i++){
+            if(i== ent->h/2-1 && j< ent->w_hitbox/2+ ent->offset_hitbox * (ent->dir==DROITE ? 1 :-1) && j> -ent->w_hitbox/2+ ent->offset_hitbox * (ent->dir==DROITE ? 1 :-1) && est_pont(ent->chunk->chunk[(int)ent->pos.x+i][(int)ent->pos.y+j]->contenu) && ent->vitesse_x>=0){
                 pos_mur.x=(int)ent->pos.x+i+1;
                 pos_mur.y=(int)ent->pos.y+j;
                 break;
@@ -267,7 +393,12 @@ static
 booleen_t en_lair(entite_t * ent){
     pos_t pos_mur;
     pos_mur=mur_en_bas(ent);
-    return pos_mur.x==-1;
+    if(pos_mur.x==-1){
+        pos_mur=pont_en_bas(ent);
+        if(pos_mur.x==-1)
+            return VRAI;
+    }
+    return FAUX;
 }
 
 /*
@@ -317,6 +448,19 @@ void entite_deplacement(entite_t * ent,double temps){
     booleen_t deja=FAUX;
     int w,h;
     float vitesse_tempo;
+
+    if(ent->vitesse_y > 0){                          //On adapte la direction de l'entité en fonction de sa vitesse
+        if(ent->dir==GAUCHE)
+            (ent->pos.y)-=(2*ent->offset_hitbox);
+        ent->dir=DROITE;                            //Si elle est nulle, on ne change rien 
+    }
+    else if(ent->vitesse_y < 0){
+        if(ent->dir==DROITE)
+            (ent->pos.y)+=(2*ent->offset_hitbox);
+        ent->dir=GAUCHE;
+    }
+
+
     (ent->pos.y)+= (ent->vitesse_y)*temps;                  //On actualise la position horizontale grace a vitesse_y
                                                                 
     pos_mur=mur_a_gauche(ent);                              //Si on se retrouve dans un mur, on se replace
@@ -334,6 +478,10 @@ void entite_deplacement(entite_t * ent,double temps){
     if(pos_mur.x!=-1){
         replacer(ent,pos_mur,BAS);                          //Si on se retrouve dans un mur, on se replace
     }
+    pos_mur=pont_en_bas(ent);
+    if(pos_mur.x!=-1){
+        replacer(ent,pos_mur,BAS);                          //Si on se retrouve dans un mur, on se replace
+    }
 
     pos_mur=mur_en_haut(ent);
     if(pos_mur.x!=-1 ){
@@ -344,11 +492,6 @@ void entite_deplacement(entite_t * ent,double temps){
     if(ent->en_l_air(ent)){                                 //Si on est en l'air, on tombe (La vitesse maximale est atteinte après 2 secondes de chute avec v0=0)
         ent->vitesse_x= (ent->vitesse_x + GRAVITE*temps > GRAVITE*2) ? GRAVITE*2:ent->vitesse_x + GRAVITE*temps;
     }
-
-    if(ent->vitesse_y > 0)                          //On adapte la direction de l'entité en fonction de sa vitesse
-        ent->dir=DROITE;                            //Si elle est nulle, on ne change rien 
-    else if(ent->vitesse_y < 0)
-        ent->dir=GAUCHE;
 
     
     
@@ -427,11 +570,23 @@ booleen_t en_contact(entite_t * ent_courante, entite_t * ent_a_verif){
         return FAUX;
     if (ent_courante->w_hitbox == 0 && ent_courante->w_hitbox == 0 )
         return FAUX;
-    if(abs(ent_courante->pos.y - ent_a_verif->pos.y) <= (ent_courante->w_hitbox + ent_a_verif->w_hitbox)/2 && abs(ent_courante->pos.x - ent_a_verif->pos.x) <= (ent_courante->h_hitbox + ent_a_verif->h_hitbox)/2)
+    if((abs(ent_courante->pos.y + ent_courante->offset_hitbox * (ent_courante->dir == DROITE ? 1 : -1) -ent_a_verif->pos.y + ent_a_verif->offset_hitbox * (ent_a_verif->dir == DROITE ? 1 : -1)) < (ent_courante->w_hitbox + ent_a_verif->w_hitbox)/2)
+    && abs(ent_courante->pos.x - ent_a_verif->pos.x) <= (ent_courante->h_hitbox + ent_a_verif->h_hitbox)/2)
         return VRAI;
     return FAUX;
 }
 
+
+static booleen_t en_contact_porte(entite_t * ent){
+    int i,j, add=0;
+    for(j=0;j < ent->w/2-1 && j > -ent->w/2 && (int)ent->pos.y+j<CHUNKW && ent->pos.y+j>0;j=-(j+add%2),add++){
+        for(i=0;i<ent->h/2 && (int)ent->pos.x+i < CHUNKH;i++){
+            if(ent->chunk->chunk[(int)ent->pos.x+i][(int)ent->pos.y+j]->contenu == PORTE)
+                return VRAI;
+        }
+    }
+    return FAUX;
+}
 /*
     str_creer_copier
     paramètre:
@@ -510,7 +665,7 @@ entite_t * entite_creer(char * nom,
                         float vitesse_x, float vitesse_y, float vitesse_max_y,
                         float secSprite,
                         int w, int h, 
-                        int w_hitbox, int h_hitbox, 
+                        int w_hitbox, int h_hitbox, int offset_hitbox,
                         int nbTextures,
                         SDL_Texture ** textures)
 {
@@ -520,7 +675,6 @@ entite_t * entite_creer(char * nom,
         return  NULL;
     }
 
-    entite->envie=VRAI;
     entite->pos=pos;
     entite->w=w;
     entite->h=h;
@@ -536,6 +690,8 @@ entite_t * entite_creer(char * nom,
     entite->textures=textures;
     entite->dir= vitesse_y >= 0 ? DROITE : GAUCHE;
     entite->lastSprite=0;
+    entite->gravite=VRAI;
+    entite->offset_hitbox=offset_hitbox;
 
     entite->detruire_ent=entite_detruire;
     entite->lire=entite_lire;
@@ -546,6 +702,7 @@ entite_t * entite_creer(char * nom,
     entite->contact=en_contact;
     entite->hitbox=afficher_hitbox;
     entite->detruire_textures=detruire_tabl_textures;
+    entite->contact_porte=en_contact_porte;
 
 
     if((entite->nom = str_creer_copier(nom))==NULL){

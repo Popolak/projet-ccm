@@ -8,6 +8,8 @@
 
 #include "../niveaux/salle.h"
 
+
+#define H_PONT_AFFICH 20
 /* Structures*/
 typedef struct camera_s{
     pos_t centre;
@@ -44,6 +46,9 @@ extern SDL_Texture * creer_texture_image( SDL_Renderer * ren, char * nom_image);
 */
 extern 
 err_t render_mur_chunk(SDL_Renderer * ren, SDL_Texture * texture_mur, chunk_t * chunk, int WINW, int WINH);
+
+extern 
+err_t render_pont_chunk(SDL_Renderer * ren, SDL_Texture * texture_pont, chunk_t * chunk, int WINW, int WINH);
 
 
 
