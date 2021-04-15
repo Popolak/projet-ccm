@@ -231,7 +231,6 @@ void vider_tableaux(void * tab[NB_MAX_AFF] , void (*tab_destr[NB_MAX_AFF])(void 
 extern 
 void synchro_tableau(void * tab[NB_MAX_AFF], void (*tab_destr[NB_MAX_AFF])(void ** ),double temps){
     int i,j;
-    printf("%p\n",tab[0]);
     for(i=0; i< NB_MAX_AFF && tab[i]!=NULL; i++){
         if(((entite_t * )tab[i])->deplacer((entite_t * )tab[i],temps)==1){
             for(j=0; j< NB_MAX_AFF && tab[j]!=NULL; j++);
