@@ -1,0 +1,1 @@
+Adaptation du script ennemi pour coller à celui des entités.
