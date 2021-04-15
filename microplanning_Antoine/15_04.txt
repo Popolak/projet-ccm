@@ -1,1 +1,1 @@
-Ajout des ennemis dans la fonction main.
+Adaptation du script ennemi pour coller à celui des entités.

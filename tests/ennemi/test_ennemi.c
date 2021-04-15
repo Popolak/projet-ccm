@@ -11,15 +11,15 @@ int main(){
   position.y = 50;
 
   printf("test creation\n");
-  courjette_test = ennemi_creer("courjette", 50, 10, &position, "courjette.png", 15, 2, "CaC", 20);
+  courjette_test = ennemi_creer("courjette","courjette", "cac", 50, 10, 15, 12, 0, 0,&position, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,"courjette.png");
 
   printf( "Test d'existance sur un perso_t existant\n" ) ;
-  ennemi_existe(courjette_test);
+  courjette->ennemi_existe(courjette_test);
 
   printf("test destruction\n");
-  ennemi_detruire(&courjette_test);
+  courjette->ennemi_detruire(&courjette_test);
 
   printf( "Test d'existance sur un perso_t inexistant\n" ) ;
-  ennemi_existe(courjette_test);
+  courjette->ennemi_existe(courjette_test);
 
   return 0;

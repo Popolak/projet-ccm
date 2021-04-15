@@ -7,6 +7,7 @@
 #include "../lib/commun.h"
 #include "../lib/niveaux/niveau.h"
 #include "../lib/affichage/room_rendering.h"
+#include "../lib/entite/ennemi.h"
 
 /*
 void menu_accueil(){//menu d'accueil du jeu
