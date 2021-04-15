@@ -91,9 +91,6 @@ char * entre_guillemet(FILE * file);
 
 
 extern 
-entite_t * creer_entite_chaine(SDL_Renderer *ren, const entite_t const * joueur , char * chaine,  FILE * index, char * appel);
-
-extern 
 void initTabDaffich(void ** tab);
 
 extern err_t afficher_tableau (void * tab_ent[NB_MAX_AFF], SDL_Renderer * ren, int WINW, int WINH);
@@ -108,7 +105,7 @@ extern
 void vider_tableaux(void * tab[NB_MAX_AFF] , void (*tab_destr[NB_MAX_AFF])(void ** ));
 
 extern 
-void synchro_tableau(void * tab[NB_MAX_AFF], void (*tab_destr[NB_MAX_AFF])(void ** ),double temps);
+void synchro_tableau(void * tab[NB_MAX_AFF], void (*tab_destr[NB_MAX_AFF])(void ** ),double temps,  FILE * file_gen);
 
 extern 
 err_t entite_detruire(entite_t ** ent);
@@ -133,5 +130,8 @@ void replacer(entite_t * ent, pos_t pos_mur, int direction);
 
 extern 
 void hitbox_tableau(SDL_Renderer * ren, void * tab[NB_MAX_AFF], int WINW, int WINH);
+
+extern 
+void tableau_contact ( void * tab[NB_MAX_AFF], void * ent_a_verif);
 
 #endif

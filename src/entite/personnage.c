@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include "../../lib/entite/personnage.h"
+#include "../../lib/generation/element_generation.h"
 
 /* Par Matthis */
 /* Fonctions */
@@ -99,12 +100,13 @@ void input_update_speed (perso_t * perso, int tot_touche){
 
 
 static 
-void perso_deplacement(entite_t * ent,double temps ){
+int perso_deplacement(void * element,double temps, void *tab[NB_MAX_AFF], void (*tab_destr[NB_MAX_AFF])(void ** ) ){
     pos_t pos_mur;
     chunk_t * chunk;
     booleen_t deja=FAUX;
     int w,h;
     float vitesse_tempo;
+	perso_t * ent = (perso_t *) element;
 
     if(ent->vitesse_y > 0){                          //On adapte la direction de l'entité en fonction de sa vitesse
         if(ent->dir==GAUCHE)
@@ -150,56 +152,7 @@ void perso_deplacement(entite_t * ent,double temps ){
         ent->vitesse_x= (ent->vitesse_x + GRAVITE*temps > GRAVITE*2) ? GRAVITE*2:ent->vitesse_x + GRAVITE*temps;
     }
 
-    
-    
-    if(ent->pos.y>=CHUNKW){                             //Si le personnage se retrouve trop a droite, il sort du chunk 
-        if((chunk=ent->salle->chercher_chunk(ent->salle,ent->chunk->position.x, ent->chunk->position.y+1))!=NULL){ //alors on vérifie s'il y en a un a droite
-            ent->chunk=chunk;                           //Le chunk a droite devient le nouveau chunk de l'entité
-            ent->pos.y=ent->pos.y-CHUNKW;               //Sa position change en fonction
-        }
-        else{
-            printf("Erreur de segmentation, pas de chunk a droite\n");
-            exit(1);
-        }
-    }               
-
-                                            //Meme systeme ensuite
-    if(ent->pos.y<0){
-        if((chunk=ent->salle->chercher_chunk(ent->salle,ent->chunk->position.x, ent->chunk->position.y-1))!=NULL){
-            ent->chunk=chunk;
-            ent->pos.y=CHUNKW+ent->pos.y;
-        }
-        else{
-            printf("Erreur de segmentation, pas de chunk a gauche\n");
-            exit(1);
-        }
-    }
-
-
-    if(ent->pos.x>=CHUNKH){
-        if((chunk=ent->salle->chercher_chunk(ent->salle,ent->chunk->position.x+1, ent->chunk->position.y))!=NULL){
-            ent->chunk=chunk;
-            ent->pos.x=ent->pos.x-CHUNKH;
-        }
-        else{
-            printf("Erreur de segmentation, pas de chunk en bas\n");
-            exit(1);
-        }
-    }
-
-
-    if(ent->pos.x<0){
-        if((chunk=ent->salle->chercher_chunk(ent->salle,ent->chunk->position.x-1, ent->chunk->position.y))!=NULL){
-            ent->chunk=chunk;
-            ent->pos.x=CHUNKH+ent->pos.y;
-        }
-        else{
-            printf("Erreur de segmentation,pas de chunk en haut\n");
-            exit(1);
-        }
-    }
-
-    //Si la vitesse de l'entité n'est pas actualisée (soit par un input de l'utilisateur, soit par l'algorithme des ennemis)
+		//Si la vitesse de l'entité n'est pas actualisée (soit par un input de l'utilisateur, soit par l'algorithme des ennemis)
     //Alors on la change grace a la décélération
 
     if(ent->vitesse_y){
@@ -212,12 +165,115 @@ void perso_deplacement(entite_t * ent,double temps ){
         if(ent->vitesse_y > 0 && ent->dir == GAUCHE || ent->vitesse_y < 0 && ent->dir == DROITE)
             ent->vitesse_y=0;
     }
+    
+    if(! coord_correcte(ent->pos.x,ent->pos.y)){
+		if(ent->pos.y>=CHUNKW){                             //Si le personnage se retrouve trop a droite, il sort du chunk 
+			if((chunk=ent->salle->chercher_chunk(ent->salle,ent->chunk->position.x, ent->chunk->position.y+1))!=NULL){ //alors on vérifie s'il y en a un a droite
+				ent->chunk=chunk;                           //Le chunk a droite devient le nouveau chunk de l'entité
+				ent->pos.y=ent->pos.y-CHUNKW;               //Sa position change en fonction
+			}
+			else{
+				printf("Erreur de segmentation, pas de chunk a droite\n");
+				exit(1);
+			}
+		}               
+
+												//Meme systeme ensuite
+		if(ent->pos.y<0){
+			if((chunk=ent->salle->chercher_chunk(ent->salle,ent->chunk->position.x, ent->chunk->position.y-1))!=NULL){
+				ent->chunk=chunk;
+				ent->pos.y=CHUNKW+ent->pos.y;
+			}
+			else{
+				printf("Erreur de segmentation, pas de chunk a gauche\n");
+				exit(1);
+			}
+		}
+
+
+		if(ent->pos.x>=CHUNKH){
+			if((chunk=ent->salle->chercher_chunk(ent->salle,ent->chunk->position.x+1, ent->chunk->position.y))!=NULL){
+				ent->chunk=chunk;
+				ent->pos.x=ent->pos.x-CHUNKH;
+			}
+			else{
+				printf("Erreur de segmentation, pas de chunk en bas\n");
+				exit(1);
+			}
+		}
+
+
+		if(ent->pos.x<0){
+			if((chunk=ent->salle->chercher_chunk(ent->salle,ent->chunk->position.x-1, ent->chunk->position.y))!=NULL){
+				ent->chunk=chunk;
+				ent->pos.x=CHUNKH+ent->pos.y;
+			}
+			else{
+				printf("Erreur de segmentation,pas de chunk en haut\n");
+				exit(1);
+			}
+		}
+		return 1;
+	}
+	return 0;
+    
+	
 }
 
 
 static
 void perso_prendre_coup(perso_t * personnage, int degats){
 	personnage->vie -= degats;
+}
+
+static 
+void perso_attaque(void * perso_courant, void * entite_subit){
+
+}
+
+extern
+err_t remplir_tableaux(SDL_Renderer * ren,perso_t *perso, void * tab[NB_MAX_AFF], void (*tab_destr[NB_MAX_AFF])(void ** ),char * appel ,FILE * index, FILE * file_gen){
+	void * element;
+	int n;
+	if(!file_gen){
+		printf("Pas de fichier de génération \n");
+		return 1;
+	}
+	char str[300];
+	int sx,sy,cx,cy;
+	while(!feof(file_gen)){
+		sx=fgetc(file_gen)-'0';
+		printf("%d",sx);
+		sy=fgetc(file_gen)-'0';
+		printf("%d",sy);
+		cx=fgetc(file_gen)-'0';
+		printf("%d",cx);
+		cy=fgetc(file_gen)-'0';
+		printf("%d\n",cy);
+
+		fgets(str,299,file_gen);
+		printf("%s\n",str);
+		if(perso->salle->position.x == sx && perso->salle->position.y == sy && perso->chunk->position.x == cx && perso->chunk->position.y == cy){
+			printf("oui\n");
+			element = creer_entite_chaine(ren ,&n,perso,str, index,appel);
+			if(n==1){
+				ajouter_tableaux(tab,tab_destr,element,((perso_t*)element)->detruire);
+			}
+			else 
+				ajouter_tableaux(tab,tab_destr,element,((entite_t*)element)->detruire);
+			
+		}
+	}
+	fseek(file_gen,0,SEEK_SET);
+	fseek(index,0,SEEK_SET);
+	return 0;
+}
+
+static 
+err_t perso_change_chunk( SDL_Renderer * ren, perso_t * perso,  void * tab[NB_MAX_AFF], void (*tab_destr[NB_MAX_AFF])(void ** ), FILE *index, FILE * file_gen, char * appel){
+	vider_tableaux(tab, tab_destr);
+	remplir_tableaux(ren,perso,tab,tab_destr,appel,index,file_gen);
+
 }
 
 static
@@ -266,7 +322,9 @@ perso_t * perso_creer(char * nom,
 	personnage->copie_partiel=perso_copie_partiel;
 	personnage->depop=perso_depop;
 	personnage->envie=en_vie;
-//	personnage->deplacer=perso_deplacement;
+	personnage->deplacer=perso_deplacement;
+	personnage->action=perso_attaque;
+	personnage->change_chunk=perso_change_chunk;
 
 	return(personnage);
 }

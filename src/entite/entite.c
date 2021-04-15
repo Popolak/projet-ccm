@@ -118,52 +118,6 @@ long seek_entity_type(FILE * index,char *type){
     return (ftell(index));
 }
 
-extern 
-entite_t * creer_entite_chaine(SDL_Renderer *ren, const entite_t const * joueur , char * chaine,  FILE * index, char * appel){
-    entite_t *ent;
-    char type[20], *nom=NULL, *desc=NULL;
-    int cur_pos=0 ,w,h,w_hit,h_hit,offset, nbText;
-    float v_y,secSprite;
-    pos_t pos;
-    SDL_Texture ** textures;
-    char str[300];
-    if (!index){
-        printf("Le fichier n'existe pas\n");
-        return NULL;
-    }
-    fseek(index,0,SEEK_SET);
-    if(feof(index)){
-        return NULL;
-    }
-    sscanf(chaine, "%s %f %f",type, &(pos.x),&(pos.y));
-    
-    cur_pos=strlen(type);
-    seek_entity_type(index,type);
-    nom=entre_guillemet(index);
-    desc=entre_guillemet(index);
-    fscanf(index,"%d",&w);
-    fscanf(index,"%d",&h);
-    fscanf(index,"%d",&w_hit);
-    fscanf(index,"%d",&h_hit);
-    fscanf(index,"%d",&offset);
-    fscanf(index,"%f",&v_y);
-    fscanf(index,"%f",&secSprite);
-
-    fgetc(index);
-    fgets(str,299,index);
-    printf("%s\n", str);
-    textures=creer_tableau_textures_chaine(ren,&nbText,str,appel);
-    
-
-
-    
-    ent=entite_creer(nom,desc,joueur->salle, joueur->chunk, pos,0,0,v_y,secSprite,w,h,w_hit,h_hit,offset,nbText,textures);
-    free(nom);
-    free(desc);
-    return ent;
-    
-}
-
 /*
     est_obstacle:
     paramètres:
@@ -229,10 +183,10 @@ void vider_tableaux(void * tab[NB_MAX_AFF] , void (*tab_destr[NB_MAX_AFF])(void 
 }
 
 extern 
-void synchro_tableau(void * tab[NB_MAX_AFF], void (*tab_destr[NB_MAX_AFF])(void ** ),double temps){
+void synchro_tableau(void * tab[NB_MAX_AFF], void (*tab_destr[NB_MAX_AFF])(void ** ),double temps,  FILE * file_gen){
     int i,j;
     for(i=0; i< NB_MAX_AFF && tab[i]!=NULL; i++){
-        if(((entite_t * )tab[i])->deplacer((entite_t * )tab[i],temps)==1){
+        if(((entite_t * )tab[i])->deplacer((entite_t * )tab[i],temps,tab,tab_destr )==1){
             for(j=0; j< NB_MAX_AFF && tab[j]!=NULL; j++);
             j--;
             echanger((void **)(&(tab[i])), (void **)(&(tab[j])));
@@ -251,13 +205,18 @@ void hitbox_tableau(SDL_Renderer * ren, void * tab[NB_MAX_AFF], int WINW, int WI
 }
 
 extern 
-void tableau_contact ( void * tab[NB_MAX_AFF], entite_t * ent_a_verif){
+void tableau_contact ( void * tab[NB_MAX_AFF], void * ent_a_verif){
     int i;
     for(i=0; i<NB_MAX_AFF && tab[i]!=NULL;i++){
-        if(((entite_t *)tab[i])->contact(((entite_t *)tab[i]),ent_a_verif)){
-
+        if(((entite_t *)tab[i])->contact(((entite_t*)ent_a_verif),((entite_t *)tab[i]))){
+            ((entite_t*)ent_a_verif)->action(tab[i], ent_a_verif);  
         }
     }   
+}
+
+static 
+void entite_action(void * ent_courante, void * entite_subit){
+
 }
 
 
@@ -550,12 +509,13 @@ void replacer(entite_t * ent, pos_t pos_mur, int direction){
 
 
 static 
-int entite_deplacement(entite_t * ent,double temps ){
+int entite_deplacement(void * element,double temps ,void *tab[NB_MAX_AFF], void (*tab_destr[NB_MAX_AFF])(void ** ), FILE * file_gen){
     pos_t pos_mur;
     chunk_t * chunk;
     booleen_t deja=FAUX;
     int w,h;
     float vitesse_tempo;
+    entite_t *ent= (entite_t *) element; 
 
     if(ent->vitesse_y > 0){                          //On adapte la direction de l'entité en fonction de sa vitesse
         if(ent->dir==GAUCHE)
@@ -771,6 +731,7 @@ entite_t * entite_creer(char * nom,
     entite->hitbox=afficher_hitbox;
     entite->detruire_textures=detruire_tabl_textures;
     entite->contact_porte=en_contact_porte;
+    entite->action=entite_action;
 
 
     if((entite->nom = str_creer_copier(nom))==NULL){

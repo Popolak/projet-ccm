@@ -3,11 +3,12 @@ void (*lire)(struct entite_s * );
 err_t (*afficher_chunk)(SDL_Renderer *,struct entite_s *  ,int ,int );
 err_t (*afficher_fenetre)(SDL_Renderer * ,struct entite_s * , int , int , int , int , SDL_Texture * );
 void (*hitbox)(SDL_Renderer * , struct entite_s * , int , int );
-int (*deplacer)(struct entite_s * ,double );
+int (*deplacer)(void * ,double , void **, void (**)(void ** ));
 booleen_t (*en_l_air)(struct entite_s * );
 booleen_t (*contact)(struct entite_s * , struct entite_s * );
 booleen_t (*contact_porte)(struct entite_s * );
 err_t (*detruire_textures)(struct entite_s **);
+void (*action)(void *, void *);
 
 
 chunk_t * chunk;

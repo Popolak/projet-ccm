@@ -5,6 +5,7 @@
 #include "../../../lib/entite/personnage.h"
 #include "../../../lib/affichage/room_rendering.h"
 #include "../../../lib/niveaux/niveau.h"
+#include "../../../lib/generation/element_generation.h"
 
 int main(){
     void * tableau_entite[NB_MAX_AFF];
@@ -13,7 +14,7 @@ int main(){
     initTabDaffich(tableau_entite);
     initTabDaffich((void**)tab_destr);
 
-    int WINW=1280, WINH=720,x=CHUNKH-CHUNKH*ratioSol-30,y=TAILLE_MUR+40, nbText;
+    int WINW=1280, WINH=720,x=CHUNKH-CHUNKH*ratioSol-30,y=TAILLE_MUR+40, nbText,n;
     chunk_t * chunk;
     niveau_t * niv=NULL;
     salle_t * salle=NULL;
@@ -22,8 +23,17 @@ int main(){
     SDL_Window * win=NULL;
     SDL_Renderer * ren=NULL;
     pos_t pos={300,200}, pos2={100,400};
-    FILE * index= fopen("../../../generation/index_entite.txt", "r");
+    FILE * index= NULL, * entite_gen= NULL;
     float sec,secAvant, secMaint, secInvins=0.5,secDeg=0;
+    index=fopen("../../../generation/index_entite.txt", "r");
+    if(!index){
+        printf("Pas d'index\n");
+    }
+    
+    entite_gen =fopen("../../../generation/generation_ent.txt","r");
+    if(!entite_gen){
+        printf("Pas de fichier de génération d'éléments\n");
+    }
     if(SDL_Init(SDL_INIT_VIDEO)<0){
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Erreur : %s", SDL_GetError());
         return 1;
@@ -33,7 +43,6 @@ int main(){
         SDL_Quit();
         return 1;
     }
-    printf("oui\n");
     niv=niveau_creer("/home/matthis/Documents/Roguelike/src/niveaux/generation/test_niv.txt");
     if(niv){
         printf("Génération du niveau effectuée\n");
@@ -54,12 +63,12 @@ int main(){
     SDL_Texture ** joueurTextures=NULL, **entite_test_textures;
 
     joueurTextures=creer_tableau_textures_chaine(ren,&nbText,"\"../../../graphics/sprite/personnage_sprites/Tom immo.png\" \"../../../graphics/sprite/personnage_sprites/Tom neutre.png\" \"../../../graphics/sprite/personnage_sprites/Tom marche 1.png\" \"../../../graphics/sprite/personnage_sprites/Tom marche 2.png\" ","./");
-    Tom=perso_creer("Tom","tomate",30,salle,chunk,pos,0,0,100,700,60,80,30,60,-10,0.2,0,0,nbText,joueurTextures);
+    Tom=perso_creer("Tom","tomate",30,salle,chunk,pos,0,0,300,700,60,80,30,60,-10,0.2,0,0,nbText,joueurTextures);
 
     //entite_test_textures=creer_tableau_textures_chaine(ren,&nbText,"\"../../../graphics/sprite/entite_sprites/test.png\"");
     //entite_test=entite_creer("test","test",salle,chunk,pos2,200,-100,400,0.1,40,40,30,30,0,nbText,entite_test_textures);
-    ajouter_tableaux(tableau_entite,tab_destr, creer_entite_chaine(ren,(entite_t*)Tom, "patate 300 200",index,"../../../"),(void*) entite_detruire );
-    ajouter_tableaux(tableau_entite,tab_destr, creer_entite_chaine(ren,(entite_t*)Tom, "patate 200 400",index,"../../../"),(void*)entite_detruire );
+    ajouter_tableaux(tableau_entite,tab_destr, creer_entite_chaine(ren,&n,(entite_t*)Tom, " patate 300 200",index,"../../../"),(void*) entite_detruire );
+    ajouter_tableaux(tableau_entite,tab_destr, creer_entite_chaine(ren,&n,(entite_t*)Tom, " patate 200 400",index,"../../../"),(void*)entite_detruire );
 
     if(bgTexture==NULL || murTexture==NULL || joueurTextures[0]==NULL || joueurTextures[1]==NULL || joueurTextures[2]==NULL){
         printf("La création de la texture a échouée\n");
@@ -85,8 +94,9 @@ int main(){
         Tom->lastSprite+=sec;
         secAvant=secMaint;
         if(sec<0.1){
-            Tom->deplacer((entite_t *)Tom,sec);
-            synchro_tableau(tableau_entite,tab_destr,sec);
+            if(Tom->deplacer(Tom,sec, tableau_entite, tab_destr))
+                Tom->change_chunk(ren, Tom, tableau_entite,tab_destr,index,entite_gen,"../../../");
+            synchro_tableau(tableau_entite,tab_destr,sec,NULL);
         }   
         /*if(Tom->contact((entite_t*) Tom, entite_test) && secDeg > secInvins){
             Tom->prendre_coup(Tom,10);
@@ -137,6 +147,7 @@ int main(){
 
         render_chunk_unite(tableau_entite,ren,pontTexture,murTexture,Tom->chunk,WINW,WINH);
 
+        tableau_contact(tableau_entite,Tom);
 
         Tom->hitbox(ren,Tom,WINH,WINW);
         hitbox_tableau(ren,tableau_entite,WINW,WINH);
@@ -151,5 +162,7 @@ int main(){
     SDL_DestroyRenderer(ren);
     SDL_DestroyWindow(win);
     SDL_Quit();
+
+    fclose(index);
     return 0;
 }

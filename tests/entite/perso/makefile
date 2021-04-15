@@ -1,8 +1,8 @@
-fichier_test_perso= perso_test.o  unite.o porte.o chunk.o personnage.o entite.o room_rendering.o 
-fich_test_affichage= perso_test_affich.o room_rendering.o  unite.o porte.o chunk.o salle.o niveau.o entite.o personnage.o 
+fichier_test_perso= perso_test.o  unite.o porte.o chunk.o personnage.o entite.o room_rendering.o element_generation.o
+fich_test_affichage= perso_test_affich.o room_rendering.o  unite.o porte.o chunk.o salle.o niveau.o entite.o personnage.o element_generation.o
 
 BIN= test_perso test_perso_affichage
-OBJ=  perso_test_affich.o room_rendering.o  unite.o porte.o chunk.o salle.o niveau.o entite.o personnage.o 
+OBJ=  perso_test_affich.o room_rendering.o  unite.o porte.o chunk.o salle.o niveau.o entite.o personnage.o element_generation.o
 
 test_perso: $(fichier_test_perso)
 	gcc $(fichier_test_perso) -o test_perso -lSDL2main -lSDL2 -lSDL2_image
@@ -33,6 +33,9 @@ porte.o: ../../../src/niveaux/porte.c ../../../lib/niveaux/porte.h
 
 niveau.o: ../../../src/niveaux/niveau.c ../../../lib/niveaux/niveau.h
 	gcc ../../../src/niveaux/niveau.c -c
+
+element_generation.o: ../../../src/generation/element_generation.c ../../../lib/generation/element_generation.h
+	gcc ../../../src/generation/element_generation.c -c
 
 perso_test_affich.o: perso_test_affich.c
 	gcc perso_test_affich.c -c
