@@ -1,9 +1,9 @@
-err_t (*detruire_ent)(struct entite_s ** );
+/* Par Matthis */
 void (*lire)(struct entite_s * );
 err_t (*afficher_chunk)(SDL_Renderer *,struct entite_s *  ,int ,int );
 err_t (*afficher_fenetre)(SDL_Renderer * ,struct entite_s * , int , int , int , int , SDL_Texture * );
 void (*hitbox)(SDL_Renderer * , struct entite_s * , int , int );
-void (*deplacer)(struct entite_s * ,double );
+int (*deplacer)(struct entite_s * ,double );
 booleen_t (*en_l_air)(struct entite_s * );
 booleen_t (*contact)(struct entite_s * , struct entite_s * );
 booleen_t (*contact_porte)(struct entite_s * );

@@ -1,1 +1,1 @@
-patate "Patate" "This is a potato" 50 50 40 40 0 300 0.2 graphics/sprite/entite_sprite/potato.png
+patate "Patate" "This is a potato" 50 50 40 40 0 300 0.2 "graphics/sprite/entite_sprites/potato.png"

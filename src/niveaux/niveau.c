@@ -43,6 +43,11 @@ extern err_t relier_portes(FILE * fichier,niveau_t * niveau){    //Pour le conte
         chunk=salle->chercher_chunk(salle,str[7]-'0', str[8]-'0');       //On cherche la deuxième porte
         porte2=chunk->chercher_porte(chunk,str[9]-'0');                  //
 
+        if(!porte1 || !porte2){
+            printf("L'une des portes n'existe pas: %s\n", str);
+            niveau->detruire(&niveau);
+            return ERR_DEB_MEMOIRE;
+        }
         porte1->porteDest=porte2;                               //Et on relie ces deux portes
         porte2->porteDest=porte1;                               //
     }

@@ -1,3 +1,5 @@
+/* Par Matthis */
+
 #ifndef _UNITE_H_
 #define _UNITE_H_
 

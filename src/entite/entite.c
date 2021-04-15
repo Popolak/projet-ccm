@@ -5,7 +5,17 @@
 #include "../../lib/entite/entite.h"
 #include "../../lib/affichage/room_rendering.h"
 
+
+/* Par Matthis */
 /*Fonctions*/
+
+extern 
+void initTabDaffich(void * tab[NB_MAX_AFF]){
+    int i;
+    for(i=0;i<NB_MAX_AFF;i++){
+        tab[i]=NULL;
+    }
+}
 
 static
 err_t detruire_tabl_textures(entite_t **ent){
@@ -43,28 +53,34 @@ char * entre_guillemet(FILE * file){
 }
 
 extern 
-SDL_Texture ** creer_tableau_textures_chaine(SDL_Renderer *ren, int *n,char * chaine){
+SDL_Texture ** creer_tableau_textures_chaine(SDL_Renderer *ren, int *n,char * chaine, char * appel){
     *n=0;
     SDL_Texture ** textures = NULL;
-    char *nom_text=NULL;
-    int i,taille,j;
+    char *nom_text=NULL, *nom_final=NULL;
+    int i,taille,j, taille_appel;
+
+    for(taille_appel=0; appel[taille_appel]; taille_appel++);
+
     for(i=0;chaine[i];i++){
         if(chaine[i]== '\"'){
             for(j=i+1,taille=0;chaine[j]!='\"';j++, taille++);
-            printf("%d\n", taille);
             nom_text=realloc(nom_text,sizeof(char) * taille+1);
+            nom_final=realloc(nom_final, sizeof(char) * taille_appel + taille + 1);
+            strcpy(nom_final,appel);
             for(j=i+1;j<i+taille+1;j++){
                 nom_text[j-i-1]=chaine[j];
             }
             nom_text[taille]='\0';
-            printf("%s\n", nom_text);
+            strcat(nom_final, nom_text);
+
             (*n)++;
             textures=realloc(textures, sizeof(SDL_Texture*) * (*n));
-            textures[*n-1]=creer_texture_image(ren,nom_text);
+            textures[*n-1]=creer_texture_image(ren,nom_final);
             i+=taille+1;
         }
     }
     free(nom_text);
+    free(nom_final);
     return textures;
     
 }
@@ -103,14 +119,14 @@ long seek_entity_type(FILE * index,char *type){
 }
 
 extern 
-entite_t * creer_entite_chaine(SDL_Renderer *ren, const entite_t const * joueur , char * chaine,  FILE * index){
+entite_t * creer_entite_chaine(SDL_Renderer *ren, const entite_t const * joueur , char * chaine,  FILE * index, char * appel){
     entite_t *ent;
     char type[20], *nom=NULL, *desc=NULL;
     int cur_pos=0 ,w,h,w_hit,h_hit,offset, nbText;
     float v_y,secSprite;
     pos_t pos;
     SDL_Texture ** textures;
-    char *str[300];
+    char str[300];
     if (!index){
         printf("Le fichier n'existe pas\n");
         return NULL;
@@ -119,7 +135,8 @@ entite_t * creer_entite_chaine(SDL_Renderer *ren, const entite_t const * joueur 
     if(feof(index)){
         return NULL;
     }
-    sscanf(chaine, "%s %f %f",type, pos.x,pos.y);
+    sscanf(chaine, "%s %f %f",type, &(pos.x),&(pos.y));
+    
     cur_pos=strlen(type);
     seek_entity_type(index,type);
     nom=entre_guillemet(index);
@@ -132,9 +149,14 @@ entite_t * creer_entite_chaine(SDL_Renderer *ren, const entite_t const * joueur 
     fscanf(index,"%f",&v_y);
     fscanf(index,"%f",&secSprite);
 
-    fgets(str,300,index);
-    textures=creer_tableau_textures_chaine(ren,&nbText,str);
+    fgetc(index);
+    fgets(str,299,index);
+    printf("%s\n", str);
+    textures=creer_tableau_textures_chaine(ren,&nbText,str,appel);
+    
 
+
+    
     ent=entite_creer(nom,desc,joueur->salle, joueur->chunk, pos,0,0,v_y,secSprite,w,h,w_hit,h_hit,offset,nbText,textures);
     free(nom);
     free(desc);
@@ -157,6 +179,89 @@ int est_mur(int contenu){
 extern int est_pont(int contenu){
     return contenu==PONT;
 }
+
+
+extern
+void echanger(void ** ptr1,void **ptr2 ){
+    void * tempo=NULL;
+    tempo=*ptr1;
+    *ptr1=*ptr2;
+    *ptr2=tempo; 
+}
+
+
+extern err_t afficher_tableau (void * tab_ent[NB_MAX_AFF], SDL_Renderer * ren, int WINW, int WINH){
+    int i;
+    for(i=0;i<NB_MAX_AFF && tab_ent[i]!=NULL; i++){
+        ((entite_t*)tab_ent[i])->afficher_chunk(ren, ((entite_t*)tab_ent[i]), WINH, WINW);
+    }
+    return OK;
+}
+
+extern 
+int ajouter_tableaux( void * tab[NB_MAX_AFF], void (*tab_destr[NB_MAX_AFF])(void ** ), void * ptr, void (*fonction_dest)(void **)){
+    int i;
+    for(i=0;i<NB_MAX_AFF && tab[i]!=NULL; i++);
+    if(i>=NB_MAX_AFF)
+        return 0;
+    tab[i]=ptr;
+    tab_destr[i]=fonction_dest;
+}
+
+extern 
+void enlever_tableaux(void * tab[NB_MAX_AFF] , void (*tab_destr[NB_MAX_AFF])(void ** )){
+    int i;
+    for(i=0;i<NB_MAX_AFF && tab[i]!=NULL;i++);
+    if(i==NB_MAX_AFF)
+        return;
+    i--;
+    tab_destr[i](&(tab[i]));
+    tab[i]=NULL;
+    tab_destr[i]=NULL;
+}
+
+extern 
+void vider_tableaux(void * tab[NB_MAX_AFF] , void (*tab_destr[NB_MAX_AFF])(void ** )){
+    int i;
+    while(tab[0]!=NULL){
+        enlever_tableaux(tab,tab_destr);
+    }
+}
+
+extern 
+void synchro_tableau(void * tab[NB_MAX_AFF], void (*tab_destr[NB_MAX_AFF])(void ** ),double temps){
+    int i,j;
+    printf("%p\n",tab[0]);
+    for(i=0; i< NB_MAX_AFF && tab[i]!=NULL; i++){
+        if(((entite_t * )tab[i])->deplacer((entite_t * )tab[i],temps)==1){
+            for(j=0; j< NB_MAX_AFF && tab[j]!=NULL; j++);
+            j--;
+            echanger((void **)(&(tab[i])), (void **)(&(tab[j])));
+            echanger((void **)(&(tab_destr[i])), (void **)(&(tab_destr[j])));
+            enlever_tableaux(tab, tab_destr);
+        }
+    }
+}
+
+extern 
+void hitbox_tableau(SDL_Renderer * ren, void * tab[NB_MAX_AFF], int WINW, int WINH){
+    int i;
+    for(i=0; i<NB_MAX_AFF && tab[i]!=NULL; i++){
+        ((entite_t*)tab[i])->hitbox(ren, ((entite_t*)tab[i]), WINH, WINW);
+    }
+}
+
+extern 
+void tableau_contact ( void * tab[NB_MAX_AFF], entite_t * ent_a_verif){
+    int i;
+    for(i=0; i<NB_MAX_AFF && tab[i]!=NULL;i++){
+        if(((entite_t *)tab[i])->contact(((entite_t *)tab[i]),ent_a_verif)){
+
+        }
+    }   
+}
+
+
 
 /*
     afficher_dans_chunk:
@@ -215,6 +320,9 @@ static err_t afficher_dans_chunk(SDL_Renderer *ren,entite_t *entite,int WINH,int
                     a_afficher=entite->textures[NEUTRE];
             }
         }
+    }
+    if(a_afficher==NULL){
+        a_afficher= entite->textures[IMMO];
     }
     
 
@@ -288,7 +396,7 @@ static err_t afficher_dans_fenetre(SDL_Renderer * ren,entite_t * entite, int w, 
     Ces 4 fonctions vérifient si l'entité est en collision avec un mur de chaque coté (gauch droit haut bas)
 */
 
-
+extern
 pos_t mur_a_gauche(entite_t * ent){
     int i,j, add=0;
     pos_t pos_mur={-1,-1};
@@ -311,6 +419,7 @@ booleen_t est_dans_mur (entite_t * ent){
 
 }
 
+extern
 pos_t mur_a_droite(entite_t * ent){
     int i,j, add=0;
     pos_t pos_mur={-1,-1};
@@ -328,7 +437,7 @@ pos_t mur_a_droite(entite_t * ent){
     return pos_mur;
 }
 
-
+extern
 pos_t mur_en_haut(entite_t * ent){
     int i,j, add=0;
     pos_t pos_mur={-1,-1};
@@ -346,7 +455,7 @@ pos_t mur_en_haut(entite_t * ent){
     return pos_mur;
 }
 
-
+extern
 pos_t mur_en_bas(entite_t * ent){
     int i,j, add=0;
     pos_t pos_mur={-1,-1};
@@ -364,7 +473,7 @@ pos_t mur_en_bas(entite_t * ent){
     }
     return pos_mur;
 }
-
+extern
 pos_t pont_en_bas(entite_t * ent ){
     int i,j, add=0;
     pos_t pos_mur={-1,-1};
@@ -409,7 +518,7 @@ booleen_t en_lair(entite_t * ent){
         int direction, la direction dans laquelle on doit replacer l'entité
     
 */
-
+extern
 void replacer(entite_t * ent, pos_t pos_mur, int direction){
     switch (direction){
         case (DROITE):
@@ -442,7 +551,7 @@ void replacer(entite_t * ent, pos_t pos_mur, int direction){
 
 
 static 
-void entite_deplacement(entite_t * ent,double temps){
+int entite_deplacement(entite_t * ent,double temps ){
     pos_t pos_mur;
     chunk_t * chunk;
     booleen_t deja=FAUX;
@@ -493,55 +602,6 @@ void entite_deplacement(entite_t * ent,double temps){
         ent->vitesse_x= (ent->vitesse_x + GRAVITE*temps > GRAVITE*2) ? GRAVITE*2:ent->vitesse_x + GRAVITE*temps;
     }
 
-    
-    
-    if(ent->pos.y>=CHUNKW){                             //Si le personnage se retrouve trop a droite, il sort du chunk 
-        if((chunk=ent->salle->chercher_chunk(ent->salle,ent->chunk->position.x, ent->chunk->position.y+1))!=NULL){ //alors on vérifie s'il y en a un a droite
-            ent->chunk=chunk;                           //Le chunk a droite devient le nouveau chunk de l'entité
-            ent->pos.y=ent->pos.y-CHUNKW;               //Sa position change en fonction
-        }
-        else{
-            printf("Erreur de segmentation, pas de chunk a droite\n");
-            exit(1);
-        }
-    }               
-
-                                            //Meme systeme ensuite
-    if(ent->pos.y<0){
-        if((chunk=ent->salle->chercher_chunk(ent->salle,ent->chunk->position.x, ent->chunk->position.y-1))!=NULL){
-            ent->chunk=chunk;
-            ent->pos.y=CHUNKW+ent->pos.y;
-        }
-        else{
-            printf("Erreur de segmentation, pas de chunk a gauche\n");
-            exit(1);
-        }
-    }
-
-
-    if(ent->pos.x>=CHUNKH){
-        if((chunk=ent->salle->chercher_chunk(ent->salle,ent->chunk->position.x+1, ent->chunk->position.y))!=NULL){
-            ent->chunk=chunk;
-            ent->pos.x=ent->pos.x-CHUNKH;
-        }
-        else{
-            printf("Erreur de segmentation, pas de chunk en bas\n");
-            exit(1);
-        }
-    }
-
-
-    if(ent->pos.x<0){
-        if((chunk=ent->salle->chercher_chunk(ent->salle,ent->chunk->position.x-1, ent->chunk->position.y))!=NULL){
-            ent->chunk=chunk;
-            ent->pos.x=CHUNKH+ent->pos.y;
-        }
-        else{
-            printf("Erreur de segmentation,pas de chunk en haut\n");
-            exit(1);
-        }
-    }
-
     //Si la vitesse de l'entité n'est pas actualisée (soit par un input de l'utilisateur, soit par l'algorithme des ennemis)
     //Alors on la change grace a la décélération
 
@@ -555,6 +615,15 @@ void entite_deplacement(entite_t * ent,double temps){
         if(ent->vitesse_y > 0 && ent->dir == GAUCHE || ent->vitesse_y < 0 && ent->dir == DROITE)
             ent->vitesse_y=0;
     }
+    
+    if(!coord_correcte(ent->pos.x, ent->pos.y)){
+        return 1;
+    }
+    return 0;
+
+    
+
+    
 }
 
 
@@ -628,7 +697,7 @@ void entite_lire(entite_t * ent){
     libère l'entité et toutes les allocations reliées a celle ci
 */
 
-static 
+extern 
 err_t entite_detruire(entite_t ** ent){
     if(*ent){
         if((*ent)->nom){
@@ -693,7 +762,7 @@ entite_t * entite_creer(char * nom,
     entite->gravite=VRAI;
     entite->offset_hitbox=offset_hitbox;
 
-    entite->detruire_ent=entite_detruire;
+    entite->detruire=entite_detruire;
     entite->lire=entite_lire;
     entite->afficher_chunk=afficher_dans_chunk;
     entite->afficher_fenetre=afficher_dans_fenetre;
@@ -707,12 +776,12 @@ entite_t * entite_creer(char * nom,
 
     if((entite->nom = str_creer_copier(nom))==NULL){
         printf("Le nom %s n'a pas pu etre attribué\n",nom);
-        entite->detruire_ent(&entite);
+        entite->detruire(&entite);
         return NULL;
     }
     if((entite->description=str_creer_copier( description))==NULL){
         printf("La description de  %s n'a pas pu etre attribué\n",description);
-        entite->detruire_ent(&entite);
+        entite->detruire(&entite);
         return NULL;
     }
 

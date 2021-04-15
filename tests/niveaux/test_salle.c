@@ -1,3 +1,5 @@
+/* Par Matthis */
+
 #include <stdio.h>
 #include "../../lib/niveaux/salle.h"
 

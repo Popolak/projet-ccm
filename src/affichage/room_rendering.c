@@ -1,3 +1,5 @@
+/* Par Matthis */
+
 #include <stdlib.h>
 #include <stdio.h>
 #include "../../lib/affichage/room_rendering.h"
@@ -141,4 +143,18 @@ err_t render_pont_chunk(SDL_Renderer * ren, SDL_Texture * texture_pont, chunk_t 
         pos.x+=H_PONT;
     }
     return OK;
+}
+
+extern
+err_t render_chunk_unite(void * tab[NB_MAX_AFF], 
+                         SDL_Renderer * ren,
+                         SDL_Texture * texture_pont,
+                         SDL_Texture * texture_mur,
+                         chunk_t * chunk,
+                         int WINW, 
+                         int WINH)
+{
+    render_mur_chunk(ren,texture_mur,chunk,WINW,WINH);
+    render_pont_chunk(ren,texture_pont,chunk,WINW,WINH);
+    afficher_tableau(tab,ren,WINW,WINH);
 }

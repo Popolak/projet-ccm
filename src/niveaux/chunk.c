@@ -279,7 +279,7 @@ extern chunk_t * chunk_creer(int x,int y, int nb_portes, char * type){
         return NULL;
     }
     for(i=0; i<nb_portes; i++){
-        if( !isdigit(type[i]) || !(chunk->portes[i]=porte_creer(NULL,type[i]-'0'))){
+        if( !isdigit(type[i]) || !(chunk->portes[i]=porte_creer(NULL,type[i]-'0',chunk))){
             chunk->detruire(&chunk);
             printf("L'allocation de la porte %d a échouée: %c\n", i, type[i]);
             return NULL;

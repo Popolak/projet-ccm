@@ -1,3 +1,5 @@
+/* Par Matthis */
+
 #ifndef _NIV_H_
 #define _NIV_H_
 #include "./salle.h"

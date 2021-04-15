@@ -1,3 +1,5 @@
+/* Par Matthis */
+
 typedef struct chunk_s chunk_t;
 
 #ifndef _CHUNK_H_
@@ -28,8 +30,7 @@ typedef struct chunk_s{
     pos_t position;     //Position du chunk dans la salle
     unite_t *** chunk;  //matrice d'unités
     porte_t ** portes;  //Tableau de portes
-    int nb_portes, nb_entites;
-    entite_t ** entites;
+    int nb_portes;
 } chunk_t;
 
 extern pos_t prochain_mur (int x, int y, chunk_t * chunk);

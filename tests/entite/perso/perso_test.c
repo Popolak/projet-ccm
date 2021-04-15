@@ -36,7 +36,7 @@ int main(){
 	printf("le perso est mort\n");
 	if(perso_existe(salade_test)){
 	printf("test destruction\n");
-	salade_test->detruire_perso(&salade_test);
+	salade_test->detruire(&salade_test);
 	}
 	chunk->detruire(&chunk);
 	printf( "Test d'existance sur un perso_t inexistant\n" ) ;

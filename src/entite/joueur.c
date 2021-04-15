@@ -32,7 +32,7 @@ void creation(SDL_Renderer * ren,perso_t * tomate, perso_t  * carotte, perso_t *
 	position.x = CHUNKH-CHUNKH*ratioSol-31;
 	position.y = TAILLE_MUR+21;
 	SDL_Texture * textureTom=creer_texture_image(ren,"../../graphics/sprite/personnage_sprites/Tom neutre.png");
-	tomate = perso_creer("Tom","tomate",80,salle_dep,chunk_dep,position,0,0,300,700,60,40,50,30,0.1,0,0,1,&textureTom);
+	tomate = perso_creer("Tom","tomate",80,salle_dep,chunk_dep,position,0,0,300,700,60,40,50,30,10,0.1,0,0,1,&textureTom);
 }
 
 extern

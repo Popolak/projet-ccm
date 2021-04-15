@@ -207,8 +207,6 @@ extern salle_t * salle_creer(char * type){
         salle->detruire=salle_detruire;
         salle->lire=salle_lire;
         salle->chercher_chunk=chercher_chunk;
-        salle->max_x=chercher_max_x_chunk;
-        salle->max_y=chercher_max_y_chunk;
         cpt_salle++;
         return salle;
     }

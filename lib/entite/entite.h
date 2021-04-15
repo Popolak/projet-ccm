@@ -1,3 +1,5 @@
+/* Par Matthis */
+
 typedef struct entite_s entite_t;
 
 #ifndef _ENTITE_H_
@@ -28,6 +30,7 @@ typedef struct entite_s entite_t;
 /* Structures */
 
 typedef struct entite_s{
+    err_t (*detruire)(struct entite_s ** );
     #include "attribut_entite.h"
 }entite_t;
 
@@ -75,7 +78,7 @@ extern
 char * str_creer_copier( char * chaine_src);
 
 extern 
-SDL_Texture ** creer_tableau_textures_chaine(SDL_Renderer *ren, int *n,char * chaine);
+SDL_Texture ** creer_tableau_textures_chaine(SDL_Renderer *ren, int *n,char * chaine, char * appel);
 
 extern 
 SDL_Texture ** creer_tableau_textures_manuel(SDL_Renderer * ren, int *n,...);
@@ -85,5 +88,50 @@ long seek_entity_type(FILE * index,char *type);
 
 extern 
 char * entre_guillemet(FILE * file);
+
+
+extern 
+entite_t * creer_entite_chaine(SDL_Renderer *ren, const entite_t const * joueur , char * chaine,  FILE * index, char * appel);
+
+extern 
+void initTabDaffich(void ** tab);
+
+extern err_t afficher_tableau (void * tab_ent[NB_MAX_AFF], SDL_Renderer * ren, int WINW, int WINH);
+
+extern 
+int ajouter_tableaux( void * tab[NB_MAX_AFF], void (*tab_destr[NB_MAX_AFF])(void ** ), void * ptr, void (*fonction_dest)(void **));
+
+extern 
+void enlever_tableaux(void * tab[NB_MAX_AFF] , void (*tab_destr[NB_MAX_AFF])(void ** ));
+
+extern 
+void vider_tableaux(void * tab[NB_MAX_AFF] , void (*tab_destr[NB_MAX_AFF])(void ** ));
+
+extern 
+void synchro_tableau(void * tab[NB_MAX_AFF], void (*tab_destr[NB_MAX_AFF])(void ** ),double temps);
+
+extern 
+err_t entite_detruire(entite_t ** ent);
+
+extern
+pos_t pont_en_bas(entite_t * ent );
+
+extern
+pos_t mur_en_bas(entite_t * ent);
+
+extern
+pos_t mur_en_haut(entite_t * ent);
+
+extern
+pos_t mur_a_droite(entite_t * ent);
+
+extern
+pos_t mur_a_gauche(entite_t * ent);
+
+extern
+void replacer(entite_t * ent, pos_t pos_mur, int direction);
+
+extern 
+void hitbox_tableau(SDL_Renderer * ren, void * tab[NB_MAX_AFF], int WINW, int WINH);
 
 #endif

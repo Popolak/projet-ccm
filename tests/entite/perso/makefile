@@ -1,8 +1,8 @@
-fichier_test_perso= perso_test.o  unite.o porte.o chunk.o personnage.o entite.o room_rendering.o
-fich_test_affichage= perso_test_affich.o room_rendering.o  unite.o porte.o chunk.o salle.o niveau.o entite.o personnage.o
+fichier_test_perso= perso_test.o  unite.o porte.o chunk.o personnage.o entite.o room_rendering.o 
+fich_test_affichage= perso_test_affich.o room_rendering.o  unite.o porte.o chunk.o salle.o niveau.o entite.o personnage.o 
 
 BIN= test_perso test_perso_affichage
-OBJ=  perso_test_affich.o room_rendering.o  unite.o porte.o chunk.o salle.o niveau.o entite.o personnage.o
+OBJ=  perso_test_affich.o room_rendering.o  unite.o porte.o chunk.o salle.o niveau.o entite.o personnage.o 
 
 test_perso: $(fichier_test_perso)
 	gcc $(fichier_test_perso) -o test_perso -lSDL2main -lSDL2 -lSDL2_image

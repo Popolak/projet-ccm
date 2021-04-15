@@ -1,3 +1,5 @@
+/* Par Matthis */
+
 #ifndef _PERSO_H_
 #define _PERSO_H_
 
@@ -15,7 +17,9 @@
 
 typedef struct perso_s
 {
+	err_t (*detruire_ent)(struct entite_s ** );
 	#include "attribut_perso.h"
+	err_t (*detruire)(struct perso_s ** ent); 
 	
 }perso_t;
 
@@ -45,6 +49,9 @@ extern booleen_t perso_existe( perso_t * const personnage );
 	retourne un nombre si vrai, 0 sinon
 */
 extern int fait_partie_bin (int tot_bin, int nombre_puis_2);
+
+extern 
+err_t perso_detruire( perso_t ** personnage);
 
 
 #endif

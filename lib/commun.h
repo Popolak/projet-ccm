@@ -1,3 +1,5 @@
+/* Par Matthis */
+
 #ifndef _COMMUN_H_
 #define _COMMUN_H_
 
@@ -10,6 +12,8 @@
 #define PONT 3
 
 #define ratioSol 1.0*1.1/12.9
+
+#define NB_MAX_AFF 50
 
 typedef struct position
 {
