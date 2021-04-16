@@ -50,8 +50,8 @@ SDL_Texture * creer_texture_image( SDL_Renderer * ren,char * nom_image){
     render tous les murs d'un chunk 
 */
 extern 
-err_t render_mur_chunk(SDL_Renderer * ren, SDL_Texture * texture_mur, chunk_t * chunk, int WINW, int WINH){
-    int i, j, taille=0, w_mur,h_mur,n;
+err_t render_mur_chunk(SDL_Renderer * ren, SDL_Texture * texture_mur, salle_t *salle,chunk_t * chunk, int WINW, int WINH){
+    int i, j, taille=0, w_mur,h_mur,w_mur_modif,h_mur_modif,n;
     pos_t pos;
     const float ratioUtoP= 1.0 * WINW/CHUNKW;                       //Ratio entre une unité et un pixel (si une unité vaut deux pixel, une unité affiché = 2*2 pixels affiché)
     float ratioTaille;
@@ -59,30 +59,32 @@ err_t render_mur_chunk(SDL_Renderer * ren, SDL_Texture * texture_mur, chunk_t * 
     SDL_Point centre;
     double angle;
     SDL_Rect src, dst, srcModif;
+    chunk_t * chunk_dessous=NULL;
+    chunk_dessous=salle->chercher_chunk(salle,chunk->position.x+1, chunk->position.y);
     src.x=0;
     src.y=0;
     SDL_QueryTexture(texture_mur,NULL,NULL,&(src.w), &(src.h));     
     srcModif=src;
     for(pos.x=0;pos.x<CHUNKH;){
         for(pos.y=0;pos.y<CHUNKW;){
-            pos=prochain_mur(pos.x,pos.y,chunk);               //On va chercher le prochain mur 
+            pos=prochain_mur(pos.x,pos.y,chunk);                    //On va chercher le prochain mur 
                                                                     //La lecture des murs se fait de gauche a droite puis de faut en bas
             if (pos.x==-1){                                         //S'il n'y en a pas, cela veut dire qu'il n'y a plus de mur a afficher
                 return  OK;
             }
 
-            if (pos.x>=CHUNKH-CHUNKH*ratioSol){
+            if (pos.x>=CHUNKH-CHUNKH*ratioSol-1 && chunk_dessous==NULL){
                 return OK;
             }
             
             attribut_mur(pos.x,pos.y,&w_mur,&h_mur,chunk);     //on récupère la hauteur et l'épaisseur du mur
-
-            srcModif.h=src.w* h_mur/TAILLE_MUR;                     //On adapte la portion de la texture a afficher par rapport a la proportion du mur 
+            h_mur_modif=(pos.x+h_mur) > (CHUNKH - CHUNKH *ratioSol) ? CHUNKH-CHUNKH*ratioSol - pos.x: h_mur ; 
+            srcModif.h=src.w* h_mur_modif/TAILLE_MUR;                     //On adapte la portion de la texture a afficher par rapport a la proportion du mur 
             srcModif.w=src.w* w_mur/TAILLE_MUR;
             dst.y=pos.x*ratioUtoP;
             dst.x=pos.y*ratioUtoP;
             dst.w=w_mur*ratioUtoP;
-            dst.h=h_mur*ratioUtoP;
+            dst.h=h_mur_modif*ratioUtoP;
 
             centre.x= dst.w/2;
             centre.y= dst.h/2;
@@ -108,7 +110,7 @@ err_t render_mur_chunk(SDL_Renderer * ren, SDL_Texture * texture_mur, chunk_t * 
 }
 
 extern 
-err_t render_pont_chunk(SDL_Renderer * ren, SDL_Texture * texture_pont, chunk_t * chunk, int WINW, int WINH){
+err_t render_pont_chunk(SDL_Renderer * ren, SDL_Texture * texture_pont, salle_t * salle,chunk_t * chunk, int WINW, int WINH){
     int i,j,w_pont;
     const float ratioUtoP= 1.0 * WINW/CHUNKW;  
     SDL_Rect src, dst, srcModif;
@@ -150,11 +152,12 @@ err_t render_chunk_unite(void * tab[NB_MAX_AFF],
                          SDL_Renderer * ren,
                          SDL_Texture * texture_pont,
                          SDL_Texture * texture_mur,
+                         salle_t * salle,
                          chunk_t * chunk,
                          int WINW, 
                          int WINH)
 {
-    render_mur_chunk(ren,texture_mur,chunk,WINW,WINH);
-    render_pont_chunk(ren,texture_pont,chunk,WINW,WINH);
+    render_mur_chunk(ren,texture_mur,salle,chunk,WINW,WINH);
+    render_pont_chunk(ren,texture_pont,salle,chunk,WINW,WINH);
     afficher_tableau(tab,ren,WINW,WINH);
 }

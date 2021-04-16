@@ -47,18 +47,19 @@ extern SDL_Texture * creer_texture_image( SDL_Renderer * ren, char * nom_image);
     render tous les murs d'un chunk 
 */
 extern 
-err_t render_mur_chunk(SDL_Renderer * ren, SDL_Texture * texture_mur, 
-                       chunk_t * chunk, int WINW, int WINH);
+err_t render_mur_chunk(SDL_Renderer * ren, SDL_Texture * texture_mur,
+                       salle_t *salle,chunk_t * chunk, int WINW, int WINH);
 
 extern 
 err_t render_pont_chunk(SDL_Renderer * ren, SDL_Texture * texture_pont,
-                        chunk_t * chunk, int WINW, int WINH);
+                        salle_t * salle,chunk_t * chunk, int WINW, int WINH);
 
 extern
 err_t render_chunk_unite(void * tab[NB_MAX_AFF], 
                          SDL_Renderer * ren,
                          SDL_Texture * texture_pont,
                          SDL_Texture * texture_mur,
+                         salle_t *salle,
                          chunk_t * chunk,
                          int WINW, 
                          int WINH);

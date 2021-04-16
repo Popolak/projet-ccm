@@ -108,7 +108,6 @@ int perso_deplacement(void * element,double temps, void *tab[NB_MAX_AFF], err_t 
     float vitesse_tempo;
 	perso_t * perso = (perso_t *) element;
 	entite_t * ent = (entite_t *)perso;
-
     if(ent->vitesse_y > 0){                          //On adapte la direction de l'entité en fonction de sa vitesse
         if(ent->dir==GAUCHE)
             (ent->pos.y)-=(2*ent->offset_hitbox);
@@ -120,42 +119,42 @@ int perso_deplacement(void * element,double temps, void *tab[NB_MAX_AFF], err_t 
         ent->dir=GAUCHE;
     }
 
-
     (ent->pos.y)+= (ent->vitesse_y)*temps;                  //On actualise la position horizontale grace a vitesse_y
                                                                 
     pos_mur=mur_a_gauche(ent);                              //Si on se retrouve dans un mur, on se replace
-    if(pos_mur.x!=-1){
-        replacer(ent,pos_mur,GAUCHE);
-    }
-    
-    pos_mur=mur_a_droite(ent);                              //Pareil
-    if(pos_mur.x!=-1){
-        replacer(ent,pos_mur,DROITE);
-    }
-
-    (ent->pos.x)+= (ent->vitesse_x)*temps;                  //Puis on actualise la position verticale
-    pos_mur=mur_en_bas(ent);
-    if(pos_mur.x!=-1){
-        replacer(ent,pos_mur,BAS);                          //Si on se retrouve dans un mur, on se replace
-    }
-    pos_mur=pont_en_bas(ent);
-    if(pos_mur.x!=-1){
-        replacer(ent,pos_mur,BAS);                          //Si on se retrouve dans un mur, on se replace
-    }
-
-    pos_mur=mur_en_haut(ent);
-    if(pos_mur.x!=-1 ){
-        replacer(ent,pos_mur,HAUT);                         //Pareil
-    }
-
-    
-    if(ent->en_l_air(ent)){                                 //Si on est en l'air, on tombe (La vitesse maximale est atteinte après 2 secondes de chute avec v0=0)
-        ent->vitesse_x= (ent->vitesse_x + GRAVITE*temps > GRAVITE*2) ? GRAVITE*2:ent->vitesse_x + GRAVITE*temps;
-    }
-
+	if(coord_correcte(ent->pos.x,ent->pos.y)){
+		if(pos_mur.x!=-1){
+			replacer(ent,pos_mur,GAUCHE);
+		}
+		
+		pos_mur=mur_a_droite(ent);                              //Pareil
+		if(pos_mur.x!=-1){
+			replacer(ent,pos_mur,DROITE);
+		}
+		if(coord_correcte(ent->pos.x,ent->pos.y)){
+			(ent->pos.x)+= (ent->vitesse_x)*temps;                  //Puis on actualise la position verticale
+			pos_mur=mur_en_bas(ent);
+			if(pos_mur.x!=-1){
+				replacer(ent,pos_mur,BAS);                          //Si on se retrouve dans un mur, on se replace
+			}
+			
+			pos_mur=pont_en_bas(ent);
+			if(pos_mur.x!=-1){
+				replacer(ent,pos_mur,BAS);                          //Si on se retrouve dans un mur, on se replace
+			}
+			
+			pos_mur=mur_en_haut(ent);
+			if(pos_mur.x!=-1 ){
+				replacer(ent,pos_mur,HAUT);                         //Pareil
+			}
+		}
+		if(ent->en_l_air(ent)){                                 //Si on est en l'air, on tombe (La vitesse maximale est atteinte après 2 secondes de chute avec v0=0)
+			ent->vitesse_x= (ent->vitesse_x + GRAVITE*temps > GRAVITE*2) ? GRAVITE*2:ent->vitesse_x + GRAVITE*temps;
+		}
+	}
+	
 		//Si la vitesse de l'entité n'est pas actualisée (soit par un input de l'utilisateur, soit par l'algorithme des ennemis)
     //Alors on la change grace a la décélération
-
     if(ent->vitesse_y){
         if(!ent->en_l_air(ent))
             ent->vitesse_y= ent->vitesse_y -  DECEL*COEFF_DECEL_SOL* temps * (ent->vitesse_y>0 ? 1 : -1)  ; //Sur le sol, la décélération est COEFF_DECEL_SOL fois plus grande
@@ -166,12 +165,21 @@ int perso_deplacement(void * element,double temps, void *tab[NB_MAX_AFF], err_t 
         if(ent->vitesse_y > 0 && ent->dir == GAUCHE || ent->vitesse_y < 0 && ent->dir == DROITE)
             ent->vitesse_y=0;
     }
-    
-    if(! coord_correcte(ent->pos.x,ent->pos.y)){
+	
+	if(coord_correcte(ent->pos.x, ent->pos.y)){
+		if (ent->contact_porte(ent)){
+			return 2;
+		}
+		return 0;
+	}
+	
+
+    while(! coord_correcte(ent->pos.x,ent->pos.y)){
 		if(ent->pos.y>=CHUNKW){                             //Si le personnage se retrouve trop a droite, il sort du chunk 
 			if((chunk=ent->salle->chercher_chunk(ent->salle,ent->chunk->position.x, ent->chunk->position.y+1))!=NULL){ //alors on vérifie s'il y en a un a droite
 				ent->chunk=chunk;                           //Le chunk a droite devient le nouveau chunk de l'entité
 				ent->pos.y=ent->pos.y-CHUNKW;               //Sa position change en fonction
+				return 1;
 			}
 			else{
 				pos_mur.y=CHUNKW-1;
@@ -184,6 +192,7 @@ int perso_deplacement(void * element,double temps, void *tab[NB_MAX_AFF], err_t 
 			if((chunk=ent->salle->chercher_chunk(ent->salle,ent->chunk->position.x, ent->chunk->position.y-1))!=NULL){
 				ent->chunk=chunk;
 				ent->pos.y=CHUNKW+ent->pos.y;
+				return 1;
 			}
 			else{
 				pos_mur.y=0;
@@ -196,6 +205,7 @@ int perso_deplacement(void * element,double temps, void *tab[NB_MAX_AFF], err_t 
 			if((chunk=ent->salle->chercher_chunk(ent->salle,ent->chunk->position.x+1, ent->chunk->position.y))!=NULL){
 				ent->chunk=chunk;
 				ent->pos.x=ent->pos.x-CHUNKH;
+				return 1;
 			}
 			else{
 				pos_mur.x=CHUNKH-1;
@@ -208,18 +218,18 @@ int perso_deplacement(void * element,double temps, void *tab[NB_MAX_AFF], err_t 
 			if((chunk=ent->salle->chercher_chunk(ent->salle,ent->chunk->position.x-1, ent->chunk->position.y))!=NULL){
 				ent->chunk=chunk;
 				ent->pos.x=CHUNKH+ent->pos.y;
+				return 1;
 			}
 			else{
+				printf("42\n");
 				pos_mur.x=0;
 				replacer(ent,pos_mur,HAUT);
 			}
 		}
-		return 1;
+		return 0;
 	}
-	else if (ent->contact_porte(ent)){
-		return 2;
-	}
-	return 0;
+	
+	
     
 	
 }

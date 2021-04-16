@@ -36,7 +36,8 @@ typedef struct chunk_s{
 extern pos_t prochain_mur (int x, int y, chunk_t * chunk);
 extern pos_t prochain_pont (int x, int y, chunk_t * chunk);
 
-extern void attribut_mur(int x, int y, int* w, int* h, chunk_t * chunk);
+extern
+void attribut_mur(int x, int y, int* w, int* h,chunk_t * chunk);
 extern void attribut_pont(int x, int y, int* w, chunk_t * chunk);
 
 extern booleen_t chunk_existe(chunk_t * chunk);

@@ -358,12 +358,14 @@ extern
 pos_t mur_a_gauche(entite_t * ent){
     int i,j, add=0;
     pos_t pos_mur={-1,-1};
-    for(i=0;i < ent->h/2-1 && i > -ent->h/2 && (int)ent->pos.x+i<CHUNKH;i=-(i+add%2),add++){
-        for(j=1;(int)ent->pos.y+j>=1 && j>-ent->w/2  && (int)ent->pos.y+j <CHUNKW;j--){
-            if(est_mur(ent->chunk->chunk[(int)ent->pos.x+i][(int)ent->pos.y+j-1]->contenu)){
-                pos_mur.x=(int)ent->pos.x+i;
-                pos_mur.y=(int)ent->pos.y+j;
-                break;
+    for(i=0;i < ent->h/2-1 && i > -ent->h/2 ;i=-(i+add%2),add++){
+        for(j=1;  j>-ent->w/2  ;j--){
+            if(coord_correcte((int)(ent->pos.x+i),(int)(ent->pos.y+j-1))){
+                if(est_mur(ent->chunk->chunk[(int)(ent->pos.x+i)][(int)(ent->pos.y+j-1)]->contenu)){
+                    pos_mur.x=(int)(ent->pos.x+i);
+                    pos_mur.y=(int)(ent->pos.y+j);
+                    break;
+                }
             }
         }
         if(pos_mur.x!=-1)
@@ -381,12 +383,14 @@ extern
 pos_t mur_a_droite(entite_t * ent){
     int i,j, add=0;
     pos_t pos_mur={-1,-1};
-    for(i=0;i < ent->h/2-1 && i > -ent->h/2 && (int)ent->pos.x+i<CHUNKH;i=-(i+add%2),add++){
-        for(j=1;(int)ent->pos.y+j<CHUNKW-1 && j<ent->w/2 && (int)ent->pos.y+j <CHUNKW;j++){
-            if(est_mur(ent->chunk->chunk[(int)ent->pos.x+i][(int)ent->pos.y+j+1]->contenu)){
-                pos_mur.x=(int)ent->pos.x+i;
-                pos_mur.y=(int)ent->pos.y+j+1;
-                break;
+    for(i=0;i < ent->h/2-1 && i > -ent->h/2;i=-(i+add%2),add++){
+        for(j=1; j<ent->w/2 ;j++){
+            if(coord_correcte((int)(ent->pos.x+i),(int)(ent->pos.y+j+1))){
+                if(est_mur(ent->chunk->chunk[(int)(ent->pos.x+i)][(int)(ent->pos.y+j+1)]->contenu)){
+                    pos_mur.x=(int)(ent->pos.x+i);
+                    pos_mur.y=(int)(ent->pos.y+j+1);
+                    break;
+                }
             }
         }
         if(pos_mur.x!=-1)
@@ -399,12 +403,14 @@ extern
 pos_t mur_en_haut(entite_t * ent){
     int i,j, add=0;
     pos_t pos_mur={-1,-1};
-    for(j=0;j < ent->w/2-1 && j > -ent->w/2 && (int)ent->pos.y+j<CHUNKW && ent->pos.y+j>0;j=-(j+add%2),add++){
-        for(i=0;i>-ent->h/2 && (int)ent->pos.x+i > 0;i--){
-            if(est_mur(ent->chunk->chunk[(int)ent->pos.x+i][(int)ent->pos.y+j]->contenu)){
-                pos_mur.x=(int)ent->pos.x+i+1;
-                pos_mur.y=(int)ent->pos.y+j;
-                break;
+    for(j=0;j < ent->w/2-1 && j > -ent->w/2  ;j=-(j+add%2),add++){
+        for(i=0;i>-ent->h/2  ;i--){
+            if(coord_correcte((int)(ent->pos.x+i),(int)(ent->pos.y+j))){
+                if(est_mur(ent->chunk->chunk[(int)(ent->pos.x+i)][(int)(ent->pos.y+j)]->contenu)){
+                    pos_mur.x=(int)(ent->pos.x+i+1);
+                    pos_mur.y=(int)(ent->pos.y+j);
+                    break;
+                }
             }
         }
         if(pos_mur.x!=-1)
@@ -417,13 +423,15 @@ extern
 pos_t mur_en_bas(entite_t * ent){
     int i,j, add=0;
     pos_t pos_mur={-1,-1};
-    for(j=0;j < ent->w/2-1 && j > -ent->w/2 && (int)ent->pos.y+j<CHUNKW && ent->pos.y+j>0;j=-(j+add%2),add++){
-        for(i=0;i<ent->h/2 && (int)ent->pos.x+i < CHUNKH;i++){
-            if(est_mur(ent->chunk->chunk[(int)ent->pos.x+i][(int)ent->pos.y+j]->contenu)){
-                pos_mur.x=(int)ent->pos.x+i+1;
-                pos_mur.y=(int)ent->pos.y+j;
-                break;
-                
+    for(j=0;j < ent->w/2-1 && j > -ent->w/2 ;j=-(j+add%2),add++){
+        for(i=0;i<ent->h/2 ;i++){
+            if(coord_correcte((int)(ent->pos.x+i+1),(int)(ent->pos.y+j))){
+                if(est_mur(ent->chunk->chunk[(int)(ent->pos.x+i)][(int)(ent->pos.y+j)]->contenu)){
+                    pos_mur.x=(int)(ent->pos.x+i+1);
+                    pos_mur.y=(int)(ent->pos.y+j);
+                    break;
+                    
+                }
             }
         }
         if(pos_mur.x!=-1)
@@ -431,21 +439,25 @@ pos_t mur_en_bas(entite_t * ent){
     }
     return pos_mur;
 }
+
+pos_t contact_pont(entite_t * ent){
+ pos_t pos_mur={-1,-1};
+    int i;
+    for(i=(int)(ent->pos.y-ent->w_hitbox/2 + ent->offset_hitbox * (ent->dir == DROITE ? 1 : -1)); i< (int)(ent->pos.y+ent->w_hitbox/2 + ent->offset_hitbox * (ent->dir == DROITE ? 1 : -1));i++){
+        if(coord_correcte((int)(ent->pos.x+ent->h/2+1),i)  &&  ent->chunk->chunk[(int)(ent->pos.x+ent->h/2+1)][i]->contenu==PONT && ent->vitesse_x>=0){
+            pos_mur.x=(int)(ent->pos.x+ent->h/2);
+            pos_mur.y=i;
+            return pos_mur;
+        }
+    }
+    return pos_mur;
+}
+
 extern
 pos_t pont_en_bas(entite_t * ent ){
     int i,j, add=0;
     pos_t pos_mur={-1,-1};
-    for(j=0;j < ent->w/2-1 && j > -ent->w/2 && (int)ent->pos.y+j<CHUNKW && ent->pos.y+j>0;j=-(j+add%2),add++){
-        for(i=0;i<ent->h/2 && (int)ent->pos.x+i < CHUNKH;i++){
-            if(i== ent->h/2-1 && j< ent->w_hitbox/2+ ent->offset_hitbox * (ent->dir==DROITE ? 1 :-1) && j> -ent->w_hitbox/2+ ent->offset_hitbox * (ent->dir==DROITE ? 1 :-1) && est_pont(ent->chunk->chunk[(int)ent->pos.x+i][(int)ent->pos.y+j]->contenu) && ent->vitesse_x>=0){
-                pos_mur.x=(int)ent->pos.x+i+1;
-                pos_mur.y=(int)ent->pos.y+j;
-                break;
-            }
-        }
-        if(pos_mur.x!=-1)
-            break;
-    }
+    pos_mur=contact_pont(ent);
     return pos_mur;
 }
 
@@ -607,9 +619,11 @@ booleen_t en_contact(entite_t * ent_courante, entite_t * ent_a_verif){
 
 static booleen_t en_contact_porte(entite_t * ent){
     int i,j, add=0;
-    for(i= ent->pos.x -ent->h/2 < 0 ? 0 :  (int)(ent->pos.x -ent->h); i< (int)(ent->pos.x+ent->h/2) && i < CHUNKH; i++){
-        if(ent->chunk->chunk[i][(int)(ent->pos.y)]->contenu==PORTE)
-            return VRAI;
+    for(i= ent->pos.x -ent->h/2 < 0 ? 0 :  (int)(ent->pos.x -ent->h); i< (int)(ent->pos.x+ent->h/2); i++){
+        if(coord_correcte(i,(int)(ent->pos.y))){
+            if(ent->chunk->chunk[i][(int)(ent->pos.y)]->contenu==PORTE)
+                return VRAI;
+        }
     }
     return FAUX;
 }

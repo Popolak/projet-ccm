@@ -14,7 +14,7 @@ int main(){
     initTabDaffich(tableau_entite);
     initTabDaffich((void**)tab_destr);
 
-    int WINW=1280, WINH=720,x=CHUNKH-CHUNKH*ratioSol-30,y=TAILLE_MUR+40, nbText,n;
+    int WINW=1280, WINH=720,x=CHUNKH-CHUNKH*ratioSol-30,y=TAILLE_MUR+40, nbText,n, deplacer;
     chunk_t * chunk;
     niveau_t * niv=NULL;
     salle_t * salle=NULL;
@@ -79,7 +79,7 @@ int main(){
         SDL_Quit();
         return ERR_DEB_MEMOIRE;
     }
-    chunk->lire_partiel(chunk,CHUNKH-CHUNKH*ratioSol-1,100,CHUNKH*ratioSol,30);
+    chunk->lire_partiel(chunk,CHUNKH-CHUNKH*ratioSol-2,100,CHUNKH*ratioSol,30);
     secAvant= 1.0*SDL_GetTicks()/1000;
     secDeg=secAvant;
     int tot_key=0;
@@ -93,15 +93,22 @@ int main(){
         secAvant=secMaint;
         Tom->update_speed(Tom, tot_key);
         if(sec<0.1){
-            if(Tom->deplacer(Tom,sec, tableau_entite, tab_destr))
+            deplacer=Tom->deplacer(Tom,sec, tableau_entite, tab_destr);
+            if(deplacer==1){
                 Tom->change_chunk(ren, Tom, tableau_entite,tab_destr,index,entite_gen,"../../../");
-            synchro_tableau(tableau_entite,tab_destr,sec,NULL);
+                Tom->chunk->lire_partiel(chunk,CHUNKH-CHUNKH*ratioSol-2,100,CHUNKH*ratioSol,30);
+            }
+            else if(deplacer==2){
+                Tom->change_salle(Tom);
+                Tom->change_chunk(ren,Tom,tableau_entite,tab_destr,index,entite_gen,"../../../"); 
+                Tom->chunk->lire_partiel(chunk,CHUNKH-CHUNKH*ratioSol-2,100,CHUNKH*ratioSol,30);       
+            }
+            else{
+                synchro_tableau(tableau_entite,tab_destr,sec,NULL);
+                tableau_contact(tableau_entite,Tom);
+            }
+            
         }   
-        tableau_contact(tableau_entite,Tom);
-        if(Tom->contact_porte(Tom)){
-            Tom->change_salle(Tom);
-            Tom->change_chunk(ren,Tom,tableau_entite,tab_destr,index,entite_gen,"../../../");
-        }
         while(SDL_PollEvent(&events)){
             switch (events.type)
             {
@@ -135,20 +142,19 @@ int main(){
                 }
             }
         }
-        
 
         SDL_RenderClear(ren);
         SDL_RenderCopy(ren,bgTexture,NULL,NULL);
         Tom->afficher_chunk(ren,(entite_t*)Tom,WINH,WINW);
 
-        render_chunk_unite(tableau_entite,ren,pontTexture,murTexture,Tom->chunk,WINW,WINH);
-
+        render_chunk_unite(tableau_entite,ren,pontTexture,murTexture,Tom->salle ,Tom->chunk,WINW,WINH);
         tableau_contact(tableau_entite,Tom);
 
         Tom->hitbox(ren,Tom,WINH,WINW);
         hitbox_tableau(ren,tableau_entite,WINW,WINH);
         
         SDL_RenderPresent(ren);
+        
     }
     Tom->detruire(&Tom);
     vider_tableaux(tableau_entite,tab_destr);
@@ -160,5 +166,6 @@ int main(){
     SDL_Quit();
 
     fclose(index);
+    fclose(entite_gen);
     return 0;
 }
