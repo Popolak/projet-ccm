@@ -150,18 +150,13 @@ extern booleen_t salle_existe (salle_t *salle){
 */
 
 extern salle_t * salle_creer_type(char *type){
-    int i=0,j=0,k=0, xchunk=0,ychunk=0,nbPortes=0, tot=0;
+    int i=0,j=0,k=0, xchunk=0,ychunk=0,nbPortes=0, tot=0, taille;
     char * type_chunk=NULL;
     salle_t *salle= malloc(sizeof(salle_t));
     if(!salle){
         printf("L'allocation de la salle a échouée\n");
         return NULL;
     }                                                                   
-    if(type_correct(type)==FAUX){
-        printf("Type incorrect: %s\n", type);
-        salle_detruire(&salle);
-        return NULL;
-    }
                                                                         //Exemple : 012001001223
     salle->position.x=type[0]-'0';                                      //0 12001001223   x pour la salle
     salle->position.y=type[1]-'0';                                      //0 1 2001001223  y pour la salle                            
@@ -171,18 +166,23 @@ extern salle_t * salle_creer_type(char *type){
         salle_detruire(&salle);
         return NULL;
     }
-    for(i=0,k=3; i<salle->nb_chunk; i++){
+    for(i=0,k=3, taille=0; i<salle->nb_chunk; i++){
         xchunk=type[k++]-'0';                                           //012 0 01001223  x pour le premier chunk | 0120010 0 1223 x pour le deuxième
         ychunk=type[k++]-'0';                                           //0120 0 1001223  y pour le premier chunk | 01200100 1 223 y pour le deuxième 
-        nbPortes=type[k++]-'0';                                         //01200 1 001223  nombre de portes dans le premier chunk | 012001201 2 23 
-        if(!(type_chunk=malloc(sizeof(char)*(nbPortes+3)))){
+        nbPortes=type[k++]-'0';                                         //01200 1 001223  nombre de portes dans le premier chunk | 012001201 2 23
+        printf("%d %d %d\n\n", xchunk,ychunk,nbPortes);
+        for(taille=0;type[k+taille]!=' ' && type[k+taille]!='\n' && type[k+taille]!='\0'; taille++);
+        printf("%d\n",taille);
+        if(!(type_chunk=malloc(sizeof(char)*(taille+1)))){
             printf("L'allocation de la chaine de caractères pour le type du chunk %d %d a échouée\n", xchunk,ychunk);
             salle_detruire(&salle);
             return NULL;
         }
-        for(j=0;j<nbPortes+3;j++,k++){                                     //On créer la type pour le chunk
-            type_chunk[j]=type[k];                                         //0 pour le premier | 23 pour le deuxième
+        for(j=0;j<taille;j++,k++){                                     //On créer la type pour le chunk
+            type_chunk[j]=type[k];                                              //0 pour le premier | 23 pour le deuxième
         }
+        type_chunk[taille]='\0';
+        printf("%s\n",type_chunk);
         if(!(salle->chunks[i]=chunk_creer(salle,xchunk,ychunk,nbPortes,type_chunk))){
             printf("La création du chunk %d %d a échouée\n", xchunk,ychunk);
             salle_detruire(&salle);
@@ -190,6 +190,8 @@ extern salle_t * salle_creer_type(char *type){
         }
         free(type_chunk);
         type_chunk=NULL;
+        k++;
+        printf("%d\n",k);
     }
     return salle;
 }

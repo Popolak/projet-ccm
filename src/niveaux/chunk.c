@@ -2,6 +2,7 @@
 #include <ctype.h>
 #include "../../lib/niveaux/chunk.h"
 #include "../../lib/niveaux/salle.h"
+#include "string.h"
 
 /* CONSTANTES */
 
@@ -278,7 +279,7 @@ extern chunk_t * chunk_creer(salle_t *salle,int x,int y, int nb_portes, char * t
     unite_t * uniteAct=NULL;
     chunk_t * chunk=malloc(sizeof(chunk_t));
     int i,j,k,cote=0;
-    char chaine_cote[3];
+    char chaine_pont[20];
     if (!chunk)
         return NULL;
     if(x <0 || y<0){
@@ -330,7 +331,12 @@ extern chunk_t * chunk_creer(salle_t *salle,int x,int y, int nb_portes, char * t
     }
     cote= atoi(&type[i]);
     chunk->remplir(chunk,cote);
+    printf("%c\n", type[i]);
+    strcpy(chaine_pont,&type[i]);
+    creer_pont_chaine(chunk,chaine_pont);
+    printf("%s\n", chaine_pont);
     cpt_chunk++;
+
     return chunk;
 }
 

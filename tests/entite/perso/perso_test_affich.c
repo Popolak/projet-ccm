@@ -43,7 +43,7 @@ int main(){
         SDL_Quit();
         return 1;
     }
-    niv=niveau_creer("../../../generation/test_niv.txt","../../../generation/generation_pont.txt");
+    niv=niveau_creer("../../../generation/test_niv.txt");
     if(niv){
         printf("Génération du niveau effectuée\n");
     }

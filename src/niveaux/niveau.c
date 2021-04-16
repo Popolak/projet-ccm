@@ -136,19 +136,13 @@ extern booleen_t niveau_existe(niveau_t * niveau){
     retourne un pointeur sur niveau_t si tout fonctionne bien, NULL sinon 
 */
 
-extern niveau_t * niveau_creer(char * nom_fichier, char * nom_fichier_pont){
+extern niveau_t * niveau_creer(char * nom_fichier){
     int nbSalle,i;                              //nombre de salle dans le niveau et irérateur
     char type_salle[256],str[256];              //Variable pour récupérer les lignes du fichier
     niveau_t * niveau=NULL;                     
     FILE * fichier=fopen(nom_fichier,"r");      //On ouvre le fichier de génération pour le lire
     if(!fichier){                            
         printf("Aucun fichier de ce nom\n");
-        return NULL;
-    }
-    FILE * fichier_pont= fopen(nom_fichier_pont,"r");
-    if(!fichier_pont){                            
-        printf("Aucun fichier de ce nom\n");
-        fclose(fichier);
         return NULL;
     }
     fgets(str,255,fichier);                             //Pour le contenu du fichier cf ./generation/generation_explication.txt
@@ -185,10 +179,8 @@ extern niveau_t * niveau_creer(char * nom_fichier, char * nom_fichier_pont){
             niveau_detruire(&niveau);
             return NULL;
         }
-    }   
-    creer_pont(fichier_pont,niveau);               
+    }               
     fclose(fichier);
-    fclose(fichier_pont);
     cpt_niveau++;
     return niveau;
 }
