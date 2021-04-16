@@ -96,16 +96,16 @@ void initTabDaffich(void ** tab);
 extern err_t afficher_tableau (void * tab_ent[NB_MAX_AFF], SDL_Renderer * ren, int WINW, int WINH);
 
 extern 
-int ajouter_tableaux( void * tab[NB_MAX_AFF], void (*tab_destr[NB_MAX_AFF])(void ** ), void * ptr, void (*fonction_dest)(void **));
+int ajouter_tableaux( void * tab[NB_MAX_AFF], err_t(*tab_destr[NB_MAX_AFF])(void ** ), void * ptr, err_t (*fonction_dest)(void **));
 
 extern 
-void enlever_tableaux(void * tab[NB_MAX_AFF] , void (*tab_destr[NB_MAX_AFF])(void ** ));
+void enlever_tableaux(void * tab[NB_MAX_AFF] , err_t(*tab_destr[NB_MAX_AFF])(void ** ));
 
 extern 
-void vider_tableaux(void * tab[NB_MAX_AFF] , void (*tab_destr[NB_MAX_AFF])(void ** ));
+void vider_tableaux(void * tab[NB_MAX_AFF] , err_t (*tab_destr[NB_MAX_AFF])(void ** ));
 
 extern 
-void synchro_tableau(void * tab[NB_MAX_AFF], void (*tab_destr[NB_MAX_AFF])(void ** ),double temps,  FILE * file_gen);
+void synchro_tableau(void * tab[NB_MAX_AFF], err_t (*tab_destr[NB_MAX_AFF])(void ** ),double temps,  FILE * file_gen);
 
 extern 
 err_t entite_detruire(entite_t ** ent);

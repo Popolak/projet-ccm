@@ -5,7 +5,7 @@
 int main(){
 
 	perso_t * salade_test = NULL;
-	chunk_t * chunk=chunk_creer(0,0,0,"000");
+	chunk_t * chunk=chunk_creer(NULL,0,0,0,"000");
     pos_t position;
 	position.x = 80;
 	position.y = CHUNKW-TAILLE_MUR;

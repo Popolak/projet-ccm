@@ -42,8 +42,9 @@ int chunk_entoure(salle_t * salle, chunk_t*  chunk){
 
 extern 
 booleen_t type_correct(char * type){
+    
     int i;
-    for(i=0;type[i]!='\n';i++){
+    for(i=0;type[i]!='\n' && type[i];i++){
         if(!isdigit(type[i]))
          return FAUX;
     }
@@ -182,7 +183,7 @@ extern salle_t * salle_creer_type(char *type){
         for(j=0;j<nbPortes+3;j++,k++){                                     //On créer la type pour le chunk
             type_chunk[j]=type[k];                                         //0 pour le premier | 23 pour le deuxième
         }
-        if(!(salle->chunks[i]=chunk_creer(xchunk,ychunk,nbPortes,type_chunk))){
+        if(!(salle->chunks[i]=chunk_creer(salle,xchunk,ychunk,nbPortes,type_chunk))){
             printf("La création du chunk %d %d a échouée\n", xchunk,ychunk);
             salle_detruire(&salle);
             return NULL;

@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include "../../lib/niveaux/chunk.h"
+#include "../../lib/niveaux/salle.h"
 
 /* CONSTANTES */
 
@@ -181,19 +182,19 @@ static err_t chunk_remplir(chunk_t * chunk, int chunk_cote){
         switch (chunk->portes[i]->position){
             case (HG):
                 chunk->remplir_surface(chunk,TAILLE_MUR,0,TAILLE_PORTE,TAILLE_MUR,VIDE);
-                chunk->chunk[TAILLE_MUR+TAILLE_PORTE-1][0]->contenu=PORTE;
+                chunk->remplir_surface(chunk,TAILLE_MUR,0,TAILLE_PORTE,5,PORTE);
                 break;
             case (BG):
-                chunk->remplir_surface(chunk,CHUNKH-(ratioSol*CHUNKH)-TAILLE_PORTE,0,TAILLE_PORTE,TAILLE_MUR,VIDE);
-                chunk->chunk[CHUNKH-(int)(ratioSol*CHUNKH)-1][0]->contenu=PORTE;
+                chunk->remplir_surface(chunk,CHUNKH-(ratioSol*CHUNKH)-TAILLE_PORTE+1,0,TAILLE_PORTE,TAILLE_MUR,VIDE);
+                chunk->remplir_surface(chunk,CHUNKH-(ratioSol*CHUNKH)-TAILLE_PORTE+1,0,TAILLE_PORTE,5,PORTE);
                 break;
             case (HD):
                 chunk->remplir_surface(chunk,TAILLE_MUR,CHUNKW-TAILLE_MUR,TAILLE_PORTE,TAILLE_MUR,VIDE);
-                chunk->chunk[TAILLE_MUR+TAILLE_PORTE-1][CHUNKW-1]->contenu=PORTE;
+                chunk->remplir_surface(chunk,TAILLE_MUR,CHUNKW-6,TAILLE_PORTE,5,PORTE);
                 break;
             case (BD):
-                chunk->remplir_surface(chunk,CHUNKH-ratioSol*CHUNKH-TAILLE_PORTE,CHUNKW-TAILLE_MUR,TAILLE_PORTE,TAILLE_MUR,VIDE);
-                chunk->chunk[CHUNKH-(int)(ratioSol*CHUNKH)-1][CHUNKW-1]->contenu=PORTE;
+                chunk->remplir_surface(chunk,CHUNKH-ratioSol*CHUNKH-TAILLE_PORTE+1,CHUNKW-TAILLE_MUR,TAILLE_PORTE,TAILLE_MUR,VIDE);
+                chunk->remplir_surface(chunk,CHUNKH-ratioSol*CHUNKH-TAILLE_PORTE+1,CHUNKW-6,TAILLE_PORTE,5,PORTE);
                 break;
         }
     }
@@ -231,7 +232,7 @@ static err_t chunk_remplir(chunk_t * chunk, int chunk_cote){
         type : chaine donnant les positions de chaque porte
 */
 
-extern chunk_t * chunk_creer(int x,int y, int nb_portes, char * type){
+extern chunk_t * chunk_creer(salle_t *salle,int x,int y, int nb_portes, char * type){
     unite_t * uniteAct=NULL;
     chunk_t * chunk=malloc(sizeof(chunk_t));
     int i,j,k,cote=0;
@@ -279,7 +280,7 @@ extern chunk_t * chunk_creer(int x,int y, int nb_portes, char * type){
         return NULL;
     }
     for(i=0; i<nb_portes; i++){
-        if( !isdigit(type[i]) || !(chunk->portes[i]=porte_creer(NULL,type[i]-'0',chunk))){
+        if( !isdigit(type[i]) || !(chunk->portes[i]=porte_creer(NULL,type[i]-'0',salle,chunk))){
             chunk->detruire(&chunk);
             printf("L'allocation de la porte %d a échouée: %c\n", i, type[i]);
             return NULL;

@@ -153,7 +153,7 @@ extern err_t afficher_tableau (void * tab_ent[NB_MAX_AFF], SDL_Renderer * ren, i
 }
 
 extern 
-int ajouter_tableaux( void * tab[NB_MAX_AFF], void (*tab_destr[NB_MAX_AFF])(void ** ), void * ptr, void (*fonction_dest)(void **)){
+int ajouter_tableaux( void * tab[NB_MAX_AFF], err_t (*tab_destr[NB_MAX_AFF])(void ** ), void * ptr, err_t (*fonction_dest)(void **)){
     int i;
     for(i=0;i<NB_MAX_AFF && tab[i]!=NULL; i++);
     if(i>=NB_MAX_AFF)
@@ -163,7 +163,7 @@ int ajouter_tableaux( void * tab[NB_MAX_AFF], void (*tab_destr[NB_MAX_AFF])(void
 }
 
 extern 
-void enlever_tableaux(void * tab[NB_MAX_AFF] , void (*tab_destr[NB_MAX_AFF])(void ** )){
+void enlever_tableaux(void * tab[NB_MAX_AFF] , err_t (*tab_destr[NB_MAX_AFF])(void ** )){
     int i;
     for(i=0;i<NB_MAX_AFF && tab[i]!=NULL;i++);
     if(i==NB_MAX_AFF)
@@ -175,7 +175,7 @@ void enlever_tableaux(void * tab[NB_MAX_AFF] , void (*tab_destr[NB_MAX_AFF])(voi
 }
 
 extern 
-void vider_tableaux(void * tab[NB_MAX_AFF] , void (*tab_destr[NB_MAX_AFF])(void ** )){
+void vider_tableaux(void * tab[NB_MAX_AFF] , err_t (*tab_destr[NB_MAX_AFF])(void ** )){
     int i;
     while(tab[0]!=NULL){
         enlever_tableaux(tab,tab_destr);
@@ -183,7 +183,7 @@ void vider_tableaux(void * tab[NB_MAX_AFF] , void (*tab_destr[NB_MAX_AFF])(void 
 }
 
 extern 
-void synchro_tableau(void * tab[NB_MAX_AFF], void (*tab_destr[NB_MAX_AFF])(void ** ),double temps,  FILE * file_gen){
+void synchro_tableau(void * tab[NB_MAX_AFF], err_t (*tab_destr[NB_MAX_AFF])(void ** ),double temps,  FILE * file_gen){
     int i,j;
     for(i=0; i< NB_MAX_AFF && tab[i]!=NULL; i++){
         if(((entite_t * )tab[i])->deplacer((entite_t * )tab[i],temps,tab,tab_destr )==1){
@@ -509,7 +509,7 @@ void replacer(entite_t * ent, pos_t pos_mur, int direction){
 
 
 static 
-int entite_deplacement(void * element,double temps ,void *tab[NB_MAX_AFF], void (*tab_destr[NB_MAX_AFF])(void ** ), FILE * file_gen){
+int entite_deplacement(void * element,double temps ,void *tab[NB_MAX_AFF], err_t (*tab_destr[NB_MAX_AFF])(void ** )){
     pos_t pos_mur;
     chunk_t * chunk;
     booleen_t deja=FAUX;
@@ -607,11 +607,9 @@ booleen_t en_contact(entite_t * ent_courante, entite_t * ent_a_verif){
 
 static booleen_t en_contact_porte(entite_t * ent){
     int i,j, add=0;
-    for(j=0;j < ent->w/2-1 && j > -ent->w/2 && (int)ent->pos.y+j<CHUNKW && ent->pos.y+j>0;j=-(j+add%2),add++){
-        for(i=0;i<ent->h/2 && (int)ent->pos.x+i < CHUNKH;i++){
-            if(ent->chunk->chunk[(int)ent->pos.x+i][(int)ent->pos.y+j]->contenu == PORTE)
-                return VRAI;
-        }
+    for(i= ent->pos.x -ent->h/2 < 0 ? 0 :  (int)(ent->pos.x -ent->h); i< (int)(ent->pos.x+ent->h/2) && i < CHUNKH; i++){
+        if(ent->chunk->chunk[i][(int)(ent->pos.y)]->contenu==PORTE)
+            return VRAI;
     }
     return FAUX;
 }

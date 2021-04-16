@@ -1,3 +1,5 @@
+/* Par Matthis */
+
 #include "../../lib/generation/element_generation.h"
 
 extern 
@@ -37,7 +39,7 @@ void * creer_entite_chaine(SDL_Renderer *ren, int *n,const perso_t const * joueu
     fscanf(index,"%f",&v_y);
     fscanf(index,"%f",&secSprite);
 
-    if(n==1){
+    if(*n==1){
         fscanf(index,"%d",&degats);
         fscanf(index,"%d", &vie);
         fscanf(index,"%f", &vit_attack);
@@ -46,7 +48,6 @@ void * creer_entite_chaine(SDL_Renderer *ren, int *n,const perso_t const * joueu
 
     fgetc(index);
     fgets(str,299,index);
-    printf("%s\n", str);
     textures=creer_tableau_textures_chaine(ren,&nbText,str,appel);
     
     if(*n==1){

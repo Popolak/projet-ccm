@@ -40,7 +40,7 @@ extern void attribut_mur(int x, int y, int* w, int* h, chunk_t * chunk);
 extern void attribut_pont(int x, int y, int* w, chunk_t * chunk);
 
 extern booleen_t chunk_existe(chunk_t * chunk);
-extern chunk_t * chunk_creer(int x,int y,int nb_portes, char * type);
+extern chunk_t * chunk_creer(salle_t *salle,int x,int y, int nb_portes, char * type);
 extern void chunk_afficher_ref();
 
 extern booleen_t coord_correcte(int x, int y);

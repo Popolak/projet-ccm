@@ -100,13 +100,14 @@ void input_update_speed (perso_t * perso, int tot_touche){
 
 
 static 
-int perso_deplacement(void * element,double temps, void *tab[NB_MAX_AFF], void (*tab_destr[NB_MAX_AFF])(void ** ) ){
+int perso_deplacement(void * element,double temps, void *tab[NB_MAX_AFF], err_t (*tab_destr[NB_MAX_AFF])(void ** ) ){
     pos_t pos_mur;
     chunk_t * chunk;
     booleen_t deja=FAUX;
     int w,h;
     float vitesse_tempo;
-	perso_t * ent = (perso_t *) element;
+	perso_t * perso = (perso_t *) element;
+	entite_t * ent = (entite_t *)perso;
 
     if(ent->vitesse_y > 0){                          //On adapte la direction de l'entité en fonction de sa vitesse
         if(ent->dir==GAUCHE)
@@ -173,8 +174,8 @@ int perso_deplacement(void * element,double temps, void *tab[NB_MAX_AFF], void (
 				ent->pos.y=ent->pos.y-CHUNKW;               //Sa position change en fonction
 			}
 			else{
-				printf("Erreur de segmentation, pas de chunk a droite\n");
-				exit(1);
+				pos_mur.y=CHUNKW-1;
+				replacer(ent,pos_mur,DROITE);
 			}
 		}               
 
@@ -185,8 +186,8 @@ int perso_deplacement(void * element,double temps, void *tab[NB_MAX_AFF], void (
 				ent->pos.y=CHUNKW+ent->pos.y;
 			}
 			else{
-				printf("Erreur de segmentation, pas de chunk a gauche\n");
-				exit(1);
+				pos_mur.y=0;
+				replacer(ent,pos_mur,GAUCHE);
 			}
 		}
 
@@ -197,8 +198,8 @@ int perso_deplacement(void * element,double temps, void *tab[NB_MAX_AFF], void (
 				ent->pos.x=ent->pos.x-CHUNKH;
 			}
 			else{
-				printf("Erreur de segmentation, pas de chunk en bas\n");
-				exit(1);
+				pos_mur.x=CHUNKH-1;
+				replacer(ent,pos_mur,BAS);
 			}
 		}
 
@@ -209,17 +210,65 @@ int perso_deplacement(void * element,double temps, void *tab[NB_MAX_AFF], void (
 				ent->pos.x=CHUNKH+ent->pos.y;
 			}
 			else{
-				printf("Erreur de segmentation,pas de chunk en haut\n");
-				exit(1);
+				pos_mur.x=0;
+				replacer(ent,pos_mur,HAUT);
 			}
 		}
 		return 1;
+	}
+	else if (ent->contact_porte(ent)){
+		return 2;
 	}
 	return 0;
     
 	
 }
 
+
+int perso_pos_relative(perso_t * perso){
+	if(perso->pos.x < CHUNKH/2){
+		if(perso->pos.y < CHUNKW/2){
+			return HG;
+		}
+		return HD;
+	}
+	if(perso->pos.x > CHUNKH/2){
+		if(perso->pos.y < CHUNKW/2){
+			return BG;
+		}
+		return BD;
+	}
+}
+
+static
+err_t perso_change_salle(perso_t * perso){
+	int posit_porte;
+	porte_t * porte=NULL;
+	posit_porte=perso_pos_relative(perso);
+	porte=perso->chunk->chercher_porte(perso->chunk,posit_porte);
+	perso->salle=porte->porteDest->salle;
+	perso->chunk=porte->porteDest->chunk;
+	switch(porte->porteDest->position){
+		case (HG):
+			perso->pos.x=TAILLE_MUR+TAILLE_PORTE-perso->h/2;
+			perso->pos.y=6;
+			break;
+		case (BG):
+			perso->pos.x=CHUNKH-CHUNKH*ratioSol-perso->h/2;
+			perso->pos.y=6;
+			break;
+		case(HD):
+			perso->pos.x=TAILLE_MUR+TAILLE_PORTE-perso->h/2;
+			perso->pos.y=CHUNKW-6;
+			break;
+		case(BD):
+			perso->pos.x=CHUNKH-ratioSol*CHUNKH-perso->h/2;
+			perso->pos.y=CHUNKW-6;
+			break;
+	}
+	return OK;
+
+}
 
 static
 void perso_prendre_coup(perso_t * personnage, int degats){
@@ -232,7 +281,7 @@ void perso_attaque(void * perso_courant, void * entite_subit){
 }
 
 extern
-err_t remplir_tableaux(SDL_Renderer * ren,perso_t *perso, void * tab[NB_MAX_AFF], void (*tab_destr[NB_MAX_AFF])(void ** ),char * appel ,FILE * index, FILE * file_gen){
+err_t remplir_tableaux(SDL_Renderer * ren,perso_t *perso, void * tab[NB_MAX_AFF], err_t (*tab_destr[NB_MAX_AFF])(void ** ),char * appel ,FILE * index, FILE * file_gen){
 	void * element;
 	int n;
 	if(!file_gen){
@@ -243,18 +292,12 @@ err_t remplir_tableaux(SDL_Renderer * ren,perso_t *perso, void * tab[NB_MAX_AFF]
 	int sx,sy,cx,cy;
 	while(!feof(file_gen)){
 		sx=fgetc(file_gen)-'0';
-		printf("%d",sx);
 		sy=fgetc(file_gen)-'0';
-		printf("%d",sy);
 		cx=fgetc(file_gen)-'0';
-		printf("%d",cx);
 		cy=fgetc(file_gen)-'0';
-		printf("%d\n",cy);
 
 		fgets(str,299,file_gen);
-		printf("%s\n",str);
 		if(perso->salle->position.x == sx && perso->salle->position.y == sy && perso->chunk->position.x == cx && perso->chunk->position.y == cy){
-			printf("oui\n");
 			element = creer_entite_chaine(ren ,&n,perso,str, index,appel);
 			if(n==1){
 				ajouter_tableaux(tab,tab_destr,element,((perso_t*)element)->detruire);
@@ -270,10 +313,9 @@ err_t remplir_tableaux(SDL_Renderer * ren,perso_t *perso, void * tab[NB_MAX_AFF]
 }
 
 static 
-err_t perso_change_chunk( SDL_Renderer * ren, perso_t * perso,  void * tab[NB_MAX_AFF], void (*tab_destr[NB_MAX_AFF])(void ** ), FILE *index, FILE * file_gen, char * appel){
+err_t perso_change_chunk( SDL_Renderer * ren, perso_t * perso,  void * tab[NB_MAX_AFF], err_t (*tab_destr[NB_MAX_AFF])(void ** ), FILE *index, FILE * file_gen, char * appel){
 	vider_tableaux(tab, tab_destr);
 	remplir_tableaux(ren,perso,tab,tab_destr,appel,index,file_gen);
-
 }
 
 static
@@ -325,6 +367,7 @@ perso_t * perso_creer(char * nom,
 	personnage->deplacer=perso_deplacement;
 	personnage->action=perso_attaque;
 	personnage->change_chunk=perso_change_chunk;
+	personnage->change_salle=perso_change_salle;
 
 	return(personnage);
 }

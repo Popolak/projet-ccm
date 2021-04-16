@@ -145,13 +145,15 @@ extern niveau_t * niveau_creer(char * nom_fichier){
             niveau->detruire(&niveau);
             return NULL;
         }
-    }
-    if(relier_portes(fichier,niveau)!=OK){              //Puis on relie les portes entre elles
-        fclose(fichier);
-        printf("Il y a eu un problème pour lier les portes\n");
-        niveau_detruire(&niveau);
-        return NULL;
-    }                     
+    }  
+    if(!feof(fichier)){
+        if(relier_portes(fichier,niveau)!=OK){              //Puis on relie les portes entre elles
+            fclose(fichier);
+            printf("Il y a eu un problème pour lier les portes\n");
+            niveau_detruire(&niveau);
+            return NULL;
+        }
+    }                    
     fclose(fichier);
     cpt_niveau++;
     return niveau;

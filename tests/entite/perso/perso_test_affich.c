@@ -9,7 +9,7 @@
 
 int main(){
     void * tableau_entite[NB_MAX_AFF];
-    void (*tab_destr[NB_MAX_AFF])(void ** );
+    err_t (*tab_destr[NB_MAX_AFF])(void ** );
     
     initTabDaffich(tableau_entite);
     initTabDaffich((void**)tab_destr);
@@ -65,10 +65,8 @@ int main(){
     joueurTextures=creer_tableau_textures_chaine(ren,&nbText,"\"../../../graphics/sprite/personnage_sprites/Tom immo.png\" \"../../../graphics/sprite/personnage_sprites/Tom neutre.png\" \"../../../graphics/sprite/personnage_sprites/Tom marche 1.png\" \"../../../graphics/sprite/personnage_sprites/Tom marche 2.png\" ","./");
     Tom=perso_creer("Tom","tomate",30,salle,chunk,pos,0,0,300,700,60,80,30,60,-10,0.2,0,0,nbText,joueurTextures);
 
-    //entite_test_textures=creer_tableau_textures_chaine(ren,&nbText,"\"../../../graphics/sprite/entite_sprites/test.png\"");
-    //entite_test=entite_creer("test","test",salle,chunk,pos2,200,-100,400,0.1,40,40,30,30,0,nbText,entite_test_textures);
-    ajouter_tableaux(tableau_entite,tab_destr, creer_entite_chaine(ren,&n,(entite_t*)Tom, " patate 300 200",index,"../../../"),(void*) entite_detruire );
-    ajouter_tableaux(tableau_entite,tab_destr, creer_entite_chaine(ren,&n,(entite_t*)Tom, " patate 200 400",index,"../../../"),(void*)entite_detruire );
+    ajouter_tableaux(tableau_entite,tab_destr, creer_entite_chaine(ren,&n,Tom, " patate 300 200",index,"../../../"),(void*) entite_detruire );
+    ajouter_tableaux(tableau_entite,tab_destr, creer_entite_chaine(ren,&n,Tom, " patate 200 400",index,"../../../"),(void*)entite_detruire );
 
     if(bgTexture==NULL || murTexture==NULL || joueurTextures[0]==NULL || joueurTextures[1]==NULL || joueurTextures[2]==NULL){
         printf("La création de la texture a échouée\n");
@@ -93,18 +91,17 @@ int main(){
         secDeg+=sec;
         Tom->lastSprite+=sec;
         secAvant=secMaint;
+        Tom->update_speed(Tom, tot_key);
         if(sec<0.1){
             if(Tom->deplacer(Tom,sec, tableau_entite, tab_destr))
                 Tom->change_chunk(ren, Tom, tableau_entite,tab_destr,index,entite_gen,"../../../");
             synchro_tableau(tableau_entite,tab_destr,sec,NULL);
         }   
-        /*if(Tom->contact((entite_t*) Tom, entite_test) && secDeg > secInvins){
-            Tom->prendre_coup(Tom,10);
-            printf("Tom prend un coup %d\n", Tom->vie);
-            if(Tom->vie<=0)
-                run=SDL_FALSE;
-            secDeg=0;
-        }*/
+        tableau_contact(tableau_entite,Tom);
+        if(Tom->contact_porte(Tom)){
+            Tom->change_salle(Tom);
+            Tom->change_chunk(ren,Tom,tableau_entite,tab_destr,index,entite_gen,"../../../");
+        }
         while(SDL_PollEvent(&events)){
             switch (events.type)
             {
@@ -142,7 +139,6 @@ int main(){
 
         SDL_RenderClear(ren);
         SDL_RenderCopy(ren,bgTexture,NULL,NULL);
-        Tom->update_speed(Tom, tot_key);
         Tom->afficher_chunk(ren,(entite_t*)Tom,WINH,WINW);
 
         render_chunk_unite(tableau_entite,ren,pontTexture,murTexture,Tom->chunk,WINW,WINH);

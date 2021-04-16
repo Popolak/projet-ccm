@@ -58,7 +58,7 @@ extern booleen_t porte_existe(porte_t * porte){
     Retourne un pointeur sur porte_t si la création s'est bien passé, FAUX sinon 
 */
 
-extern porte_t * porte_creer (porte_t * porteDest, int pos, chunk_t *chunk){
+extern porte_t * porte_creer (porte_t * porteDest, int pos, salle_t * salle,chunk_t *chunk){
     porte_t * porte= malloc(sizeof(porte_t));
     if (!porte || !pos_correcte(pos)){
         if(porte)
@@ -68,6 +68,8 @@ extern porte_t * porte_creer (porte_t * porteDest, int pos, chunk_t *chunk){
     porte->detruire=porte_detruire;             //affectation des méthodes
     porte->lire=porte_lire;
     porte->porteDest=porteDest;
+    porte->salle=salle;
+    porte->chunk=chunk;
     porte->position=pos;
     return porte;
 }
