@@ -14,7 +14,7 @@ typedef struct chunk_s chunk_t;
 #define CHUNKW 640
 #define TAILLE_MUR 20
 #define TAILLE_PORTE 80
-#define W_PONT 60
+#define W_PONT 130
 #define H_PONT 2
 
 enum {RIEN,HAUT,DROITE,BAS=4,GAUCHE=8,COIN_NE=16,COIN_SE=32,COIN_SO=64,COIN_NO=128};
@@ -45,5 +45,9 @@ extern chunk_t * chunk_creer(salle_t *salle,int x,int y, int nb_portes, char * t
 extern void chunk_afficher_ref();
 
 extern booleen_t coord_correcte(int x, int y);
+
+
+extern 
+err_t creer_pont_chaine(chunk_t * chunk,char * type);
 
 #endif

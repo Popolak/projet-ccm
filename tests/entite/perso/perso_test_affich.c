@@ -43,7 +43,7 @@ int main(){
         SDL_Quit();
         return 1;
     }
-    niv=niveau_creer("/home/matthis/Documents/Roguelike/src/niveaux/generation/test_niv.txt");
+    niv=niveau_creer("../../../generation/test_niv.txt","../../../generation/generation_pont.txt");
     if(niv){
         printf("Génération du niveau effectuée\n");
     }
@@ -63,7 +63,7 @@ int main(){
     SDL_Texture ** joueurTextures=NULL, **entite_test_textures;
 
     joueurTextures=creer_tableau_textures_chaine(ren,&nbText,"\"../../../graphics/sprite/personnage_sprites/Tom immo.png\" \"../../../graphics/sprite/personnage_sprites/Tom neutre.png\" \"../../../graphics/sprite/personnage_sprites/Tom marche 1.png\" \"../../../graphics/sprite/personnage_sprites/Tom marche 2.png\" ","./");
-    Tom=perso_creer("Tom","tomate",30,salle,chunk,pos,0,0,300,700,60,80,30,60,-10,0.2,0,0,nbText,joueurTextures);
+    Tom=perso_creer("Tom","tomate",30,salle,chunk,pos,0,0,300,750,40,70,20,50,-5,0.2,0,0,nbText,joueurTextures);
 
     ajouter_tableaux(tableau_entite,tab_destr, creer_entite_chaine(ren,&n,Tom, " patate 300 200",index,"../../../"),(void*) entite_detruire );
     ajouter_tableaux(tableau_entite,tab_destr, creer_entite_chaine(ren,&n,Tom, " patate 200 400",index,"../../../"),(void*)entite_detruire );
@@ -79,11 +79,12 @@ int main(){
         SDL_Quit();
         return ERR_DEB_MEMOIRE;
     }
-    chunk->lire_partiel(chunk,CHUNKH-CHUNKH*ratioSol-2,100,CHUNKH*ratioSol,30);
+
+
     secAvant= 1.0*SDL_GetTicks()/1000;
+    
     secDeg=secAvant;
     int tot_key=0;
-    chunk->remplir_surface(chunk,240,100,2,200,PONT);
     
     while(run){
         secMaint=1.0*SDL_GetTicks()/1000;

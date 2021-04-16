@@ -177,6 +177,46 @@ err_t remplir_surface(chunk_t * chunk, int x, int y , int h ,int w, int contenu)
 }
 
 
+extern 
+err_t creer_pont_chaine(chunk_t * chunk,char * type){
+    int i, x,y,pos, depart_x, depart_y, taille_pont;
+    char str[3];
+    int relie, total_w, total_h;
+    str[0]=type[0];
+    str[1]=type[1];
+    str[2]=type[2];
+    relie=atoi(str);
+    
+    total_w=CHUNKW-2*TAILLE_MUR;
+    depart_y=TAILLE_MUR;
+    if(relie & DROITE){
+        total_w+=TAILLE_MUR;
+    }
+    if(relie & GAUCHE){
+        total_w+=TAILLE_MUR;
+        depart_y=0;
+    }
+    taille_pont=total_w/5;
+    for(i=3;type[i];i++){
+        pos=type[i]-'a';
+        if(pos < 5 && pos >= 0){
+            x=TAILLE_MUR+TAILLE_PORTE;
+        }
+        if(pos >= 5 && pos < 10){
+            x= (CHUNKH-CHUNKH*ratioSol + TAILLE_PORTE+TAILLE_MUR)/2;
+            pos-=5;
+        }
+        else if(pos>= 10){
+            x=CHUNKH-CHUNKH*ratioSol;
+            pos-=10;
+        }
+        y=depart_y+ taille_pont*pos;
+        chunk->remplir_surface(chunk,x,y,H_PONT, taille_pont ,PONT);
+    }
+    return OK;
+}
+
+
 static err_t chunk_remplir(chunk_t * chunk, int chunk_cote){
     int i;
     for(i=0;i<chunk->nb_portes;i++){
@@ -188,6 +228,7 @@ static err_t chunk_remplir(chunk_t * chunk, int chunk_cote){
             case (BG):
                 chunk->remplir_surface(chunk,CHUNKH-(ratioSol*CHUNKH)-TAILLE_PORTE,0,TAILLE_PORTE,TAILLE_MUR,VIDE);
                 chunk->remplir_surface(chunk,CHUNKH-(ratioSol*CHUNKH)-TAILLE_PORTE,0,TAILLE_PORTE,5,PORTE);
+                
                 break;
             case (HD):
                 chunk->remplir_surface(chunk,TAILLE_MUR,CHUNKW-TAILLE_MUR,TAILLE_PORTE,TAILLE_MUR,VIDE);

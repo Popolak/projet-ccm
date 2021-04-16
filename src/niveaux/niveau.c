@@ -92,6 +92,32 @@ static err_t niveau_detruire(niveau_t ** niveau){
     return OK;
 }
 
+
+extern 
+err_t creer_pont(FILE * fichier,niveau_t* niv){
+    int sx,sy,cx,cy;
+    char str[30];
+    salle_t * salle;
+    chunk_t * chunk;
+    fseek(fichier,0,SEEK_SET);
+    while(!feof(fichier)){
+        salle=NULL;
+        chunk=NULL;
+        sx=fgetc(fichier)-'0';
+        sy=fgetc(fichier)-'0';
+        cx=fgetc(fichier)-'0';
+        cy=fgetc(fichier)-'0';
+        salle= niv->chercher_salle(niv,sx,sy);
+        if(salle){
+            chunk=salle->chercher_chunk(salle,cx,cy);
+        }
+        if(chunk){
+            fgets(str,29,fichier);
+            creer_pont_chaine(chunk,str);
+        }
+    }
+}
+
 /* fonction niveau_existe
     paramètre:
         niveau: pointeur sur niveau_t
@@ -110,13 +136,19 @@ extern booleen_t niveau_existe(niveau_t * niveau){
     retourne un pointeur sur niveau_t si tout fonctionne bien, NULL sinon 
 */
 
-extern niveau_t * niveau_creer(char * nom_fichier){
+extern niveau_t * niveau_creer(char * nom_fichier, char * nom_fichier_pont){
     int nbSalle,i;                              //nombre de salle dans le niveau et irérateur
     char type_salle[256],str[256];              //Variable pour récupérer les lignes du fichier
     niveau_t * niveau=NULL;                     
     FILE * fichier=fopen(nom_fichier,"r");      //On ouvre le fichier de génération pour le lire
     if(!fichier){                            
         printf("Aucun fichier de ce nom\n");
+        return NULL;
+    }
+    FILE * fichier_pont= fopen(nom_fichier_pont,"r");
+    if(!fichier_pont){                            
+        printf("Aucun fichier de ce nom\n");
+        fclose(fichier);
         return NULL;
     }
     fgets(str,255,fichier);                             //Pour le contenu du fichier cf ./generation/generation_explication.txt
@@ -153,8 +185,10 @@ extern niveau_t * niveau_creer(char * nom_fichier){
             niveau_detruire(&niveau);
             return NULL;
         }
-    }                    
+    }   
+    creer_pont(fichier_pont,niveau);               
     fclose(fichier);
+    fclose(fichier_pont);
     cpt_niveau++;
     return niveau;
 }

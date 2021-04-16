@@ -120,37 +120,41 @@ int perso_deplacement(void * element,double temps, void *tab[NB_MAX_AFF], err_t 
     }
 
     (ent->pos.y)+= (ent->vitesse_y)*temps;                  //On actualise la position horizontale grace a vitesse_y
-                                                                
-    pos_mur=mur_a_gauche(ent);                              //Si on se retrouve dans un mur, on se replace
-	if(coord_correcte(ent->pos.x,ent->pos.y)){
+                                                                                           
+	if(coord_correcte(ent->pos.x,ent->pos.y)){				//Si on se retrouve dans un mur, on se replace
+		pos_mur=mur_a_gauche(ent);   
 		if(pos_mur.x!=-1){
 			replacer(ent,pos_mur,GAUCHE);
 		}
-		
+	}
+	if(coord_correcte(ent->pos.x,ent->pos.y)){
 		pos_mur=mur_a_droite(ent);                              //Pareil
 		if(pos_mur.x!=-1){
 			replacer(ent,pos_mur,DROITE);
 		}
-		if(coord_correcte(ent->pos.x,ent->pos.y)){
-			(ent->pos.x)+= (ent->vitesse_x)*temps;                  //Puis on actualise la position verticale
-			pos_mur=mur_en_bas(ent);
-			if(pos_mur.x!=-1){
-				replacer(ent,pos_mur,BAS);                          //Si on se retrouve dans un mur, on se replace
-			}
-			
-			pos_mur=pont_en_bas(ent);
-			if(pos_mur.x!=-1){
-				replacer(ent,pos_mur,BAS);                          //Si on se retrouve dans un mur, on se replace
-			}
-			
-			pos_mur=mur_en_haut(ent);
-			if(pos_mur.x!=-1 ){
-				replacer(ent,pos_mur,HAUT);                         //Pareil
-			}
+	}
+	(ent->pos.x)+= (ent->vitesse_x)*temps; 
+	if(coord_correcte(ent->pos.x,ent->pos.y)){               //Puis on actualise la position verticale
+		pos_mur=mur_en_bas(ent);
+		if(pos_mur.x!=-1){
+			replacer(ent,pos_mur,BAS);                          //Si on se retrouve dans un mur, on se replace
 		}
-		if(ent->en_l_air(ent)){                                 //Si on est en l'air, on tombe (La vitesse maximale est atteinte après 2 secondes de chute avec v0=0)
-			ent->vitesse_x= (ent->vitesse_x + GRAVITE*temps > GRAVITE*2) ? GRAVITE*2:ent->vitesse_x + GRAVITE*temps;
+	}
+	if(coord_correcte(ent->pos.x,ent->pos.y)){ 
+		pos_mur=pont_en_bas(ent);
+		if(pos_mur.x!=-1){
+			replacer(ent,pos_mur,BAS);                          //Si on se retrouve dans un mur, on se replace
 		}
+	}
+	if(coord_correcte(ent->pos.x,ent->pos.y)){ 
+		pos_mur=mur_en_haut(ent);
+		if(pos_mur.x!=-1 ){
+			replacer(ent,pos_mur,HAUT);                         //Pareil
+		}
+	}
+
+	if(ent->en_l_air(ent)){                                 //Si on est en l'air, on tombe (La vitesse maximale est atteinte après 2 secondes de chute avec v0=0)
+		ent->vitesse_x= (ent->vitesse_x + GRAVITE*temps > GRAVITE*2) ? GRAVITE*2:ent->vitesse_x + GRAVITE*temps;
 	}
 	
 		//Si la vitesse de l'entité n'est pas actualisée (soit par un input de l'utilisateur, soit par l'algorithme des ennemis)
@@ -165,7 +169,6 @@ int perso_deplacement(void * element,double temps, void *tab[NB_MAX_AFF], err_t 
         if(ent->vitesse_y > 0 && ent->dir == GAUCHE || ent->vitesse_y < 0 && ent->dir == DROITE)
             ent->vitesse_y=0;
     }
-	
 	if(coord_correcte(ent->pos.x, ent->pos.y)){
 		if (ent->contact_porte(ent)){
 			return 2;
@@ -187,7 +190,7 @@ int perso_deplacement(void * element,double temps, void *tab[NB_MAX_AFF], err_t 
 			}
 		}               
 
-												//Meme systeme ensuite
+															//Meme systeme ensuite
 		if(ent->pos.y<0){
 			if((chunk=ent->salle->chercher_chunk(ent->salle,ent->chunk->position.x, ent->chunk->position.y-1))!=NULL){
 				ent->chunk=chunk;
@@ -217,11 +220,10 @@ int perso_deplacement(void * element,double temps, void *tab[NB_MAX_AFF], err_t 
 		if(ent->pos.x<0){
 			if((chunk=ent->salle->chercher_chunk(ent->salle,ent->chunk->position.x-1, ent->chunk->position.y))!=NULL){
 				ent->chunk=chunk;
-				ent->pos.x=CHUNKH+ent->pos.y;
+				ent->pos.x=CHUNKH+ent->pos.x;
 				return 1;
 			}
 			else{
-				printf("42\n");
 				pos_mur.x=0;
 				replacer(ent,pos_mur,HAUT);
 			}

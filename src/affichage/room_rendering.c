@@ -78,7 +78,7 @@ err_t render_mur_chunk(SDL_Renderer * ren, SDL_Texture * texture_mur, salle_t *s
             }
             
             attribut_mur(pos.x,pos.y,&w_mur,&h_mur,chunk);     //on récupère la hauteur et l'épaisseur du mur
-            h_mur_modif=(pos.x+h_mur) > (CHUNKH - CHUNKH *ratioSol) ? CHUNKH-CHUNKH*ratioSol - pos.x: h_mur ; 
+            h_mur_modif=((pos.x+h_mur) > (CHUNKH - CHUNKH *ratioSol)) && chunk_dessous==NULL ? CHUNKH-CHUNKH*ratioSol - pos.x: h_mur ; 
             srcModif.h=src.w* h_mur_modif/TAILLE_MUR;                     //On adapte la portion de la texture a afficher par rapport a la proportion du mur 
             srcModif.w=src.w* w_mur/TAILLE_MUR;
             dst.y=pos.x*ratioUtoP;

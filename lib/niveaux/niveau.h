@@ -14,7 +14,7 @@ typedef struct niveau_s{
 } niveau_t;
 
 extern booleen_t niveau_existe(niveau_t * niveau);
-extern niveau_t * niveau_creer(char *nom_fichier);
+extern niveau_t * niveau_creer(char * nom_fichier, char * nom_fichier_pont);
 extern err_t relier_portes(FILE * fichier,niveau_t * niveau);
 extern void niveau_afficher_ref();
 #endif
