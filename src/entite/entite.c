@@ -182,6 +182,20 @@ void vider_tableaux(void * tab[NB_MAX_AFF] , err_t (*tab_destr[NB_MAX_AFF])(void
     }
 }
 
+extern
+void enlever_element_tableau(void * tab[NB_MAX_AFF], err_t (*tab_destr[NB_MAX_AFF])(void ** ),void *element ){
+    int i,j;
+    void * tempo=NULL;
+    for(i=0;i<NB_MAX_AFF && tab[i]!=NULL && tab[i]!=element;i++);
+    if(!(i>=NB_MAX_AFF || tab[i]==NULL)){
+        for(j=0; j< NB_MAX_AFF && tab[j]!=NULL; j++);
+            j--;
+        echanger((void **)(&(tab[i])), (void **)(&(tab[j])));
+        echanger((void **)(&(tab_destr[i])), (void **)(&(tab_destr[j])));
+        enlever_tableaux(tab, tab_destr);
+    }
+}
+
 extern 
 void synchro_tableau(void * tab[NB_MAX_AFF], err_t (*tab_destr[NB_MAX_AFF])(void ** ),double temps,  FILE * file_gen){
     int i,j;
@@ -235,6 +249,9 @@ void entite_action(void * ent_courante, void * entite_subit){
 
 static err_t afficher_dans_chunk(SDL_Renderer *ren,entite_t *entite,int WINH,int WINW){
     SDL_Texture * a_afficher=NULL;
+    int w,h, w_immo,h_immo;
+    float ratio_h, ratio_w;
+
     if(entite->lastSprite >= 7*entite->secSprite ){
         entite->lastSprite=0;
     }
@@ -283,9 +300,11 @@ static err_t afficher_dans_chunk(SDL_Renderer *ren,entite_t *entite,int WINH,int
         a_afficher= entite->textures[IMMO];
     }
     
-
-
-    entite->afficher_fenetre(ren,entite,entite->w*WINW/CHUNKW,entite->h*WINW/CHUNKW,entite->pos.x*WINW/CHUNKW, entite->pos.y*WINW/CHUNKW, a_afficher);
+    SDL_QueryTexture(a_afficher,NULL,NULL,&w,&h);
+    SDL_QueryTexture(entite->textures[IMMO],NULL,NULL,&w_immo,&h_immo);
+    ratio_h=(1.0*h/h_immo) ;
+    ratio_w=1.0*w/w_immo;
+    entite->afficher_fenetre(ren,entite,(entite->w*WINW/CHUNKW)*ratio_w,(entite->h*WINW/CHUNKW )/ratio_h,entite->pos.x*WINW/CHUNKW, entite->pos.y*WINW/CHUNKW, a_afficher);
 }
 
 

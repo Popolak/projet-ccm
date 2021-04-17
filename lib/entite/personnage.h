@@ -12,6 +12,7 @@
 #define KEY_RIGHT 1
 #define KEY_LEFT 2
 #define KEY_JUMP 4
+#define KEY_ATT 8
 
 /* Structure */
 

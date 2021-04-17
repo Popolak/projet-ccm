@@ -34,6 +34,77 @@ booleen_t perso_existe( perso_t * const personnage )
     return VRAI;
 }
 
+
+static err_t perso_afficher_dans_chunk(SDL_Renderer *ren,perso_t *entite,int WINH,int WINW){
+    SDL_Texture * a_afficher=NULL;
+    int w,h, w_immo,h_immo;
+    float ratio_h, ratio_w;
+
+	if(entite->temps_att >=0 && entite->temps_att < entite->vit_attack/2){
+		entite->lastSprite=0;
+		if(entite->nbTextures < ATTAQUE1){
+			a_afficher=entite->textures[IMMO];
+		}
+		else
+			a_afficher=entite->textures[ATTAQUE1];
+	}
+	else {
+		if(entite->lastSprite >= 7*entite->secSprite ){
+			entite->lastSprite=0;
+		}
+		if(entite->vitesse_y==0){
+			entite->lastSprite=0;
+			a_afficher=entite->textures[IMMO];
+		}
+
+		if(entite->vitesse_x < 0 ){
+			if(entite->nbTextures <= SAUT)
+				a_afficher= entite->textures[IMMO];
+			else 
+				a_afficher=entite->textures[SAUT];
+		}
+		else if(entite->vitesse_x > 0 ){
+			if(entite->nbTextures <= TOMBE)
+				a_afficher= entite->textures[IMMO];
+			else 
+				a_afficher=entite->textures[TOMBE];
+		}
+		else {
+
+			if(abs(entite->vitesse_y) && entite->nbTextures > IMMO && !entite->en_l_air(entite)){
+				if(entite->secSprite > entite->lastSprite){
+					if(entite->nbTextures <= POS_MOUV1)
+						a_afficher=entite->textures[IMMO];
+					else   
+						a_afficher=entite->textures[POS_MOUV1];
+				}
+				
+				else if (entite->lastSprite > 4 * entite->secSprite && entite->lastSprite < 5 * entite->secSprite ){
+					if(entite->nbTextures <= POS_MOUV2)
+						a_afficher=entite->textures[IMMO];
+					else   
+						a_afficher=entite->textures[POS_MOUV2];
+				}
+				else {
+					if(entite->nbTextures <= NEUTRE)
+						a_afficher=entite->textures[IMMO];
+					else    
+						a_afficher=entite->textures[NEUTRE];
+				}
+			}
+		}
+	}
+    if(a_afficher==NULL){
+        a_afficher= entite->textures[IMMO];
+    }
+    
+    SDL_QueryTexture(a_afficher,NULL,NULL,&w,&h);
+    SDL_QueryTexture(entite->textures[IMMO],NULL,NULL,&w_immo,&h_immo);
+    ratio_h=(1.0*h/h_immo) ;
+    ratio_w=1.0*w/w_immo;
+    entite->afficher_fenetre(ren,entite,(entite->w*WINW/CHUNKW)*ratio_w,(entite->h*WINW/CHUNKW )/ratio_h,entite->pos.x*WINW/CHUNKW, entite->pos.y*WINW/CHUNKW, a_afficher);
+}
+
 /*
 	perso_detruire
 	paramètre:
@@ -83,16 +154,20 @@ int fait_partie_bin (int tot_bin, int nombre_puis_2){
 static 
 void input_update_speed (perso_t * perso, int tot_touche){
 	float vit_tempo;
-	if(fait_partie_bin(tot_touche,KEY_JUMP) && !perso->en_l_air((entite_t*)perso)){
-		perso->vitesse_x=-perso->vitesse_saut;
+	if(fait_partie_bin(tot_touche,KEY_ATT) && (perso->temps_att < 0|| perso->temps_att > perso->vit_attack)){
+		perso->temps_att=0;
 	}
-	
-	if(!(fait_partie_bin(tot_touche, KEY_LEFT) && fait_partie_bin(tot_touche, KEY_RIGHT))){
-		if(fait_partie_bin(tot_touche, KEY_LEFT)){
-			perso->vitesse_y=-perso->vitesse_max_y;
+	if(perso->temps_att>perso->vit_attack/2 || perso->temps_att < 0){
+		if(fait_partie_bin(tot_touche,KEY_JUMP) && !perso->en_l_air((entite_t*)perso)){
+			perso->vitesse_x=-perso->vitesse_saut;
 		}
-		else if(fait_partie_bin(tot_touche, KEY_RIGHT)){
-			perso->vitesse_y=perso->vitesse_max_y;
+		if(!(fait_partie_bin(tot_touche, KEY_LEFT) && fait_partie_bin(tot_touche, KEY_RIGHT))){
+			if(fait_partie_bin(tot_touche, KEY_LEFT)){
+				perso->vitesse_y=-perso->vitesse_max_y;
+			}
+			else if(fait_partie_bin(tot_touche, KEY_RIGHT)){
+				perso->vitesse_y=perso->vitesse_max_y;
+			}
 		}
 	}
 	
@@ -369,7 +444,9 @@ perso_t * perso_creer(char * nom,
 	personnage->vie = vie;
 	personnage->vit_attack = vit_attack;
 	personnage->degats = degats;
+	personnage->temps_att=-1;
 
+	
 	personnage->detruire= perso_detruire;
 	personnage->prendre_coup=perso_prendre_coup;
 	personnage->update_speed=input_update_speed;
@@ -377,9 +454,10 @@ perso_t * perso_creer(char * nom,
 	personnage->depop=perso_depop;
 	personnage->envie=en_vie;
 	personnage->deplacer=perso_deplacement;
-	personnage->action=perso_attaque;
+	personnage->attaque=perso_attaque;
 	personnage->change_chunk=perso_change_chunk;
 	personnage->change_salle=perso_change_salle;
+	personnage->afficher_chunk=perso_afficher_dans_chunk;
 
 	return(personnage);
 }

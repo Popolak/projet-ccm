@@ -62,8 +62,8 @@ int main(){
     SDL_Texture * pontTexture=creer_texture_image(ren, "../../../graphics/texture/room_textures/pont.png");
     SDL_Texture ** joueurTextures=NULL, **entite_test_textures;
 
-    joueurTextures=creer_tableau_textures_chaine(ren,&nbText,"\"../../../graphics/sprite/personnage_sprites/Tom immo.png\" \"../../../graphics/sprite/personnage_sprites/Tom neutre.png\" \"../../../graphics/sprite/personnage_sprites/Tom marche 1.png\" \"../../../graphics/sprite/personnage_sprites/Tom marche 2.png\" ","./");
-    Tom=perso_creer("Tom","tomate",30,salle,chunk,pos,0,0,300,750,40,70,20,50,-5,0.2,0,0,nbText,joueurTextures);
+    joueurTextures=creer_tableau_textures_chaine(ren,&nbText,"\"../../../graphics/sprite/personnage_sprites/Tom immo.png\" \"../../../graphics/sprite/personnage_sprites/Tom neutre.png\" \"../../../graphics/sprite/personnage_sprites/Tom marche 1.png\" \"../../../graphics/sprite/personnage_sprites/Tom marche 2.png\" \"../../../graphics/sprite/personnage_sprites/Tom immo.png\" \"../../../graphics/sprite/personnage_sprites/Tom immo.png\" \"../../../graphics/sprite/personnage_sprites/Tom attaque.png\"","./");
+    Tom=perso_creer("Tom","tomate",30,salle,chunk,pos,0,0,100,750,40,70,20,50,-5,0.2,0.4,0,nbText,joueurTextures);
 
     ajouter_tableaux(tableau_entite,tab_destr, creer_entite_chaine(ren,&n,Tom, " patate 300 200",index,"../../../"),(void*) entite_detruire );
     ajouter_tableaux(tableau_entite,tab_destr, creer_entite_chaine(ren,&n,Tom, " patate 200 400",index,"../../../"),(void*)entite_detruire );
@@ -108,6 +108,12 @@ int main(){
                 synchro_tableau(tableau_entite,tab_destr,sec,NULL);
                 tableau_contact(tableau_entite,Tom);
             }
+            if(Tom->temps_att>= 0 && Tom->temps_att < Tom->vit_attack){
+                Tom->temps_att+=sec;
+            }
+            if(Tom->temps_att > Tom->vit_attack){
+                Tom->temps_att=-1;
+            }
             
         }   
         while(SDL_PollEvent(&events)){
@@ -116,6 +122,16 @@ int main(){
             case SDL_WINDOWEVENT:
                 if (events.window.event == SDL_WINDOWEVENT_CLOSE)
                     run = SDL_FALSE;
+                break;
+            case SDL_MOUSEBUTTONDOWN :
+                if (events.button.button == SDL_BUTTON_LEFT || events.button.button == SDL_BUTTON_RIGHT ){
+                    tot_key = tot_key | KEY_ATT;
+                }
+                break;
+            case SDL_MOUSEBUTTONUP :
+                if (events.button.button == SDL_BUTTON_LEFT || events.button.button == SDL_BUTTON_RIGHT ){
+                    tot_key = tot_key ^ KEY_ATT;
+                }
                 break;
             case SDL_KEYDOWN: // Un événement de type touche enfoncée est effectué
 
