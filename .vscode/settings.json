@@ -3,6 +3,7 @@
         "salle.h": "c",
         "chunk.h": "c",
         "unordered_map": "c",
-        "commun.h": "c"
+        "commun.h": "c",
+        "attaque.h": "c"
     }
 }

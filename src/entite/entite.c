@@ -106,11 +106,13 @@ SDL_Texture ** creer_tableau_textures_manuel(SDL_Renderer * ren, int *n,...){
 
 extern 
 long seek_entity_type(FILE * index,char *type){
-    char chaine[20];    
+    char chaine[40], str[300];    
     do{
-        fscanf(index,"%s", chaine);
-    }while( !feof(index) && strcmp(chaine,type));
-    
+        fscanf(index,"%s ", chaine);
+        if(!feof(index) && strcmp(chaine,type)!=0){
+            fgets(str,299,index);
+        }
+    }while( !feof(index) && strcmp(chaine,type)!=0);
     if(feof(index)){
         printf("Le type %s n'est pas dans l'index\n", type);
         return -1;
@@ -166,9 +168,9 @@ extern
 void enlever_tableaux(void * tab[NB_MAX_AFF] , err_t (*tab_destr[NB_MAX_AFF])(void ** )){
     int i;
     for(i=0;i<NB_MAX_AFF && tab[i]!=NULL;i++);
-    if(i==NB_MAX_AFF)
-        return;
     i--;
+    if(i==NB_MAX_AFF || i<0|| tab[i]==NULL)
+        return;
     tab_destr[i](&(tab[i]));
     tab[i]=NULL;
     tab_destr[i]=NULL;
@@ -200,12 +202,8 @@ extern
 void synchro_tableau(void * tab[NB_MAX_AFF], err_t (*tab_destr[NB_MAX_AFF])(void ** ),double temps,  FILE * file_gen){
     int i,j;
     for(i=0; i< NB_MAX_AFF && tab[i]!=NULL; i++){
-        if(((entite_t * )tab[i])->deplacer((entite_t * )tab[i],temps,tab,tab_destr )==1){
-            for(j=0; j< NB_MAX_AFF && tab[j]!=NULL; j++);
-            j--;
-            echanger((void **)(&(tab[i])), (void **)(&(tab[j])));
-            echanger((void **)(&(tab_destr[i])), (void **)(&(tab_destr[j])));
-            enlever_tableaux(tab, tab_destr);
+        if(((entite_t * )tab[i])->deplacer((entite_t * )tab[i],temps )==1){
+            enlever_element_tableau(tab,tab_destr,tab[i]);
         }
     }
 }
@@ -219,17 +217,25 @@ void hitbox_tableau(SDL_Renderer * ren, void * tab[NB_MAX_AFF], int WINW, int WI
 }
 
 extern 
-void tableau_contact ( void * tab[NB_MAX_AFF], void * ent_a_verif){
+void tableau_contact ( void * tab[NB_MAX_AFF], err_t (*tab_destr[NB_MAX_AFF])(void ** ),void * ent_a_verif){
     int i;
     for(i=0; i<NB_MAX_AFF && tab[i]!=NULL;i++){
         if(((entite_t *)tab[i])->contact(((entite_t*)ent_a_verif),((entite_t *)tab[i]))){
-            ((entite_t*)ent_a_verif)->action(tab[i], ent_a_verif);  
+            ((entite_t*)ent_a_verif)->action_agit( ent_a_verif, tab[i]);
+            ((entite_t*)tab[i])->action_agit(tab[i], ent_a_verif);
         }
+        if(((entite_t*)tab[i])->existe == FAUX)
+            enlever_element_tableau(tab,tab_destr,tab[i]);
     }   
 }
 
 static 
-void entite_action(void * ent_courante, void * entite_subit){
+void entite_action_subit(void * ent_courante, int n){
+
+}
+
+static 
+void entite_action_agit(void * ent_courante, void * ent_subit){
 
 }
 
@@ -247,11 +253,11 @@ void entite_action(void * ent_courante, void * entite_subit){
 */
 
 
-static err_t afficher_dans_chunk(SDL_Renderer *ren,entite_t *entite,int WINH,int WINW){
+static err_t afficher_dans_chunk(SDL_Renderer *ren,void *element,int WINH,int WINW){
     SDL_Texture * a_afficher=NULL;
     int w,h, w_immo,h_immo;
     float ratio_h, ratio_w;
-
+    entite_t *entite= (entite_t *) element;
     if(entite->lastSprite >= 7*entite->secSprite ){
         entite->lastSprite=0;
     }
@@ -297,7 +303,7 @@ static err_t afficher_dans_chunk(SDL_Renderer *ren,entite_t *entite,int WINH,int
         }
     }
     if(a_afficher==NULL){
-        a_afficher= entite->textures[IMMO];
+        return OK;
     }
     
     SDL_QueryTexture(a_afficher,NULL,NULL,&w,&h);
@@ -540,14 +546,14 @@ void replacer(entite_t * ent, pos_t pos_mur, int direction){
 
 
 static 
-int entite_deplacement(void * element,double temps ,void *tab[NB_MAX_AFF], err_t (*tab_destr[NB_MAX_AFF])(void ** )){
+int entite_deplacement(void * element,double temps ){
     pos_t pos_mur;
     chunk_t * chunk;
     booleen_t deja=FAUX;
     int w,h;
     float vitesse_tempo;
-	perso_t * perso = (perso_t *) element;
-	entite_t * ent = (entite_t *)perso; 
+	entite_t * ent = (entite_t *)element; 
+    ent->lastSprite+=temps;
     if(ent->vitesse_y > 0){                          //On adapte la direction de l'entité en fonction de sa vitesse
         if(ent->dir==GAUCHE)
             (ent->pos.y)-=(2*ent->offset_hitbox);
@@ -592,10 +598,11 @@ int entite_deplacement(void * element,double temps ,void *tab[NB_MAX_AFF], err_t
 			replacer(ent,pos_mur,HAUT);                         //Pareil
 		}
 	}
-
-	if(ent->en_l_air(ent)){                                 //Si on est en l'air, on tombe (La vitesse maximale est atteinte après 2 secondes de chute avec v0=0)
-		ent->vitesse_x= (ent->vitesse_x + GRAVITE*temps > GRAVITE*2) ? GRAVITE*2:ent->vitesse_x + GRAVITE*temps;
-	}
+    if(ent->gravite){
+        if(ent->en_l_air(ent)){                                 //Si on est en l'air, on tombe (La vitesse maximale est atteinte après 2 secondes de chute avec v0=0)
+            ent->vitesse_x= (ent->vitesse_x + GRAVITE*temps > GRAVITE*2) ? GRAVITE*2:ent->vitesse_x + GRAVITE*temps;
+        }
+    }
 	
 		//Si la vitesse de l'entité n'est pas actualisée (soit par un input de l'utilisateur, soit par l'algorithme des ennemis)
     //Alors on la change grace a la décélération
@@ -755,6 +762,7 @@ entite_t * entite_creer(char * nom,
     entite->dir= vitesse_y >= 0 ? DROITE : GAUCHE;
     entite->lastSprite=0;
     entite->gravite=VRAI;
+    entite->existe=VRAI;
     entite->offset_hitbox=offset_hitbox;
 
     entite->detruire=entite_detruire;
@@ -767,7 +775,8 @@ entite_t * entite_creer(char * nom,
     entite->hitbox=afficher_hitbox;
     entite->detruire_textures=detruire_tabl_textures;
     entite->contact_porte=en_contact_porte;
-    entite->action=entite_action;
+    entite->action_subit=entite_action_subit;
+    entite->action_agit=entite_action_agit;
 
 
     if((entite->nom = str_creer_copier(nom))==NULL){

@@ -331,10 +331,8 @@ extern chunk_t * chunk_creer(salle_t *salle,int x,int y, int nb_portes, char * t
     }
     cote= atoi(&type[i]);
     chunk->remplir(chunk,cote);
-    printf("%c\n", type[i]);
     strcpy(chaine_pont,&type[i]);
     creer_pont_chaine(chunk,chaine_pont);
-    printf("%s\n", chaine_pont);
     cpt_chunk++;
 
     return chunk;

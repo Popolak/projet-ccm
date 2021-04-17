@@ -89,6 +89,9 @@ long seek_entity_type(FILE * index,char *type);
 extern 
 char * entre_guillemet(FILE * file);
 
+extern
+void echanger(void ** ptr1,void **ptr2 );
+
 
 extern 
 void initTabDaffich(void ** tab);
@@ -132,6 +135,6 @@ extern
 void hitbox_tableau(SDL_Renderer * ren, void * tab[NB_MAX_AFF], int WINW, int WINH);
 
 extern 
-void tableau_contact ( void * tab[NB_MAX_AFF], void * ent_a_verif);
+void tableau_contact ( void * tab[NB_MAX_AFF], err_t (*tab_destr[NB_MAX_AFF])(void ** ),void * ent_a_verif);
 
 #endif

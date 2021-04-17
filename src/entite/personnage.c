@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "../../lib/entite/personnage.h"
 #include "../../lib/generation/element_generation.h"
@@ -35,11 +36,11 @@ booleen_t perso_existe( perso_t * const personnage )
 }
 
 
-static err_t perso_afficher_dans_chunk(SDL_Renderer *ren,perso_t *entite,int WINH,int WINW){
+static err_t perso_afficher_dans_chunk(SDL_Renderer *ren,void *element,int WINH,int WINW){
     SDL_Texture * a_afficher=NULL;
     int w,h, w_immo,h_immo;
     float ratio_h, ratio_w;
-
+	perso_t * entite= (perso_t*) element;
 	if(entite->temps_att >=0 && entite->temps_att < entite->vit_attack/2){
 		entite->lastSprite=0;
 		if(entite->nbTextures < ATTAQUE1){
@@ -102,7 +103,7 @@ static err_t perso_afficher_dans_chunk(SDL_Renderer *ren,perso_t *entite,int WIN
     SDL_QueryTexture(entite->textures[IMMO],NULL,NULL,&w_immo,&h_immo);
     ratio_h=(1.0*h/h_immo) ;
     ratio_w=1.0*w/w_immo;
-    entite->afficher_fenetre(ren,entite,(entite->w*WINW/CHUNKW)*ratio_w,(entite->h*WINW/CHUNKW )/ratio_h,entite->pos.x*WINW/CHUNKW, entite->pos.y*WINW/CHUNKW, a_afficher);
+    entite->afficher_fenetre(ren,(entite_t*)entite,(entite->w*WINW/CHUNKW)*ratio_w,(entite->h*WINW/CHUNKW )/ratio_h,entite->pos.x*WINW/CHUNKW, entite->pos.y*WINW/CHUNKW, a_afficher);
 }
 
 /*
@@ -120,6 +121,10 @@ err_t perso_detruire( perso_t ** personnage){
 	if(!(*personnage))
 		return OK;
 
+	if((*personnage)->nom_attaque){
+		free((*personnage)->nom_attaque);
+		(*personnage)->nom_attaque=NULL;
+	}
 
 	ent=realloc((entite_t*)(*personnage),sizeof(entite_t));
 	*personnage=NULL;
@@ -143,6 +148,18 @@ int fait_partie_bin (int tot_bin, int nombre_puis_2){
 	return (tot_bin & nombre_puis_2);
 }
 
+
+static
+int creer_ajouter_attaque(SDL_Renderer *ren,attaque_t * tab[NB_MAX_ATT], perso_t * perso, FILE * index, char * appel ){
+	int n;
+	char str[30];
+	strcpy(str,perso->nom_attaque);
+	strcat(str," 0 0 0 0");
+	attaque_t * attaque= (attaque_t*) creer_entite_chaine(ren,&n,perso,str,index,appel);
+	ajouter_attaque(tab,attaque);
+	return 0;
+}
+
 /*
 	input_update_speed
 	paramètres:	
@@ -152,10 +169,11 @@ int fait_partie_bin (int tot_bin, int nombre_puis_2){
 	En fonction du total de touches on actualise la vitesse du personnage
 */
 static 
-void input_update_speed (perso_t * perso, int tot_touche){
+int input_update_speed (perso_t * perso, int tot_touche, double temps){
 	float vit_tempo;
 	if(fait_partie_bin(tot_touche,KEY_ATT) && (perso->temps_att < 0|| perso->temps_att > perso->vit_attack)){
 		perso->temps_att=0;
+		return 1;
 	}
 	if(perso->temps_att>perso->vit_attack/2 || perso->temps_att < 0){
 		if(fait_partie_bin(tot_touche,KEY_JUMP) && !perso->en_l_air((entite_t*)perso)){
@@ -170,12 +188,25 @@ void input_update_speed (perso_t * perso, int tot_touche){
 			}
 		}
 	}
+	return 0;
 	
+}
+
+static 
+void perso_action_subit(void * ent_courante, int degats){
+	if(((perso_t*)ent_courante)->temps_inv < 0){
+		((perso_t*)ent_courante)->vie-=degats;
+		((perso_t*)ent_courante)->temps_inv=0;
+	}
+	if(((perso_t*)ent_courante)->vie<=0 ){
+		((perso_t*)ent_courante)->vie=0;
+		((perso_t*)ent_courante)->existe=FAUX;
+	}
 }
 
 
 static 
-int perso_deplacement(void * element,double temps, void *tab[NB_MAX_AFF], err_t (*tab_destr[NB_MAX_AFF])(void ** ) ){
+int perso_deplacement(void * element,double temps ){
     pos_t pos_mur;
     chunk_t * chunk;
     booleen_t deja=FAUX;
@@ -183,6 +214,21 @@ int perso_deplacement(void * element,double temps, void *tab[NB_MAX_AFF], err_t 
     float vitesse_tempo;
 	perso_t * perso = (perso_t *) element;
 	entite_t * ent = (entite_t *)perso;
+
+	perso->lastSprite+=temps;
+	if(perso->temps_inv >=0){
+        perso->temps_inv+=temps;
+    }
+	if(perso->temps_att >=0){
+		perso->temps_att+=temps;
+	}
+	if(perso->temps_att > perso->vit_attack)
+		perso->temps_att=-1;
+	
+	if(perso->temps_inv > S_INV)
+		perso->temps_inv=-1;
+
+
     if(ent->vitesse_y > 0){                          //On adapte la direction de l'entité en fonction de sa vitesse
         if(ent->dir==GAUCHE)
             (ent->pos.y)-=(2*ent->offset_hitbox);
@@ -227,9 +273,10 @@ int perso_deplacement(void * element,double temps, void *tab[NB_MAX_AFF], err_t 
 			replacer(ent,pos_mur,HAUT);                         //Pareil
 		}
 	}
-
-	if(ent->en_l_air(ent)){                                 //Si on est en l'air, on tombe (La vitesse maximale est atteinte après 2 secondes de chute avec v0=0)
-		ent->vitesse_x= (ent->vitesse_x + GRAVITE*temps > GRAVITE*2) ? GRAVITE*2:ent->vitesse_x + GRAVITE*temps;
+	if(ent->gravite){
+		if(ent->en_l_air(ent)){                                 //Si on est en l'air, on tombe (La vitesse maximale est atteinte après 2 secondes de chute avec v0=0)
+			ent->vitesse_x= (ent->vitesse_x + GRAVITE*temps > GRAVITE*2) ? GRAVITE*2:ent->vitesse_x + GRAVITE*temps;
+		}
 	}
 	
 		//Si la vitesse de l'entité n'est pas actualisée (soit par un input de l'utilisateur, soit par l'algorithme des ennemis)
@@ -362,11 +409,6 @@ void perso_prendre_coup(perso_t * personnage, int degats){
 	personnage->vie -= degats;
 }
 
-static 
-void perso_attaque(void * perso_courant, void * entite_subit){
-
-}
-
 extern
 err_t remplir_tableaux(SDL_Renderer * ren,perso_t *perso, void * tab[NB_MAX_AFF], err_t (*tab_destr[NB_MAX_AFF])(void ** ),char * appel ,FILE * index, FILE * file_gen){
 	void * element;
@@ -386,8 +428,14 @@ err_t remplir_tableaux(SDL_Renderer * ren,perso_t *perso, void * tab[NB_MAX_AFF]
 		fgets(str,299,file_gen);
 		if(perso->salle->position.x == sx && perso->salle->position.y == sy && perso->chunk->position.x == cx && perso->chunk->position.y == cy){
 			element = creer_entite_chaine(ren ,&n,perso,str, index,appel);
+			if(element ==NULL){
+				printf("La génération d'un élément n'a pas fonctionné\n");
+			}
 			if(n==1){
 				ajouter_tableaux(tab,tab_destr,element,((perso_t*)element)->detruire);
+			}
+			else if (n==3){
+				ajouter_tableaux(tab,tab_destr,element,((attaque_t*)element)->detruire);
 			}
 			else 
 				ajouter_tableaux(tab,tab_destr,element,((entite_t*)element)->detruire);
@@ -400,8 +448,9 @@ err_t remplir_tableaux(SDL_Renderer * ren,perso_t *perso, void * tab[NB_MAX_AFF]
 }
 
 static 
-err_t perso_change_chunk( SDL_Renderer * ren, perso_t * perso,  void * tab[NB_MAX_AFF], err_t (*tab_destr[NB_MAX_AFF])(void ** ), FILE *index, FILE * file_gen, char * appel){
+err_t perso_change_chunk( SDL_Renderer * ren, perso_t * perso,  void * tab[NB_MAX_AFF], err_t (*tab_destr[NB_MAX_AFF])(void ** ),attaque_t * tab_attaque[NB_MAX_ATT], FILE *index, FILE * file_gen, char * appel){
 	vider_tableaux(tab, tab_destr);
+	vider_attaque(tab_attaque);
 	remplir_tableaux(ren,perso,tab,tab_destr,appel,index,file_gen);
 }
 
@@ -426,7 +475,7 @@ perso_t * perso_creer(char * nom,
 				     int w, int h, 
 					 int w_hitbox, int h_hitbox,int offset_hitbox,
 					 float secSprite,
-					 float vit_attack, int degats,
+					 float vit_attack, int degats, char * nom_attaque,
 					 int nbTextures,
 					 SDL_Texture ** textures)
 {
@@ -440,11 +489,13 @@ perso_t * perso_creer(char * nom,
 		personnage->detruire(&personnage);
 		return NULL;
 	}
+
 	personnage->vitesse_saut=vitesse_saut;
 	personnage->vie = vie;
 	personnage->vit_attack = vit_attack;
 	personnage->degats = degats;
 	personnage->temps_att=-1;
+	personnage->temps_inv=-1;
 
 	
 	personnage->detruire= perso_detruire;
@@ -454,10 +505,20 @@ perso_t * perso_creer(char * nom,
 	personnage->depop=perso_depop;
 	personnage->envie=en_vie;
 	personnage->deplacer=perso_deplacement;
-	personnage->attaque=perso_attaque;
+	personnage->nouvelle_attaque=creer_ajouter_attaque;
 	personnage->change_chunk=perso_change_chunk;
 	personnage->change_salle=perso_change_salle;
 	personnage->afficher_chunk=perso_afficher_dans_chunk;
+	personnage->action_subit=perso_action_subit;
+
+	personnage->nom_attaque=malloc(sizeof(char)* strlen(nom_attaque)+1);
+	if(!(personnage->nom_attaque)){
+		printf("Le nom d'attaque n'a pas pu être alloué: %s\n",nom_attaque );
+		personnage->detruire(&personnage);
+		return NULL;
+	}
+	strcpy(personnage->nom_attaque,nom_attaque);
+	personnage->nom_attaque[strlen(nom_attaque)]='\0';
 
 	return(personnage);
 }

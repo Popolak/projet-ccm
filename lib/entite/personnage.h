@@ -13,6 +13,9 @@
 #define KEY_LEFT 2
 #define KEY_JUMP 4
 #define KEY_ATT 8
+#define KEY_HB 1024
+#include "entite.h"
+#include "attaque.h"
 
 /* Structure */
 
@@ -36,7 +39,7 @@ perso_t * perso_creer(char * nom,
 				     int w, int h, 
 					 int w_hitbox, int h_hitbox,int offset_hitbox,
 					 float secSprite,
-					 float vit_attack, int degats,
+					 float vit_attack, int degats, char * nom_attaque,
 					 int nbTextures,
 					 SDL_Texture ** textures);
 
@@ -53,6 +56,9 @@ extern int fait_partie_bin (int tot_bin, int nombre_puis_2);
 
 extern 
 err_t perso_detruire( perso_t ** personnage);
+
+static
+int creer_ajouter_attaque(SDL_Renderer *ren,attaque_t * tab[NB_MAX_ATT], perso_t * perso, FILE * index, char * appel );
 
 
 #endif
