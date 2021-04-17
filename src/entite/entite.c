@@ -378,11 +378,11 @@ pos_t mur_a_gauche(entite_t * ent){
     int i,j, add=0;
     pos_t pos_mur={-1,-1};
     for(i=0;i < ent->h/2-1 && i > -ent->h/2 ;i=-(i+add%2),add++){
-        for(j=1;  j>-ent->w/2  ;j--){
-            if(coord_correcte((int)(ent->pos.x+i),(int)(ent->pos.y+j+1))){
-                if(est_mur(ent->chunk->chunk[(int)(ent->pos.x+i)][(int)(ent->pos.y+j+1)]->contenu)){
+        for(j=0;  j>-ent->w/2  ;j--){
+            if(coord_correcte((int)(ent->pos.x+i),(int)(ent->pos.y+j))){
+                if(est_mur(ent->chunk->chunk[(int)(ent->pos.x+i)][(int)(ent->pos.y+j)]->contenu)){
                     pos_mur.x=(int)(ent->pos.x+i);
-                    pos_mur.y=(int)(ent->pos.y+j+1);
+                    pos_mur.y=(int)(ent->pos.y+j);
                     break;
                 }
             }
@@ -403,11 +403,11 @@ pos_t mur_a_droite(entite_t * ent){
     int i,j, add=0;
     pos_t pos_mur={-1,-1};
     for(i=0;i < ent->h/2-1 && i > -ent->h/2;i=-(i+add%2),add++){
-        for(j=1; j<ent->w/2 ;j++){
-            if(coord_correcte((int)(ent->pos.x+i),(int)(ent->pos.y+j))){
-                if(est_mur(ent->chunk->chunk[(int)(ent->pos.x+i)][(int)(ent->pos.y+j)]->contenu)){
+        for(j=0; j<ent->w/2 ;j++){
+            if(coord_correcte((int)(ent->pos.x+i),(int)(ent->pos.y+j+1))){
+                if(est_mur(ent->chunk->chunk[(int)(ent->pos.x+i)][(int)(ent->pos.y+j+1)]->contenu)){
                     pos_mur.x=(int)(ent->pos.x+i);
-                    pos_mur.y=(int)(ent->pos.y+j);
+                    pos_mur.y=(int)(ent->pos.y+j+1);
                     break;
                 }
             }
@@ -422,7 +422,7 @@ extern
 pos_t mur_en_haut(entite_t * ent){
     int i,j, add=0;
     pos_t pos_mur={-1,-1};
-    for(j=0;j < ent->w/2-1 && j > -ent->w/2  ;j=-(j+add%2),add++){
+    for(j=0;j < ent->w/2-1 && j > -(ent->w/2)  ;j=-(j+add%2),add++){
         for(i=0;i>-ent->h/2  ;i--){
             if(coord_correcte((int)(ent->pos.x+i),(int)(ent->pos.y+j))){
                 if(est_mur(ent->chunk->chunk[(int)(ent->pos.x+i)][(int)(ent->pos.y+j)]->contenu)){
