@@ -5,9 +5,10 @@
 
 #include "../entite/personnage.h"
 #include "../entite/attaque.h"
+#include "../entite/ennemi.h"
 
 extern 
-void * creer_entite_chaine(SDL_Renderer *ren,int *n, const perso_t const * joueur , char * chaine,  FILE * index, char * appel);
+void * creer_entite_chaine(SDL_Renderer *ren,int *n, const void const * joueur , char * chaine,  FILE * index, char * appel);
 
 
 #endif

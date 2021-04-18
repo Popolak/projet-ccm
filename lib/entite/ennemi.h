@@ -9,7 +9,7 @@
 //Certains éléments sont hérité de l'entité
 typedef struct ennemi_s{
 	char * type;
-	int vitAttaque;
+	int vit_attaque;
 	int attaque;
 	int portee;
 	int vie;
@@ -37,8 +37,6 @@ extern ennemi_t * ennemi_creer(char * nom,
 					 char * type,
 					 int vie,
 					 int defense,
-					 int attaque,
-					 int portee,
 					 salle_t * salle,
 					 chunk_t * chunk,
 					 pos_t pos,
@@ -47,6 +45,8 @@ extern ennemi_t * ennemi_creer(char * nom,
 					 int w_hitbox, int h_hitbox,int offset_hitbox,
 					 float secSprite,
 					 float vit_attack,
+					 int degats,
+					 char * nom_attaque,
 					 int nbTextures,
 					 SDL_Texture ** textures) ;
 

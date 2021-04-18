@@ -46,7 +46,7 @@ static int ennemi_degats_sortant(ennemi_t * ennemi){
 	//Cette fonction calcule les degats que l'ennemi inflige avant reduction par des defenses
 	int bonusAdd = 0;
 	int bonusMult = 1;
-	return ((ennemi->attaque*bonusMult)+bonusAdd);
+	return ((ennemi->degats*bonusMult)+bonusAdd);
 }
 
 static int ennemi_degats_entrant(ennemi_t * ennemi, int dgts){
@@ -104,8 +104,6 @@ extern ennemi_t * ennemi_creer(char * nom,
 					 char * type,
 					 int vie,
 					 int defense,
-					 int attaque,
-					 int portee,
 					 salle_t * salle,
 					 chunk_t * chunk,
 					 pos_t pos,
@@ -114,10 +112,12 @@ extern ennemi_t * ennemi_creer(char * nom,
 					 int w_hitbox, int h_hitbox,int offset_hitbox,
 					 float secSprite,
 					 float vit_attack,
+					 int degats,
+					 char * nom_attaque,
 					 int nbTextures,
 					 SDL_Texture ** textures){
 	ennemi_t * ennemi = NULL;
-	if ((ennemi=(ennemi_t*)entite_creer(nom,description,salle,chunk,pos,vitesse_x,vitesse_y,vitesse_max_y,secSprite,w,h,w_hitbox,h_hitbox,offset_hitbox,nbTextures,textures))==NULL){
+	if ((ennemi=(ennemi_t*)perso_creer(nom,description,salle,chunk,pos,vitesse_x,vitesse_y,vitesse_max_y,secSprite,w,h,w_hitbox,h_hitbox,offset_hitbox,vit_attack,degats,nom_attaque,nbTextures,textures))==NULL){
 		return NULL;
 	}
 	ennemi=realloc(ennemi,sizeof(perso_t));
@@ -128,10 +128,6 @@ extern ennemi_t * ennemi_creer(char * nom,
 	}
 
 	ennemi->type = malloc(sizeof(char)*(strlen(type)+1));
-	ennemi->vitAttaque = vitAttaque;
-	ennemi->attaque = attaque;
-	ennemi->portee = portee;
-	ennemi->vie = vie;
 	ennemi->defense = defense;
 
 	ennemi->ennemi_detruire = ennemi_detruire;

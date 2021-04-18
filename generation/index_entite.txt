@@ -1,2 +1,4 @@
 patate 1 "Patate" "This is a potato" 50 50 40 40 0 300 0.2 20 50 0.3 "tom_attaque" 300 "graphics/sprite/entite_sprites/potato.png"
 tom_attaque 3 "att" "oui" 0 0 40 20 20 0 0.2 20 0 1 "graphics/sprite/entite_sprites/potato.png"
+sel 2 "Sel" "Une salière" 50 72 40 62 0 300 0.2 "cac" 30 10 10 0.3 "attaque_sel" 300 "graphics/sprite/ennemies_sprites/sel.png"
+attaque_sel 3 "taper" "poings" 0 0 55 72 0 0 0.2 10 0 2 "graphics/sprite/ennemies_sprites/sel_atk.png
