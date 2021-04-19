@@ -202,6 +202,7 @@ void perso_action_agit(SDL_Renderer * ren,void * ent_courante, void * ent_subit,
 static 
 void perso_action_subit(void * ent_courante, int degats){
 	if(((perso_t*)ent_courante)->temps_inv < 0 && degats > 0){
+		((perso_t*)ent_courante)->vitesse_x=-GRAVITE/7 ;
 		((perso_t*)ent_courante)->vie-=degats;
 		((perso_t*)ent_courante)->temps_inv=0;
 	}
