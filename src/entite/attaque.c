@@ -77,8 +77,9 @@ void contact_attaque_ennemis(SDL_Renderer* ren,
     int i,j;
     for(i=0;i<NB_MAX_ATT && tab_att[i]!=NULL;i++){
         for(j=0;j<NB_MAX_AFF && tab[j]!=NULL;j++){
-            if(((entite_t*)tab[j])->contact((entite_t*)tab[j],(entite_t*)tab_att[i]))
-            ((entite_t*)tab[j])->action_subit(tab[j],tab_att[i]->degats);
+            if(((entite_t*)tab[j])->contact((entite_t*)tab[j],(entite_t*)tab_att[i])){
+                ((entite_t*)tab[j])->action_subit(tab[j],tab_att[i]->degats);
+            }
         }
     }
 }
@@ -182,8 +183,9 @@ int attaque_deplacement(void * element,double temps ){
 
 static 
 void attaque_action_agit(SDL_Renderer * ren,void * attaque, void * element, void * tab[NB_MAX_AFF],err_t (*tab_destr[NB_MAX_AFF])(void ** ), FILE * index, char * appel ){
-    if(((entite_t*)attaque)->contact(((entite_t*)attaque),((entite_t*)element)))
+    if(((entite_t*)attaque)->contact(((entite_t*)attaque),((entite_t*)element))){
         ((entite_t*)element)->action_subit(element,((attaque_t*)attaque)->degats);
+    }
 }
 
 static

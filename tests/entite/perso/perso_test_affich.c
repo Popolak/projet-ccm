@@ -19,17 +19,16 @@ int main(){
     initTabDaffich((void**)tableau_attaque);
 
 
-    int WINW=1280, WINH=720,x=CHUNKH-CHUNKH*ratioSol-30,y=TAILLE_MUR+40, nbText,n, deplacer;
+    int WINW=1280, WINH=720, nbText,n, deplacer;
     chunk_t * chunk;
     niveau_t * niv=NULL;
     salle_t * salle=NULL;
     perso_t *Tom=NULL, *init=NULL;
-    entite_t * entite_test=NULL;
     SDL_Window * win=NULL;
+    pos_t pos={CHUNKH/2,CHUNKW/2};
     SDL_Renderer * ren=NULL;
-    pos_t pos={TAILLE_MUR,330}, pos2={100,400};
     FILE * index= NULL, * entite_gen= NULL;
-    float sec,secAvant, secMaint, secInvins=0.5;
+    float sec,secAvant, secMaint;
     index=fopen("../../../generation/index_entite.txt", "r");
     if(!index){
         printf("Pas d'index\n");
@@ -69,7 +68,7 @@ int main(){
     SDL_Texture ** joueurTextures=NULL, **entite_test_textures;
 
     joueurTextures=creer_tableau_textures_chaine(ren,&nbText,"\"../../../graphics/sprite/personnage_sprites/Tom immo.png\" \"../../../graphics/sprite/personnage_sprites/Tom neutre.png\" \"../../../graphics/sprite/personnage_sprites/Tom marche 1.png\" \"../../../graphics/sprite/personnage_sprites/Tom marche 2.png\" \"../../../graphics/sprite/personnage_sprites/Tom immo.png\" \"../../../graphics/sprite/personnage_sprites/Tom immo.png\" \"../../../graphics/sprite/personnage_sprites/Tom attaque.png\"","./");
-    Tom=creer_entite_chaine(ren,&n,init,"kurt 100 200 0 0",index,"../../../");
+    Tom=creer_entite_chaine(ren,&n,init,"kurt -1 -1 0 0",index,"../../../");
     init->detruire(&init);
     if(bgTexture_des==NULL || murTexture==NULL || joueurTextures[0]==NULL || joueurTextures[1]==NULL || joueurTextures[2]==NULL){
         printf("La création de la texture a échouée\n");
@@ -110,7 +109,6 @@ int main(){
                 contact_attaque_ennemis(ren,tableau_attaque,tableau_entite,tab_destr,index,"../../../");
             }
         }
-        
         
         while(SDL_PollEvent(&events)){
             switch (events.type)

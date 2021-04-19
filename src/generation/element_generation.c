@@ -13,11 +13,13 @@ void * creer_entite_chaine(SDL_Renderer *ren, int *n,const perso_t const * joueu
     int degats, range;
     int vie;
 
-    //ennemis
-    int defense;
-    int attaque;
-    int portee;
+    chunk_t *chunk=NULL;
+    salle_t * salle=NULL;
 
+    if(joueur){
+        chunk=joueur->chunk;
+        salle=joueur->salle;
+    }
 
     entite_t *entite_liee=NULL;
 
@@ -85,16 +87,16 @@ void * creer_entite_chaine(SDL_Renderer *ren, int *n,const perso_t const * joueu
     fgets(str,699,index);
     textures=creer_tableau_textures_chaine(ren,&nbText,str,appel);
     if(*n==1){
-        element= perso_creer(nom,desc,vie,joueur->salle, joueur->chunk, pos,v_i_x,v_i_y,v_y,vitesse_saut,w,h,w_hit,h_hit,offset,secSprite,vit_attack,degats,nom_attaque,nbText,textures);
+        element= perso_creer(nom,desc,vie,salle, chunk, pos,v_i_x,v_i_y,v_y,vitesse_saut,w,h,w_hit,h_hit,offset,secSprite,vit_attack,degats,nom_attaque,nbText,textures);
     }
     else if(*n==2){
-        element= ennemi_creer(nom,desc,vie,joueur->salle, joueur->chunk, pos,v_i_x,v_i_y,v_y,vitesse_saut,w,h,w_hit,h_hit,offset,secSprite,vit_attack,degats,nom_attaque,range,nbText,textures);
+        element= ennemi_creer(nom,desc,vie,salle, chunk, pos,v_i_x,v_i_y,v_y,vitesse_saut,w,h,w_hit,h_hit,offset,secSprite,vit_attack,degats,nom_attaque,range,nbText,textures);
     }
     else if(*n==3){
-        element = attaque_creer(nom,desc,joueur->salle,joueur->chunk,pos,v_i_x,v_y,v_y,secSprite,w,h,w_hit,h_hit,offset,0,degats,duree_vie,entite_liee,nbText,textures);
+        element = attaque_creer(nom,desc,salle, chunk,pos,v_i_x,v_y,v_y,secSprite,w,h,w_hit,h_hit,offset,0,degats,duree_vie,entite_liee,nbText,textures);
     }
     else {
-        element=entite_creer(nom,desc,joueur->salle, joueur->chunk, pos,v_i_x,v_i_y,v_y,secSprite,w,h,w_hit,h_hit,offset,nbText,textures);
+        element=entite_creer(nom,desc,salle, chunk, pos,v_i_x,v_i_y,v_y,secSprite,w,h,w_hit,h_hit,offset,nbText,textures);
     }
     free(nom);
     free(desc);

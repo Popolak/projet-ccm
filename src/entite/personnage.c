@@ -19,11 +19,14 @@ err_t perso_depop(perso_t * perso){
 static 
 err_t perso_copie_partiel(perso_t * persoDst, perso_t * persoSrc){
 	persoDst->pos=persoSrc->pos;
+	persoDst->pos.x-=  persoDst->h/2 -persoSrc->h/2 ;
+	persoDst->pos.y-= persoDst->w/2 - persoSrc->w/2 ;
 	persoDst->vitesse_x=persoSrc->vitesse_x;
 	persoDst->vitesse_y=persoSrc->vitesse_y;
 	persoDst->salle=persoSrc->salle;
 	persoDst->chunk=persoSrc->chunk;
 	persoDst->dir=persoSrc->dir;
+	persoDst->temps_inv=persoSrc->temps_inv;
 	return OK;
 }
 
@@ -118,7 +121,7 @@ static err_t perso_afficher_dans_chunk(SDL_Renderer *ren,void *element,int WINH,
 extern 
 err_t perso_detruire( perso_t ** personnage){  
 	entite_t * ent=NULL;
-	if(!(*personnage))
+	if((*personnage)==NULL)
 		return OK;
 
 	if((*personnage)->nom_attaque){
@@ -232,7 +235,6 @@ int perso_deplacement(void * element,double temps ){
 	if(perso->temps_inv > S_INV)
 		perso->temps_inv=-1;
 
-
     if(ent->vitesse_y > 0){                          //On adapte la direction de l'entité en fonction de sa vitesse
         if(ent->dir==GAUCHE)
             (ent->pos.y)-=(2*ent->offset_hitbox);
@@ -243,9 +245,8 @@ int perso_deplacement(void * element,double temps ){
             (ent->pos.y)+=(2*ent->offset_hitbox);
         ent->dir=GAUCHE;
     }
-
+	
     (ent->pos.y)+= (ent->vitesse_y)*temps;                  //On actualise la position horizontale grace a vitesse_y
-                                                                                           
 	if(coord_correcte(ent->pos.x,ent->pos.y)){				//Si on se retrouve dans un mur, on se replace
 		pos_mur=mur_a_gauche(ent);   
 		if(pos_mur.x!=-1){
@@ -282,7 +283,6 @@ int perso_deplacement(void * element,double temps ){
 			ent->vitesse_x= (ent->vitesse_x + GRAVITE*temps > GRAVITE*2) ? GRAVITE*2:ent->vitesse_x + GRAVITE*temps;
 		}
 	}
-	
 		//Si la vitesse de l'entité n'est pas actualisée (soit par un input de l'utilisateur, soit par l'algorithme des ennemis)
     //Alors on la change grace a la décélération
     if(ent->vitesse_y){

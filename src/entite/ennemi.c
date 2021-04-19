@@ -8,7 +8,7 @@
 
 static
 booleen_t in_range(ennemi_t * ennemi,entite_t *ent ){
-	if((ennemi->pos.x == ent->pos.x && ennemi->pos.y==ent->pos.y )  || ennemi->range > sqrt(pow(ennemi->pos.x-ent->pos.x,2) + pow(ennemi->pos.y-ent->pos.y,2)))
+	if(  (ennemi->range >abs( ennemi->pos.y-(ent->pos.y + ent->offset_hitbox* (ent->dir==DROITE ? 1 :-1))) && (ennemi->h/2 >= abs(ent->pos.x-ennemi->pos.x))))
 		return VRAI;
 	return FAUX;
 }
@@ -29,12 +29,19 @@ static
 int ennemi_input_update_speed (void * element,void * element_joueur, int tot_touche){
 	ennemi_t *perso=(ennemi_t*) element;
 	perso_t *joueur=(perso_t*) element_joueur;
-	if(abs(perso->pos.y-joueur->pos.y) < perso->range)
+	if(joueur->pos.y > perso->pos.y){
+		perso->dir=DROITE;
+	}
+	else {
+		perso->dir=GAUCHE;
+	}
+	if(abs(perso->pos.y-(joueur->pos.y + joueur->offset_hitbox*(joueur->dir == DROITE ? 1 : -1)) ) < perso->range)
 		return 0;
-	if(perso->temps_att>perso->vit_attack/2 || perso->temps_att < 0){
-		if(joueur->pos.y > perso->pos.y)
+	
+	else if(perso->temps_att>perso->vit_attack/2 || perso->temps_att < 0){
+		if((joueur->pos.y + joueur->offset_hitbox*(joueur->dir == DROITE ? 1 : -1)) > perso->pos.y)
 			perso->vitesse_y=perso->vitesse_max_y;
-		else if (joueur->pos.y < perso->pos.y)
+		else if ((joueur->pos.y + joueur->offset_hitbox*(joueur->dir == DROITE ? 1 : -1)) < perso->pos.y)
 			perso->vitesse_y=-perso->vitesse_max_y;
 	}
 	return 0;

@@ -16,6 +16,8 @@ typedef struct perso_s perso_t;
 #define KEY_LEFT 2
 #define KEY_JUMP 4
 #define KEY_ATT 8
+#define KEY_CHANGE_R 128
+#define KEY_CHANGE_L 256
 #define KEY_HB 1024
 #include "entite.h"
 #include "attaque.h"

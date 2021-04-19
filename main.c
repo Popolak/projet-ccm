@@ -2,10 +2,10 @@
 
 #include "stdio.h"
 #include "SDL2/SDL.h"
-#include "../lib/entite/personnage.h"
-#include "../lib/affichage/room_rendering.h"
-#include "../lib/niveaux/niveau.h"
-#include "../lib/generation/element_generation.h"
+#include "lib/entite/personnage.h"
+#include "lib/affichage/room_rendering.h"
+#include "lib/niveaux/niveau.h"
+#include "lib/generation/element_generation.h"
 
 int main(){
     void * tableau_entite[NB_MAX_AFF];
@@ -28,14 +28,14 @@ int main(){
     SDL_Window * win=NULL;
     SDL_Renderer * ren=NULL;
     FILE * index= NULL, * entite_gen= NULL;
-    char appel[]="../";
+    char appel[]="./";
     float sec,secAvant, secMaint;
-    index=fopen("../generation/index_entite.txt", "r");
+    index=fopen("generation/index_entite.txt", "r");
     if(!index){
         printf("Pas d'index\n");
     }
     
-    entite_gen =fopen("../generation/generation_ent.txt","r");
+    entite_gen =fopen("generation/generation_ent.txt","r");
     if(!entite_gen){
         printf("Pas de fichier de génération d'éléments\n");
     }
@@ -48,7 +48,7 @@ int main(){
         SDL_Quit();
         return 1;
     }
-    niv=niveau_creer("../generation/niveau_gen.txt");
+    niv=niveau_creer("generation/niveau_gen.txt");
     if(niv){
         printf("Génération du niveau effectuée\n");
     }
@@ -62,10 +62,10 @@ int main(){
     init=perso_creer("","",0,salle,chunk,pos,0,0,0,0,0,0,0,0,0,0,0,0,"",0,NULL);
     SDL_Event events;
     SDL_bool run=SDL_TRUE;
-    SDL_Texture * bgTexture_des=creer_texture_image(ren,"../graphics/texture/room_textures/fond haricot.png");
-    SDL_Texture * bgTexture_air=creer_texture_image(ren,"../graphics/texture/room_textures/dessus.png");
-    SDL_Texture * murTexture=creer_texture_image(ren, "../graphics/texture/room_textures/mur.png");
-    SDL_Texture * pontTexture=creer_texture_image(ren, "../graphics/texture/room_textures/pont.png");
+    SDL_Texture * bgTexture_des=creer_texture_image(ren,"graphics/texture/room_textures/fond haricot.png");
+    SDL_Texture * bgTexture_air=creer_texture_image(ren,"graphics/texture/room_textures/dessus.png");
+    SDL_Texture * murTexture=creer_texture_image(ren, "graphics/texture/room_textures/mur.png");
+    SDL_Texture * pontTexture=creer_texture_image(ren, "graphics/texture/room_textures/pont.png");
 
     perso_control[0]=creer_entite_chaine(ren,&n,init,"tom -1 -1 0 0",index,appel);
     init->detruire(&init);
@@ -91,30 +91,41 @@ int main(){
 
     secAvant= 1.0*SDL_GetTicks()/1000;
     int tot_key=0;
+    perso_control[roulette]->change_chunk(ren, perso_control[roulette], tableau_entite,tab_destr,tableau_attaque,index,entite_gen,appel);
     while(run){
 
+        if(perso_control[roulette]->vie <=0){
+            tot_key= tot_key | KEY_CHANGE_L;
+        }
+
         if(KEY_CHANGE_L & tot_key || KEY_CHANGE_R & tot_key){
-            i=roulette%NB_PERSO;
+            i=roulette;
             do{
                 roulette+= (KEY_CHANGE_L & tot_key ? -1 : 1);
-                roulette%=NB_PERSO;
+                roulette = roulette % NB_PERSO;
                 if(roulette < 0)
                     roulette = NB_PERSO-1;
-            }while(perso_control[roulette%NB_PERSO]==NULL && roulette%NB_PERSO != i);
-            if (roulette%NB_PERSO==i && perso_control[i]==NULL)
-                run=SDL_FALSE;
-            else{
-                perso_control[i]->copie_partiel(perso_control[roulette%NB_PERSO], perso_control[i]);
+            }while(perso_control[roulette]==NULL && roulette != i);
+            
+            
+            
+            if(roulette != i){
+                perso_control[i]->copie_partiel(perso_control[roulette], perso_control[i]);
                 perso_control[i]->depop(perso_control[i]);
             }
-
             if(perso_control[i]->vie <=0){
                 perso_control[i]->detruire(&(perso_control[i]));
+                perso_control[i]=NULL;
             }
             
         }
 
+        if(perso_control[roulette] == NULL){
+            break;
+        }
 
+
+        
         tot_key=tot_key & (KEY_HB+KEY_LEFT+KEY_RIGHT+KEY_JUMP+KEY_ATT);
         secMaint=1.0*SDL_GetTicks()/1000;
         sec=secMaint-secAvant;
@@ -197,7 +208,6 @@ int main(){
                 }
             }
         }
-
         SDL_RenderClear(ren);
         render_background(ren,perso_control[roulette]->salle,perso_control[roulette]->chunk,bgTexture_des,bgTexture_air,WINW,WINH);
         perso_control[roulette]->afficher_chunk(ren,(entite_t*)perso_control[roulette],WINH,WINW);
@@ -212,7 +222,12 @@ int main(){
         SDL_RenderPresent(ren);
         
     }
-    perso_control[roulette]->detruire(&perso_control[roulette]);
+
+    for(roulette=0; roulette<NB_PERSO;roulette++){
+        if(perso_control[roulette]!=NULL)
+            perso_control[roulette]->detruire(&(perso_control[roulette]));
+    }
+    
     vider_tableaux(tableau_entite,tab_destr);
     vider_attaque(tableau_attaque);
     niv->detruire(&niv);

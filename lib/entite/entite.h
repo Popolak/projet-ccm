@@ -14,7 +14,7 @@ typedef struct entite_s entite_t;
 
 #define GRAVITE CHUNKH*6   //Valeur de la gravité (changera surement encore quelques fois)
 
-#define DECEL 500	//Décélération des éntités lorsqu'elles sont en l'air 
+#define DECEL 300	//Décélération des éntités lorsqu'elles sont en l'air 
 
 #define COEFF_DECEL_SOL 5
 

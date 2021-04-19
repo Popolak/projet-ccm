@@ -4,6 +4,7 @@
         "chunk.h": "c",
         "unordered_map": "c",
         "commun.h": "c",
-        "attaque.h": "c"
+        "attaque.h": "c",
+        "personnage.h": "c"
     }
 }
