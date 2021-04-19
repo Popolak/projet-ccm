@@ -3,7 +3,7 @@
 #include "../../lib/generation/element_generation.h"
 
 extern 
-void * creer_entite_chaine(SDL_Renderer *ren, int *n,const perso_t const * joueur , char * chaine,  FILE * index, char * appel){
+void * creer_entite_chaine(SDL_Renderer *ren, int *n,const perso_t const * joueur, char * chaine,  FILE * index, char * appel){
     void * element;
     char type[40], *nom=NULL, *desc=NULL, * nom_attaque=NULL;
     int  w,h,w_hit,h_hit,offset, nbText, liee;
@@ -12,6 +12,12 @@ void * creer_entite_chaine(SDL_Renderer *ren, int *n,const perso_t const * joueu
     float vit_attack, vitesse_saut;
     int degats, range;
     int vie;
+
+    //ennemis
+    int defense;
+    int attaque;
+    int portee;
+
 
     entite_t *entite_liee=NULL;
 
