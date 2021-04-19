@@ -20,7 +20,7 @@ int ennemi_creer_ajouter_attaque(SDL_Renderer *ren,attaque_t * tab[NB_MAX_AFF],e
 	strcpy(str,perso->nom_attaque);
 	strcat(str," -1 -1 0 0");
 	attaque_t * attaque= (attaque_t*) creer_entite_chaine(ren,&n,perso,str,index,appel);
-	ajouter_tableaux(tab,tab_destr,attaque,attaque->detruire);
+	ajouter_tableaux((void**)tab,tab_destr,attaque,attaque->detruire);
 
 	return 0;
 }
@@ -149,10 +149,11 @@ int ennemi_deplacement(void * element,double temps ){
 
 static
 void ennemi_action_agit(SDL_Renderer * ren,void * ent_courante, void * ent_subit, void * tab[NB_MAX_AFF],err_t (*tab_destr[NB_MAX_AFF])(void ** ), FILE * index, char * appel ){
+	
 	if(((ennemi_t*)ent_courante)->dans_range(ent_courante, ent_subit) && (((ennemi_t*)ent_courante)->temps_att == -1 
 		|| ((ennemi_t*)ent_courante)->temps_att > ((ennemi_t*)ent_courante)->vit_attack)){
 		((ennemi_t*)ent_courante)->temps_att=0;
-		((ennemi_t*)ent_courante)->nouvelle_attaque(ren,tab,tab_destr,((perso_t*)ent_courante),index,appel);
+		((ennemi_t*)ent_courante)->nouvelle_attaque(ren,(attaque_t**)tab,tab_destr,((perso_t*)ent_courante),index,appel);
 	}
 	if(((entite_t*)ent_courante)->contact((entite_t*)ent_courante,(entite_t*)ent_subit))
 		((entite_t*)ent_subit)->action_subit((entite_t*)ent_subit, ((ennemi_t*)ent_courante)->degats);

@@ -18,7 +18,7 @@
 
 #define NB_PERSO 2
 
-#define S_INV 0.4
+#define S_INV 0.6
 
 typedef struct position
 {

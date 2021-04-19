@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "../../lib/affichage/room_rendering.h"
-#include "../../lib/niveaux/salle.h"
+#include "../../lib/niveaux/niveau.h"
 
 /* Fonctions */
 
@@ -34,7 +34,6 @@ SDL_Texture * creer_texture_image( SDL_Renderer * ren,char * nom_image){
     SDL_FreeSurface(surface);
     return texture;
 }
-
 
 /*
     render_mur_chunk

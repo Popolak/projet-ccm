@@ -217,7 +217,7 @@ extern
 void synchro_tableau(void * tab[NB_MAX_AFF], err_t (*tab_destr[NB_MAX_AFF])(void ** ),double temps,  FILE * file_gen){
     int i,j;
     for(i=0; i< NB_MAX_AFF && tab[i]!=NULL; i++){
-        if(((entite_t * )tab[i])->deplacer((entite_t * )tab[i],temps )!=0 || ((entite_t * )tab[i])->existe == FAUX){
+        if(((entite_t * )tab[i])->deplacer((void* )tab[i],temps )!=0 || ((entite_t * )tab[i])->existe == FAUX){
             enlever_element_tableau(tab,tab_destr,tab[i]);
         }
     }

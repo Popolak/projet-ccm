@@ -210,13 +210,13 @@ int main(){
         }
         SDL_RenderClear(ren);
         render_background(ren,perso_control[roulette]->salle,perso_control[roulette]->chunk,bgTexture_des,bgTexture_air,WINW,WINH);
-        perso_control[roulette]->afficher_chunk(ren,(entite_t*)perso_control[roulette],WINH,WINW);
+        perso_control[roulette]->afficher_chunk(ren,perso_control[roulette],WINH,WINW);
 
         render_chunk_unite(tableau_entite,tableau_attaque,ren,pontTexture,murTexture,perso_control[roulette]->salle ,perso_control[roulette]->chunk,WINW,WINH);
         if(KEY_HB & tot_key){
-            perso_control[roulette]->hitbox(ren,perso_control[roulette],WINH,WINW);
-            hitbox_tableau(ren,tableau_entite,WINW,WINH);
-            hitbox_tableau(ren,tableau_attaque,WINW,WINH);
+            perso_control[roulette]->hitbox(ren,(entite_t*)(perso_control[roulette]),WINH,WINW);
+            hitbox_tableau(ren,(void**)tableau_entite,WINW,WINH);
+            hitbox_tableau(ren,(void**)tableau_attaque,WINW,WINH);
         }
         
         SDL_RenderPresent(ren);

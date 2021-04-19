@@ -76,7 +76,7 @@ static err_t perso_afficher_dans_chunk(SDL_Renderer *ren,void *element,int WINH,
 		}
 		else {
 
-			if(abs(entite->vitesse_y) && entite->nbTextures > IMMO && !entite->en_l_air(entite)){
+			if(abs(entite->vitesse_y) && entite->nbTextures > IMMO && !entite->en_l_air((entite_t*)entite)){
 				if(entite->secSprite > entite->lastSprite){
 					if(entite->nbTextures <= POS_MOUV1)
 						a_afficher=entite->textures[IMMO];
@@ -172,20 +172,22 @@ int perso_creer_ajouter_attaque(SDL_Renderer *ren,attaque_t * tab[NB_MAX_ATT],er
 static 
 int input_update_speed (void * element, void * joueur,int tot_touche){
 	perso_t * perso=(perso_t*)element;
-	if(fait_partie_bin(tot_touche,KEY_ATT) && (perso->temps_att < 0|| perso->temps_att > perso->vit_attack)){
-		perso->temps_att=0;
-		return 1;
-	}
-	if(perso->temps_att>perso->vit_attack/2 || perso->temps_att < 0){
-		if(fait_partie_bin(tot_touche,KEY_JUMP) && !perso->en_l_air((entite_t*)perso)){
-			perso->vitesse_x=-perso->vitesse_saut;
+	if(perso->temps_inv < 0 || perso->temps_inv > 1.0*S_INV /2){
+		if(fait_partie_bin(tot_touche,KEY_ATT) && (perso->temps_att < 0|| perso->temps_att > perso->vit_attack)){
+			perso->temps_att=0;
+			return 1;
 		}
-		if(!(fait_partie_bin(tot_touche, KEY_LEFT) && fait_partie_bin(tot_touche, KEY_RIGHT))){
-			if(fait_partie_bin(tot_touche, KEY_LEFT)){
-				perso->vitesse_y=-perso->vitesse_max_y;
+		if(perso->temps_att>perso->vit_attack/2 || perso->temps_att < 0){
+			if(fait_partie_bin(tot_touche,KEY_JUMP) && !perso->en_l_air((entite_t*)perso)){
+				perso->vitesse_x=-perso->vitesse_saut;
 			}
-			else if(fait_partie_bin(tot_touche, KEY_RIGHT)){
-				perso->vitesse_y=perso->vitesse_max_y;
+			if(!(fait_partie_bin(tot_touche, KEY_LEFT) && fait_partie_bin(tot_touche, KEY_RIGHT))){
+				if(fait_partie_bin(tot_touche, KEY_LEFT)){
+					perso->vitesse_y=-perso->vitesse_max_y;
+				}
+				else if(fait_partie_bin(tot_touche, KEY_RIGHT)){
+					perso->vitesse_y=perso->vitesse_max_y;
+				}
 			}
 		}
 	}
@@ -287,7 +289,7 @@ int perso_deplacement(void * element,double temps ){
 		//Si la vitesse de l'entité n'est pas actualisée (soit par un input de l'utilisateur, soit par l'algorithme des ennemis)
     //Alors on la change grace a la décélération
     if(ent->vitesse_y){
-        if(!ent->en_l_air(ent))
+        if(!ent->en_l_air((entite_t*)ent))
             ent->vitesse_y= ent->vitesse_y -  DECEL*COEFF_DECEL_SOL* temps * (ent->vitesse_y>0 ? 1 : -1)  ; //Sur le sol, la décélération est COEFF_DECEL_SOL fois plus grande
 
         else
