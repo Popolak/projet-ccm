@@ -72,10 +72,17 @@ SDL_Texture ** creer_tableau_textures_chaine(SDL_Renderer *ren, int *n,char * ch
             }
             nom_text[taille]='\0';
             strcat(nom_final, nom_text);
-
             (*n)++;
             textures=realloc(textures, sizeof(SDL_Texture*) * (*n));
             textures[*n-1]=creer_texture_image(ren,nom_final);
+            if(textures[*n-1]==NULL){
+                if((*n)-1 == 0){
+                    free(textures);
+                    textures=NULL;
+                }
+                textures=realloc(textures, sizeof(SDL_Texture*) * (*n-1));
+                (*n)--;
+            }
             i+=taille+1;
         }
     }
@@ -198,11 +205,19 @@ void enlever_element_tableau(void * tab[NB_MAX_AFF], err_t (*tab_destr[NB_MAX_AF
     }
 }
 
+extern
+void update_ennemis_input(void * tab[NB_MAX_AFF], perso_t * joueur){
+    int i;
+    for(i=0;i<NB_MAX_AFF && tab[i]!=NULL;i++){
+        ((entite_t*)tab[i])->update_speed(tab[i],joueur,0);
+    }
+}
+
 extern 
 void synchro_tableau(void * tab[NB_MAX_AFF], err_t (*tab_destr[NB_MAX_AFF])(void ** ),double temps,  FILE * file_gen){
     int i,j;
     for(i=0; i< NB_MAX_AFF && tab[i]!=NULL; i++){
-        if(((entite_t * )tab[i])->deplacer((entite_t * )tab[i],temps )==1){
+        if(((entite_t * )tab[i])->deplacer((entite_t * )tab[i],temps )!=0 || ((entite_t * )tab[i])->existe == FAUX){
             enlever_element_tableau(tab,tab_destr,tab[i]);
         }
     }
@@ -217,13 +232,11 @@ void hitbox_tableau(SDL_Renderer * ren, void * tab[NB_MAX_AFF], int WINW, int WI
 }
 
 extern 
-void tableau_contact ( void * tab[NB_MAX_AFF], err_t (*tab_destr[NB_MAX_AFF])(void ** ),void * ent_a_verif){
+void tableau_agit ( SDL_Renderer* ren, void * tab[NB_MAX_AFF], err_t (*tab_destr[NB_MAX_AFF])(void ** ),void * ent_a_verif, FILE * index, char * appel){
     int i;
     for(i=0; i<NB_MAX_AFF && tab[i]!=NULL;i++){
-        if(((entite_t *)tab[i])->contact(((entite_t*)ent_a_verif),((entite_t *)tab[i]))){
-            ((entite_t*)ent_a_verif)->action_agit( ent_a_verif, tab[i]);
-            ((entite_t*)tab[i])->action_agit(tab[i], ent_a_verif);
-        }
+        ((entite_t*)ent_a_verif)->action_agit( ren, ent_a_verif, tab[i],tab,tab_destr,index,appel);
+        ((entite_t*)tab[i])->action_agit(ren, tab[i], ent_a_verif,tab,tab_destr,index,appel);
         if(((entite_t*)tab[i])->existe == FAUX)
             enlever_element_tableau(tab,tab_destr,tab[i]);
     }   
@@ -235,7 +248,7 @@ void entite_action_subit(void * ent_courante, int n){
 }
 
 static 
-void entite_action_agit(void * ent_courante, void * ent_subit){
+void entite_action_agit(SDL_Renderer * ren,void * ent_courante, void * ent_subit, void * tab[NB_MAX_AFF], err_t (*tab_destr[NB_MAX_AFF])(void ** ), FILE * index, char * appel ){
 
 }
 
@@ -258,6 +271,10 @@ static err_t afficher_dans_chunk(SDL_Renderer *ren,void *element,int WINH,int WI
     int w,h, w_immo,h_immo;
     float ratio_h, ratio_w;
     entite_t *entite= (entite_t *) element;
+    if(entite->nbTextures ==0){
+        return OK;
+    }
+
     if(entite->lastSprite >= 7*entite->secSprite ){
         entite->lastSprite=0;
     }
@@ -303,7 +320,7 @@ static err_t afficher_dans_chunk(SDL_Renderer *ren,void *element,int WINH,int WI
         }
     }
     if(a_afficher==NULL){
-        return OK;
+        a_afficher=a_afficher=entite->textures[IMMO];
     }
     
     SDL_QueryTexture(a_afficher,NULL,NULL,&w,&h);
@@ -368,6 +385,14 @@ static err_t afficher_dans_fenetre(SDL_Renderer * ren,entite_t * entite, int w, 
     }
     return OK;
 
+}
+
+extern booleen_t dans_mur(entite_t * ent){
+    pos_t pos_mur={-1,-1};
+    return (mur_en_haut(ent).x!=-1 || 
+    mur_en_bas(ent).x!=-1 || 
+    mur_a_droite(ent).x!=-1 || 
+    mur_a_gauche(ent).x!=-1);
 }
 
 /*
@@ -709,7 +734,7 @@ err_t entite_detruire(entite_t ** ent){
         if((*ent)->description){
             free((*ent)->description);
             (*ent)->description=NULL;
-        }
+        }   
         if((*ent)->textures){
             (*ent)->detruire_textures(ent);
         }

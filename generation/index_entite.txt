@@ -1,2 +1,5 @@
-patate 1 "Patate" "This is a potato" 50 50 40 40 0 300 0.2 20 50 0.3 "tom_attaque" 300 "graphics/sprite/entite_sprites/potato.png"
-tom_attaque 3 "att" "oui" 0 0 40 20 20 0 0.2 20 0 1 "graphics/sprite/entite_sprites/potato.png"
+patate 2 "Patate" "This is a potato" 50 50 40 40 0 100 0.2 20 60 0.3 "tom_attaque" 300 50 "graphics/sprite/entite_sprites/potato.png"
+tom_attaque 3 "Tom attaque" "attaque de l'epee de Tom" 0 0 40 20 20 0 0 50 0 1 ""
+tom 1 "Tom" "tomate" 40 70 20 50 -5 200 0.2 0 200 0.4 "tom_attaque" 700 "graphics/sprite/personnage_sprites/Tom immo.png" "graphics/sprite/personnage_sprites/Tom neutre.png" "graphics/sprite/personnage_sprites/Tom marche 1.png" "graphics/sprite/personnage_sprites/Tom marche 2.png" "graphics/sprite/personnage_sprites/Tom immo.png" "graphics/sprite/personnage_sprites/Tom immo.png" "graphics/sprite/personnage_sprites/Tom attaque.png"
+kurt 1 "Kurt" "Carotte Hitman" 35 75 25 64 -5 300 0.2 0 150 0.4 "balles_kurt" 850 "graphics/sprite/personnage_sprites/Kurt_vrai_neutre.png" "graphics/sprite/personnage_sprites/Kurt neutre.png" "graphics/sprite/personnage_sprites/Kurt marche 1.png" "graphics/sprite/personnage_sprites/Kurt marche 2.png" "graphics/sprite/personnage_sprites/Kurt_vrai_neutre.png" "graphics/sprite/personnage_sprites/Kurt_vrai_neutre.png" "graphics/sprite/personnage_sprites/Kurt attaque.png"
+balles_kurt 3 "Balles" "balles de Kurt" 9 6 14 10 0 1000 0.2 30 2 0 "graphics/sprite/personnage_sprites/Kurt_balles.png"

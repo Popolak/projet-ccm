@@ -116,6 +116,10 @@ err_t entite_detruire(entite_t ** ent);
 extern
 pos_t pont_en_bas(entite_t * ent );
 
+
+extern 
+booleen_t dans_mur(entite_t * ent);
+
 extern
 pos_t mur_en_bas(entite_t * ent);
 
@@ -132,9 +136,12 @@ extern
 void replacer(entite_t * ent, pos_t pos_mur, int direction);
 
 extern 
-void hitbox_tableau(SDL_Renderer * ren, void * tab[NB_MAX_AFF], int WINW, int WINH);
+void hitbox_tableau(SDL_Renderer * ren, void ** tab, int WINW, int WINH);
 
 extern 
-void tableau_contact ( void * tab[NB_MAX_AFF], err_t (*tab_destr[NB_MAX_AFF])(void ** ),void * ent_a_verif);
+void tableau_agit ( SDL_Renderer* ren, void ** tab, err_t (**tab_destr)(void ** ),void * ent_a_verif, FILE * index, char * appel);
+
+extern
+void update_ennemis_input(void * tab[NB_MAX_AFF], perso_t * joueur);
 
 #endif

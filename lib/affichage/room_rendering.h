@@ -56,6 +56,7 @@ err_t render_pont_chunk(SDL_Renderer * ren, SDL_Texture * texture_pont,
 
 extern
 err_t render_chunk_unite(void * tab[NB_MAX_AFF], 
+                         attaque_t * tab_attaque[NB_MAX_ATT], 
                          SDL_Renderer * ren,
                          SDL_Texture * texture_pont,
                          SDL_Texture * texture_mur,
@@ -64,6 +65,7 @@ err_t render_chunk_unite(void * tab[NB_MAX_AFF],
                          int WINW, 
                          int WINH);
 
-
+extern
+err_t render_background(SDL_Renderer * ren,salle_t *salle, chunk_t * chunk,SDL_Texture * texture_sol, SDL_Texture * texture_air ,int  WINW,int WINH);
 
 #endif

@@ -32,6 +32,14 @@ void vider_attaque(attaque_t * tab[NB_MAX_ATT] ){
     }
 }
 
+extern err_t afficher_attaques (attaque_t * tab_ent[NB_MAX_AFF], SDL_Renderer * ren, int WINW, int WINH){
+    int i;
+    for(i=0;i<NB_MAX_AFF && tab_ent[i]!=NULL; i++){
+        ((entite_t*)tab_ent[i])->afficher_chunk(ren, (entite_t*)(tab_ent[i]), WINH, WINW);
+    }
+    return OK;
+}
+
 extern
 void enlever_attaque_tableau(attaque_t * tab[NB_MAX_ATT],void *element ){
     int i,j;
@@ -50,17 +58,28 @@ void synchro_attaque(attaque_t * tab[NB_MAX_ATT],double temps){
     int i,j;
     for(i=0; i< NB_MAX_ATT && tab[i]!=NULL; i++){
         tab[i]->temps_vie+=temps;
-        if(((entite_t * )tab[i])->deplacer((entite_t * )tab[i],temps)==1){
+        if(tab[i]->deplacer(tab[i],temps)==1){
             enlever_attaque_tableau(tab,tab[i]);
         }
     }
 }
 
+static 
+int attaque_update_speed (void * perso, void * joueur,int tot_touche){
+}
+
 extern
-void contact_attaque_ennemis(attaque_t * tab_att[NB_MAX_ATT], void * tab[NB_MAX_AFF], err_t (*tab_destr[NB_MAX_AFF])(void ** )){
-    int i;
+void contact_attaque_ennemis(SDL_Renderer* ren, 
+                             attaque_t * tab_att[NB_MAX_ATT], 
+                             void * tab[NB_MAX_AFF], 
+                             err_t (*tab_destr[NB_MAX_AFF])(void ** ), 
+                             FILE * index, char * appel){
+    int i,j;
     for(i=0;i<NB_MAX_ATT && tab_att[i]!=NULL;i++){
-        tableau_contact(tab,tab_destr,tab_att[i]);
+        for(j=0;j<NB_MAX_AFF && tab[j]!=NULL;j++){
+            if(((entite_t*)tab[j])->contact((entite_t*)tab[j],(entite_t*)tab_att[i]))
+            ((entite_t*)tab[j])->action_subit(tab[j],tab_att[i]->degats);
+        }
     }
 }
 
@@ -76,7 +95,9 @@ int attaque_deplacement(void * element,double temps ){
 	entite_t * ent = (entite_t *) element;
     attaque_t * attaque = (attaque_t*)element;
     ent->lastSprite+=temps;
+    attaque->temps_vie+=temps;
     if(attaque->temps_vie > attaque->duree_vie){
+        attaque->existe=FAUX;
         return 1;
     }
 
@@ -86,8 +107,6 @@ int attaque_deplacement(void * element,double temps ){
         attaque->dir=attaque->entite_liee->dir;
         return 0;
     }
-
-
 
     if(ent->vitesse_y > 0){                          //On adapte la direction de l'entité en fonction de sa vitesse
         if(ent->dir==GAUCHE)
@@ -100,8 +119,13 @@ int attaque_deplacement(void * element,double temps ){
         ent->dir=GAUCHE;
     }
 
-    (ent->pos.y)+= (ent->vitesse_y)*temps;                  //On actualise la position horizontale grace a vitesse_y
-                                                                                           
+    if(!coord_correcte(ent->pos.x, ent->pos.y)){
+        return 1;
+    }   
+    (ent->pos.y)+= (ent->vitesse_y)*temps;                  //On actualise la position horizontale grace a vitesse_y  
+    if(coord_correcte(ent->pos.x ,ent->pos.y) && dans_mur(ent) && attaque->entite_liee==NULL){  
+        return 1;
+    }                                     
 	if(coord_correcte(ent->pos.x,ent->pos.y)){				//Si on se retrouve dans un mur, on se replace
 		pos_mur=mur_a_gauche(ent);   
 		if(pos_mur.x!=-1){
@@ -115,6 +139,9 @@ int attaque_deplacement(void * element,double temps ){
 		}
 	}
 	(ent->pos.x)+= (ent->vitesse_x)*temps; 
+    if(coord_correcte(ent->pos.x ,ent->pos.y) && dans_mur(ent) && attaque->entite_liee==NULL){
+        return 1;
+    }  
 	if(coord_correcte(ent->pos.x,ent->pos.y)){               //Puis on actualise la position verticale
 		pos_mur=mur_en_bas(ent);
 		if(pos_mur.x!=-1){
@@ -142,22 +169,11 @@ int attaque_deplacement(void * element,double temps ){
 		//Si la vitesse de l'entité n'est pas actualisée (soit par un input de l'utilisateur, soit par l'algorithme des ennemis)
     //Alors on la change grace a la décélération
     if(ent->vitesse_y){
-        if(!ent->en_l_air(ent))
-            ent->vitesse_y= ent->vitesse_y -  DECEL*COEFF_DECEL_SOL* temps * (ent->vitesse_y>0 ? 1 : -1)  ; //Sur le sol, la décélération est COEFF_DECEL_SOL fois plus grande
-
-        else
-            ent->vitesse_y= ent->vitesse_y -  DECEL*temps * (ent->vitesse_y>0 ? 1 : -1)  ;                  //Que dans l'air
-
         if(ent->vitesse_y > 0 && ent->dir == GAUCHE || ent->vitesse_y < 0 && ent->dir == DROITE)
             ent->vitesse_y=0;
     }
 	
-    
-    if(!coord_correcte(ent->pos.x, ent->pos.y)){
-        return 1;
-    }
     return 0;
-
     
 
     
@@ -165,8 +181,9 @@ int attaque_deplacement(void * element,double temps ){
 
 
 static 
-void attaque_action_agit(void * attaque, void * element){
-    ((entite_t*)element)->action_subit(element,((attaque_t*)attaque)->degats);
+void attaque_action_agit(SDL_Renderer * ren,void * attaque, void * element, void * tab[NB_MAX_AFF],err_t (*tab_destr[NB_MAX_AFF])(void ** ), FILE * index, char * appel ){
+    if(((entite_t*)attaque)->contact(((entite_t*)attaque),((entite_t*)element)))
+        ((entite_t*)element)->action_subit(element,((attaque_t*)attaque)->degats);
 }
 
 static
@@ -216,7 +233,7 @@ entite_t * attaque_creer(char * nom,
     attaque->temps_vie=0;
     attaque->entite_liee=entite_liee;
 
-
+    attaque->update_speed=attaque_update_speed;
     attaque->action_agit=attaque_action_agit;
     attaque->detruire=attaque_detruire;
     attaque->deplacer=attaque_deplacement;

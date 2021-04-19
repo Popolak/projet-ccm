@@ -1,4 +1,7 @@
+
 /* Par Matthis */
+
+typedef struct perso_s perso_t;
 
 #ifndef _PERSO_H_
 #define _PERSO_H_
@@ -22,8 +25,9 @@
 typedef struct perso_s
 {
 	err_t (*detruire_ent)(struct entite_s ** );
-	#include "attribut_perso.h"
+	#include "attribut_entite.h" 
 	err_t (*detruire)(struct perso_s ** ent); 
+	#include "attribut_perso.h"
 	
 }perso_t;
 
@@ -58,7 +62,7 @@ extern
 err_t perso_detruire( perso_t ** personnage);
 
 static
-int creer_ajouter_attaque(SDL_Renderer *ren,attaque_t * tab[NB_MAX_ATT], perso_t * perso, FILE * index, char * appel );
+int creer_ajouter_attaque(SDL_Renderer *ren,attaque_t ** tab, perso_t * perso, FILE * index, char * appel );
 
 
 #endif

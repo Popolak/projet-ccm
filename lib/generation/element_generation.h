@@ -3,7 +3,7 @@
 #ifndef _ELEM_GEN_H_
 #define _ELEM_GEN_H_
 
-#include "../entite/personnage.h"
+#include "../entite/ennemi.h"
 #include "../entite/attaque.h"
 
 extern 

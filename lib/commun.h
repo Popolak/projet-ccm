@@ -16,7 +16,7 @@
 #define NB_MAX_AFF 50
 #define NB_MAX_ATT 10
 
-#define S_INV 0.5
+#define S_INV 0.4
 
 typedef struct position
 {

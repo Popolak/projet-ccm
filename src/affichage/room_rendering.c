@@ -24,13 +24,11 @@ SDL_Texture * creer_texture_image( SDL_Renderer * ren,char * nom_image){
     SDL_Surface * surface;
     surface= IMG_Load(nom_image);
     if(!surface){
-        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Erreur : %s\n", SDL_GetError());
         return NULL;
     }
     texture =SDL_CreateTextureFromSurface(ren,surface);
     if(!texture){
         free(surface);
-        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Erreur : %s\n", SDL_GetError());
         return NULL;
     }
     SDL_FreeSurface(surface);
@@ -148,7 +146,20 @@ err_t render_pont_chunk(SDL_Renderer * ren, SDL_Texture * texture_pont, salle_t 
 }
 
 extern
-err_t render_chunk_unite(void * tab[NB_MAX_AFF], 
+err_t render_background(SDL_Renderer * ren,salle_t *salle, chunk_t * chunk,SDL_Texture * texture_sol, SDL_Texture * texture_air ,int  WINW,int WINH){
+    SDL_Texture * a_afficher=NULL;
+    if(salle->chercher_chunk(salle,chunk->position.x+1, chunk->position.y)){
+        a_afficher=texture_air;
+    }
+    else{
+        a_afficher=texture_sol;
+    }
+    SDL_RenderCopy(ren,a_afficher,NULL,NULL);
+}
+
+extern
+err_t render_chunk_unite(void * tab[NB_MAX_AFF],
+                         attaque_t *tab_attaque[NB_MAX_ATT], 
                          SDL_Renderer * ren,
                          SDL_Texture * texture_pont,
                          SDL_Texture * texture_mur,
@@ -160,4 +171,5 @@ err_t render_chunk_unite(void * tab[NB_MAX_AFF],
     render_mur_chunk(ren,texture_mur,salle,chunk,WINW,WINH);
     render_pont_chunk(ren,texture_pont,salle,chunk,WINW,WINH);
     afficher_tableau(tab,ren,WINW,WINH);
+    afficher_attaques(tab_attaque,ren,WINW,WINH);
 }

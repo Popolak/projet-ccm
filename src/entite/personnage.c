@@ -4,6 +4,7 @@
 
 #include "../../lib/entite/personnage.h"
 #include "../../lib/generation/element_generation.h"
+#include "../../lib/entite/ennemi.h"
 
 /* Par Matthis */
 /* Fonctions */
@@ -116,7 +117,6 @@ static err_t perso_afficher_dans_chunk(SDL_Renderer *ren,void *element,int WINH,
 
 extern 
 err_t perso_detruire( perso_t ** personnage){  
-	pos_t pos={0,0};
 	entite_t * ent=NULL;
 	if(!(*personnage))
 		return OK;
@@ -125,9 +125,7 @@ err_t perso_detruire( perso_t ** personnage){
 		free((*personnage)->nom_attaque);
 		(*personnage)->nom_attaque=NULL;
 	}
-
 	ent=realloc((entite_t*)(*personnage),sizeof(entite_t));
-	*personnage=NULL;
 	if(!ent){
 		printf("La réallocation de personnage pour sa destruction a échouée");
 		return PAS_DALLOC;
@@ -150,11 +148,11 @@ int fait_partie_bin (int tot_bin, int nombre_puis_2){
 
 
 static
-int creer_ajouter_attaque(SDL_Renderer *ren,attaque_t * tab[NB_MAX_ATT], perso_t * perso, FILE * index, char * appel ){
+int perso_creer_ajouter_attaque(SDL_Renderer *ren,attaque_t * tab[NB_MAX_ATT],err_t (**tab_destr)(void ** ), perso_t * perso, FILE * index, char * appel ){
 	int n;
 	char str[30];
 	strcpy(str,perso->nom_attaque);
-	strcat(str," 0 0 0 0");
+	strcat(str," -1 -1 0 0");
 	attaque_t * attaque= (attaque_t*) creer_entite_chaine(ren,&n,perso,str,index,appel);
 	ajouter_attaque(tab,attaque);
 	return 0;
@@ -169,8 +167,8 @@ int creer_ajouter_attaque(SDL_Renderer *ren,attaque_t * tab[NB_MAX_ATT], perso_t
 	En fonction du total de touches on actualise la vitesse du personnage
 */
 static 
-int input_update_speed (perso_t * perso, int tot_touche, double temps){
-	float vit_tempo;
+int input_update_speed (void * element, void * joueur,int tot_touche){
+	perso_t * perso=(perso_t*)element;
 	if(fait_partie_bin(tot_touche,KEY_ATT) && (perso->temps_att < 0|| perso->temps_att > perso->vit_attack)){
 		perso->temps_att=0;
 		return 1;
@@ -193,8 +191,14 @@ int input_update_speed (perso_t * perso, int tot_touche, double temps){
 }
 
 static 
+void perso_action_agit(SDL_Renderer * ren,void * ent_courante, void * ent_subit, void * tab[NB_MAX_AFF],err_t (*tab_destr[NB_MAX_AFF])(void ** ), FILE * index, char * appel ){
+	if(((entite_t*)ent_courante)->contact(ent_courante,ent_subit))
+		((entite_t*)ent_subit)->action_subit((entite_t*)ent_subit, ((perso_t*)ent_courante)->degats);
+}
+
+static 
 void perso_action_subit(void * ent_courante, int degats){
-	if(((perso_t*)ent_courante)->temps_inv < 0){
+	if(((perso_t*)ent_courante)->temps_inv < 0 && degats > 0){
 		((perso_t*)ent_courante)->vie-=degats;
 		((perso_t*)ent_courante)->temps_inv=0;
 	}
@@ -434,6 +438,9 @@ err_t remplir_tableaux(SDL_Renderer * ren,perso_t *perso, void * tab[NB_MAX_AFF]
 			if(n==1){
 				ajouter_tableaux(tab,tab_destr,element,((perso_t*)element)->detruire);
 			}
+			if(n==2){
+				ajouter_tableaux(tab,tab_destr,element,((ennemi_t*)element)->detruire);
+			}
 			else if (n==3){
 				ajouter_tableaux(tab,tab_destr,element,((attaque_t*)element)->detruire);
 			}
@@ -505,11 +512,12 @@ perso_t * perso_creer(char * nom,
 	personnage->depop=perso_depop;
 	personnage->envie=en_vie;
 	personnage->deplacer=perso_deplacement;
-	personnage->nouvelle_attaque=creer_ajouter_attaque;
+	personnage->nouvelle_attaque=perso_creer_ajouter_attaque;
 	personnage->change_chunk=perso_change_chunk;
 	personnage->change_salle=perso_change_salle;
 	personnage->afficher_chunk=perso_afficher_dans_chunk;
 	personnage->action_subit=perso_action_subit;
+	personnage->action_agit=perso_action_agit;
 
 	personnage->nom_attaque=malloc(sizeof(char)* strlen(nom_attaque)+1);
 	if(!(personnage->nom_attaque)){

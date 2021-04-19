@@ -23,11 +23,11 @@ int main(){
     chunk_t * chunk;
     niveau_t * niv=NULL;
     salle_t * salle=NULL;
-    perso_t *Tom=NULL;
+    perso_t *Tom=NULL, *init=NULL;
     entite_t * entite_test=NULL;
     SDL_Window * win=NULL;
     SDL_Renderer * ren=NULL;
-    pos_t pos={300,200}, pos2={100,400};
+    pos_t pos={TAILLE_MUR,330}, pos2={100,400};
     FILE * index= NULL, * entite_gen= NULL;
     float sec,secAvant, secMaint, secInvins=0.5;
     index=fopen("../../../generation/index_entite.txt", "r");
@@ -57,25 +57,24 @@ int main(){
         return 1;
     }
     
-    salle=niv->chercher_salle(niv,0,0);
+    salle=niv->chercher_salle(niv,0,3);
     chunk=salle->chercher_chunk(salle,0,0);
+    init=perso_creer("","",0,salle,chunk,pos,0,0,0,0,0,0,0,0,0,0,0,0,"",0,NULL);
     SDL_Event events;
     SDL_bool run=SDL_TRUE;
-    SDL_Texture * bgTexture=creer_texture_image(ren,"../../../graphics/texture/room_textures/fond haricot.png");
-    SDL_Texture * murTexture=creer_texture_image(ren, "../../../graphics/texture/room_textures/mur 2 essai.png");
+    SDL_Texture * bgTexture_des=creer_texture_image(ren,"../../../graphics/texture/room_textures/fond haricot.png");
+    SDL_Texture * bgTexture_air=creer_texture_image(ren,"../../../graphics/texture/room_textures/dessus.png");
+    SDL_Texture * murTexture=creer_texture_image(ren, "../../../graphics/texture/room_textures/mur.png");
     SDL_Texture * pontTexture=creer_texture_image(ren, "../../../graphics/texture/room_textures/pont.png");
     SDL_Texture ** joueurTextures=NULL, **entite_test_textures;
 
     joueurTextures=creer_tableau_textures_chaine(ren,&nbText,"\"../../../graphics/sprite/personnage_sprites/Tom immo.png\" \"../../../graphics/sprite/personnage_sprites/Tom neutre.png\" \"../../../graphics/sprite/personnage_sprites/Tom marche 1.png\" \"../../../graphics/sprite/personnage_sprites/Tom marche 2.png\" \"../../../graphics/sprite/personnage_sprites/Tom immo.png\" \"../../../graphics/sprite/personnage_sprites/Tom immo.png\" \"../../../graphics/sprite/personnage_sprites/Tom attaque.png\"","./");
-    Tom=perso_creer("Tom","tomate",30,salle,chunk,pos,0,0,300,750,40,70,20,50,-5,0.2,0.4,0,"tom_attaque",nbText,joueurTextures);
-
-    ajouter_tableaux(tableau_entite,tab_destr, creer_entite_chaine(ren,&n,Tom, " patate 300 200",index,"../../../"),(void*) entite_detruire );
-    ajouter_tableaux(tableau_entite,tab_destr, creer_entite_chaine(ren,&n,Tom, " patate 200 400",index,"../../../"),(void*)entite_detruire );
-
-    if(bgTexture==NULL || murTexture==NULL || joueurTextures[0]==NULL || joueurTextures[1]==NULL || joueurTextures[2]==NULL){
+    Tom=creer_entite_chaine(ren,&n,init,"kurt 100 200 0 0",index,"../../../");
+    init->detruire(&init);
+    if(bgTexture_des==NULL || murTexture==NULL || joueurTextures[0]==NULL || joueurTextures[1]==NULL || joueurTextures[2]==NULL){
         printf("La création de la texture a échouée\n");
         SDL_DestroyTexture(murTexture);
-        SDL_DestroyTexture(bgTexture);
+        SDL_DestroyTexture(bgTexture_des);
         Tom->detruire(&Tom);
         vider_tableaux(tableau_entite,tab_destr);
         SDL_DestroyRenderer(ren);
@@ -86,28 +85,30 @@ int main(){
 
 
     secAvant= 1.0*SDL_GetTicks()/1000;
-
     int tot_key=0;
     while(run){
         secMaint=1.0*SDL_GetTicks()/1000;
         sec=secMaint-secAvant;
         secAvant=secMaint;
-        if(  Tom->update_speed(Tom,tot_key,sec)){
-            Tom->nouvelle_attaque(ren,tableau_attaque,Tom,index,"../../../");
-        }
-        deplacer=Tom->deplacer(Tom,sec);
-        if(deplacer==1){
-            Tom->change_chunk(ren, Tom, tableau_entite,tab_destr,tableau_attaque,index,entite_gen,"../../../");
-        }
-        else if(deplacer==2){
-            Tom->change_salle(Tom);
-            Tom->change_chunk(ren,Tom,tableau_entite,tab_destr,tableau_attaque,index,entite_gen,"../../../");      
-        }
-        else{
-            synchro_attaque(tableau_attaque,sec);
-            synchro_tableau(tableau_entite,tab_destr,sec,NULL);
-            tableau_contact(tableau_entite,tab_destr,Tom);
-            contact_attaque_ennemis(tableau_attaque,tableau_entite,tab_destr);
+        if(sec < 0.05){
+            if(  Tom->update_speed(Tom,NULL,tot_key)){
+                Tom->nouvelle_attaque(ren,tableau_attaque,NULL,Tom,index,"../../../");
+            }
+            deplacer=Tom->deplacer(Tom,sec);
+            if(deplacer==1){
+                Tom->change_chunk(ren, Tom, tableau_entite,tab_destr,tableau_attaque,index,entite_gen,"../../../");
+            }
+            else if(deplacer==2){
+                Tom->change_salle(Tom);
+                Tom->change_chunk(ren,Tom,tableau_entite,tab_destr,tableau_attaque,index,entite_gen,"../../../");      
+            }
+            else{
+                synchro_attaque(tableau_attaque,sec);
+                update_ennemis_input(tableau_entite,Tom);
+                tableau_agit(ren,tableau_entite,tab_destr,Tom,index,"../../../");
+                synchro_tableau(tableau_entite,tab_destr,sec,NULL);
+                contact_attaque_ennemis(ren,tableau_attaque,tableau_entite,tab_destr,index,"../../../");
+            }
         }
         
         
@@ -162,10 +163,10 @@ int main(){
         }
 
         SDL_RenderClear(ren);
-        SDL_RenderCopy(ren,bgTexture,NULL,NULL);
+        render_background(ren,Tom->salle,Tom->chunk,bgTexture_des,bgTexture_air,WINW,WINH);
         Tom->afficher_chunk(ren,(entite_t*)Tom,WINH,WINW);
 
-        render_chunk_unite(tableau_entite,ren,pontTexture,murTexture,Tom->salle ,Tom->chunk,WINW,WINH);
+        render_chunk_unite(tableau_entite,tableau_attaque,ren,pontTexture,murTexture,Tom->salle ,Tom->chunk,WINW,WINH);
         if(KEY_HB & tot_key){
             Tom->hitbox(ren,Tom,WINH,WINW);
             hitbox_tableau(ren,tableau_entite,WINW,WINH);
@@ -179,7 +180,8 @@ int main(){
     vider_tableaux(tableau_entite,tab_destr);
     vider_attaque(tableau_attaque);
     niv->detruire(&niv);
-    SDL_DestroyTexture(bgTexture);
+    SDL_DestroyTexture(bgTexture_des);
+    SDL_DestroyTexture(bgTexture_air);
     SDL_DestroyTexture(murTexture);
     SDL_DestroyRenderer(ren);
     SDL_DestroyWindow(win);

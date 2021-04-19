@@ -9,7 +9,8 @@ booleen_t (*contact)(struct entite_s * , struct entite_s * );
 booleen_t (*contact_porte)(struct entite_s * );
 err_t (*detruire_textures)(struct entite_s **);
 void (*action_subit)(void *, int);
-void (*action_agit)(void *,void *);
+void (*action_agit)(SDL_Renderer * ,void * , void * , void **,err_t (**)(void ** ), FILE * , char *  );
+int (*update_speed) (void * ,void *,  int );
 
  
 chunk_t * chunk;
