@@ -34,7 +34,7 @@ SDL_Texture * creer_texture_image( SDL_Renderer * ren,char * nom_image){
     SDL_FreeSurface(surface);
     return texture;
 }
-
+    
 /*
     render_mur_chunk
     paramètres :

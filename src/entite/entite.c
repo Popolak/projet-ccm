@@ -666,9 +666,11 @@ booleen_t en_contact(entite_t * ent_courante, entite_t * ent_a_verif){
         return FAUX;
     if (ent_courante->w_hitbox == 0 && ent_courante->w_hitbox == 0 )
         return FAUX;
-    if((abs(ent_courante->pos.y + ent_courante->offset_hitbox * (ent_courante->dir == DROITE ? 1 : -1) -(ent_a_verif->pos.y + ent_a_verif->offset_hitbox * (ent_a_verif->dir == DROITE ? 1 : -1))) < (ent_courante->w_hitbox/2 + ent_a_verif->w_hitbox)/2)
-    && abs(ent_courante->pos.x - ent_a_verif->pos.x) <= (ent_courante->h_hitbox + ent_a_verif->h_hitbox)/2)
+    if((abs(ent_courante->pos.y + ent_courante->offset_hitbox * (ent_courante->dir == DROITE ? 1 : -1) -(ent_a_verif->pos.y + ent_a_verif->offset_hitbox * (ent_a_verif->dir == DROITE ? 1 : -1))) < (ent_courante->w_hitbox/2 + ent_a_verif->w_hitbox/2))
+    && abs(ent_courante->pos.x - ent_a_verif->pos.x) <= (ent_courante->h_hitbox/2 + ent_a_verif->h_hitbox/2)){
+        printf("oui\n");
         return VRAI;
+    }
     return FAUX;
 }
 
