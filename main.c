@@ -7,7 +7,100 @@
 #include "lib/niveaux/niveau.h"
 #include "lib/generation/element_generation.h"
 
+int menu_accueil(){//menu d'accueil du jeu
+
+    SDL_Event event;
+    //création de toute les potentielles surfaces
+    int WINW=1280, WINH=720;
+    SDL_Window * win =NULL;
+    SDL_Renderer * ren =NULL;
+    SDL_Texture * affichage=NULL;
+    SDL_Texture * menu[3];
+
+    int continuer = 1;
+    int i = 0;
+
+    if(SDL_Init(SDL_INIT_VIDEO)<0){
+        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Erreur : %s", SDL_GetError());
+    }
+    if(SDL_CreateWindowAndRenderer(WINW, WINH,SDL_WINDOW_SHOWN,&win, &ren)<0){
+        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Erreur : %s", SDL_GetError());
+        SDL_Quit();
+    }
+
+    SDL_Texture * Texture_menu=creer_texture_image(ren,"graphics/menu/menu.png");
+    SDL_Texture * Texture_menu_jouer=creer_texture_image(ren,"graphics/menu/jouer.png");
+    SDL_Texture * Texture_menu_quit=creer_texture_image(ren,"graphics/menu/quit.png");
+        //SDL_WM_SetCaption("Roguelike", NULL);
+
+    menu[0] = Texture_menu;
+    menu[1] = Texture_menu_jouer;
+    menu[2] = Texture_menu_quit;
+
+    affichage = menu[0];
+    int retour=0;
+    while(continuer){
+
+        //contrôle par clavier
+        SDL_WaitEvent(&event);
+        switch(event.type){
+            case SDL_WINDOWEVENT:
+                if (event.window.event == SDL_WINDOWEVENT_CLOSE){
+                    retour =1;
+                    continuer = 0;
+                }
+                break;
+            case SDL_KEYDOWN:
+                if(event.key.keysym.sym == SDLK_z) 
+                    i=(i+1)%3;
+
+                if(event.key.keysym.sym == SDLK_s){
+                    i=(i-1)%3;
+                    i=i<0 ? 2 : i;
+                }
+                if(event.key.keysym.sym == SDLK_SPACE){
+                    if(affichage == menu[1]){
+                        retour=1;
+                        continuer = 0;
+                        break;
+                    }
+                    else if(affichage == menu[2]){    
+                        SDL_DestroyTexture(Texture_menu);
+                        SDL_DestroyTexture(Texture_menu_jouer);
+                        SDL_DestroyTexture(Texture_menu_quit);
+                        SDL_DestroyTexture(affichage);
+                        SDL_DestroyRenderer(ren);
+                        SDL_DestroyWindow(win);
+                        SDL_Quit();
+                        exit(1); 
+                    }
+                }
+                break;
+
+
+            default: break;
+        }
+        //affichage et raffraichissement
+        SDL_RenderClear(ren);
+        affichage=menu[i];
+        SDL_RenderCopy(ren, affichage, NULL, NULL);
+        SDL_RenderPresent(ren);
+    }
+    SDL_DestroyTexture(Texture_menu);
+    SDL_DestroyTexture(Texture_menu_jouer);
+    SDL_DestroyTexture(Texture_menu_quit);
+    SDL_DestroyTexture(affichage);
+    SDL_DestroyRenderer(ren);
+    SDL_DestroyWindow(win);
+    SDL_Quit();
+    return retour;
+}
+
 int main(){
+
+    if(menu_accueil())
+        return 0;
+
     void * tableau_entite[NB_MAX_AFF];
     err_t (*tab_destr[NB_MAX_AFF])(void ** );
     attaque_t * tableau_attaque[NB_MAX_ATT];
