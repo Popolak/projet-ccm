@@ -1,5 +1,3 @@
-/* Par Matthis */
-
 #include "stdio.h"
 #include "SDL2/SDL.h"
 #include "../lib/entite/personnage.h"
@@ -7,6 +5,83 @@
 #include "../lib/niveaux/niveau.h"
 #include "../lib/generation/element_generation.h"
 
+void menu_accueil(){//menu d'accueil du jeu
+
+    SDL_Event event;
+    //création de tout les potentielles surfaces
+    int WINW=1280, WINH=720
+    SDL_Window *win =NULL;
+    SDL_Renderer *ren =NULL;
+    SDL_Texture * affichage=NULL;
+    SDL_Surface *menu[3];
+
+    int continuer = 1;
+    int i = 0;
+
+    if(SDL_Init(SDL_INIT_VIDEO)<0){
+        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Erreur : %s", SDL_GetError());
+        return 1;
+    }
+    if(SDL_CreateWindowAndRenderer(WINW, WINH,SDL_WINDOW_SHOWN,&win, &ren)<0){
+        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Erreur : %s", SDL_GetError());
+        SDL_Quit();
+        return 1;
+    }
+
+    SDL_Texture * Texture_menu=creer_texture_image(ren,"../graphics/menu/menu.png");
+    SDL_Texture * Texture_menu_jouer=creer_texture_image(ren,"../graphics/menu/jouer.png");
+    SDL_Texture * Texture_menu_quit=creer_texture_image(ren,"../graphics/menu/quit.png");
+        //SDL_WM_SetCaption("Roguelike", NULL);
+
+    menu[0] = Texture_menu;
+    menu[1] = Texture_menu_jouer;
+    menu[2] = Texture_menu_quit;
+
+    affichage = menu[0];
+
+    SDL_Rect texture_rect;
+    texture_rect.x = 0;  //the x coordinate
+    texture_rect.y = 0; // the y coordinate
+    texture_rect.w = WINW; //the width of the texture
+    texture_rect.h = WINH;
+    
+    while(continuer){
+
+        //contrôle par clavier
+        SDL_WaitEvent(&event);
+        switch(event.key.keysym.sym){
+            case SDLK_s: 
+                affichage = menu[++i];break;
+            case SDLK_z:
+                affichage = menu[--i];break;
+            case SDLK_SPACE:
+                if(affichage == menu[1]){
+                    continuer = 0;
+                    break;
+                }
+                else if(affichage == menu[2]){    
+                    SDL_DestroyTexture(texture_menu);
+                    SDL_FreeSurface(affichage);
+                    SDL_FreeSurface(menu);
+                    SDL_DestroyRenderer(&ren);
+                    SDL_DestroyWindow(win);
+                    SDL_Quit(); 
+                    exit(1); 
+                }
+            default: break;
+        }
+        //affichage et raffraichissement
+        SDL_RenderClear(ren);
+        SDL_RenderCopy(ren, affichage, NULL, &texture_rect);
+        SDL_RenderPresent(ren);
+    }
+    SDL_DestroyTexture(texture_menu);
+    SDL_FreeSurface(affichage);
+    SDL_FreeSurface(menu);
+    SDL_DestroyRenderer(&ren);
+    SDL_DestroyWindow(win);
+    SDL_Quit();
+}
 int main(){
     void * tableau_entite[NB_MAX_AFF];
     err_t (*tab_destr[NB_MAX_AFF])(void ** );
@@ -87,7 +162,6 @@ int main(){
         SDL_Quit();
         return ERR_DEB_MEMOIRE;
     }
-
 
     secAvant= 1.0*SDL_GetTicks()/1000;
     int tot_key=0;
