@@ -30,6 +30,8 @@ int main(){
     FILE * index= NULL, * entite_gen= NULL;
     char appel[]="./";
     float sec,secAvant, secMaint;
+
+
     index=fopen("generation/index_entite.txt", "r");
     if(!index){
         printf("Pas d'index\n");
@@ -210,7 +212,6 @@ int main(){
         }
         SDL_RenderClear(ren);
         render_background(ren,perso_control[roulette]->salle,perso_control[roulette]->chunk,bgTexture_des,bgTexture_air,WINW,WINH);
-        perso_control[roulette]->afficher_chunk(ren,perso_control[roulette],WINH,WINW);
 
         render_chunk_unite(tableau_entite,tableau_attaque,ren,pontTexture,murTexture,perso_control[roulette]->salle ,perso_control[roulette]->chunk,WINW,WINH);
         if(KEY_HB & tot_key){
@@ -218,7 +219,7 @@ int main(){
             hitbox_tableau(ren,(void**)tableau_entite,WINW,WINH);
             hitbox_tableau(ren,(void**)tableau_attaque,WINW,WINH);
         }
-        
+        perso_control[roulette]->afficher_chunk(ren,perso_control[roulette],WINH,WINW);
         SDL_RenderPresent(ren);
         
     }

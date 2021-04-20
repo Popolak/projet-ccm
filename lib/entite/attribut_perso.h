@@ -11,6 +11,6 @@ int (*nouvelle_attaque)(SDL_Renderer *,attaque_t **,err_t (**)(void ** ), struct
 
 float vit_attack, vitesse_saut, temps_att;
 int degats;
-int vie;
+int vie,vie_max;
 float temps_inv;
 char * nom_attaque;

@@ -40,6 +40,32 @@ booleen_t perso_existe( perso_t * const personnage )
 }
 
 
+void perso_barre_vie(SDL_Renderer * ren,perso_t * personnage, int WINW, int WINH){
+
+   //création de la barre de vie
+
+	float ratioUtoP=1.0*WINW/CHUNKW;
+	SDL_Rect fond_bdv={0,0,0,0}, bdv={0,0,0,0};
+	if(strcmp(personnage->nom, "Kurt")==0 || strcmp(personnage->nom, "Tom")==0){
+		fond_bdv.y=MAIN_BAR_X*ratioUtoP;
+		fond_bdv.x=MAIN_BAR_Y*ratioUtoP;
+		fond_bdv.w=MAIN_BAR_W*ratioUtoP;
+		fond_bdv.h=MAIN_BAR_H*ratioUtoP;
+	}
+	else{
+		fond_bdv.x=(personnage->pos.y-personnage->w/2)* ratioUtoP;
+		fond_bdv.y=(personnage->pos.x-personnage->h/2 - H_HBAR )* ratioUtoP;
+		fond_bdv.w=(personnage->w*ratioUtoP);
+		fond_bdv.h=(H_HBAR*ratioUtoP);
+	}
+	bdv=fond_bdv;
+	bdv.w*=1.0*personnage->vie/personnage->vie_max;
+    SDL_SetRenderDrawColor(ren, 122, 122, 122, 255);
+    SDL_RenderFillRect(ren, &fond_bdv);
+    SDL_SetRenderDrawColor(ren, 50, 255, 0, 255);
+    SDL_RenderFillRect(ren, &bdv);
+}
+
 static err_t perso_afficher_dans_chunk(SDL_Renderer *ren,void *element,int WINH,int WINW){
     SDL_Texture * a_afficher=NULL;
     int w,h, w_immo,h_immo;
@@ -108,6 +134,7 @@ static err_t perso_afficher_dans_chunk(SDL_Renderer *ren,void *element,int WINH,
     ratio_h=(1.0*h/h_immo) ;
     ratio_w=1.0*w/w_immo;
     entite->afficher_fenetre(ren,(entite_t*)entite,(entite->w*WINW/CHUNKW)*ratio_w,(entite->h*WINW/CHUNKW )/ratio_h,entite->pos.x*WINW/CHUNKW, entite->pos.y*WINW/CHUNKW, a_afficher);
+	perso_barre_vie(ren,entite,WINW,WINH);
 }
 
 /*
@@ -501,6 +528,7 @@ perso_t * perso_creer(char * nom,
 	}
 
 	personnage->vitesse_saut=vitesse_saut;
+	personnage->vie_max=vie;
 	personnage->vie = vie;
 	personnage->vit_attack = vit_attack;
 	personnage->degats = degats;

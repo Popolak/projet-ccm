@@ -20,6 +20,12 @@
 
 #define S_INV 0.6
 
+#define H_HBAR 7
+#define MAIN_BAR_X 5
+#define MAIN_BAR_Y 10
+#define MAIN_BAR_W 150
+#define MAIN_BAR_H 10
+
 typedef struct position
 {
 	float x;
