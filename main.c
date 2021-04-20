@@ -60,11 +60,11 @@ int menu_accueil(){//menu d'accueil du jeu
                 }
                 if(event.key.keysym.sym == SDLK_SPACE){
                     if(affichage == menu[1]){
-                        retour=1;
                         continuer = 0;
                         break;
                     }
                     else if(affichage == menu[2]){    
+                        retour=1;
                         SDL_DestroyTexture(Texture_menu);
                         SDL_DestroyTexture(Texture_menu_jouer);
                         SDL_DestroyTexture(Texture_menu_quit);
