@@ -11,6 +11,7 @@ void (*barre_vie)(struct perso_s * , int, int);
 
 float vit_attack, vitesse_saut, temps_att;
 int degats;
-int vie,vie_max;
+int vie;
+int vie_max;
 float temps_inv;
 char * nom_attaque;

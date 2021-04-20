@@ -2,11 +2,11 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "SDL2/SDL.h"
 #include "../../lib/entite/personnage.h"
 #include "../../lib/generation/element_generation.h"
 #include "../../lib/entite/ennemi.h"
 
-/* Par Matthis */
 /* Fonctions */
 
 static
@@ -134,7 +134,7 @@ static err_t perso_afficher_dans_chunk(SDL_Renderer *ren,void *element,int WINH,
     ratio_h=(1.0*h/h_immo) ;
     ratio_w=1.0*w/w_immo;
     entite->afficher_fenetre(ren,(entite_t*)entite,(entite->w*WINW/CHUNKW)*ratio_w,(entite->h*WINW/CHUNKW )/ratio_h,entite->pos.x*WINW/CHUNKW, entite->pos.y*WINW/CHUNKW, a_afficher);
-	perso_barre_vie(ren,entite,WINW,WINH);
+    barre_vie(entite,WINW,WINW);
 }
 
 /*
@@ -501,6 +501,34 @@ booleen_t en_vie(perso_t * personnage){
 
 }
 
+static
+void barre_vie(perso_t * personnage, int WINW, int WINH){
+
+   //création de la barre de vie
+
+	float ratioUtoP=1.0*WINW/CHUNKW;
+    SDL_Renderer ren;
+	int fondx = (personnage->pos.x-personnage->pos.w/2)*ratioUtoP;
+	int fondy = (personnage->pos.x-personnage->pos.w/2)*ratioUtoP;
+
+
+    if(personnage->nom == "Tom" || personnage->nom == "Kurt"){//affichera la barre de vie du joueur en haut à gauche
+
+    	SDL_Rect fond_bdv{50,50, personnage->vie_max 30};
+    	SDL_Rect bdv {50, 52, personnage->vie, 26};
+    }
+    else{ //s'active s'il s'agit d'un ennemi
+    	SDL_Rect fond_bdv{fondx, fondy, personnage->vie_max 6 * ratioUtoP};
+    	SDL_Rect bdv {fondx, fondy+2, personnage->vie, 5 * ratioUtoP};//5 pour que ça soit un peu plus petit (c'est un choix esthétique )
+    }
+
+    SDL_SetRenderDrawColor(ren, 122, 122, 122, 255);
+    SDL_RenderFillRect(ren, &fond_bdv);
+    SDL_SetRenderDrawColor(ren, 50, 255, 0, 255);
+    SDL_RenderFillRect(ren, &bdv);
+    
+}
+
 extern
 perso_t * perso_creer(char * nom, 
 					 char *description,
@@ -534,6 +562,7 @@ perso_t * perso_creer(char * nom,
 	personnage->degats = degats;
 	personnage->temps_att=-1;
 	personnage->temps_inv=-1;
+	personnage->vie_max = vie;
 
 	
 	personnage->detruire= perso_detruire;
@@ -549,6 +578,7 @@ perso_t * perso_creer(char * nom,
 	personnage->afficher_chunk=perso_afficher_dans_chunk;
 	personnage->action_subit=perso_action_subit;
 	personnage->action_agit=perso_action_agit;
+	personnage->barre_vie=barre_vie;
 
 	personnage->nom_attaque=malloc(sizeof(char)* strlen(nom_attaque)+1);
 	if(!(personnage->nom_attaque)){
