@@ -10,10 +10,10 @@ void menu_accueil(){//menu d'accueil du jeu
     SDL_Event event;
     //création de tout les potentielles surfaces
     int WINW=1280, WINH=720
-    SDL_Window *win =NULL;
-    SDL_Renderer *ren =NULL;
+    SDL_Window * win =NULL;
+    SDL_Renderer * ren =NULL;
     SDL_Texture * affichage=NULL;
-    SDL_Surface *menu[3];
+    SDL_Texture * menu[3];
 
     int continuer = 1;
     int i = 0;
@@ -61,11 +61,13 @@ void menu_accueil(){//menu d'accueil du jeu
                 }
                 else if(affichage == menu[2]){    
                     SDL_DestroyTexture(texture_menu);
-                    SDL_FreeSurface(affichage);
-                    SDL_FreeSurface(menu);
-                    SDL_DestroyRenderer(&ren);
+                    SDL_DestroyTexture(Texture_menu_jouer);
+                    SDL_DestroyTexture(Texture_menu_quit);
+                    SDL_DestroyTexture(affichage);
+                    SDL_DestroyTexture(menu);
+                    SDL_DestroyRenderer(ren);
                     SDL_DestroyWindow(win);
-                    SDL_Quit(); 
+                    SDL_Quit();
                     exit(1); 
                 }
             default: break;
@@ -76,9 +78,11 @@ void menu_accueil(){//menu d'accueil du jeu
         SDL_RenderPresent(ren);
     }
     SDL_DestroyTexture(texture_menu);
-    SDL_FreeSurface(affichage);
-    SDL_FreeSurface(menu);
-    SDL_DestroyRenderer(&ren);
+    SDL_DestroyTexture(Texture_menu_jouer);
+    SDL_DestroyTexture(Texture_menu_quit);
+    SDL_DestroyTexture(affichage);
+    SDL_DestroyTexture(menu);
+    SDL_DestroyRenderer(ren);
     SDL_DestroyWindow(win);
     SDL_Quit();
 }
