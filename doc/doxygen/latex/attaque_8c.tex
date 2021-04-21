@@ -1,0 +1,229 @@
+\hypertarget{attaque_8c}{}\doxysection{Référence du fichier src/entite/attaque.c}
+\label{attaque_8c}\index{src/entite/attaque.c@{src/entite/attaque.c}}
+
+
+Module attaque \textbackslash{}verion 1.\+0.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}../../lib/entite/attaque.\+h\char`\"{}}\newline
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{attaque_8c_a6bed26721fdfcfdcbdcf8855a890104a}{ajouter\+\_\+attaque}} (attaque\+\_\+t $\ast$tab\mbox{[}NB\+\_\+\+MAX\+\_\+\+ATT\mbox{]}, attaque\+\_\+t $\ast$ptr)
+\begin{DoxyCompactList}\small\item\em Ajout d\textquotesingle{}une attaque dans le tableau. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{attaque_8c_a8f5474ee2dbc36d0368b9d0a5742d608}{enlever\+\_\+attaque}} (attaque\+\_\+t $\ast$tab\mbox{[}NB\+\_\+\+MAX\+\_\+\+ATT\mbox{]})
+\begin{DoxyCompactList}\small\item\em Suppression de toutes les attaques du tableau et passage à NULL de celui-\/ci. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{attaque_8c_a62f3fe679e7dcc8cb3ad7c88013d7442}{vider\+\_\+attaque}} (attaque\+\_\+t $\ast$tab\mbox{[}NB\+\_\+\+MAX\+\_\+\+ATT\mbox{]})
+\begin{DoxyCompactList}\small\item\em Vidage du tableau. \end{DoxyCompactList}\item 
+err\+\_\+t \mbox{\hyperlink{attaque_8c_a628be9410d024b7d1beb54a1448e6e24}{afficher\+\_\+attaques}} (attaque\+\_\+t $\ast$tab\+\_\+ent\mbox{[}NB\+\_\+\+MAX\+\_\+\+AFF\mbox{]}, SDL\+\_\+\+Renderer $\ast$ren, int WINW, int WINH)
+\begin{DoxyCompactList}\small\item\em Affichage du tableau des attaques. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{attaque_8c_a9f72c31f13b735edefbacd61fef5d5c3}{enlever\+\_\+attaque\+\_\+tableau}} (attaque\+\_\+t $\ast$tab\mbox{[}NB\+\_\+\+MAX\+\_\+\+ATT\mbox{]}, void $\ast$element)
+\begin{DoxyCompactList}\small\item\em Suppression d\textquotesingle{}une attaque du tableau. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{attaque_8c_a4ddbd08f4d9b11b36fff07b1918c9df8}{synchro\+\_\+attaque}} (attaque\+\_\+t $\ast$tab\mbox{[}NB\+\_\+\+MAX\+\_\+\+ATT\mbox{]}, double temps)
+\begin{DoxyCompactList}\small\item\em Actualisation du tableau des attaques. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{attaque_8c_ac55a63dcc765f11b3b8f4653304537ef}{contact\+\_\+attaque\+\_\+ennemis}} (SDL\+\_\+\+Renderer $\ast$ren, attaque\+\_\+t $\ast$tab\+\_\+att\mbox{[}NB\+\_\+\+MAX\+\_\+\+ATT\mbox{]}, void $\ast$tab\mbox{[}NB\+\_\+\+MAX\+\_\+\+AFF\mbox{]}, err\+\_\+t($\ast$tab\+\_\+destr\mbox{[}NB\+\_\+\+MAX\+\_\+\+AFF\mbox{]})(void $\ast$$\ast$), FILE $\ast$index, char $\ast$appel)
+\begin{DoxyCompactList}\small\item\em Action de contact entre une entité et une attaque. \end{DoxyCompactList}\item 
+entite\+\_\+t $\ast$ \mbox{\hyperlink{attaque_8c_ae02eaca92f32521960cd19ff0d50856d}{attaque\+\_\+creer}} (char $\ast$nom, char $\ast$description, salle\+\_\+t $\ast$salle, chunk\+\_\+t $\ast$chunk, pos\+\_\+t pos, float vitesse\+\_\+x, float vitesse\+\_\+y, float vitesse\+\_\+max\+\_\+y, float sec\+Sprite, int w, int h, int w\+\_\+hitbox, int h\+\_\+hitbox, int offset\+\_\+hitbox, booleen\+\_\+t gravite, int degats, float duree\+\_\+vie, entite\+\_\+t $\ast$entite\+\_\+liee, int nb\+Textures, SDL\+\_\+\+Texture $\ast$$\ast$textures)
+\begin{DoxyCompactList}\small\item\em fonction de création d\textquotesingle{}une attaque \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Module attaque \textbackslash{}verion 1.\+0. 
+
+\begin{DoxyDate}{Date}
+Avril 2021 
+\end{DoxyDate}
+
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{attaque_8c_a628be9410d024b7d1beb54a1448e6e24}\label{attaque_8c_a628be9410d024b7d1beb54a1448e6e24}} 
+\index{attaque.c@{attaque.c}!afficher\_attaques@{afficher\_attaques}}
+\index{afficher\_attaques@{afficher\_attaques}!attaque.c@{attaque.c}}
+\doxysubsubsection{\texorpdfstring{afficher\_attaques()}{afficher\_attaques()}}
+{\footnotesize\ttfamily err\+\_\+t afficher\+\_\+attaques (\begin{DoxyParamCaption}\item[{attaque\+\_\+t $\ast$}]{tab\+\_\+ent\mbox{[}\+NB\+\_\+\+MAX\+\_\+\+AFF\mbox{]},  }\item[{SDL\+\_\+\+Renderer $\ast$}]{ren,  }\item[{int}]{WINW,  }\item[{int}]{WINH }\end{DoxyParamCaption})}
+
+
+
+Affichage du tableau des attaques. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em attaque\+\_\+t} & tableau des attaques \\
+\hline
+{\em SDL\+\_\+\+Renderer} & un point sur renderer \\
+\hline
+{\em int} & Largeur de la fenêtre \\
+\hline
+{\em int} & hauteur de la fenêtre \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+retourne OK 
+\end{DoxyReturn}
+\mbox{\Hypertarget{attaque_8c_a6bed26721fdfcfdcbdcf8855a890104a}\label{attaque_8c_a6bed26721fdfcfdcbdcf8855a890104a}} 
+\index{attaque.c@{attaque.c}!ajouter\_attaque@{ajouter\_attaque}}
+\index{ajouter\_attaque@{ajouter\_attaque}!attaque.c@{attaque.c}}
+\doxysubsubsection{\texorpdfstring{ajouter\_attaque()}{ajouter\_attaque()}}
+{\footnotesize\ttfamily int ajouter\+\_\+attaque (\begin{DoxyParamCaption}\item[{attaque\+\_\+t $\ast$}]{tab\mbox{[}\+NB\+\_\+\+MAX\+\_\+\+ATT\mbox{]},  }\item[{attaque\+\_\+t $\ast$}]{ptr }\end{DoxyParamCaption})}
+
+
+
+Ajout d\textquotesingle{}une attaque dans le tableau. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em attaque\+\_\+t} & tableau des attaques \\
+\hline
+{\em void} & Attaque à ajouter \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Retourne 0 si l\textquotesingle{}ajout échoue 
+\end{DoxyReturn}
+\mbox{\Hypertarget{attaque_8c_ae02eaca92f32521960cd19ff0d50856d}\label{attaque_8c_ae02eaca92f32521960cd19ff0d50856d}} 
+\index{attaque.c@{attaque.c}!attaque\_creer@{attaque\_creer}}
+\index{attaque\_creer@{attaque\_creer}!attaque.c@{attaque.c}}
+\doxysubsubsection{\texorpdfstring{attaque\_creer()}{attaque\_creer()}}
+{\footnotesize\ttfamily entite\+\_\+t$\ast$ attaque\+\_\+creer (\begin{DoxyParamCaption}\item[{char $\ast$}]{nom,  }\item[{char $\ast$}]{description,  }\item[{salle\+\_\+t $\ast$}]{salle,  }\item[{chunk\+\_\+t $\ast$}]{chunk,  }\item[{pos\+\_\+t}]{pos,  }\item[{float}]{vitesse\+\_\+x,  }\item[{float}]{vitesse\+\_\+y,  }\item[{float}]{vitesse\+\_\+max\+\_\+y,  }\item[{float}]{sec\+Sprite,  }\item[{int}]{w,  }\item[{int}]{h,  }\item[{int}]{w\+\_\+hitbox,  }\item[{int}]{h\+\_\+hitbox,  }\item[{int}]{offset\+\_\+hitbox,  }\item[{booleen\+\_\+t}]{gravite,  }\item[{int}]{degats,  }\item[{float}]{duree\+\_\+vie,  }\item[{entite\+\_\+t $\ast$}]{entite\+\_\+liee,  }\item[{int}]{nb\+Textures,  }\item[{SDL\+\_\+\+Texture $\ast$$\ast$}]{textures }\end{DoxyParamCaption})}
+
+
+
+fonction de création d\textquotesingle{}une attaque 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em char} & nom de l\textquotesingle{}attaque \\
+\hline
+{\em char} & description de l\textquotesingle{}attaque \\
+\hline
+{\em salle\+\_\+t} & salle de la carte où se trouve l\textquotesingle{}entité \\
+\hline
+{\em chunk\+\_\+t} & chunk de la carte où se trouve l\textquotesingle{}entité \\
+\hline
+{\em pos\+\_\+t} & position dans le chunk \\
+\hline
+{\em float} & vitesse de l\textquotesingle{}entité sur l\textquotesingle{}axe x \\
+\hline
+{\em float} & vitesse de l\textquotesingle{}entité sur l\textquotesingle{}axe y \\
+\hline
+{\em float} & vitesse maximale sur l\textquotesingle{}axe y d\textquotesingle{}un saut de l\textquotesingle{}entité, \\
+\hline
+{\em float} & sprite secondaire pour les animations \\
+\hline
+{\em int} & largeur de l\textquotesingle{}entité, \\
+\hline
+{\em int} & hauteur de l\textquotesingle{}entité, \\
+\hline
+{\em int} & largeur de la hitbox de l\textquotesingle{}entité \\
+\hline
+{\em int} & hauteur de la hitbox de l\textquotesingle{}entité \\
+\hline
+{\em int} & décalage de la hitbox par rapport à la position de l\textquotesingle{}entité \\
+\hline
+{\em booleen\+\_\+t} & soumission ou non de l\textquotesingle{}entité à la gravité \\
+\hline
+{\em int} & dégâts infligés par l\textquotesingle{}entité si elle frappe \\
+\hline
+{\em float} & durée de vie de l\textquotesingle{}entité \\
+\hline
+{\em entite\+\_\+t} & entité propriétaire de l\textquotesingle{}attaque \\
+\hline
+{\em int} & nombre de textures employées par l\textquotesingle{}entité \\
+\hline
+{\em SDL\+\_\+\+Texture} & sprite de l\textquotesingle{}entité \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+L\textquotesingle{}entité fraichement crée 
+\end{DoxyReturn}
+\mbox{\Hypertarget{attaque_8c_ac55a63dcc765f11b3b8f4653304537ef}\label{attaque_8c_ac55a63dcc765f11b3b8f4653304537ef}} 
+\index{attaque.c@{attaque.c}!contact\_attaque\_ennemis@{contact\_attaque\_ennemis}}
+\index{contact\_attaque\_ennemis@{contact\_attaque\_ennemis}!attaque.c@{attaque.c}}
+\doxysubsubsection{\texorpdfstring{contact\_attaque\_ennemis()}{contact\_attaque\_ennemis()}}
+{\footnotesize\ttfamily void contact\+\_\+attaque\+\_\+ennemis (\begin{DoxyParamCaption}\item[{SDL\+\_\+\+Renderer $\ast$}]{ren,  }\item[{attaque\+\_\+t $\ast$}]{tab\+\_\+att\mbox{[}\+NB\+\_\+\+MAX\+\_\+\+ATT\mbox{]},  }\item[{void $\ast$}]{tab\mbox{[}\+NB\+\_\+\+MAX\+\_\+\+AFF\mbox{]},  }\item[{err\+\_\+t($\ast$\mbox{[}$\,$\mbox{]})(void $\ast$$\ast$)}]{NB\+\_\+\+MAX\+\_\+\+AFF,  }\item[{FILE $\ast$}]{index,  }\item[{char $\ast$}]{appel }\end{DoxyParamCaption})}
+
+
+
+Action de contact entre une entité et une attaque. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em SDL\+\_\+renderer} & pointeur sur le renderer \\
+\hline
+{\em attaque\+\_\+t} & tableau des attaques \\
+\hline
+{\em void} & tableau des entités \\
+\hline
+{\em err\+\_\+t} & Tableau de fonctions de destructions \\
+\hline
+{\em FILE} & index fichier de génération original des entités \\
+\hline
+{\em char} & appel de fichier \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{attaque_8c_a8f5474ee2dbc36d0368b9d0a5742d608}\label{attaque_8c_a8f5474ee2dbc36d0368b9d0a5742d608}} 
+\index{attaque.c@{attaque.c}!enlever\_attaque@{enlever\_attaque}}
+\index{enlever\_attaque@{enlever\_attaque}!attaque.c@{attaque.c}}
+\doxysubsubsection{\texorpdfstring{enlever\_attaque()}{enlever\_attaque()}}
+{\footnotesize\ttfamily void enlever\+\_\+attaque (\begin{DoxyParamCaption}\item[{attaque\+\_\+t $\ast$}]{tab\mbox{[}\+NB\+\_\+\+MAX\+\_\+\+ATT\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Suppression de toutes les attaques du tableau et passage à NULL de celui-\/ci. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em attaque\+\_\+t} & tableau des attaques \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{attaque_8c_a9f72c31f13b735edefbacd61fef5d5c3}\label{attaque_8c_a9f72c31f13b735edefbacd61fef5d5c3}} 
+\index{attaque.c@{attaque.c}!enlever\_attaque\_tableau@{enlever\_attaque\_tableau}}
+\index{enlever\_attaque\_tableau@{enlever\_attaque\_tableau}!attaque.c@{attaque.c}}
+\doxysubsubsection{\texorpdfstring{enlever\_attaque\_tableau()}{enlever\_attaque\_tableau()}}
+{\footnotesize\ttfamily void enlever\+\_\+attaque\+\_\+tableau (\begin{DoxyParamCaption}\item[{attaque\+\_\+t $\ast$}]{tab\mbox{[}\+NB\+\_\+\+MAX\+\_\+\+ATT\mbox{]},  }\item[{void $\ast$}]{element }\end{DoxyParamCaption})}
+
+
+
+Suppression d\textquotesingle{}une attaque du tableau. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em attaque\+\_\+t} & tableau des attaques \\
+\hline
+{\em void} & Attaque à enlever \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{attaque_8c_a4ddbd08f4d9b11b36fff07b1918c9df8}\label{attaque_8c_a4ddbd08f4d9b11b36fff07b1918c9df8}} 
+\index{attaque.c@{attaque.c}!synchro\_attaque@{synchro\_attaque}}
+\index{synchro\_attaque@{synchro\_attaque}!attaque.c@{attaque.c}}
+\doxysubsubsection{\texorpdfstring{synchro\_attaque()}{synchro\_attaque()}}
+{\footnotesize\ttfamily void synchro\+\_\+attaque (\begin{DoxyParamCaption}\item[{attaque\+\_\+t $\ast$}]{tab\mbox{[}\+NB\+\_\+\+MAX\+\_\+\+ATT\mbox{]},  }\item[{double}]{temps }\end{DoxyParamCaption})}
+
+
+
+Actualisation du tableau des attaques. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em attaque\+\_\+t} & tableau des attaques \\
+\hline
+{\em double} & le temps \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{attaque_8c_a62f3fe679e7dcc8cb3ad7c88013d7442}\label{attaque_8c_a62f3fe679e7dcc8cb3ad7c88013d7442}} 
+\index{attaque.c@{attaque.c}!vider\_attaque@{vider\_attaque}}
+\index{vider\_attaque@{vider\_attaque}!attaque.c@{attaque.c}}
+\doxysubsubsection{\texorpdfstring{vider\_attaque()}{vider\_attaque()}}
+{\footnotesize\ttfamily void vider\+\_\+attaque (\begin{DoxyParamCaption}\item[{attaque\+\_\+t $\ast$}]{tab\mbox{[}\+NB\+\_\+\+MAX\+\_\+\+ATT\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Vidage du tableau. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em attaque\+\_\+t} & tableau des attaques \\
+\hline
+\end{DoxyParams}

@@ -2,6 +2,13 @@
 #include <ctype.h>
 #include "../../lib/niveaux/salle.h"
 
+/**
+* \file salle.c
+* \brief Module salle
+* \verion 1.0
+* \date Avril 2021
+*/
+
 /* CONSTANTES */
 
 int cpt_salle=0;
@@ -40,6 +47,11 @@ int chunk_entoure(salle_t * salle, chunk_t*  chunk){
 }
 */
 
+/**
+    \brief Vérification du type
+    \param char Position de la porte
+    \return Retourne VRAI si le type est correcte, FAUX sinon
+*/
 extern 
 booleen_t type_correct(char * type){
     
@@ -51,14 +63,13 @@ booleen_t type_correct(char * type){
     return VRAI;
 }
 
-/*  fonction chercher_chunk
-    paramètres:
-        salle: pointeur sur salle_t
-        x et y : int, position du chunk dans la salle
-    Retourne un pointeur sur le chunk aux positions x;y dans la salle
-    Retrouve un chunk dans une salle a partir de ses coordonées
+/**
+    \brief Cherche le chunk aux coordonnées et dans la salle donnée.
+    \param salle_t Pointeur sur la salle dans laquelle on regarde
+    \param int Coordonnée d'abscisses où chercher dans la salle
+    \param int Coordonnée d'ordonnées où chercher dans la salle
+    \return Retourne le chunk si on en trouve un, NULL sinon
 */
-
 static chunk_t * chercher_chunk(const salle_t * salle, int x, int y){
     int i;
     for(i=0;i<salle->nb_chunk; i++){
@@ -68,7 +79,11 @@ static chunk_t * chercher_chunk(const salle_t * salle, int x, int y){
     return NULL;
 }
 
-
+/**
+    \brief Calcule la largeur de la maximale de la salle
+    \param salle_t Salle à mesurer
+    \return Retourne la largeur de la salle
+*/
 static int chercher_max_x_chunk(salle_t * salle){
     int i,xmax=0;
     for(i=0;i<salle->nb_chunk;i++){
@@ -77,6 +92,11 @@ static int chercher_max_x_chunk(salle_t * salle){
     return xmax;
 }
 
+/**
+    \brief Calcule la hauteur de la maximale de la salle
+    \param salle_t Salle à mesurer
+    \return Retourne la hauteur de la salle
+*/
 static int chercher_max_y_chunk(salle_t * salle){
     int i,ymax=0;
     for(i=0;i<salle->nb_chunk;i++){
@@ -86,11 +106,10 @@ static int chercher_max_y_chunk(salle_t * salle){
 }
 
 
-/*  fonction salle_lire
-    paramètre:
-        salle: pointeur sur salle 
+/**
+    \brief Lecture de la salle
+    \param salle_t Salle a lire
 */
-
 static void salle_lire(const salle_t * salle){
     int i,j;
     printf("Salle %.0f;%.0f : \n",salle->position.x, salle->position.y);
@@ -105,12 +124,11 @@ static void salle_lire(const salle_t * salle){
     printf("\n");
 }
 
-/*  fonction salle_detruire
-    paramètre: 
-        salle: pointeur sur pointeur sur salle
-    reoturne OK si tout s'est bien passé
+/**
+    \brief Destruction d'une salle
+    \param salle_t Pointeur sur pointeur sur la salle a détruire
+    \return Retourne OK après la destruction
 */
-
 static err_t salle_detruire(salle_t ** salle){
     int i;
     if(*salle){
@@ -131,24 +149,22 @@ static err_t salle_detruire(salle_t ** salle){
     return OK;
 }
 
-/*  fonction salle_existe
-    paramètre:
-        salle: pointeur sur salle_t
-    Retourne VRAI si la salle existe FAUX sinon 
+/**
+    \brief Vérification d'existence d'une salle
+    \salle_t Pointeur sur la salle à tester
+    \return Retourne VRAI si la salle existe, FAUX sinon 
 */
-
 extern booleen_t salle_existe (salle_t *salle){
     if(salle)
         return VRAI;
     return FAUX;
 }
 
-/*  fonction salle_creer_type
-    paramètre:
-        type: chaine de caractères (cf ./generation/generation_explication.txt)
-    Retourne un pointeur sur salle_t si la salle est crée, NULL sinon 
+/**
+    \brief Création d'une salle a partir d'une référence
+    \param char Chaine de caractères (cf ./generation/generation_explication.txt)
+    \return Retourne un pointeur sur salle_t si la salle est crée, NULL sinon 
 */
-
 extern salle_t * salle_creer_type(char *type){
     int i=0,j=0,k=0, xchunk=0,ychunk=0,nbPortes=0, tot=0, taille;
     char * type_chunk=NULL;
@@ -192,13 +208,11 @@ extern salle_t * salle_creer_type(char *type){
     return salle;
 }
 
-/* fonction salle_creer
-    paramètre: 
-        type: chaine de caractères (cf ./generation/generation_explication.txt)
-    Retourne un pointeur sur salle_t si créer, NULL sinon 
-    salle_creer_type sert a initialiser seulement les attributs la ou cette fonction initialise les méthodes
+/**
+    \brief Création d'une salle
+    \param char Chaine de caractères (cf ./generation/generation_explication.txt)
+    \return Retourne un pointeur sur la salle créée, NULL sinon 
 */
-
 extern salle_t * salle_creer(char * type){
     salle_t * salle=NULL;
     salle=salle_creer_type(type);
@@ -214,6 +228,9 @@ extern salle_t * salle_creer(char * type){
     }
 }
 
+/**
+    \brief Affiche la référence de la salle par printf
+*/
 extern void salle_afficher_ref(){
     printf("Nombre de ref de salle : %d\n", cpt_salle);
 }

@@ -1,0 +1,492 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Foodungeon: Référence du fichier src/niveaux/chunk.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Foodungeon
+   </div>
+   <div id="projectbrief">Foodungeon est un jeu de type Roguelike.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a736ac6b7f9b5884ec538f40e9b0a17c.html">niveaux</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Fonctions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle">
+<div class="title">Référence du fichier chunk.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>Module chunk \verion 1.0.  
+<a href="#details">Plus de détails...</a></p>
+<div class="textblock"><code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &lt;ctype.h&gt;</code><br />
+<code>#include &quot;../../lib/niveaux/chunk.h&quot;</code><br />
+<code>#include &quot;../../lib/niveaux/salle.h&quot;</code><br />
+<code>#include &quot;string.h&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:ae4d1134652a5962887fcf3b755edd9ef"><td class="memItemLeft" align="right" valign="top">booleen_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="chunk_8c.html#ae4d1134652a5962887fcf3b755edd9ef">coord_correcte</a> (int x, int y)</td></tr>
+<tr class="memdesc:ae4d1134652a5962887fcf3b755edd9ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vérification de coordonnées.  <a href="chunk_8c.html#ae4d1134652a5962887fcf3b755edd9ef">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ae4d1134652a5962887fcf3b755edd9ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6f0a714fa768859369f228e784f2f35"><td class="memItemLeft" align="right" valign="top">pos_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="chunk_8c.html#ac6f0a714fa768859369f228e784f2f35">prochain_mur</a> (int x, int y, chunk_t *chunk)</td></tr>
+<tr class="memdesc:ac6f0a714fa768859369f228e784f2f35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cherche les coordonnées du mur le plus proche.  <a href="chunk_8c.html#ac6f0a714fa768859369f228e784f2f35">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ac6f0a714fa768859369f228e784f2f35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3175ef0265a064910e1f21d6e8e09a48"><td class="memItemLeft" align="right" valign="top">pos_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="chunk_8c.html#a3175ef0265a064910e1f21d6e8e09a48">prochain_pont</a> (int x, int y, chunk_t *chunk)</td></tr>
+<tr class="memdesc:a3175ef0265a064910e1f21d6e8e09a48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cherche les coordonnées du pont le plus proche.  <a href="chunk_8c.html#a3175ef0265a064910e1f21d6e8e09a48">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a3175ef0265a064910e1f21d6e8e09a48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59f4013906d5252469d6405534f88b58"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="chunk_8c.html#a59f4013906d5252469d6405534f88b58">attribut_mur</a> (int x, int y, int *w, int *h, chunk_t *chunk)</td></tr>
+<tr class="memdesc:a59f4013906d5252469d6405534f88b58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcule la taille d'un mur.  <a href="chunk_8c.html#a59f4013906d5252469d6405534f88b58">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a59f4013906d5252469d6405534f88b58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59a87b5d870f67bc9d818bb95ee40974"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="chunk_8c.html#a59a87b5d870f67bc9d818bb95ee40974">attribut_pont</a> (int x, int y, int *w, chunk_t *chunk)</td></tr>
+<tr class="memdesc:a59a87b5d870f67bc9d818bb95ee40974"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcule la taille d'un pont.  <a href="chunk_8c.html#a59a87b5d870f67bc9d818bb95ee40974">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a59a87b5d870f67bc9d818bb95ee40974"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6852d17d451be78817d7c11a6857f89f"><td class="memItemLeft" align="right" valign="top">booleen_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="chunk_8c.html#a6852d17d451be78817d7c11a6857f89f">chunk_existe</a> (chunk_t *chunk)</td></tr>
+<tr class="memdesc:a6852d17d451be78817d7c11a6857f89f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vérifie si un chunk existe.  <a href="chunk_8c.html#a6852d17d451be78817d7c11a6857f89f">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a6852d17d451be78817d7c11a6857f89f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af67a8aaa2ded9149f37a6203e24b8573"><td class="memItemLeft" align="right" valign="top">err_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="chunk_8c.html#af67a8aaa2ded9149f37a6203e24b8573">creer_pont_chaine</a> (chunk_t *chunk, char *type)</td></tr>
+<tr class="memdesc:af67a8aaa2ded9149f37a6203e24b8573"><td class="mdescLeft">&#160;</td><td class="mdescRight">Création de pont.  <a href="chunk_8c.html#af67a8aaa2ded9149f37a6203e24b8573">Plus de détails...</a><br /></td></tr>
+<tr class="separator:af67a8aaa2ded9149f37a6203e24b8573"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af87d0a18b4a280703d317cbd7ea8285d"><td class="memItemLeft" align="right" valign="top">chunk_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="chunk_8c.html#af87d0a18b4a280703d317cbd7ea8285d">chunk_creer</a> (salle_t *salle, int x, int y, int nb_portes, char *type)</td></tr>
+<tr class="memdesc:af87d0a18b4a280703d317cbd7ea8285d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction de création de chunk.  <a href="chunk_8c.html#af87d0a18b4a280703d317cbd7ea8285d">Plus de détails...</a><br /></td></tr>
+<tr class="separator:af87d0a18b4a280703d317cbd7ea8285d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aabdc8115ca752e955e3909c90c27afdf"><td class="memItemLeft" align="right" valign="top"><a id="aabdc8115ca752e955e3909c90c27afdf"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="chunk_8c.html#aabdc8115ca752e955e3909c90c27afdf">chunk_afficher_ref</a> ()</td></tr>
+<tr class="memdesc:aabdc8115ca752e955e3909c90c27afdf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Affiche dans un printf le nombre de référence du chunk. <br /></td></tr>
+<tr class="separator:aabdc8115ca752e955e3909c90c27afdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a6298021354a2f3dac7f3a9a5f8076a2e"><td class="memItemLeft" align="right" valign="top"><a id="a6298021354a2f3dac7f3a9a5f8076a2e"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>cpt_chunk</b> =0</td></tr>
+<tr class="separator:a6298021354a2f3dac7f3a9a5f8076a2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p>Module chunk \verion 1.0. </p>
+<dl class="section date"><dt>Date</dt><dd>Avril 2021 </dd></dl>
+</div><h2 class="groupheader">Documentation des fonctions</h2>
+<a id="a59f4013906d5252469d6405534f88b58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59f4013906d5252469d6405534f88b58">&#9670;&nbsp;</a></span>attribut_mur()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void attribut_mur </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">chunk_t *&#160;</td>
+          <td class="paramname"><em>chunk</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calcule la taille d'un mur. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">int</td><td>Coordonnée d'abscisse </td></tr>
+    <tr><td class="paramname">int</td><td>Coordonnée d'ordonnée </td></tr>
+    <tr><td class="paramname">int</td><td>Pointeur sur la largeur du mur sue l'on mesure, sera édité </td></tr>
+    <tr><td class="paramname">int</td><td>Pointeur sur la hauteur du mur sue l'on mesure, sera édité </td></tr>
+    <tr><td class="paramname">chunk_t</td><td>Chunk où l'on recherche </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a59a87b5d870f67bc9d818bb95ee40974"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59a87b5d870f67bc9d818bb95ee40974">&#9670;&nbsp;</a></span>attribut_pont()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void attribut_pont </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">chunk_t *&#160;</td>
+          <td class="paramname"><em>chunk</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calcule la taille d'un pont. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">int</td><td>Coordonnée d'abscisse </td></tr>
+    <tr><td class="paramname">int</td><td>Coordonnée d'ordonnée </td></tr>
+    <tr><td class="paramname">int</td><td>Pointeur sur la largeur du pont sue l'on mesure, sera édité </td></tr>
+    <tr><td class="paramname">int</td><td>Pointeur sur la hauteur du pont sue l'on mesure, sera édité </td></tr>
+    <tr><td class="paramname">chunk_t</td><td>Chunk où l'on recherche </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="af87d0a18b4a280703d317cbd7ea8285d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af87d0a18b4a280703d317cbd7ea8285d">&#9670;&nbsp;</a></span>chunk_creer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">chunk_t* chunk_creer </td>
+          <td>(</td>
+          <td class="paramtype">salle_t *&#160;</td>
+          <td class="paramname"><em>salle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>nb_portes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>type</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction de création de chunk. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">int</td><td>Position d'abscisse du chunk dans la salle </td></tr>
+    <tr><td class="paramname">int</td><td>Position d'ordonnée du chunk dans la salle </td></tr>
+    <tr><td class="paramname">int</td><td>Nombres de portes dans le chunk </td></tr>
+    <tr><td class="paramname">char</td><td>chaine donnant les positions de chaque porte </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Le chunk créé </dd></dl>
+
+</div>
+</div>
+<a id="a6852d17d451be78817d7c11a6857f89f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6852d17d451be78817d7c11a6857f89f">&#9670;&nbsp;</a></span>chunk_existe()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">booleen_t chunk_existe </td>
+          <td>(</td>
+          <td class="paramtype">chunk_t *&#160;</td>
+          <td class="paramname"><em>chunk</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vérifie si un chunk existe. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">chunk_t</td><td>Pointeur sur le chunk à vérifier </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Retourne VRAI si le chunk existe, FAUX sinon </dd></dl>
+
+</div>
+</div>
+<a id="ae4d1134652a5962887fcf3b755edd9ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4d1134652a5962887fcf3b755edd9ef">&#9670;&nbsp;</a></span>coord_correcte()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">booleen_t coord_correcte </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vérification de coordonnées. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">int</td><td>Coordonnée d'abscisse </td></tr>
+    <tr><td class="paramname">int</td><td>Coordonnée d'ordonnée </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>VRAI si les coordonnées sont correctes, FAUX sinon </dd></dl>
+
+</div>
+</div>
+<a id="af67a8aaa2ded9149f37a6203e24b8573"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af67a8aaa2ded9149f37a6203e24b8573">&#9670;&nbsp;</a></span>creer_pont_chaine()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">err_t creer_pont_chaine </td>
+          <td>(</td>
+          <td class="paramtype">chunk_t *&#160;</td>
+          <td class="paramname"><em>chunk</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>type</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Création de pont. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">chunk_t</td><td>Pointeur sur le chunk où créer </td></tr>
+    <tr><td class="paramname">char</td><td>Pointeur sur la position des ponts </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Retourne OK après la création </dd></dl>
+
+</div>
+</div>
+<a id="ac6f0a714fa768859369f228e784f2f35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6f0a714fa768859369f228e784f2f35">&#9670;&nbsp;</a></span>prochain_mur()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">pos_t prochain_mur </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">chunk_t *&#160;</td>
+          <td class="paramname"><em>chunk</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Cherche les coordonnées du mur le plus proche. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">int</td><td>Coordonnée d'abscisse </td></tr>
+    <tr><td class="paramname">int</td><td>Coordonnée d'ordonnée \chunk_t Chunk où l'on recherche </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Retourne la position de l'élément si on le trouve, sinon pos.x = -1. </dd></dl>
+
+</div>
+</div>
+<a id="a3175ef0265a064910e1f21d6e8e09a48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3175ef0265a064910e1f21d6e8e09a48">&#9670;&nbsp;</a></span>prochain_pont()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">pos_t prochain_pont </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">chunk_t *&#160;</td>
+          <td class="paramname"><em>chunk</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Cherche les coordonnées du pont le plus proche. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">int</td><td>Coordonnée d'abscisse </td></tr>
+    <tr><td class="paramname">int</td><td>Coordonnée d'ordonnée </td></tr>
+    <tr><td class="paramname">chunk_t</td><td>Chunk où l'on recherche </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Retourne la position de l'élément si on le trouve, sinon pos.x = -1. </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré par&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+</small></address>
+</body>
+</html>

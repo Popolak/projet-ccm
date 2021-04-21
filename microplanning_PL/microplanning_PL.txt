@@ -1,6 +1,6 @@
 09/02 - Définition de la structure ennemis
 12/03 - Amélioration des ennemis (ajout defense, vitesse, vitesse d'attaque, quelques fonctions)
-
-
+25/03 - Préparation du commit ennemis, début structure inventaire
+29/03 - Doxygenation
 
 

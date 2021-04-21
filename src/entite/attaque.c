@@ -4,6 +4,20 @@
 
 #include "../../lib/entite/attaque.h"
 
+/**
+* \file attaque.c
+* \brief Module attaque
+* \verion 1.0
+* \date Avril 2021
+*/
+
+
+/**
+    \brief Ajout d'une attaque dans le tableau
+    \param attaque_t tableau des attaques
+    \param void Attaque à ajouter
+    \return Retourne 0 si l'ajout échoue
+*/
 extern 
 int ajouter_attaque( attaque_t * tab[NB_MAX_ATT], attaque_t* ptr){
     int i;
@@ -13,6 +27,10 @@ int ajouter_attaque( attaque_t * tab[NB_MAX_ATT], attaque_t* ptr){
     tab[i]=ptr;
 }
 
+/**
+    \brief Suppression de toutes les attaques du tableau et passage à NULL de celui-ci
+    \param attaque_t tableau des attaques
+*/
 extern 
 void enlever_attaque(attaque_t * tab[NB_MAX_ATT] ){
     int i;
@@ -24,6 +42,10 @@ void enlever_attaque(attaque_t * tab[NB_MAX_ATT] ){
     tab[i]=NULL;
 }
 
+/**
+    \brief Vidage du tableau
+    \param attaque_t tableau des attaques
+*/
 extern 
 void vider_attaque(attaque_t * tab[NB_MAX_ATT] ){
     int i;
@@ -32,6 +54,14 @@ void vider_attaque(attaque_t * tab[NB_MAX_ATT] ){
     }
 }
 
+/**
+    \brief Affichage du tableau des attaques
+    \param attaque_t tableau des attaques
+    \param SDL_Renderer un point sur renderer
+    \param int Largeur de la fenêtre
+    \param int hauteur de la fenêtre
+    \return retourne OK
+*/
 extern err_t afficher_attaques (attaque_t * tab_ent[NB_MAX_AFF], SDL_Renderer * ren, int WINW, int WINH){
     int i;
     for(i=0;i<NB_MAX_AFF && tab_ent[i]!=NULL; i++){
@@ -40,6 +70,11 @@ extern err_t afficher_attaques (attaque_t * tab_ent[NB_MAX_AFF], SDL_Renderer * 
     return OK;
 }
 
+/**
+    \brief Suppression d'une attaque du tableau
+    \param attaque_t tableau des attaques
+    \param void Attaque à enlever
+*/
 extern
 void enlever_attaque_tableau(attaque_t * tab[NB_MAX_ATT],void *element ){
     int i,j;
@@ -53,6 +88,11 @@ void enlever_attaque_tableau(attaque_t * tab[NB_MAX_ATT],void *element ){
     }
 }
 
+/**
+    \brief Actualisation du tableau des attaques
+    \param attaque_t tableau des attaques
+    \param double le temps
+*/
 extern 
 void synchro_attaque(attaque_t * tab[NB_MAX_ATT],double temps){
     int i,j;
@@ -68,6 +108,15 @@ static
 int attaque_update_speed (void * perso, void * joueur,int tot_touche){
 }
 
+/**
+    \brief Action de contact entre une entité et une attaque
+    \param SDL_renderer pointeur sur le renderer
+    \param attaque_t tableau des attaques
+    \param void tableau des entités
+    \param err_t Tableau de fonctions de destructions
+    \param FILE index fichier de génération original des entités
+    \param char appel de fichier
+*/
 extern
 void contact_attaque_ennemis(SDL_Renderer* ren, 
                              attaque_t * tab_att[NB_MAX_ATT], 
@@ -85,7 +134,11 @@ void contact_attaque_ennemis(SDL_Renderer* ren,
 }
 
 
-
+/**
+    \brief Deplacement d'une entité
+    \param void entité selectionnée
+    \param double le temps
+*/
 static 
 int attaque_deplacement(void * element,double temps ){
     pos_t pos_mur;
@@ -180,7 +233,16 @@ int attaque_deplacement(void * element,double temps ){
     
 }
 
-
+/**
+    \brief Attaque
+    \param SDL_renderer pointeur vers le renderer
+    \param void attaque provoquée
+    \param void entitée ciblée
+    \param void tableau des entités
+    \param err_t Tableau de fonctions de destructions
+    \param FILE index fichier de génération original des entités
+    \param char appel de fichier
+*/
 static 
 void attaque_action_agit(SDL_Renderer * ren,void * attaque, void * element, void * tab[NB_MAX_AFF],err_t (*tab_destr[NB_MAX_AFF])(void ** ), FILE * index, char * appel ){
     if(((entite_t*)attaque)->contact(((entite_t*)attaque),((entite_t*)element))){
@@ -188,6 +250,11 @@ void attaque_action_agit(SDL_Renderer * ren,void * attaque, void * element, void
     }
 }
 
+/**
+    \brief Suppression d'une attaque
+    \param attaque_t L'attaque à supprimer
+    \return Retourne OK si l'attaque est supprimée ou si elle n'existe pas. ERR_DEB_MEMOIRE en cas d'échec
+*/
 static
 err_t attaque_detruire(attaque_t **  attaque){
     entite_t * ent;
@@ -202,6 +269,30 @@ err_t attaque_detruire(attaque_t **  attaque){
     return OK;
 }
 
+/**
+    \brief fonction de création d'une attaque
+    \param char nom de l'attaque
+    \param char description de l'attaque
+    \param salle_t salle de la carte où se trouve l'entité
+    \param chunk_t chunk de la carte où se trouve l'entité
+    \param pos_t position dans le chunk
+    \param float vitesse de l'entité sur l'axe x
+    \param float vitesse de l'entité sur l'axe y
+    \param float vitesse maximale sur l'axe y d'un saut de l'entité,
+    \param float sprite secondaire pour les animations
+    \param int largeur de l'entité,
+    \param int hauteur de l'entité,
+    \param int largeur de la hitbox de l'entité
+    \param int hauteur de la hitbox de l'entité
+    \param int décalage de la hitbox par rapport à la position de l'entité
+    \param booleen_t soumission ou non de l'entité à la gravité
+    \param int dégâts infligés par l'entité si elle frappe
+    \param float durée de vie de l'entité
+    \param entite_t entité propriétaire de l'attaque
+    \param int nombre de textures employées par l'entité
+    \param SDL_Texture sprite de l'entité
+    \return L'entité fraichement crée
+*/
 extern 
 entite_t * attaque_creer(char * nom, 
                         char *description,

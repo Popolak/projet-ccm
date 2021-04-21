@@ -1,7 +1,23 @@
 /* Par Matthis */
 
 #include "../../lib/generation/element_generation.h"
+/**
+* \file element_generation.c
+* \brief Module de génération
+* \verion 1.0
+* \date Avril 2021
+*/
 
+/**
+    \brief Création de la chaine
+    \param SDL_Renderer Pointeur vers le renderer
+    \param int Entier à chercher dans le fichier
+    \param perso_t Personnage recherché
+    \param char Chaine de localisation
+    \param FILE Fichier utilisé
+    \param char Appel du fichier
+    \return Retourne OK après le traitement
+*/
 extern 
 void * creer_entite_chaine(SDL_Renderer *ren, int *n,const perso_t const * joueur, char * chaine,  FILE * index, char * appel){
     void * element;

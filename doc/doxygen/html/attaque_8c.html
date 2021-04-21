@@ -1,0 +1,564 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Foodungeon: Référence du fichier src/entite/attaque.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Foodungeon
+   </div>
+   <div id="projectbrief">Foodungeon est un jeu de type Roguelike.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_0f1727641c541944a68db6b639684ad8.html">entite</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Fonctions</a>  </div>
+  <div class="headertitle">
+<div class="title">Référence du fichier attaque.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>Module attaque \verion 1.0.  
+<a href="#details">Plus de détails...</a></p>
+<div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &quot;../../lib/entite/attaque.h&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:a6bed26721fdfcfdcbdcf8855a890104a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="attaque_8c.html#a6bed26721fdfcfdcbdcf8855a890104a">ajouter_attaque</a> (attaque_t *tab[NB_MAX_ATT], attaque_t *ptr)</td></tr>
+<tr class="memdesc:a6bed26721fdfcfdcbdcf8855a890104a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajout d'une attaque dans le tableau.  <a href="attaque_8c.html#a6bed26721fdfcfdcbdcf8855a890104a">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a6bed26721fdfcfdcbdcf8855a890104a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f5474ee2dbc36d0368b9d0a5742d608"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="attaque_8c.html#a8f5474ee2dbc36d0368b9d0a5742d608">enlever_attaque</a> (attaque_t *tab[NB_MAX_ATT])</td></tr>
+<tr class="memdesc:a8f5474ee2dbc36d0368b9d0a5742d608"><td class="mdescLeft">&#160;</td><td class="mdescRight">Suppression de toutes les attaques du tableau et passage à NULL de celui-ci.  <a href="attaque_8c.html#a8f5474ee2dbc36d0368b9d0a5742d608">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a8f5474ee2dbc36d0368b9d0a5742d608"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62f3fe679e7dcc8cb3ad7c88013d7442"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="attaque_8c.html#a62f3fe679e7dcc8cb3ad7c88013d7442">vider_attaque</a> (attaque_t *tab[NB_MAX_ATT])</td></tr>
+<tr class="memdesc:a62f3fe679e7dcc8cb3ad7c88013d7442"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vidage du tableau.  <a href="attaque_8c.html#a62f3fe679e7dcc8cb3ad7c88013d7442">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a62f3fe679e7dcc8cb3ad7c88013d7442"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a628be9410d024b7d1beb54a1448e6e24"><td class="memItemLeft" align="right" valign="top">err_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="attaque_8c.html#a628be9410d024b7d1beb54a1448e6e24">afficher_attaques</a> (attaque_t *tab_ent[NB_MAX_AFF], SDL_Renderer *ren, int WINW, int WINH)</td></tr>
+<tr class="memdesc:a628be9410d024b7d1beb54a1448e6e24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Affichage du tableau des attaques.  <a href="attaque_8c.html#a628be9410d024b7d1beb54a1448e6e24">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a628be9410d024b7d1beb54a1448e6e24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f72c31f13b735edefbacd61fef5d5c3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="attaque_8c.html#a9f72c31f13b735edefbacd61fef5d5c3">enlever_attaque_tableau</a> (attaque_t *tab[NB_MAX_ATT], void *element)</td></tr>
+<tr class="memdesc:a9f72c31f13b735edefbacd61fef5d5c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Suppression d'une attaque du tableau.  <a href="attaque_8c.html#a9f72c31f13b735edefbacd61fef5d5c3">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a9f72c31f13b735edefbacd61fef5d5c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ddbd08f4d9b11b36fff07b1918c9df8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="attaque_8c.html#a4ddbd08f4d9b11b36fff07b1918c9df8">synchro_attaque</a> (attaque_t *tab[NB_MAX_ATT], double temps)</td></tr>
+<tr class="memdesc:a4ddbd08f4d9b11b36fff07b1918c9df8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Actualisation du tableau des attaques.  <a href="attaque_8c.html#a4ddbd08f4d9b11b36fff07b1918c9df8">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a4ddbd08f4d9b11b36fff07b1918c9df8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac55a63dcc765f11b3b8f4653304537ef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="attaque_8c.html#ac55a63dcc765f11b3b8f4653304537ef">contact_attaque_ennemis</a> (SDL_Renderer *ren, attaque_t *tab_att[NB_MAX_ATT], void *tab[NB_MAX_AFF], err_t(*tab_destr[NB_MAX_AFF])(void **), FILE *index, char *appel)</td></tr>
+<tr class="memdesc:ac55a63dcc765f11b3b8f4653304537ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Action de contact entre une entité et une attaque.  <a href="attaque_8c.html#ac55a63dcc765f11b3b8f4653304537ef">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ac55a63dcc765f11b3b8f4653304537ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae02eaca92f32521960cd19ff0d50856d"><td class="memItemLeft" align="right" valign="top">entite_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="attaque_8c.html#ae02eaca92f32521960cd19ff0d50856d">attaque_creer</a> (char *nom, char *description, salle_t *salle, chunk_t *chunk, pos_t pos, float vitesse_x, float vitesse_y, float vitesse_max_y, float secSprite, int w, int h, int w_hitbox, int h_hitbox, int offset_hitbox, booleen_t gravite, int degats, float duree_vie, entite_t *entite_liee, int nbTextures, SDL_Texture **textures)</td></tr>
+<tr class="memdesc:ae02eaca92f32521960cd19ff0d50856d"><td class="mdescLeft">&#160;</td><td class="mdescRight">fonction de création d'une attaque  <a href="attaque_8c.html#ae02eaca92f32521960cd19ff0d50856d">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ae02eaca92f32521960cd19ff0d50856d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p>Module attaque \verion 1.0. </p>
+<dl class="section date"><dt>Date</dt><dd>Avril 2021 </dd></dl>
+</div><h2 class="groupheader">Documentation des fonctions</h2>
+<a id="a628be9410d024b7d1beb54a1448e6e24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a628be9410d024b7d1beb54a1448e6e24">&#9670;&nbsp;</a></span>afficher_attaques()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">err_t afficher_attaques </td>
+          <td>(</td>
+          <td class="paramtype">attaque_t *&#160;</td>
+          <td class="paramname"><em>tab_ent</em>[NB_MAX_AFF], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Renderer *&#160;</td>
+          <td class="paramname"><em>ren</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>WINW</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>WINH</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Affichage du tableau des attaques. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">attaque_t</td><td>tableau des attaques </td></tr>
+    <tr><td class="paramname">SDL_Renderer</td><td>un point sur renderer </td></tr>
+    <tr><td class="paramname">int</td><td>Largeur de la fenêtre </td></tr>
+    <tr><td class="paramname">int</td><td>hauteur de la fenêtre </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>retourne OK </dd></dl>
+
+</div>
+</div>
+<a id="a6bed26721fdfcfdcbdcf8855a890104a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6bed26721fdfcfdcbdcf8855a890104a">&#9670;&nbsp;</a></span>ajouter_attaque()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ajouter_attaque </td>
+          <td>(</td>
+          <td class="paramtype">attaque_t *&#160;</td>
+          <td class="paramname"><em>tab</em>[NB_MAX_ATT], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">attaque_t *&#160;</td>
+          <td class="paramname"><em>ptr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ajout d'une attaque dans le tableau. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">attaque_t</td><td>tableau des attaques </td></tr>
+    <tr><td class="paramname">void</td><td>Attaque à ajouter </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Retourne 0 si l'ajout échoue </dd></dl>
+
+</div>
+</div>
+<a id="ae02eaca92f32521960cd19ff0d50856d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae02eaca92f32521960cd19ff0d50856d">&#9670;&nbsp;</a></span>attaque_creer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">entite_t* attaque_creer </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>nom</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>description</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">salle_t *&#160;</td>
+          <td class="paramname"><em>salle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">chunk_t *&#160;</td>
+          <td class="paramname"><em>chunk</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">pos_t&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>vitesse_x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>vitesse_y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>vitesse_max_y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>secSprite</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>w_hitbox</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>h_hitbox</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>offset_hitbox</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">booleen_t&#160;</td>
+          <td class="paramname"><em>gravite</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>degats</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>duree_vie</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">entite_t *&#160;</td>
+          <td class="paramname"><em>entite_liee</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>nbTextures</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Texture **&#160;</td>
+          <td class="paramname"><em>textures</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>fonction de création d'une attaque </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">char</td><td>nom de l'attaque </td></tr>
+    <tr><td class="paramname">char</td><td>description de l'attaque </td></tr>
+    <tr><td class="paramname">salle_t</td><td>salle de la carte où se trouve l'entité </td></tr>
+    <tr><td class="paramname">chunk_t</td><td>chunk de la carte où se trouve l'entité </td></tr>
+    <tr><td class="paramname">pos_t</td><td>position dans le chunk </td></tr>
+    <tr><td class="paramname">float</td><td>vitesse de l'entité sur l'axe x </td></tr>
+    <tr><td class="paramname">float</td><td>vitesse de l'entité sur l'axe y </td></tr>
+    <tr><td class="paramname">float</td><td>vitesse maximale sur l'axe y d'un saut de l'entité, </td></tr>
+    <tr><td class="paramname">float</td><td>sprite secondaire pour les animations </td></tr>
+    <tr><td class="paramname">int</td><td>largeur de l'entité, </td></tr>
+    <tr><td class="paramname">int</td><td>hauteur de l'entité, </td></tr>
+    <tr><td class="paramname">int</td><td>largeur de la hitbox de l'entité </td></tr>
+    <tr><td class="paramname">int</td><td>hauteur de la hitbox de l'entité </td></tr>
+    <tr><td class="paramname">int</td><td>décalage de la hitbox par rapport à la position de l'entité </td></tr>
+    <tr><td class="paramname">booleen_t</td><td>soumission ou non de l'entité à la gravité </td></tr>
+    <tr><td class="paramname">int</td><td>dégâts infligés par l'entité si elle frappe </td></tr>
+    <tr><td class="paramname">float</td><td>durée de vie de l'entité </td></tr>
+    <tr><td class="paramname">entite_t</td><td>entité propriétaire de l'attaque </td></tr>
+    <tr><td class="paramname">int</td><td>nombre de textures employées par l'entité </td></tr>
+    <tr><td class="paramname">SDL_Texture</td><td>sprite de l'entité </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>L'entité fraichement crée </dd></dl>
+
+</div>
+</div>
+<a id="ac55a63dcc765f11b3b8f4653304537ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac55a63dcc765f11b3b8f4653304537ef">&#9670;&nbsp;</a></span>contact_attaque_ennemis()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void contact_attaque_ennemis </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Renderer *&#160;</td>
+          <td class="paramname"><em>ren</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">attaque_t *&#160;</td>
+          <td class="paramname"><em>tab_att</em>[NB_MAX_ATT], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>tab</em>[NB_MAX_AFF], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">err_t(*[])(void **)&#160;</td>
+          <td class="paramname"><em>NB_MAX_AFF</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FILE *&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>appel</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Action de contact entre une entité et une attaque. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">SDL_renderer</td><td>pointeur sur le renderer </td></tr>
+    <tr><td class="paramname">attaque_t</td><td>tableau des attaques </td></tr>
+    <tr><td class="paramname">void</td><td>tableau des entités </td></tr>
+    <tr><td class="paramname">err_t</td><td>Tableau de fonctions de destructions </td></tr>
+    <tr><td class="paramname">FILE</td><td>index fichier de génération original des entités </td></tr>
+    <tr><td class="paramname">char</td><td>appel de fichier </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a8f5474ee2dbc36d0368b9d0a5742d608"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f5474ee2dbc36d0368b9d0a5742d608">&#9670;&nbsp;</a></span>enlever_attaque()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void enlever_attaque </td>
+          <td>(</td>
+          <td class="paramtype">attaque_t *&#160;</td>
+          <td class="paramname"><em>tab</em>[NB_MAX_ATT]</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Suppression de toutes les attaques du tableau et passage à NULL de celui-ci. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">attaque_t</td><td>tableau des attaques </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a9f72c31f13b735edefbacd61fef5d5c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f72c31f13b735edefbacd61fef5d5c3">&#9670;&nbsp;</a></span>enlever_attaque_tableau()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void enlever_attaque_tableau </td>
+          <td>(</td>
+          <td class="paramtype">attaque_t *&#160;</td>
+          <td class="paramname"><em>tab</em>[NB_MAX_ATT], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>element</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Suppression d'une attaque du tableau. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">attaque_t</td><td>tableau des attaques </td></tr>
+    <tr><td class="paramname">void</td><td>Attaque à enlever </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a4ddbd08f4d9b11b36fff07b1918c9df8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ddbd08f4d9b11b36fff07b1918c9df8">&#9670;&nbsp;</a></span>synchro_attaque()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void synchro_attaque </td>
+          <td>(</td>
+          <td class="paramtype">attaque_t *&#160;</td>
+          <td class="paramname"><em>tab</em>[NB_MAX_ATT], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>temps</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Actualisation du tableau des attaques. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">attaque_t</td><td>tableau des attaques </td></tr>
+    <tr><td class="paramname">double</td><td>le temps </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a62f3fe679e7dcc8cb3ad7c88013d7442"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62f3fe679e7dcc8cb3ad7c88013d7442">&#9670;&nbsp;</a></span>vider_attaque()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vider_attaque </td>
+          <td>(</td>
+          <td class="paramtype">attaque_t *&#160;</td>
+          <td class="paramname"><em>tab</em>[NB_MAX_ATT]</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vidage du tableau. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">attaque_t</td><td>tableau des attaques </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré par&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+</small></address>
+</body>
+</html>

@@ -5,7 +5,19 @@
 #include <math.h>
 #include "../../lib/entite/ennemi.h"
 #include "../../lib/generation/element_generation.h"
+/**
+* \file ennemi.c
+* \brief Module ennemi
+* \verion 1.0
+* \date Avril 2021
+*/
 
+/**
+	\brief Vérifier si l'entité ent est à portée de l'ennemi ennemi
+	\param ennemi_t L'ennemi qui cherche qui est à sa portée
+	\param entite_t L'entité dont on vérifie l'emplacement
+	\return VRAI si ent est à portée, FAUX sinon
+*/
 static
 booleen_t in_range(ennemi_t * ennemi,entite_t *ent ){
 	if(  (ennemi->range >abs( ennemi->pos.y-(ent->pos.y + ent->offset_hitbox* (ent->dir==DROITE ? 1 :-1))) && (ennemi->h/2 >= abs(ent->pos.x-ennemi->pos.x))))
@@ -13,18 +25,34 @@ booleen_t in_range(ennemi_t * ennemi,entite_t *ent ){
 	return FAUX;
 }
 
+/**
+	\brief Remplis le tableau d'attaque avec l'attaque d'un personnage
+	\param SDL_renderer Pointeur vers le renderer
+	\param attaque_t Tableau des attaques
+	\param err_t Tableau de fonctions de destructions 
+	\param perso le personnage dont on ajoute l'attaque
+	\param FILE index fichier de génération original des entités
+    \param char appel de fichier
+    \return Retourne 0 à l'issu de l'insertion
+*/
 static
 int ennemi_creer_ajouter_attaque(SDL_Renderer *ren,attaque_t * tab[NB_MAX_AFF],err_t (*tab_destr[NB_MAX_AFF])(void ** ), perso_t * perso, FILE * index, char * appel ){
 	int n;
 	char str[30];
 	strcpy(str,perso->nom_attaque);
 	strcat(str," -1 -1 0 0");
-	attaque_t * attaque= (attaque_t*) creer_entite_chaine(ren,&n,perso,str,index,appel);
+	attaque_t * attaque= (attaque_t*) (ren,&n,perso,str,index,appel);
 	ajouter_tableaux((void**)tab,tab_destr,attaque,attaque->detruire);
 
 	return 0;
 }
 
+/**
+	\brief Gère la vitesse d'un ennemi par rapport à la position d'une entité
+	\param void Un pointeur sur un ennemi
+	\param void Un pointeur sur un personnage
+    \return Retourne 0 à la fin du traitement
+*/
 static 
 int ennemi_input_update_speed (void * element,void * element_joueur, int tot_touche){
 	ennemi_t *perso=(ennemi_t*) element;
@@ -47,6 +75,12 @@ int ennemi_input_update_speed (void * element,void * element_joueur, int tot_tou
 	return 0;
 }
 
+/**
+	\brief Execute un déplacement d'un ennemi
+	\param void Un pointeur sur un ennemi
+	\param double Le temps
+    \return Retourne 0 à la fin du traitement
+*/
 static 
 int ennemi_deplacement(void * element,double temps ){
     pos_t pos_mur;
@@ -147,6 +181,16 @@ int ennemi_deplacement(void * element,double temps ){
 }
 
 
+/**
+	\brief Une entité execute une action sur une autre
+	\param SDL_renderer Pointeur vers le renderer
+	\param void Pointeur vers l'entité qui execute l'action 
+	\param void Pointeur vers l'entité qui subit l'action 
+	\param void Tableau d'entités
+	\param err_t Tableau de pointeur sur des fonctions de destruction
+	\param FILE index fichier de génération original des entités
+    \param char appel de fichier
+ */
 static
 void ennemi_action_agit(SDL_Renderer * ren,void * ent_courante, void * ent_subit, void * tab[NB_MAX_AFF],err_t (*tab_destr[NB_MAX_AFF])(void ** ), FILE * index, char * appel ){
 	
@@ -159,6 +203,11 @@ void ennemi_action_agit(SDL_Renderer * ren,void * ent_courante, void * ent_subit
 		((entite_t*)ent_subit)->action_subit((entite_t*)ent_subit, ((ennemi_t*)ent_courante)->degats);
 }
 
+/**
+	\brief Détruit l'ennemi passé en paramètre
+	\param ennemi_t L'ennemi à détruire
+	\return Retourn OK si l'ennemi n'existe pas ou si l'opération réussi. Retourne ERR_DEB_MEMOIRE dans le cas contraire.
+*/
 static
 err_t ennemi_detruire(ennemi_t ** ennemi){
 	perso_t * perso=NULL;
@@ -175,7 +224,32 @@ err_t ennemi_detruire(ennemi_t ** ennemi){
 	
 }
 
-
+/**
+	\brief Création d'un ennemi
+	\param char Nom de l'ennemi 
+	\param char Description
+	\param int Vie
+	\param salle_t Pointeur sur salle de l'ennemi
+	\param chunk_t Pointeur sur chunk de l'ennemi
+	\param pos_t Posistion dans la salle
+	\param float Vitesse horizontale
+	\param float Vitesse Verticale
+	\param float Vitesse verticale maximale
+	\param float vitesse de saut
+    \param int Largeur
+    \param int Hauteur
+	\param int Largeur de la hitbox
+	\param int Hauteur de la hitbox
+	\param int Décalage de la hitbox
+	\param float Sprite secondaire
+	\param float Vitesse d'attaque
+	\param int Attaque 
+	\param char Nom de l'attaque
+	\param int Portée d'attaque
+	\param int Nombre de texture
+	\param SDL_Texture Texture de l'ennemi
+	\return Retourne l'entité créée
+*/
 extern
 ennemi_t * ennemi_creer(char * nom, 
 					 char *description,

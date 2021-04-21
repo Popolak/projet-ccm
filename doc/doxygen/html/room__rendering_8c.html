@@ -1,0 +1,442 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Foodungeon: Référence du fichier src/affichage/room_rendering.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Foodungeon
+   </div>
+   <div id="projectbrief">Foodungeon est un jeu de type Roguelike.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a67d79324a6d0b647f562b732e3e362a.html">affichage</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Fonctions</a>  </div>
+  <div class="headertitle">
+<div class="title">Référence du fichier room_rendering.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>Module de rendu des environnements.  
+<a href="#details">Plus de détails...</a></p>
+<div class="textblock"><code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &quot;../../lib/affichage/room_rendering.h&quot;</code><br />
+<code>#include &quot;../../lib/niveaux/niveau.h&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:a454d965c7f071ec3c7f89c3e4241edb7"><td class="memItemLeft" align="right" valign="top">SDL_Texture *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="room__rendering_8c.html#a454d965c7f071ec3c7f89c3e4241edb7">creer_texture_image</a> (SDL_Renderer *ren, char *nom_image)</td></tr>
+<tr class="memdesc:a454d965c7f071ec3c7f89c3e4241edb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">transforme une image en texture utilisable par SDL2 paramètres :  <a href="room__rendering_8c.html#a454d965c7f071ec3c7f89c3e4241edb7">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a454d965c7f071ec3c7f89c3e4241edb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e05d4fcd6cc3b8f282fc61988b4514c"><td class="memItemLeft" align="right" valign="top">err_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="room__rendering_8c.html#a0e05d4fcd6cc3b8f282fc61988b4514c">render_mur_chunk</a> (SDL_Renderer *ren, SDL_Texture *texture_mur, salle_t *salle, chunk_t *chunk, int WINW, int WINH)</td></tr>
+<tr class="memdesc:a0e05d4fcd6cc3b8f282fc61988b4514c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Crée les murs d'un chunk paramètres :  <a href="room__rendering_8c.html#a0e05d4fcd6cc3b8f282fc61988b4514c">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a0e05d4fcd6cc3b8f282fc61988b4514c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28be6145accf33465a684dc2f226594f"><td class="memItemLeft" align="right" valign="top">err_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="room__rendering_8c.html#a28be6145accf33465a684dc2f226594f">render_pont_chunk</a> (SDL_Renderer *ren, SDL_Texture *texture_pont, salle_t *salle, chunk_t *chunk, int WINW, int WINH)</td></tr>
+<tr class="memdesc:a28be6145accf33465a684dc2f226594f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Crée les ponts d'un chunk paramètres :  <a href="room__rendering_8c.html#a28be6145accf33465a684dc2f226594f">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a28be6145accf33465a684dc2f226594f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a956c13f7046ae3250715f17896f000"><td class="memItemLeft" align="right" valign="top">err_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="room__rendering_8c.html#a6a956c13f7046ae3250715f17896f000">render_background</a> (SDL_Renderer *ren, salle_t *salle, chunk_t *chunk, SDL_Texture *texture_sol, SDL_Texture *texture_air, int WINW, int WINH)</td></tr>
+<tr class="memdesc:a6a956c13f7046ae3250715f17896f000"><td class="mdescLeft">&#160;</td><td class="mdescRight">Crée le fond d'écran d'un chunk paramètres :  <a href="room__rendering_8c.html#a6a956c13f7046ae3250715f17896f000">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a6a956c13f7046ae3250715f17896f000"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d67f0267140265aa12e8552fa1b64df"><td class="memItemLeft" align="right" valign="top">err_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="room__rendering_8c.html#a6d67f0267140265aa12e8552fa1b64df">render_chunk_unite</a> (void *tab[NB_MAX_AFF], attaque_t *tab_attaque[NB_MAX_ATT], SDL_Renderer *ren, SDL_Texture *texture_pont, SDL_Texture *texture_mur, salle_t *salle, chunk_t *chunk, int WINW, int WINH)</td></tr>
+<tr class="memdesc:a6d67f0267140265aa12e8552fa1b64df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Crée les entités d'un chunk paramètres :  <a href="room__rendering_8c.html#a6d67f0267140265aa12e8552fa1b64df">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a6d67f0267140265aa12e8552fa1b64df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p>Module de rendu des environnements. </p>
+<dl class="section author"><dt>Auteur</dt><dd>Matthis \verion 1.0 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>Avril 2021 </dd></dl>
+</div><h2 class="groupheader">Documentation des fonctions</h2>
+<a id="a454d965c7f071ec3c7f89c3e4241edb7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a454d965c7f071ec3c7f89c3e4241edb7">&#9670;&nbsp;</a></span>creer_texture_image()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Texture* creer_texture_image </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Renderer *&#160;</td>
+          <td class="paramname"><em>ren</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>nom_image</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>transforme une image en texture utilisable par SDL2 paramètres : </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">SDL_Renderer</td><td>ren le pointeur sur renderer </td></tr>
+    <tr><td class="paramname">char</td><td>nom_image le pointeur nom du fichier de l'image a utiliser retourne : </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Un pointeur sur SDL_Texture, la texture créée a partir de l'image en paramètres. En cas d'echec rien n'est retourné. </dd></dl>
+
+</div>
+</div>
+<a id="a6a956c13f7046ae3250715f17896f000"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a956c13f7046ae3250715f17896f000">&#9670;&nbsp;</a></span>render_background()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">err_t render_background </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Renderer *&#160;</td>
+          <td class="paramname"><em>ren</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">salle_t *&#160;</td>
+          <td class="paramname"><em>salle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">chunk_t *&#160;</td>
+          <td class="paramname"><em>chunk</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Texture *&#160;</td>
+          <td class="paramname"><em>texture_sol</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Texture *&#160;</td>
+          <td class="paramname"><em>texture_air</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>WINW</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>WINH</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Crée le fond d'écran d'un chunk paramètres : </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">SDL_Renderer</td><td>ren le pointeur sur renderer </td></tr>
+    <tr><td class="paramname">salle_t</td><td>salle, pointeur sur la salle dans laquelle dessiner </td></tr>
+    <tr><td class="paramname">chunk_t</td><td>chunk, pointeur sur le chunk dans lequel dessiner </td></tr>
+    <tr><td class="paramname">SDL_Texture</td><td>texture_sol, la texture du sol créée au préalable </td></tr>
+    <tr><td class="paramname">SDL_Texture</td><td>texture_air, la texture de l'air créée au préalable </td></tr>
+    <tr><td class="paramname">int</td><td>WINW largeur de la fenêtre </td></tr>
+    <tr><td class="paramname">int</td><td>WINH hauteur de la fenetre retourne: </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>OK Si tout s'est bien passé render tous les ponts d'un chunk </dd></dl>
+
+</div>
+</div>
+<a id="a6d67f0267140265aa12e8552fa1b64df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d67f0267140265aa12e8552fa1b64df">&#9670;&nbsp;</a></span>render_chunk_unite()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">err_t render_chunk_unite </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>tab</em>[NB_MAX_AFF], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">attaque_t *&#160;</td>
+          <td class="paramname"><em>tab_attaque</em>[NB_MAX_ATT], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Renderer *&#160;</td>
+          <td class="paramname"><em>ren</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Texture *&#160;</td>
+          <td class="paramname"><em>texture_pont</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Texture *&#160;</td>
+          <td class="paramname"><em>texture_mur</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">salle_t *&#160;</td>
+          <td class="paramname"><em>salle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">chunk_t *&#160;</td>
+          <td class="paramname"><em>chunk</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>WINW</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>WINH</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Crée les entités d'un chunk paramètres : </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">void</td><td>tab un tableau de pointeurs sur entités </td></tr>
+    <tr><td class="paramname">attaque_t</td><td>tab_attaque un tableau de pointeurs sur des structure </td></tr>
+    <tr><td class="paramname">SDL_Renderer</td><td>ren le pointeur sur renderer </td></tr>
+    <tr><td class="paramname">SDL_Texture</td><td>texture_pont, la texture du pont créée au préalable </td></tr>
+    <tr><td class="paramname">SDL_Texture</td><td>texture_mur, la texture du mur créée au préalable </td></tr>
+    <tr><td class="paramname">salle_t</td><td>salle, pointeur sur la salle à afficher </td></tr>
+    <tr><td class="paramname">chunk_t</td><td>chunk, pointeur sur le chunk à afficher </td></tr>
+    <tr><td class="paramname">int</td><td>WINW largeur de la fenêtre </td></tr>
+    <tr><td class="paramname">int</td><td>WINH hauteur de la fenetre retourne: </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>OK Si tout s'est bien passé render tous les ponts d'un chunk </dd></dl>
+
+</div>
+</div>
+<a id="a0e05d4fcd6cc3b8f282fc61988b4514c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e05d4fcd6cc3b8f282fc61988b4514c">&#9670;&nbsp;</a></span>render_mur_chunk()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">err_t render_mur_chunk </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Renderer *&#160;</td>
+          <td class="paramname"><em>ren</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Texture *&#160;</td>
+          <td class="paramname"><em>texture_mur</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">salle_t *&#160;</td>
+          <td class="paramname"><em>salle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">chunk_t *&#160;</td>
+          <td class="paramname"><em>chunk</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>WINW</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>WINH</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Crée les murs d'un chunk paramètres : </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">SDL_Renderer</td><td>ren le pointeur sur renderer </td></tr>
+    <tr><td class="paramname">SDL_Texture</td><td>texture_mur, la texture du mur créer au préalable </td></tr>
+    <tr><td class="paramname">salle_t</td><td>salle, pointeur sur la salle où afficher </td></tr>
+    <tr><td class="paramname">chunk_t</td><td>chunk, pointeur sur le chunk où afficher </td></tr>
+    <tr><td class="paramname">int</td><td>WINW largeur de la fenêtre </td></tr>
+    <tr><td class="paramname">int</td><td>WINH hauteur de la fenetre retourne: </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>OK Si tout s'est bien passé render tous les murs d'un chunk </dd></dl>
+
+</div>
+</div>
+<a id="a28be6145accf33465a684dc2f226594f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28be6145accf33465a684dc2f226594f">&#9670;&nbsp;</a></span>render_pont_chunk()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">err_t render_pont_chunk </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Renderer *&#160;</td>
+          <td class="paramname"><em>ren</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Texture *&#160;</td>
+          <td class="paramname"><em>texture_pont</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">salle_t *&#160;</td>
+          <td class="paramname"><em>salle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">chunk_t *&#160;</td>
+          <td class="paramname"><em>chunk</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>WINW</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>WINH</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Crée les ponts d'un chunk paramètres : </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">SDL_Renderer</td><td>ren le pointeur sur renderer </td></tr>
+    <tr><td class="paramname">SDL_Texture</td><td>texture_pont, la texture du pont créer au préalable </td></tr>
+    <tr><td class="paramname">salle_t</td><td>salle, pointeur sur la salle où afficher </td></tr>
+    <tr><td class="paramname">chunk_t</td><td>chunk, pointeur sur le chunk où afficher </td></tr>
+    <tr><td class="paramname">int</td><td>WINW largeur de la fenêtre </td></tr>
+    <tr><td class="paramname">int</td><td>WINH hauteur de la fenetre retourne: </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>OK Si tout s'est bien passé render tous les ponts d'un chunk </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré par&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+</small></address>
+</body>
+</html>

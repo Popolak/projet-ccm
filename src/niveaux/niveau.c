@@ -1,20 +1,25 @@
 #include <stdlib.h>
 #include <string.h>
 #include "../../lib/niveaux/niveau.h"
-
+/**
+* \file niveau.c
+* \brief Module niveau
+* \verion 1.0
+* \date Avril 2021
+*/
 /* CONSTANTES */
 
 int cpt_niveau=0; 
 
 /* FONCTIONS */
 
-/* fonction chercher_salle
-    paramètres:
-        niveau: pointeur sur niveau
-        x et y : position de la salle a rechercher dans le niveau
-    retourne un pointeur sur salle_t si la salle est trouvée, NULL sinon
+/**
+    \brief Recherche d'une salle
+    \param niveau_t Pointeur sur le niveau
+    \param int Position horizontale de la salle dans le niveau
+    \param int Position verticale de la salle dans le niveau
+    \return Retourne un pointeur sur salle_t si la salle est trouvée, NULL sinon
 */
-
 static salle_t * chercher_salle(const niveau_t * niveau, int x, int y){
     int i;
     for(i=0; i<niveau->nbSalle; i++){
@@ -24,12 +29,12 @@ static salle_t * chercher_salle(const niveau_t * niveau, int x, int y){
     return NULL;
 }
 
-/*  fonction relier_porte
-    paramètres:
-        fichier: pointeur sur FILE 
-        niveau: pointeur sur niveau
+/**
+    \brief Relier les portesdu niveau entres elles
+    \param FILE Pointeur sur FILE 
+    \param niveau_t Niveau où relier les portes
+    \return Retourne OK si l'opération réussi, sinon un code erreur.
 */
-
 extern err_t relier_portes(FILE * fichier,niveau_t * niveau){    //Pour le contenu du fichier cf ./generation/generation_explication.txt
     char str[256];
     porte_t * porte1, *porte2;
@@ -54,9 +59,9 @@ extern err_t relier_portes(FILE * fichier,niveau_t * niveau){    //Pour le conte
     return OK;
 }
 
-/* fonction niveau_lire
-    paramètre:
-        niveau: pointeur sur niveau
+/** 
+    \brief Affichage de toutes les salles du niveau
+    \param niveau_t Pointeur sur le niveau à afficher
 */
 
 static void niveau_lire(const niveau_t * niveau){
@@ -66,12 +71,11 @@ static void niveau_lire(const niveau_t * niveau){
     }
 }
 
-/*  fonction niveau_detruire
-    paramètre:
-        niveau: pointeur sur pointeur sur niveau_t
-    retourne OK si tout s'est bien passé
+/** 
+    \brief Destruction de toutes les salles du niveau
+    \param niveau_t Pointeur sur le niveau à afficher
+    \return Retourne OK si la destruction réussi
 */
-
 static err_t niveau_detruire(niveau_t ** niveau){
     int i;
     if(*niveau){
@@ -92,7 +96,11 @@ static err_t niveau_detruire(niveau_t ** niveau){
     return OK;
 }
 
-
+/** 
+    \brief Création des ponts d'un niveau
+    \param FILE Fichier de création du niveau
+    \param niveau_t Pointeur sur le niveau à afficher
+*/
 extern 
 err_t creer_pont(FILE * fichier,niveau_t* niv){
     int sx,sy,cx,cy;
@@ -118,24 +126,22 @@ err_t creer_pont(FILE * fichier,niveau_t* niv){
     }
 }
 
-/* fonction niveau_existe
-    paramètre:
-        niveau: pointeur sur niveau_t
-    retourne VRAI si niveau existe, FAUX sinon
+/**
+    \brief Vérification d'existence du niveau passé en paramètre
+    \param niveau_t Pointeur sur le niveau à tester
+    \return Retourne VRAI si niveau existe, FAUX sinon
 */
-
 extern booleen_t niveau_existe(niveau_t * niveau){
     if(niveau)
         return VRAI;
     return FAUX;
 }
 
-/* fonction niveau_creer
-    paramètre: 
-        nom_fichier: chaine de caractères contenant le nom du fichier de génération du niveau
-    retourne un pointeur sur niveau_t si tout fonctionne bien, NULL sinon 
+/**
+    \brief Création du niveau
+    \param char Nom_fichier: chaine de caractères contenant le nom du fichier de génération du niveau
+    \return Retourne un pointeur sur niveau_t si tout fonctionne bien, NULL sinon 
 */
-
 extern niveau_t * niveau_creer(char * nom_fichier){
     int nbSalle,i;                              //nombre de salle dans le niveau et irérateur
     char type_salle[256],str[256];              //Variable pour récupérer les lignes du fichier
@@ -185,6 +191,9 @@ extern niveau_t * niveau_creer(char * nom_fichier){
     return niveau;
 }
 
+/**
+    \brief Affiche la référence du niveau par printf
+*/
 extern void niveau_afficher_ref(){
     printf("Nombre de ref de niveau :%d\n",cpt_niveau);
 }

@@ -1,0 +1,33 @@
+\hypertarget{_s_d_l__gesture_8h}{}\doxysection{Référence du fichier SDL/include/\+SDL\+\_\+gesture.h}
+\label{_s_d_l__gesture_8h}\index{SDL/include/SDL\_gesture.h@{SDL/include/SDL\_gesture.h}}
+{\ttfamily \#include \char`\"{}SDL\+\_\+stdinc.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}SDL\+\_\+error.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}SDL\+\_\+video.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}SDL\+\_\+touch.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}begin\+\_\+code.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}close\+\_\+code.\+h\char`\"{}}\newline
+\doxysubsection*{Définitions de type}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{_s_d_l__gesture_8h_a6c06ab0de82701c94809da9739ff8ac3}\label{_s_d_l__gesture_8h_a6c06ab0de82701c94809da9739ff8ac3}} 
+typedef Sint64 {\bfseries SDL\+\_\+\+Gesture\+ID}
+\end{DoxyCompactItemize}
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{_s_d_l__gesture_8h_ad06776e2e199d5d48e466a0ecbbb06c3}\label{_s_d_l__gesture_8h_ad06776e2e199d5d48e466a0ecbbb06c3}} 
+DECLSPEC int SDLCALL \mbox{\hyperlink{_s_d_l__gesture_8h_ad06776e2e199d5d48e466a0ecbbb06c3}{SDL\+\_\+\+Record\+Gesture}} (SDL\+\_\+\+Touch\+ID touch\+Id)
+\begin{DoxyCompactList}\small\item\em Begin Recording a gesture on the specified touch, or all touches (-\/1) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{_s_d_l__gesture_8h_ad37b554c91a5fffe3fc1dc3094db1b89}\label{_s_d_l__gesture_8h_ad37b554c91a5fffe3fc1dc3094db1b89}} 
+DECLSPEC int SDLCALL \mbox{\hyperlink{_s_d_l__gesture_8h_ad37b554c91a5fffe3fc1dc3094db1b89}{SDL\+\_\+\+Save\+All\+Dollar\+Templates}} (\mbox{\hyperlink{struct_s_d_l___r_wops}{SDL\+\_\+\+RWops}} $\ast$dst)
+\begin{DoxyCompactList}\small\item\em Save all currently loaded Dollar Gesture templates. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{_s_d_l__gesture_8h_acef0242f4c4b7401509bc533864629ad}\label{_s_d_l__gesture_8h_acef0242f4c4b7401509bc533864629ad}} 
+DECLSPEC int SDLCALL \mbox{\hyperlink{_s_d_l__gesture_8h_acef0242f4c4b7401509bc533864629ad}{SDL\+\_\+\+Save\+Dollar\+Template}} (SDL\+\_\+\+Gesture\+ID gesture\+Id, \mbox{\hyperlink{struct_s_d_l___r_wops}{SDL\+\_\+\+RWops}} $\ast$dst)
+\begin{DoxyCompactList}\small\item\em Save a currently loaded Dollar Gesture template. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{_s_d_l__gesture_8h_a83cbaebec0c418b2fc08bbfeeed7d526}\label{_s_d_l__gesture_8h_a83cbaebec0c418b2fc08bbfeeed7d526}} 
+DECLSPEC int SDLCALL \mbox{\hyperlink{_s_d_l__gesture_8h_a83cbaebec0c418b2fc08bbfeeed7d526}{SDL\+\_\+\+Load\+Dollar\+Templates}} (SDL\+\_\+\+Touch\+ID touch\+Id, \mbox{\hyperlink{struct_s_d_l___r_wops}{SDL\+\_\+\+RWops}} $\ast$src)
+\begin{DoxyCompactList}\small\item\em Load Dollar Gesture templates from a file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Include file for SDL gesture event handling. 

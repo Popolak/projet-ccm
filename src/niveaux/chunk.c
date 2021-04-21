@@ -3,18 +3,37 @@
 #include "../../lib/niveaux/chunk.h"
 #include "../../lib/niveaux/salle.h"
 #include "string.h"
-
+/**
+* \file chunk.c
+* \brief Module chunk
+* \verion 1.0
+* \date Avril 2021
+*/
 /* CONSTANTES */
 
 int cpt_chunk=0;
 
 /* FONCTIONS */
 
+
+/**
+    \brief Vérification de coordonnées
+    \param int Coordonnée d'abscisse
+    \param int Coordonnée d'ordonnée
+    \return VRAI si les coordonnées sont correctes, FAUX sinon
+*/
 extern
 booleen_t coord_correcte(int x, int y){
     return (x>=0 && x<CHUNKH && y >=0 && y<CHUNKW);
 }
 
+/**
+    \brief Cherche les coordonnées du mur le plus proche
+    \param int Coordonnée d'abscisse
+    \param int Coordonnée d'ordonnée
+    \chunk_t Chunk où l'on recherche
+    \return Retourne la position de l'élément si on le trouve, sinon pos.x = -1.
+*/
 extern
 pos_t prochain_mur (int x, int y, chunk_t * chunk){
     int i=0,j=0;
@@ -33,6 +52,13 @@ pos_t prochain_mur (int x, int y, chunk_t * chunk){
     return pos;
 }
 
+/**
+    \brief Cherche les coordonnées du pont le plus proche
+    \param int Coordonnée d'abscisse
+    \param int Coordonnée d'ordonnée
+    \param chunk_t Chunk où l'on recherche
+    \return Retourne la position de l'élément si on le trouve, sinon pos.x = -1.
+*/
 extern
 pos_t prochain_pont (int x, int y, chunk_t * chunk){
     int i=0,j=0;
@@ -51,6 +77,14 @@ pos_t prochain_pont (int x, int y, chunk_t * chunk){
     return pos;
 }
 
+/**
+    \brief Calcule la taille d'un mur
+    \param int Coordonnée d'abscisse
+    \param int Coordonnée d'ordonnée
+    \param int Pointeur sur la largeur du mur sue l'on mesure, sera édité
+    \param int Pointeur sur la hauteur du mur sue l'on mesure, sera édité
+    \param chunk_t Chunk où l'on recherche
+*/
 extern
 void attribut_mur(int x, int y, int* w, int* h,chunk_t * chunk){
     int i,j;
@@ -61,6 +95,14 @@ void attribut_mur(int x, int y, int* w, int* h,chunk_t * chunk){
     *w=j;
 }
 
+/**
+    \brief Calcule la taille d'un pont
+    \param int Coordonnée d'abscisse
+    \param int Coordonnée d'ordonnée
+    \param int Pointeur sur la largeur du pont sue l'on mesure, sera édité
+    \param int Pointeur sur la hauteur du pont sue l'on mesure, sera édité
+    \param chunk_t Chunk où l'on recherche
+*/
 extern
 void attribut_pont(int x, int y, int* w, chunk_t * chunk){
     int i,j;
@@ -68,13 +110,12 @@ void attribut_pont(int x, int y, int* w, chunk_t * chunk){
     *w=j;
 }
 
-/*  fonction chercher_porte:
-    paramètres:
-        chunk: pointeur sur chunk_t
-        pos : position de la porte
-    retourne un pointeur sur la porte a la position pos si elle existe, NULL sinon
+/**  
+    \brief Recherche d'une porte à la position pos
+    \param chunk_t pointeur sur chunk_t où l'on cherche
+    \param int Position de la porte que l'on vérifie
+    \return Retourne un pointeur sur la porte a la position pos si elle existe, NULL sinon
 */
-
 static porte_t * chercher_porte(const chunk_t * chunk, int pos){
     int i;
     for(i=0; i<chunk->nb_portes; i++){
@@ -84,13 +125,14 @@ static porte_t * chercher_porte(const chunk_t * chunk, int pos){
     return NULL;
 }
 
-/*  fonction chunk_lire_partiel
-    paramètres: 
-        chunk: pointeur sur chunk_t
-        x et y : valeurs a partir desquelles on veut lire le chunk
-        w et h : width et height de ce qu'on veut lire
+/**
+    \brief Affiche en terminal le contenu d'un chunk dans la limite des coordonées et tailels demandées
+        \param chunk_t Pointeur sur chunk où l'on chercher
+        \param int Abscisse de départ
+        \param int Ordonnée de départ
+        \param int Taille d'abscisse à lire
+        \param int Taille d'ordonnée à lire
 */
-
 static void chunk_lire_partiel(const chunk_t * chunk,int x,int y,int w,int h){
     int i,j;
     if (chunk!=NULL){
@@ -105,22 +147,20 @@ static void chunk_lire_partiel(const chunk_t * chunk,int x,int y,int w,int h){
     }
 }
 
-/*  fonction chunk_lire
-    paramètre: 
-        chunk: pointeur sur chunk_t
-    Lit la totalité d'un chunk donné
+/**
+    \brief Lit la totalité d'un chunk donné
+    \param chunk_t Pointeur sur le chunk à lire
 */
 
 static void chunk_lire(const chunk_t * chunk){
     chunk->lire_partiel(chunk, 0,0,CHUNKH,CHUNKW);
 }
 
-/*  fonction chunk_detruire
-    paramètre:
-        chunk : pointeur sur pointeur sur chunk_t 
-    retourne OK si la destruction s'est bien passée
+/**
+    \brief Détruit un chunk et tout son contenu
+    \param chunk_t Pointeur sur pointeur sur le chunk à détruire
+    \return Retourne OK si la destruction s'est bien passée
 */
-
 static err_t chunk_detruire(chunk_t ** chunk){
     int i,j;
     unite_t *uniteAct;
@@ -155,18 +195,26 @@ static err_t chunk_detruire(chunk_t ** chunk){
     }
 }
 
-/*  fonction chunk_existe
-    paramètre:
-        chunk: pointeur sur chunk_t
-    retourne VRAI si chunk existe , FAUX sinon
+/**
+    \brief Vérifie si un chunk existe
+    \param chunk_t Pointeur sur le chunk à vérifier
+    \return Retourne VRAI si le chunk existe, FAUX sinon
 */
-
 extern booleen_t chunk_existe(chunk_t * chunk){
     if (!chunk)
         return FAUX;
     return VRAI;
 }
 
+/**
+    \brief Remplit la surface demandée avec le type de contenu donné
+    \param chunk_t Pointeur sur le chunk à remplir
+    \param int Abscisse de départ
+    \param int Ordonnée de départ
+    \param int Taille d'abscisse à remplir 
+    \param int Taille d'ordonnée à remplir 
+    \param int Contenu utilisé pour le remplissage
+*/
 static
 err_t remplir_surface(chunk_t * chunk, int x, int y , int h ,int w, int contenu){
     int i,j;
@@ -177,7 +225,12 @@ err_t remplir_surface(chunk_t * chunk, int x, int y , int h ,int w, int contenu)
     }
 }
 
-
+/**
+    \brief Création de pont
+    \param chunk_t Pointeur sur le chunk où créer
+    \param char Pointeur sur la position des ponts
+    \return Retourne OK après la création
+*/
 extern 
 err_t creer_pont_chaine(chunk_t * chunk,char * type){
     int i, x,y,pos, depart_x, depart_y, taille_pont;
@@ -218,6 +271,11 @@ err_t creer_pont_chaine(chunk_t * chunk,char * type){
 }
 
 
+/**
+    \brief Remplissage d'un chunk
+    \param chunk_t Pointeur sur le chunk à remplir
+    \param int Taille du chunk
+*/
 static err_t chunk_remplir(chunk_t * chunk, int chunk_cote){
     int i;
     for(i=0;i<chunk->nb_portes;i++){
@@ -268,13 +326,14 @@ static err_t chunk_remplir(chunk_t * chunk, int chunk_cote){
     remplir_surface(chunk,TAILLE_MUR,TAILLE_MUR,CHUNKH-TAILLE_MUR-CHUNKH*ratioSol,CHUNKW-2*TAILLE_MUR,VIDE);
 }
 
-/*  fonction chunk_creer
-    paramètres:
-        x et y : position du chunk dans la salle
-        nb_portes : nombres de portes dans le chunk
-        type : chaine donnant les positions de chaque porte
+/**
+    \brief Fonction de création de chunk
+    \param int Position d'abscisse du chunk dans la salle
+    \param int Position d'ordonnée du chunk dans la salle
+    \param int Nombres de portes dans le chunk
+    \param char chaine donnant les positions de chaque porte
+    \return Le chunk créé
 */
-
 extern chunk_t * chunk_creer(salle_t *salle,int x,int y, int nb_portes, char * type){
     unite_t * uniteAct=NULL;
     chunk_t * chunk=malloc(sizeof(chunk_t));
@@ -338,6 +397,9 @@ extern chunk_t * chunk_creer(salle_t *salle,int x,int y, int nb_portes, char * t
     return chunk;
 }
 
+/**
+    \brief Affiche dans un printf le nombre de référence du chunk
+*/
 extern void chunk_afficher_ref(){
     printf("Nombre ref de chunks: %d\n", cpt_chunk);
 }

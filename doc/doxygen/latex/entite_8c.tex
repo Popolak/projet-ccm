@@ -1,0 +1,660 @@
+\hypertarget{entite_8c}{}\doxysection{Référence du fichier src/entite/entite.c}
+\label{entite_8c}\index{src/entite/entite.c@{src/entite/entite.c}}
+
+
+Module entite \textbackslash{}verion 1.\+0.  
+
+
+{\ttfamily \#include \char`\"{}stdio.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}stdlib.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}string.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}math.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../../lib/entite/entite.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../../lib/affichage/room\+\_\+rendering.\+h\char`\"{}}\newline
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{entite_8c_a18fd4ec58c2af12179bdb0d6e29de6cb}{init\+Tab\+Daffich}} (void $\ast$tab\mbox{[}NB\+\_\+\+MAX\+\_\+\+AFF\mbox{]})
+\begin{DoxyCompactList}\small\item\em Initialise le tableau des entités. \end{DoxyCompactList}\item 
+char $\ast$ \mbox{\hyperlink{entite_8c_ac6f0ddf15f2cef4f8f6a69ec4747eb84}{entre\+\_\+guillemet}} (FILE $\ast$file)
+\begin{DoxyCompactList}\small\item\em Recherche une chaine entre guillements dans un fichier. \end{DoxyCompactList}\item 
+SDL\+\_\+\+Texture $\ast$$\ast$ \mbox{\hyperlink{entite_8c_a6eca4c02bded2f16f72ef23125c63dd5}{creer\+\_\+tableau\+\_\+textures\+\_\+chaine}} (SDL\+\_\+\+Renderer $\ast$ren, int $\ast$n, char $\ast$chaine, char $\ast$appel)
+\begin{DoxyCompactList}\small\item\em Crée de multiples textures à partir de noms stockés dans chaine. \end{DoxyCompactList}\item 
+SDL\+\_\+\+Texture $\ast$$\ast$ \mbox{\hyperlink{entite_8c_a1ea0b47a6e2cc23b4972984c6383537f}{creer\+\_\+tableau\+\_\+textures\+\_\+manuel}} (SDL\+\_\+\+Renderer $\ast$ren, int $\ast$n,...)
+\begin{DoxyCompactList}\small\item\em Crée de multiples textures à partir de noms donnés en arguments. \end{DoxyCompactList}\item 
+long \mbox{\hyperlink{entite_8c_a97a255a14bd16f2eb4a8a9f6481a2e45}{seek\+\_\+entity\+\_\+type}} (FILE $\ast$index, char $\ast$type)
+\begin{DoxyCompactList}\small\item\em Cherche un type d\textquotesingle{}entite dans un fichier. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{entite_8c_a2d83378ea5ab10eea68dc189125e04fa}{est\+\_\+mur}} (int contenu)
+\begin{DoxyCompactList}\small\item\em Vérifie si l\textquotesingle{}endroit pointé est dans un mur ou non paramètres\+: \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{entite_8c_a38a897df1e1bf4dacc442858a2b5348a}{est\+\_\+pont}} (int contenu)
+\begin{DoxyCompactList}\small\item\em Vérifie si l\textquotesingle{}endroit pointé est dans un pont ou non paramètres\+: \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{entite_8c_a5aa0c77426b06b615b2b6145686a1eae}{echanger}} (void $\ast$$\ast$ptr1, void $\ast$$\ast$ptr2)
+\begin{DoxyCompactList}\small\item\em Échange le contenu des deux pointeurs paramètres\+: \end{DoxyCompactList}\item 
+err\+\_\+t \mbox{\hyperlink{entite_8c_a11eac8c60141de22af351f8bc381e611}{afficher\+\_\+tableau}} (void $\ast$tab\+\_\+ent\mbox{[}NB\+\_\+\+MAX\+\_\+\+AFF\mbox{]}, SDL\+\_\+\+Renderer $\ast$ren, int WINW, int WINH)
+\begin{DoxyCompactList}\small\item\em Affiche dans le renderer le contenu du tableau d\textquotesingle{}entités passé en paramètre paramètres\+: \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{entite_8c_ac3af91c3bc72ff28c5056ca47ced9254}{ajouter\+\_\+tableaux}} (void $\ast$tab\mbox{[}NB\+\_\+\+MAX\+\_\+\+AFF\mbox{]}, err\+\_\+t($\ast$tab\+\_\+destr\mbox{[}NB\+\_\+\+MAX\+\_\+\+AFF\mbox{]})(void $\ast$$\ast$), void $\ast$ptr, err\+\_\+t($\ast$fonction\+\_\+dest)(void $\ast$$\ast$))
+\begin{DoxyCompactList}\small\item\em Ajoute une entité dans le tableau d\textquotesingle{}entités, et la fonction de destruction correspondante dans l\textquotesingle{}autre tableau paramètres\+: \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{entite_8c_afa90953de518d855eefda1a79c39af3d}{enlever\+\_\+tableaux}} (void $\ast$tab\mbox{[}NB\+\_\+\+MAX\+\_\+\+AFF\mbox{]}, err\+\_\+t($\ast$tab\+\_\+destr\mbox{[}NB\+\_\+\+MAX\+\_\+\+AFF\mbox{]})(void $\ast$$\ast$))
+\begin{DoxyCompactList}\small\item\em Détruit toutes les entités du tableau paramètres\+: \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{entite_8c_a13add93614f42c61d5495a9141775189}{vider\+\_\+tableaux}} (void $\ast$tab\mbox{[}NB\+\_\+\+MAX\+\_\+\+AFF\mbox{]}, err\+\_\+t($\ast$tab\+\_\+destr\mbox{[}NB\+\_\+\+MAX\+\_\+\+AFF\mbox{]})(void $\ast$$\ast$))
+\begin{DoxyCompactList}\small\item\em Détruit toutes les entités du tableau paramètres\+: \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{entite_8c_a6338cb9bb0d6264afc0d2ac1d1ff14a6}{enlever\+\_\+element\+\_\+tableau}} (void $\ast$tab\mbox{[}NB\+\_\+\+MAX\+\_\+\+AFF\mbox{]}, err\+\_\+t($\ast$tab\+\_\+destr\mbox{[}NB\+\_\+\+MAX\+\_\+\+AFF\mbox{]})(void $\ast$$\ast$), void $\ast$element)
+\begin{DoxyCompactList}\small\item\em Détruit un élément particulier du tableau paramètres\+: \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{entite_8c_a9e44f0c691813be1eb502504c82cc1cd}{update\+\_\+ennemis\+\_\+input}} (void $\ast$tab\mbox{[}NB\+\_\+\+MAX\+\_\+\+AFF\mbox{]}, perso\+\_\+t $\ast$joueur)
+\begin{DoxyCompactList}\small\item\em Actualise la vitesse des entités du tableau passé en paramètre par rapport au personnage donné paramètres\+: \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{entite_8c_adb2524592f5db55aee0b297ea703433b}{synchro\+\_\+tableau}} (void $\ast$tab\mbox{[}NB\+\_\+\+MAX\+\_\+\+AFF\mbox{]}, err\+\_\+t($\ast$tab\+\_\+destr\mbox{[}NB\+\_\+\+MAX\+\_\+\+AFF\mbox{]})(void $\ast$$\ast$), double temps, FILE $\ast$file\+\_\+gen)
+\begin{DoxyCompactList}\small\item\em Actualise les tableaux paramètres\+: \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{entite_8c_a22f2cd496bf4933c24d79a2a7581eacd}{hitbox\+\_\+tableau}} (SDL\+\_\+\+Renderer $\ast$ren, void $\ast$tab\mbox{[}NB\+\_\+\+MAX\+\_\+\+AFF\mbox{]}, int WINW, int WINH)
+\begin{DoxyCompactList}\small\item\em Actualise les hitbox des tableaux paramètres\+: \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{entite_8c_a5bdb558f9863d8be82da772c1ac420ed}{tableau\+\_\+agit}} (SDL\+\_\+\+Renderer $\ast$ren, void $\ast$tab\mbox{[}NB\+\_\+\+MAX\+\_\+\+AFF\mbox{]}, err\+\_\+t($\ast$tab\+\_\+destr\mbox{[}NB\+\_\+\+MAX\+\_\+\+AFF\mbox{]})(void $\ast$$\ast$), void $\ast$ent\+\_\+a\+\_\+verif, FILE $\ast$index, char $\ast$appel)
+\begin{DoxyCompactList}\small\item\em Execute une série d\textquotesingle{}action paramètres\+: \end{DoxyCompactList}\item 
+booleen\+\_\+t \mbox{\hyperlink{entite_8c_ace25efd4d48bf1bbc85418207353c9a1}{dans\+\_\+mur}} (entite\+\_\+t $\ast$ent)
+\begin{DoxyCompactList}\small\item\em Vérifie si l\textquotesingle{}entité est dans un mur. \end{DoxyCompactList}\item 
+pos\+\_\+t \mbox{\hyperlink{entite_8c_a5d581c0c76411e34320e99c50cc6deb6}{mur\+\_\+a\+\_\+gauche}} (entite\+\_\+t $\ast$ent)
+\begin{DoxyCompactList}\small\item\em Vérifie si l\textquotesingle{}entité a un mur à sa gauche. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{entite_8c_af4207a8cc3046cfee2938c961699b727}\label{entite_8c_af4207a8cc3046cfee2938c961699b727}} 
+booleen\+\_\+t {\bfseries est\+\_\+dans\+\_\+mur} (entite\+\_\+t $\ast$ent)
+\item 
+pos\+\_\+t \mbox{\hyperlink{entite_8c_a110b19b42cf3f72eb30b5c78d3827653}{mur\+\_\+a\+\_\+droite}} (entite\+\_\+t $\ast$ent)
+\begin{DoxyCompactList}\small\item\em Vérifie si l\textquotesingle{}entité a un mur à sa droite. \end{DoxyCompactList}\item 
+pos\+\_\+t \mbox{\hyperlink{entite_8c_a4f4abb4f43288fe3bd1b89932e4f17ed}{mur\+\_\+en\+\_\+haut}} (entite\+\_\+t $\ast$ent)
+\begin{DoxyCompactList}\small\item\em Vérifie si l\textquotesingle{}entité a un mur au dessus. \end{DoxyCompactList}\item 
+pos\+\_\+t \mbox{\hyperlink{entite_8c_a723fb7d59fa9ac247bfe7d446b8a145c}{mur\+\_\+en\+\_\+bas}} (entite\+\_\+t $\ast$ent)
+\begin{DoxyCompactList}\small\item\em Vérifie si l\textquotesingle{}entité a un mur au dessous. \end{DoxyCompactList}\item 
+pos\+\_\+t \mbox{\hyperlink{entite_8c_aac3d848b9eee550fbfca0dbfe4a7f81e}{contact\+\_\+pont}} (entite\+\_\+t $\ast$ent)
+\begin{DoxyCompactList}\small\item\em Vérifie si l\textquotesingle{}entité touche un pont. \end{DoxyCompactList}\item 
+pos\+\_\+t \mbox{\hyperlink{entite_8c_aa69cd2093315f21227de46aacc97d148}{pont\+\_\+en\+\_\+bas}} (entite\+\_\+t $\ast$ent)
+\begin{DoxyCompactList}\small\item\em Vérifie si l\textquotesingle{}entité est sur un pont. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{entite_8c_a096a6b3f2208fd9a2f1a7bf096e58060}{replacer}} (entite\+\_\+t $\ast$ent, pos\+\_\+t pos\+\_\+mur, int direction)
+\begin{DoxyCompactList}\small\item\em Replacement d\textquotesingle{}une entité hors d\textquotesingle{}un obstacle. \end{DoxyCompactList}\item 
+char $\ast$ \mbox{\hyperlink{entite_8c_a338c1cc52cb260874ae2f6b104a3f198}{str\+\_\+creer\+\_\+copier}} (char $\ast$chaine\+\_\+src)
+\begin{DoxyCompactList}\small\item\em Créer une chaine de caractères identique à celle passée en paramètre. \end{DoxyCompactList}\item 
+err\+\_\+t \mbox{\hyperlink{entite_8c_ac87e1335c75b5aaff02678e2c508baca}{entite\+\_\+detruire}} (entite\+\_\+t $\ast$$\ast$ent)
+\begin{DoxyCompactList}\small\item\em Détruit l\textquotesingle{}entité et tout ce qu\textquotesingle{}elle contient. \end{DoxyCompactList}\item 
+booleen\+\_\+t \mbox{\hyperlink{entite_8c_a2a7abe357d78f262f433fbeffe94e200}{entite\+\_\+existe}} (entite\+\_\+t $\ast$ent)
+\begin{DoxyCompactList}\small\item\em Vérifie si l\textquotesingle{}entité existe. \end{DoxyCompactList}\item 
+entite\+\_\+t $\ast$ \mbox{\hyperlink{entite_8c_a5857d8e5e1b09a4f866e2f93d1302cc3}{entite\+\_\+creer}} (char $\ast$nom, char $\ast$description, salle\+\_\+t $\ast$salle, chunk\+\_\+t $\ast$chunk, pos\+\_\+t pos, float vitesse\+\_\+x, float vitesse\+\_\+y, float vitesse\+\_\+max\+\_\+y, float sec\+Sprite, int w, int h, int w\+\_\+hitbox, int h\+\_\+hitbox, int offset\+\_\+hitbox, int nb\+Textures, SDL\+\_\+\+Texture $\ast$$\ast$textures)
+\begin{DoxyCompactList}\small\item\em Création d\textquotesingle{}une entité \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Module entite \textbackslash{}verion 1.\+0. 
+
+\begin{DoxyDate}{Date}
+Avril 2021 
+\end{DoxyDate}
+
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{entite_8c_a11eac8c60141de22af351f8bc381e611}\label{entite_8c_a11eac8c60141de22af351f8bc381e611}} 
+\index{entite.c@{entite.c}!afficher\_tableau@{afficher\_tableau}}
+\index{afficher\_tableau@{afficher\_tableau}!entite.c@{entite.c}}
+\doxysubsubsection{\texorpdfstring{afficher\_tableau()}{afficher\_tableau()}}
+{\footnotesize\ttfamily err\+\_\+t afficher\+\_\+tableau (\begin{DoxyParamCaption}\item[{void $\ast$}]{tab\+\_\+ent\mbox{[}\+NB\+\_\+\+MAX\+\_\+\+AFF\mbox{]},  }\item[{SDL\+\_\+\+Renderer $\ast$}]{ren,  }\item[{int}]{WINW,  }\item[{int}]{WINH }\end{DoxyParamCaption})}
+
+
+
+Affiche dans le renderer le contenu du tableau d\textquotesingle{}entités passé en paramètre paramètres\+: 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em void} & Tableau d\textquotesingle{}entités \\
+\hline
+{\em SDL\+\_\+\+Renderer} & Pointeur sur le renderer \\
+\hline
+{\em int} & Largeur de la fenêtre \\
+\hline
+{\em int} & Hauteur de la fenêtre \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{entite_8c_ac3af91c3bc72ff28c5056ca47ced9254}\label{entite_8c_ac3af91c3bc72ff28c5056ca47ced9254}} 
+\index{entite.c@{entite.c}!ajouter\_tableaux@{ajouter\_tableaux}}
+\index{ajouter\_tableaux@{ajouter\_tableaux}!entite.c@{entite.c}}
+\doxysubsubsection{\texorpdfstring{ajouter\_tableaux()}{ajouter\_tableaux()}}
+{\footnotesize\ttfamily int ajouter\+\_\+tableaux (\begin{DoxyParamCaption}\item[{void $\ast$}]{tab\mbox{[}\+NB\+\_\+\+MAX\+\_\+\+AFF\mbox{]},  }\item[{err\+\_\+t($\ast$\mbox{[}$\,$\mbox{]})(void $\ast$$\ast$)}]{NB\+\_\+\+MAX\+\_\+\+AFF,  }\item[{void $\ast$}]{ptr,  }\item[{err\+\_\+t($\ast$)(void $\ast$$\ast$)}]{fonction\+\_\+dest }\end{DoxyParamCaption})}
+
+
+
+Ajoute une entité dans le tableau d\textquotesingle{}entités, et la fonction de destruction correspondante dans l\textquotesingle{}autre tableau paramètres\+: 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em void} & Tableau d\textquotesingle{}entités \\
+\hline
+{\em void} & Entité à ajouter \\
+\hline
+{\em err\+\_\+t} & Tableau des fonctions de destructions \\
+\hline
+{\em err\+\_\+t} & Fonction de destruction \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Retourne 0 si l\textquotesingle{}ajout échoue 
+\end{DoxyReturn}
+\mbox{\Hypertarget{entite_8c_aac3d848b9eee550fbfca0dbfe4a7f81e}\label{entite_8c_aac3d848b9eee550fbfca0dbfe4a7f81e}} 
+\index{entite.c@{entite.c}!contact\_pont@{contact\_pont}}
+\index{contact\_pont@{contact\_pont}!entite.c@{entite.c}}
+\doxysubsubsection{\texorpdfstring{contact\_pont()}{contact\_pont()}}
+{\footnotesize\ttfamily pos\+\_\+t contact\+\_\+pont (\begin{DoxyParamCaption}\item[{entite\+\_\+t $\ast$}]{ent }\end{DoxyParamCaption})}
+
+
+
+Vérifie si l\textquotesingle{}entité touche un pont. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em entite\+\_\+t} & Entité dont on vérifie la localisation \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Retourne la position du pont 
+\end{DoxyReturn}
+\mbox{\Hypertarget{entite_8c_a6eca4c02bded2f16f72ef23125c63dd5}\label{entite_8c_a6eca4c02bded2f16f72ef23125c63dd5}} 
+\index{entite.c@{entite.c}!creer\_tableau\_textures\_chaine@{creer\_tableau\_textures\_chaine}}
+\index{creer\_tableau\_textures\_chaine@{creer\_tableau\_textures\_chaine}!entite.c@{entite.c}}
+\doxysubsubsection{\texorpdfstring{creer\_tableau\_textures\_chaine()}{creer\_tableau\_textures\_chaine()}}
+{\footnotesize\ttfamily SDL\+\_\+\+Texture$\ast$$\ast$ creer\+\_\+tableau\+\_\+textures\+\_\+chaine (\begin{DoxyParamCaption}\item[{SDL\+\_\+\+Renderer $\ast$}]{ren,  }\item[{int $\ast$}]{n,  }\item[{char $\ast$}]{chaine,  }\item[{char $\ast$}]{appel }\end{DoxyParamCaption})}
+
+
+
+Crée de multiples textures à partir de noms stockés dans chaine. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em SDL\+\_\+\+Renderer} & Pointeur sur le renderer \\
+\hline
+{\em int} & Increment \\
+\hline
+{\em char} & Chaine de caractères \\
+\hline
+{\em appel} & de fichier \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Les textures créées 
+\end{DoxyReturn}
+\mbox{\Hypertarget{entite_8c_a1ea0b47a6e2cc23b4972984c6383537f}\label{entite_8c_a1ea0b47a6e2cc23b4972984c6383537f}} 
+\index{entite.c@{entite.c}!creer\_tableau\_textures\_manuel@{creer\_tableau\_textures\_manuel}}
+\index{creer\_tableau\_textures\_manuel@{creer\_tableau\_textures\_manuel}!entite.c@{entite.c}}
+\doxysubsubsection{\texorpdfstring{creer\_tableau\_textures\_manuel()}{creer\_tableau\_textures\_manuel()}}
+{\footnotesize\ttfamily SDL\+\_\+\+Texture$\ast$$\ast$ creer\+\_\+tableau\+\_\+textures\+\_\+manuel (\begin{DoxyParamCaption}\item[{SDL\+\_\+\+Renderer $\ast$}]{ren,  }\item[{int $\ast$}]{n,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Crée de multiples textures à partir de noms donnés en arguments. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em SDL\+\_\+\+Renderer} & Pointeur sur le renderer \\
+\hline
+{\em int} & Increment \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Les textures créées 
+\end{DoxyReturn}
+\mbox{\Hypertarget{entite_8c_ace25efd4d48bf1bbc85418207353c9a1}\label{entite_8c_ace25efd4d48bf1bbc85418207353c9a1}} 
+\index{entite.c@{entite.c}!dans\_mur@{dans\_mur}}
+\index{dans\_mur@{dans\_mur}!entite.c@{entite.c}}
+\doxysubsubsection{\texorpdfstring{dans\_mur()}{dans\_mur()}}
+{\footnotesize\ttfamily booleen\+\_\+t dans\+\_\+mur (\begin{DoxyParamCaption}\item[{entite\+\_\+t $\ast$}]{ent }\end{DoxyParamCaption})}
+
+
+
+Vérifie si l\textquotesingle{}entité est dans un mur. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em entite\+\_\+t} & Entité dont on vérifie la localisation \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{entite_8c_a5aa0c77426b06b615b2b6145686a1eae}\label{entite_8c_a5aa0c77426b06b615b2b6145686a1eae}} 
+\index{entite.c@{entite.c}!echanger@{echanger}}
+\index{echanger@{echanger}!entite.c@{entite.c}}
+\doxysubsubsection{\texorpdfstring{echanger()}{echanger()}}
+{\footnotesize\ttfamily void echanger (\begin{DoxyParamCaption}\item[{void $\ast$$\ast$}]{ptr1,  }\item[{void $\ast$$\ast$}]{ptr2 }\end{DoxyParamCaption})}
+
+
+
+Échange le contenu des deux pointeurs paramètres\+: 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em void} & Premier pointeur \\
+\hline
+{\em void} & Second pointeur \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{entite_8c_a6338cb9bb0d6264afc0d2ac1d1ff14a6}\label{entite_8c_a6338cb9bb0d6264afc0d2ac1d1ff14a6}} 
+\index{entite.c@{entite.c}!enlever\_element\_tableau@{enlever\_element\_tableau}}
+\index{enlever\_element\_tableau@{enlever\_element\_tableau}!entite.c@{entite.c}}
+\doxysubsubsection{\texorpdfstring{enlever\_element\_tableau()}{enlever\_element\_tableau()}}
+{\footnotesize\ttfamily void enlever\+\_\+element\+\_\+tableau (\begin{DoxyParamCaption}\item[{void $\ast$}]{tab\mbox{[}\+NB\+\_\+\+MAX\+\_\+\+AFF\mbox{]},  }\item[{err\+\_\+t($\ast$\mbox{[}$\,$\mbox{]})(void $\ast$$\ast$)}]{NB\+\_\+\+MAX\+\_\+\+AFF,  }\item[{void $\ast$}]{element }\end{DoxyParamCaption})}
+
+
+
+Détruit un élément particulier du tableau paramètres\+: 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em void} & Tableau d\textquotesingle{}entités \\
+\hline
+{\em err\+\_\+t} & Tableau des fonctions de destructions \\
+\hline
+{\em void} & Entité à chercher et detruire \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{entite_8c_afa90953de518d855eefda1a79c39af3d}\label{entite_8c_afa90953de518d855eefda1a79c39af3d}} 
+\index{entite.c@{entite.c}!enlever\_tableaux@{enlever\_tableaux}}
+\index{enlever\_tableaux@{enlever\_tableaux}!entite.c@{entite.c}}
+\doxysubsubsection{\texorpdfstring{enlever\_tableaux()}{enlever\_tableaux()}}
+{\footnotesize\ttfamily void enlever\+\_\+tableaux (\begin{DoxyParamCaption}\item[{void $\ast$}]{tab\mbox{[}\+NB\+\_\+\+MAX\+\_\+\+AFF\mbox{]},  }\item[{err\+\_\+t($\ast$\mbox{[}$\,$\mbox{]})(void $\ast$$\ast$)}]{NB\+\_\+\+MAX\+\_\+\+AFF }\end{DoxyParamCaption})}
+
+
+
+Détruit toutes les entités du tableau paramètres\+: 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em void} & Tableau d\textquotesingle{}entités \\
+\hline
+{\em err\+\_\+t} & Tableau des fonctions de destructions \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{entite_8c_a5857d8e5e1b09a4f866e2f93d1302cc3}\label{entite_8c_a5857d8e5e1b09a4f866e2f93d1302cc3}} 
+\index{entite.c@{entite.c}!entite\_creer@{entite\_creer}}
+\index{entite\_creer@{entite\_creer}!entite.c@{entite.c}}
+\doxysubsubsection{\texorpdfstring{entite\_creer()}{entite\_creer()}}
+{\footnotesize\ttfamily entite\+\_\+t$\ast$ entite\+\_\+creer (\begin{DoxyParamCaption}\item[{char $\ast$}]{nom,  }\item[{char $\ast$}]{description,  }\item[{salle\+\_\+t $\ast$}]{salle,  }\item[{chunk\+\_\+t $\ast$}]{chunk,  }\item[{pos\+\_\+t}]{pos,  }\item[{float}]{vitesse\+\_\+x,  }\item[{float}]{vitesse\+\_\+y,  }\item[{float}]{vitesse\+\_\+max\+\_\+y,  }\item[{float}]{sec\+Sprite,  }\item[{int}]{w,  }\item[{int}]{h,  }\item[{int}]{w\+\_\+hitbox,  }\item[{int}]{h\+\_\+hitbox,  }\item[{int}]{offset\+\_\+hitbox,  }\item[{int}]{nb\+Textures,  }\item[{SDL\+\_\+\+Texture $\ast$$\ast$}]{textures }\end{DoxyParamCaption})}
+
+
+
+Création d\textquotesingle{}une entité 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em char} & Nom de l\textquotesingle{}entité \\
+\hline
+{\em char} & Descritption de l\textquotesingle{}entité \\
+\hline
+{\em salle\+\_\+t} & Salle de l\textquotesingle{}entité \\
+\hline
+{\em chunk\+\_\+t} & Chunk de l\textquotesingle{}entité \\
+\hline
+{\em pos\+\_\+t} & Position de l\textquotesingle{}entité \\
+\hline
+{\em float} & Vitesse horizontale \\
+\hline
+{\em float} & Vitesse verticale \\
+\hline
+{\em float} & Vitesse verticale maximale \\
+\hline
+{\em int} & Largeur \\
+\hline
+{\em int} & Hauteur \\
+\hline
+{\em int} & Largeur de la hitbox \\
+\hline
+{\em int} & Hauteur de la hitbox \\
+\hline
+{\em int} & Décalage de la hitbox \\
+\hline
+{\em int} & Nombre de textures \\
+\hline
+{\em SDL\+\_\+\+Texture} & Texture SDL de l\textquotesingle{}entité \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Retourne l\textquotesingle{}entité créée 
+\end{DoxyReturn}
+\mbox{\Hypertarget{entite_8c_ac87e1335c75b5aaff02678e2c508baca}\label{entite_8c_ac87e1335c75b5aaff02678e2c508baca}} 
+\index{entite.c@{entite.c}!entite\_detruire@{entite\_detruire}}
+\index{entite\_detruire@{entite\_detruire}!entite.c@{entite.c}}
+\doxysubsubsection{\texorpdfstring{entite\_detruire()}{entite\_detruire()}}
+{\footnotesize\ttfamily err\+\_\+t entite\+\_\+detruire (\begin{DoxyParamCaption}\item[{entite\+\_\+t $\ast$$\ast$}]{ent }\end{DoxyParamCaption})}
+
+
+
+Détruit l\textquotesingle{}entité et tout ce qu\textquotesingle{}elle contient. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em entite\+\_\+t} & Pointeur sur pointeur sur l\textquotesingle{}entite à supprimer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Retourne OK si tout s\textquotesingle{}est bien passé 
+\end{DoxyReturn}
+\mbox{\Hypertarget{entite_8c_a2a7abe357d78f262f433fbeffe94e200}\label{entite_8c_a2a7abe357d78f262f433fbeffe94e200}} 
+\index{entite.c@{entite.c}!entite\_existe@{entite\_existe}}
+\index{entite\_existe@{entite\_existe}!entite.c@{entite.c}}
+\doxysubsubsection{\texorpdfstring{entite\_existe()}{entite\_existe()}}
+{\footnotesize\ttfamily booleen\+\_\+t entite\+\_\+existe (\begin{DoxyParamCaption}\item[{entite\+\_\+t $\ast$}]{ent }\end{DoxyParamCaption})}
+
+
+
+Vérifie si l\textquotesingle{}entité existe. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em entite\+\_\+t} & Pointeur sur pointeur sur l\textquotesingle{}entite à vérifier \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Retourne VRAI si l\textquotesingle{}entite existe, FAUX sinon 
+\end{DoxyReturn}
+\mbox{\Hypertarget{entite_8c_ac6f0ddf15f2cef4f8f6a69ec4747eb84}\label{entite_8c_ac6f0ddf15f2cef4f8f6a69ec4747eb84}} 
+\index{entite.c@{entite.c}!entre\_guillemet@{entre\_guillemet}}
+\index{entre\_guillemet@{entre\_guillemet}!entite.c@{entite.c}}
+\doxysubsubsection{\texorpdfstring{entre\_guillemet()}{entre\_guillemet()}}
+{\footnotesize\ttfamily char$\ast$ entre\+\_\+guillemet (\begin{DoxyParamCaption}\item[{FILE $\ast$}]{file }\end{DoxyParamCaption})}
+
+
+
+Recherche une chaine entre guillements dans un fichier. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em FILE} & Ficher dans lequel chercher \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Retourne la chaine trouvée, NULL sinon 
+\end{DoxyReturn}
+\mbox{\Hypertarget{entite_8c_a2d83378ea5ab10eea68dc189125e04fa}\label{entite_8c_a2d83378ea5ab10eea68dc189125e04fa}} 
+\index{entite.c@{entite.c}!est\_mur@{est\_mur}}
+\index{est\_mur@{est\_mur}!entite.c@{entite.c}}
+\doxysubsubsection{\texorpdfstring{est\_mur()}{est\_mur()}}
+{\footnotesize\ttfamily int est\+\_\+mur (\begin{DoxyParamCaption}\item[{int}]{contenu }\end{DoxyParamCaption})}
+
+
+
+Vérifie si l\textquotesingle{}endroit pointé est dans un mur ou non paramètres\+: 
+
+est\+\_\+obstacle\+: 
+\begin{DoxyParams}{Paramètres}
+{\em int} & Contenu d\textquotesingle{}une unité d\textquotesingle{}un chunk \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Retourne 1 si le contenu est un obstacle, 0 sinon 
+\end{DoxyReturn}
+\mbox{\Hypertarget{entite_8c_a38a897df1e1bf4dacc442858a2b5348a}\label{entite_8c_a38a897df1e1bf4dacc442858a2b5348a}} 
+\index{entite.c@{entite.c}!est\_pont@{est\_pont}}
+\index{est\_pont@{est\_pont}!entite.c@{entite.c}}
+\doxysubsubsection{\texorpdfstring{est\_pont()}{est\_pont()}}
+{\footnotesize\ttfamily int est\+\_\+pont (\begin{DoxyParamCaption}\item[{int}]{contenu }\end{DoxyParamCaption})}
+
+
+
+Vérifie si l\textquotesingle{}endroit pointé est dans un pont ou non paramètres\+: 
+
+est\+\_\+obstacle\+: 
+\begin{DoxyParams}{Paramètres}
+{\em int} & Contenu d\textquotesingle{}une unité d\textquotesingle{}un chunk \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Retourne 1 si le contenu est un obstacle, 0 sinon 
+\end{DoxyReturn}
+\mbox{\Hypertarget{entite_8c_a22f2cd496bf4933c24d79a2a7581eacd}\label{entite_8c_a22f2cd496bf4933c24d79a2a7581eacd}} 
+\index{entite.c@{entite.c}!hitbox\_tableau@{hitbox\_tableau}}
+\index{hitbox\_tableau@{hitbox\_tableau}!entite.c@{entite.c}}
+\doxysubsubsection{\texorpdfstring{hitbox\_tableau()}{hitbox\_tableau()}}
+{\footnotesize\ttfamily void hitbox\+\_\+tableau (\begin{DoxyParamCaption}\item[{SDL\+\_\+\+Renderer $\ast$}]{ren,  }\item[{void $\ast$}]{tab\mbox{[}\+NB\+\_\+\+MAX\+\_\+\+AFF\mbox{]},  }\item[{int}]{WINW,  }\item[{int}]{WINH }\end{DoxyParamCaption})}
+
+
+
+Actualise les hitbox des tableaux paramètres\+: 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em SDL\+\_\+\+Renderer} & Pointeur sur le renderer \\
+\hline
+{\em void} & Tableau d\textquotesingle{}entités \\
+\hline
+{\em int} & Largeur de la fenêtre \\
+\hline
+{\em int} & Hauteur de la fenêtre \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{entite_8c_a18fd4ec58c2af12179bdb0d6e29de6cb}\label{entite_8c_a18fd4ec58c2af12179bdb0d6e29de6cb}} 
+\index{entite.c@{entite.c}!initTabDaffich@{initTabDaffich}}
+\index{initTabDaffich@{initTabDaffich}!entite.c@{entite.c}}
+\doxysubsubsection{\texorpdfstring{initTabDaffich()}{initTabDaffich()}}
+{\footnotesize\ttfamily void init\+Tab\+Daffich (\begin{DoxyParamCaption}\item[{void $\ast$}]{tab\mbox{[}\+NB\+\_\+\+MAX\+\_\+\+AFF\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Initialise le tableau des entités. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em void} & Le tableau d\textquotesingle{}entités à initialiser \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{entite_8c_a110b19b42cf3f72eb30b5c78d3827653}\label{entite_8c_a110b19b42cf3f72eb30b5c78d3827653}} 
+\index{entite.c@{entite.c}!mur\_a\_droite@{mur\_a\_droite}}
+\index{mur\_a\_droite@{mur\_a\_droite}!entite.c@{entite.c}}
+\doxysubsubsection{\texorpdfstring{mur\_a\_droite()}{mur\_a\_droite()}}
+{\footnotesize\ttfamily pos\+\_\+t mur\+\_\+a\+\_\+droite (\begin{DoxyParamCaption}\item[{entite\+\_\+t $\ast$}]{ent }\end{DoxyParamCaption})}
+
+
+
+Vérifie si l\textquotesingle{}entité a un mur à sa droite. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em entite\+\_\+t} & Entité dont on vérifie la localisation \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Retourne la position du mur 
+\end{DoxyReturn}
+\mbox{\Hypertarget{entite_8c_a5d581c0c76411e34320e99c50cc6deb6}\label{entite_8c_a5d581c0c76411e34320e99c50cc6deb6}} 
+\index{entite.c@{entite.c}!mur\_a\_gauche@{mur\_a\_gauche}}
+\index{mur\_a\_gauche@{mur\_a\_gauche}!entite.c@{entite.c}}
+\doxysubsubsection{\texorpdfstring{mur\_a\_gauche()}{mur\_a\_gauche()}}
+{\footnotesize\ttfamily pos\+\_\+t mur\+\_\+a\+\_\+gauche (\begin{DoxyParamCaption}\item[{entite\+\_\+t $\ast$}]{ent }\end{DoxyParamCaption})}
+
+
+
+Vérifie si l\textquotesingle{}entité a un mur à sa gauche. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em entite\+\_\+t} & Entité dont on vérifie la localisation \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Retourne la position du mur 
+\end{DoxyReturn}
+\mbox{\Hypertarget{entite_8c_a723fb7d59fa9ac247bfe7d446b8a145c}\label{entite_8c_a723fb7d59fa9ac247bfe7d446b8a145c}} 
+\index{entite.c@{entite.c}!mur\_en\_bas@{mur\_en\_bas}}
+\index{mur\_en\_bas@{mur\_en\_bas}!entite.c@{entite.c}}
+\doxysubsubsection{\texorpdfstring{mur\_en\_bas()}{mur\_en\_bas()}}
+{\footnotesize\ttfamily pos\+\_\+t mur\+\_\+en\+\_\+bas (\begin{DoxyParamCaption}\item[{entite\+\_\+t $\ast$}]{ent }\end{DoxyParamCaption})}
+
+
+
+Vérifie si l\textquotesingle{}entité a un mur au dessous. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em entite\+\_\+t} & Entité dont on vérifie la localisation \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Retourne la position du mur 
+\end{DoxyReturn}
+\mbox{\Hypertarget{entite_8c_a4f4abb4f43288fe3bd1b89932e4f17ed}\label{entite_8c_a4f4abb4f43288fe3bd1b89932e4f17ed}} 
+\index{entite.c@{entite.c}!mur\_en\_haut@{mur\_en\_haut}}
+\index{mur\_en\_haut@{mur\_en\_haut}!entite.c@{entite.c}}
+\doxysubsubsection{\texorpdfstring{mur\_en\_haut()}{mur\_en\_haut()}}
+{\footnotesize\ttfamily pos\+\_\+t mur\+\_\+en\+\_\+haut (\begin{DoxyParamCaption}\item[{entite\+\_\+t $\ast$}]{ent }\end{DoxyParamCaption})}
+
+
+
+Vérifie si l\textquotesingle{}entité a un mur au dessus. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em entite\+\_\+t} & Entité dont on vérifie la localisation \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Retourne la position du mur 
+\end{DoxyReturn}
+\mbox{\Hypertarget{entite_8c_aa69cd2093315f21227de46aacc97d148}\label{entite_8c_aa69cd2093315f21227de46aacc97d148}} 
+\index{entite.c@{entite.c}!pont\_en\_bas@{pont\_en\_bas}}
+\index{pont\_en\_bas@{pont\_en\_bas}!entite.c@{entite.c}}
+\doxysubsubsection{\texorpdfstring{pont\_en\_bas()}{pont\_en\_bas()}}
+{\footnotesize\ttfamily pos\+\_\+t pont\+\_\+en\+\_\+bas (\begin{DoxyParamCaption}\item[{entite\+\_\+t $\ast$}]{ent }\end{DoxyParamCaption})}
+
+
+
+Vérifie si l\textquotesingle{}entité est sur un pont. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em entite\+\_\+t} & Entité dont on vérifie la localisation \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Retourne la position du pont 
+\end{DoxyReturn}
+\mbox{\Hypertarget{entite_8c_a096a6b3f2208fd9a2f1a7bf096e58060}\label{entite_8c_a096a6b3f2208fd9a2f1a7bf096e58060}} 
+\index{entite.c@{entite.c}!replacer@{replacer}}
+\index{replacer@{replacer}!entite.c@{entite.c}}
+\doxysubsubsection{\texorpdfstring{replacer()}{replacer()}}
+{\footnotesize\ttfamily void replacer (\begin{DoxyParamCaption}\item[{entite\+\_\+t $\ast$}]{ent,  }\item[{pos\+\_\+t}]{pos\+\_\+mur,  }\item[{int}]{direction }\end{DoxyParamCaption})}
+
+
+
+Replacement d\textquotesingle{}une entité hors d\textquotesingle{}un obstacle. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em entite\+\_\+t} & Entité a déplacer \\
+\hline
+{\em pos\+\_\+t} & Position du mur dont on doit sortir \textbackslash{}int direction Orientation à donner à l\textquotesingle{}entité \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{entite_8c_a97a255a14bd16f2eb4a8a9f6481a2e45}\label{entite_8c_a97a255a14bd16f2eb4a8a9f6481a2e45}} 
+\index{entite.c@{entite.c}!seek\_entity\_type@{seek\_entity\_type}}
+\index{seek\_entity\_type@{seek\_entity\_type}!entite.c@{entite.c}}
+\doxysubsubsection{\texorpdfstring{seek\_entity\_type()}{seek\_entity\_type()}}
+{\footnotesize\ttfamily long seek\+\_\+entity\+\_\+type (\begin{DoxyParamCaption}\item[{FILE $\ast$}]{index,  }\item[{char $\ast$}]{type }\end{DoxyParamCaption})}
+
+
+
+Cherche un type d\textquotesingle{}entite dans un fichier. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em FILE} & Fichier où chercher \\
+\hline
+{\em char} & Chaine de caractères \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Place dans le fichier de l\textquotesingle{}entité trouvée, sinon -\/1. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{entite_8c_a338c1cc52cb260874ae2f6b104a3f198}\label{entite_8c_a338c1cc52cb260874ae2f6b104a3f198}} 
+\index{entite.c@{entite.c}!str\_creer\_copier@{str\_creer\_copier}}
+\index{str\_creer\_copier@{str\_creer\_copier}!entite.c@{entite.c}}
+\doxysubsubsection{\texorpdfstring{str\_creer\_copier()}{str\_creer\_copier()}}
+{\footnotesize\ttfamily char$\ast$ str\+\_\+creer\+\_\+copier (\begin{DoxyParamCaption}\item[{char $\ast$}]{chaine\+\_\+src }\end{DoxyParamCaption})}
+
+
+
+Créer une chaine de caractères identique à celle passée en paramètre. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em La} & chaine de caractères a copier \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Retourne un pointeur sur char différent de chaine\+\_\+src mais avec la même chaine de caractères, NULL si ça s\textquotesingle{}est mal passé 
+\end{DoxyReturn}
+\mbox{\Hypertarget{entite_8c_adb2524592f5db55aee0b297ea703433b}\label{entite_8c_adb2524592f5db55aee0b297ea703433b}} 
+\index{entite.c@{entite.c}!synchro\_tableau@{synchro\_tableau}}
+\index{synchro\_tableau@{synchro\_tableau}!entite.c@{entite.c}}
+\doxysubsubsection{\texorpdfstring{synchro\_tableau()}{synchro\_tableau()}}
+{\footnotesize\ttfamily void synchro\+\_\+tableau (\begin{DoxyParamCaption}\item[{void $\ast$}]{tab\mbox{[}\+NB\+\_\+\+MAX\+\_\+\+AFF\mbox{]},  }\item[{err\+\_\+t($\ast$\mbox{[}$\,$\mbox{]})(void $\ast$$\ast$)}]{NB\+\_\+\+MAX\+\_\+\+AFF,  }\item[{double}]{temps,  }\item[{FILE $\ast$}]{file\+\_\+gen }\end{DoxyParamCaption})}
+
+
+
+Actualise les tableaux paramètres\+: 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em void} & Tableau d\textquotesingle{}entités \\
+\hline
+{\em err\+\_\+t} & Tableau des fonctions de destruction \\
+\hline
+{\em double} & Le temps \\
+\hline
+{\em FILE} & fichier de génération \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{entite_8c_a5bdb558f9863d8be82da772c1ac420ed}\label{entite_8c_a5bdb558f9863d8be82da772c1ac420ed}} 
+\index{entite.c@{entite.c}!tableau\_agit@{tableau\_agit}}
+\index{tableau\_agit@{tableau\_agit}!entite.c@{entite.c}}
+\doxysubsubsection{\texorpdfstring{tableau\_agit()}{tableau\_agit()}}
+{\footnotesize\ttfamily void tableau\+\_\+agit (\begin{DoxyParamCaption}\item[{SDL\+\_\+\+Renderer $\ast$}]{ren,  }\item[{void $\ast$}]{tab\mbox{[}\+NB\+\_\+\+MAX\+\_\+\+AFF\mbox{]},  }\item[{err\+\_\+t($\ast$\mbox{[}$\,$\mbox{]})(void $\ast$$\ast$)}]{NB\+\_\+\+MAX\+\_\+\+AFF,  }\item[{void $\ast$}]{ent\+\_\+a\+\_\+verif,  }\item[{FILE $\ast$}]{index,  }\item[{char $\ast$}]{appel }\end{DoxyParamCaption})}
+
+
+
+Execute une série d\textquotesingle{}action paramètres\+: 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em SDL\+\_\+\+Renderer} & Pointeur sur le renderer \\
+\hline
+{\em void} & Tableau d\textquotesingle{}entités \\
+\hline
+{\em err\+\_\+t} & Tableau des fonctions de destruction \\
+\hline
+{\em void} & Entite qui subit l\textquotesingle{}action \\
+\hline
+{\em FILE} & fichier de génération \\
+\hline
+{\em appel} & de fichier \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{entite_8c_a9e44f0c691813be1eb502504c82cc1cd}\label{entite_8c_a9e44f0c691813be1eb502504c82cc1cd}} 
+\index{entite.c@{entite.c}!update\_ennemis\_input@{update\_ennemis\_input}}
+\index{update\_ennemis\_input@{update\_ennemis\_input}!entite.c@{entite.c}}
+\doxysubsubsection{\texorpdfstring{update\_ennemis\_input()}{update\_ennemis\_input()}}
+{\footnotesize\ttfamily void update\+\_\+ennemis\+\_\+input (\begin{DoxyParamCaption}\item[{void $\ast$}]{tab\mbox{[}\+NB\+\_\+\+MAX\+\_\+\+AFF\mbox{]},  }\item[{perso\+\_\+t $\ast$}]{joueur }\end{DoxyParamCaption})}
+
+
+
+Actualise la vitesse des entités du tableau passé en paramètre par rapport au personnage donné paramètres\+: 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em void} & Tableau d\textquotesingle{}entités \\
+\hline
+{\em perso\+\_\+t} & Personnage ciblé par les déplacements \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{entite_8c_a13add93614f42c61d5495a9141775189}\label{entite_8c_a13add93614f42c61d5495a9141775189}} 
+\index{entite.c@{entite.c}!vider\_tableaux@{vider\_tableaux}}
+\index{vider\_tableaux@{vider\_tableaux}!entite.c@{entite.c}}
+\doxysubsubsection{\texorpdfstring{vider\_tableaux()}{vider\_tableaux()}}
+{\footnotesize\ttfamily void vider\+\_\+tableaux (\begin{DoxyParamCaption}\item[{void $\ast$}]{tab\mbox{[}\+NB\+\_\+\+MAX\+\_\+\+AFF\mbox{]},  }\item[{err\+\_\+t($\ast$\mbox{[}$\,$\mbox{]})(void $\ast$$\ast$)}]{NB\+\_\+\+MAX\+\_\+\+AFF }\end{DoxyParamCaption})}
+
+
+
+Détruit toutes les entités du tableau paramètres\+: 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em void} & Tableau d\textquotesingle{}entités \\
+\hline
+{\em err\+\_\+t} & Tableau des fonctions de destructions \\
+\hline
+\end{DoxyParams}

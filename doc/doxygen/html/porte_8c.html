@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Foodungeon: Référence du fichier src/niveaux/porte.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Foodungeon
+   </div>
+   <div id="projectbrief">Foodungeon est un jeu de type Roguelike.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a736ac6b7f9b5884ec538f40e9b0a17c.html">niveaux</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Fonctions</a>  </div>
+  <div class="headertitle">
+<div class="title">Référence du fichier porte.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>Module porte \verion 1.0.  
+<a href="#details">Plus de détails...</a></p>
+<div class="textblock"><code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &quot;../../lib/niveaux/porte.h&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:a7742e46ee082aa100edb8208933c4935"><td class="memItemLeft" align="right" valign="top">booleen_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="porte_8c.html#a7742e46ee082aa100edb8208933c4935">pos_correcte</a> (int pos)</td></tr>
+<tr class="memdesc:a7742e46ee082aa100edb8208933c4935"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vérification de position d'une porte.  <a href="porte_8c.html#a7742e46ee082aa100edb8208933c4935">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a7742e46ee082aa100edb8208933c4935"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec65f18cd45985a790e37734e3290906"><td class="memItemLeft" align="right" valign="top">booleen_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="porte_8c.html#aec65f18cd45985a790e37734e3290906">porte_existe</a> (porte_t *porte)</td></tr>
+<tr class="memdesc:aec65f18cd45985a790e37734e3290906"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vérification d'existence d'une porte.  <a href="porte_8c.html#aec65f18cd45985a790e37734e3290906">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aec65f18cd45985a790e37734e3290906"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13bddb49d88492a6d879ef4fe6c10696"><td class="memItemLeft" align="right" valign="top">porte_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="porte_8c.html#a13bddb49d88492a6d879ef4fe6c10696">porte_creer</a> (porte_t *porteDest, int pos, salle_t *salle, chunk_t *chunk)</td></tr>
+<tr class="memdesc:a13bddb49d88492a6d879ef4fe6c10696"><td class="mdescLeft">&#160;</td><td class="mdescRight">Création d'une porte.  <a href="porte_8c.html#a13bddb49d88492a6d879ef4fe6c10696">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a13bddb49d88492a6d879ef4fe6c10696"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p>Module porte \verion 1.0. </p>
+<dl class="section date"><dt>Date</dt><dd>Avril 2021 </dd></dl>
+</div><h2 class="groupheader">Documentation des fonctions</h2>
+<a id="a13bddb49d88492a6d879ef4fe6c10696"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13bddb49d88492a6d879ef4fe6c10696">&#9670;&nbsp;</a></span>porte_creer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">porte_t* porte_creer </td>
+          <td>(</td>
+          <td class="paramtype">porte_t *&#160;</td>
+          <td class="paramname"><em>porteDest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">salle_t *&#160;</td>
+          <td class="paramname"><em>salle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">chunk_t *&#160;</td>
+          <td class="paramname"><em>chunk</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Création d'une porte. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">porte_t</td><td>Pointeur sur porte de destination </td></tr>
+    <tr><td class="paramname">int</td><td>Position de la porte </td></tr>
+    <tr><td class="paramname">salle_t</td><td>Salle où est placée la porte </td></tr>
+    <tr><td class="paramname">chunk_t</td><td>Chunk de la porte </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Retourne un pointeur sur porte_t si la création s'est bien passé, NULL sinon </dd></dl>
+
+</div>
+</div>
+<a id="aec65f18cd45985a790e37734e3290906"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec65f18cd45985a790e37734e3290906">&#9670;&nbsp;</a></span>porte_existe()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">booleen_t porte_existe </td>
+          <td>(</td>
+          <td class="paramtype">porte_t *&#160;</td>
+          <td class="paramname"><em>porte</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vérification d'existence d'une porte. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">porte_t</td><td>Pointeur sur la porte à tester </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Retourne VRAI si la porte existe, sinon FAUX </dd></dl>
+
+</div>
+</div>
+<a id="a7742e46ee082aa100edb8208933c4935"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7742e46ee082aa100edb8208933c4935">&#9670;&nbsp;</a></span>pos_correcte()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">booleen_t pos_correcte </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>pos</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vérification de position d'une porte. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">int</td><td>Position de la porte </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Retourne VRAI si la position est correcte, FAUX sinon </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré par&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+</small></address>
+</body>
+</html>

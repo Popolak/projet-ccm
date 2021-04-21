@@ -5,17 +5,23 @@
 #include "../../lib/affichage/room_rendering.h"
 #include "../../lib/niveaux/niveau.h"
 
-/* Fonctions */
+/**
+* \file room_rendering.c
+* \brief Module de rendu des environnements
+* \author Matthis
+* \verion 1.0
+* \date Avril 2021
+*/
 
 
-/*
-    creer_texture_image:
+
+/**
+    \brief transforme une image en texture utilisable par SDL2
     paramètres :
-        SDL_Renderer * ren le pointeur sur renderer
-        char * nom_image, le nom du fichier de l'image a utiliser
+        \param SDL_Renderer ren le pointeur sur renderer
+        \param char nom_image le pointeur nom du fichier de l'image a utiliser
     retourne :
-        pointeur sur SDL_Texture, la texture créée a partir de l'image en paramètres
-    rend le code plus clair
+        \return Un pointeur sur SDL_Texture, la texture créée a partir de l'image en paramètres. En cas d'echec rien n'est retourné.
 */
 
 extern
@@ -35,15 +41,17 @@ SDL_Texture * creer_texture_image( SDL_Renderer * ren,char * nom_image){
     return texture;
 }
     
-/*
-    render_mur_chunk
+/**
+    \brief Crée les murs d'un chunk
     paramètres :
-        SDL_Renderer * ren le pointeur sur renderer
-        SDL_Texture * texture_mur, la texture du mur créer au préalable
-        camera_t * cam, pointeur sur la camera pour savoir quel chunk afficher
-        int WINW et int WINH hight et width de la fenetre
+        \param SDL_Renderer  ren le pointeur sur renderer
+        \param SDL_Texture texture_mur, la texture du mur créer au préalable
+        \param salle_t salle, pointeur sur la salle où afficher
+        \param chunk_t chunk, pointeur sur le chunk où afficher
+        \param int WINW largeur de la fenêtre
+        \param int WINH hauteur de la fenetre
     retourne:
-        OK Si tout s'est bien passé
+        \return OK Si tout s'est bien passé
     render tous les murs d'un chunk 
 */
 extern 
@@ -106,6 +114,19 @@ err_t render_mur_chunk(SDL_Renderer * ren, SDL_Texture * texture_mur, salle_t *s
     return OK;
 }
 
+/**
+    \brief Crée les ponts d'un chunk
+    paramètres :
+        \param SDL_Renderer ren le pointeur sur renderer
+        \param SDL_Texture texture_pont, la texture du pont créer au préalable
+        \param salle_t salle, pointeur sur la salle où afficher
+        \param chunk_t chunk, pointeur sur le chunk où afficher
+        \param int WINW largeur de la fenêtre
+        \param int WINH hauteur de la fenetre
+    retourne:
+        \return OK Si tout s'est bien passé
+    render tous les ponts d'un chunk 
+*/
 extern 
 err_t render_pont_chunk(SDL_Renderer * ren, SDL_Texture * texture_pont, salle_t * salle,chunk_t * chunk, int WINW, int WINH){
     int i,j,w_pont;
@@ -144,6 +165,20 @@ err_t render_pont_chunk(SDL_Renderer * ren, SDL_Texture * texture_pont, salle_t 
     return OK;
 }
 
+/**
+    \brief Crée le fond d'écran d'un chunk
+    paramètres :
+        \param SDL_Renderer ren le pointeur sur renderer
+        \param salle_t salle, pointeur sur la salle dans laquelle dessiner
+        \param chunk_t chunk, pointeur sur le chunk dans lequel dessiner
+        \param SDL_Texture texture_sol, la texture du sol créée au préalable
+        \param SDL_Texture texture_air, la texture de l'air créée au préalable
+        \param int WINW largeur de la fenêtre
+        \param int WINH hauteur de la fenetre
+    retourne:
+        \return OK Si tout s'est bien passé
+    render tous les ponts d'un chunk 
+*/
 extern
 err_t render_background(SDL_Renderer * ren,salle_t *salle, chunk_t * chunk,SDL_Texture * texture_sol, SDL_Texture * texture_air ,int  WINW,int WINH){
     SDL_Texture * a_afficher=NULL;
@@ -156,6 +191,22 @@ err_t render_background(SDL_Renderer * ren,salle_t *salle, chunk_t * chunk,SDL_T
     SDL_RenderCopy(ren,a_afficher,NULL,NULL);
 }
 
+/**
+    \brief Crée les entités d'un chunk
+    paramètres :
+        \param void tab un tableau de pointeurs sur entités
+        \param attaque_t tab_attaque un tableau de pointeurs sur des structure 
+        \param SDL_Renderer ren le pointeur sur renderer
+        \param SDL_Texture texture_pont, la texture du pont créée au préalable
+        \param SDL_Texture texture_mur, la texture du mur créée au préalable
+        \param salle_t salle, pointeur sur la salle à afficher
+        \param chunk_t chunk, pointeur sur le chunk à afficher
+        \param int WINW largeur de la fenêtre
+        \param int WINH hauteur de la fenetre
+    retourne:
+        \return OK Si tout s'est bien passé
+    render tous les ponts d'un chunk 
+*/
 extern
 err_t render_chunk_unite(void * tab[NB_MAX_AFF],
                          attaque_t *tab_attaque[NB_MAX_ATT], 

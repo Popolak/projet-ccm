@@ -1,0 +1,1338 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Foodungeon: Référence du fichier src/entite/entite.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Foodungeon
+   </div>
+   <div id="projectbrief">Foodungeon est un jeu de type Roguelike.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_0f1727641c541944a68db6b639684ad8.html">entite</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Fonctions</a>  </div>
+  <div class="headertitle">
+<div class="title">Référence du fichier entite.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>Module entite \verion 1.0.  
+<a href="#details">Plus de détails...</a></p>
+<div class="textblock"><code>#include &quot;stdio.h&quot;</code><br />
+<code>#include &quot;stdlib.h&quot;</code><br />
+<code>#include &quot;string.h&quot;</code><br />
+<code>#include &quot;math.h&quot;</code><br />
+<code>#include &quot;../../lib/entite/entite.h&quot;</code><br />
+<code>#include &quot;../../lib/affichage/room_rendering.h&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:a18fd4ec58c2af12179bdb0d6e29de6cb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="entite_8c.html#a18fd4ec58c2af12179bdb0d6e29de6cb">initTabDaffich</a> (void *tab[NB_MAX_AFF])</td></tr>
+<tr class="memdesc:a18fd4ec58c2af12179bdb0d6e29de6cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialise le tableau des entités.  <a href="entite_8c.html#a18fd4ec58c2af12179bdb0d6e29de6cb">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a18fd4ec58c2af12179bdb0d6e29de6cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6f0ddf15f2cef4f8f6a69ec4747eb84"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="entite_8c.html#ac6f0ddf15f2cef4f8f6a69ec4747eb84">entre_guillemet</a> (FILE *file)</td></tr>
+<tr class="memdesc:ac6f0ddf15f2cef4f8f6a69ec4747eb84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recherche une chaine entre guillements dans un fichier.  <a href="entite_8c.html#ac6f0ddf15f2cef4f8f6a69ec4747eb84">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ac6f0ddf15f2cef4f8f6a69ec4747eb84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6eca4c02bded2f16f72ef23125c63dd5"><td class="memItemLeft" align="right" valign="top">SDL_Texture **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="entite_8c.html#a6eca4c02bded2f16f72ef23125c63dd5">creer_tableau_textures_chaine</a> (SDL_Renderer *ren, int *n, char *chaine, char *appel)</td></tr>
+<tr class="memdesc:a6eca4c02bded2f16f72ef23125c63dd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Crée de multiples textures à partir de noms stockés dans chaine.  <a href="entite_8c.html#a6eca4c02bded2f16f72ef23125c63dd5">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a6eca4c02bded2f16f72ef23125c63dd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ea0b47a6e2cc23b4972984c6383537f"><td class="memItemLeft" align="right" valign="top">SDL_Texture **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="entite_8c.html#a1ea0b47a6e2cc23b4972984c6383537f">creer_tableau_textures_manuel</a> (SDL_Renderer *ren, int *n,...)</td></tr>
+<tr class="memdesc:a1ea0b47a6e2cc23b4972984c6383537f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Crée de multiples textures à partir de noms donnés en arguments.  <a href="entite_8c.html#a1ea0b47a6e2cc23b4972984c6383537f">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a1ea0b47a6e2cc23b4972984c6383537f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97a255a14bd16f2eb4a8a9f6481a2e45"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="entite_8c.html#a97a255a14bd16f2eb4a8a9f6481a2e45">seek_entity_type</a> (FILE *index, char *type)</td></tr>
+<tr class="memdesc:a97a255a14bd16f2eb4a8a9f6481a2e45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cherche un type d'entite dans un fichier.  <a href="entite_8c.html#a97a255a14bd16f2eb4a8a9f6481a2e45">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a97a255a14bd16f2eb4a8a9f6481a2e45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d83378ea5ab10eea68dc189125e04fa"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="entite_8c.html#a2d83378ea5ab10eea68dc189125e04fa">est_mur</a> (int contenu)</td></tr>
+<tr class="memdesc:a2d83378ea5ab10eea68dc189125e04fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vérifie si l'endroit pointé est dans un mur ou non paramètres:  <a href="entite_8c.html#a2d83378ea5ab10eea68dc189125e04fa">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a2d83378ea5ab10eea68dc189125e04fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38a897df1e1bf4dacc442858a2b5348a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="entite_8c.html#a38a897df1e1bf4dacc442858a2b5348a">est_pont</a> (int contenu)</td></tr>
+<tr class="memdesc:a38a897df1e1bf4dacc442858a2b5348a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vérifie si l'endroit pointé est dans un pont ou non paramètres:  <a href="entite_8c.html#a38a897df1e1bf4dacc442858a2b5348a">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a38a897df1e1bf4dacc442858a2b5348a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5aa0c77426b06b615b2b6145686a1eae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="entite_8c.html#a5aa0c77426b06b615b2b6145686a1eae">echanger</a> (void **ptr1, void **ptr2)</td></tr>
+<tr class="memdesc:a5aa0c77426b06b615b2b6145686a1eae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Échange le contenu des deux pointeurs paramètres:  <a href="entite_8c.html#a5aa0c77426b06b615b2b6145686a1eae">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a5aa0c77426b06b615b2b6145686a1eae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11eac8c60141de22af351f8bc381e611"><td class="memItemLeft" align="right" valign="top">err_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="entite_8c.html#a11eac8c60141de22af351f8bc381e611">afficher_tableau</a> (void *tab_ent[NB_MAX_AFF], SDL_Renderer *ren, int WINW, int WINH)</td></tr>
+<tr class="memdesc:a11eac8c60141de22af351f8bc381e611"><td class="mdescLeft">&#160;</td><td class="mdescRight">Affiche dans le renderer le contenu du tableau d'entités passé en paramètre paramètres:  <a href="entite_8c.html#a11eac8c60141de22af351f8bc381e611">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a11eac8c60141de22af351f8bc381e611"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3af91c3bc72ff28c5056ca47ced9254"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="entite_8c.html#ac3af91c3bc72ff28c5056ca47ced9254">ajouter_tableaux</a> (void *tab[NB_MAX_AFF], err_t(*tab_destr[NB_MAX_AFF])(void **), void *ptr, err_t(*fonction_dest)(void **))</td></tr>
+<tr class="memdesc:ac3af91c3bc72ff28c5056ca47ced9254"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute une entité dans le tableau d'entités, et la fonction de destruction correspondante dans l'autre tableau paramètres:  <a href="entite_8c.html#ac3af91c3bc72ff28c5056ca47ced9254">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ac3af91c3bc72ff28c5056ca47ced9254"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa90953de518d855eefda1a79c39af3d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="entite_8c.html#afa90953de518d855eefda1a79c39af3d">enlever_tableaux</a> (void *tab[NB_MAX_AFF], err_t(*tab_destr[NB_MAX_AFF])(void **))</td></tr>
+<tr class="memdesc:afa90953de518d855eefda1a79c39af3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Détruit toutes les entités du tableau paramètres:  <a href="entite_8c.html#afa90953de518d855eefda1a79c39af3d">Plus de détails...</a><br /></td></tr>
+<tr class="separator:afa90953de518d855eefda1a79c39af3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13add93614f42c61d5495a9141775189"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="entite_8c.html#a13add93614f42c61d5495a9141775189">vider_tableaux</a> (void *tab[NB_MAX_AFF], err_t(*tab_destr[NB_MAX_AFF])(void **))</td></tr>
+<tr class="memdesc:a13add93614f42c61d5495a9141775189"><td class="mdescLeft">&#160;</td><td class="mdescRight">Détruit toutes les entités du tableau paramètres:  <a href="entite_8c.html#a13add93614f42c61d5495a9141775189">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a13add93614f42c61d5495a9141775189"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6338cb9bb0d6264afc0d2ac1d1ff14a6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="entite_8c.html#a6338cb9bb0d6264afc0d2ac1d1ff14a6">enlever_element_tableau</a> (void *tab[NB_MAX_AFF], err_t(*tab_destr[NB_MAX_AFF])(void **), void *element)</td></tr>
+<tr class="memdesc:a6338cb9bb0d6264afc0d2ac1d1ff14a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Détruit un élément particulier du tableau paramètres:  <a href="entite_8c.html#a6338cb9bb0d6264afc0d2ac1d1ff14a6">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a6338cb9bb0d6264afc0d2ac1d1ff14a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e44f0c691813be1eb502504c82cc1cd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="entite_8c.html#a9e44f0c691813be1eb502504c82cc1cd">update_ennemis_input</a> (void *tab[NB_MAX_AFF], perso_t *joueur)</td></tr>
+<tr class="memdesc:a9e44f0c691813be1eb502504c82cc1cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Actualise la vitesse des entités du tableau passé en paramètre par rapport au personnage donné paramètres:  <a href="entite_8c.html#a9e44f0c691813be1eb502504c82cc1cd">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a9e44f0c691813be1eb502504c82cc1cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb2524592f5db55aee0b297ea703433b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="entite_8c.html#adb2524592f5db55aee0b297ea703433b">synchro_tableau</a> (void *tab[NB_MAX_AFF], err_t(*tab_destr[NB_MAX_AFF])(void **), double temps, FILE *file_gen)</td></tr>
+<tr class="memdesc:adb2524592f5db55aee0b297ea703433b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Actualise les tableaux paramètres:  <a href="entite_8c.html#adb2524592f5db55aee0b297ea703433b">Plus de détails...</a><br /></td></tr>
+<tr class="separator:adb2524592f5db55aee0b297ea703433b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22f2cd496bf4933c24d79a2a7581eacd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="entite_8c.html#a22f2cd496bf4933c24d79a2a7581eacd">hitbox_tableau</a> (SDL_Renderer *ren, void *tab[NB_MAX_AFF], int WINW, int WINH)</td></tr>
+<tr class="memdesc:a22f2cd496bf4933c24d79a2a7581eacd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Actualise les hitbox des tableaux paramètres:  <a href="entite_8c.html#a22f2cd496bf4933c24d79a2a7581eacd">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a22f2cd496bf4933c24d79a2a7581eacd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bdb558f9863d8be82da772c1ac420ed"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="entite_8c.html#a5bdb558f9863d8be82da772c1ac420ed">tableau_agit</a> (SDL_Renderer *ren, void *tab[NB_MAX_AFF], err_t(*tab_destr[NB_MAX_AFF])(void **), void *ent_a_verif, FILE *index, char *appel)</td></tr>
+<tr class="memdesc:a5bdb558f9863d8be82da772c1ac420ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute une série d'action paramètres:  <a href="entite_8c.html#a5bdb558f9863d8be82da772c1ac420ed">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a5bdb558f9863d8be82da772c1ac420ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace25efd4d48bf1bbc85418207353c9a1"><td class="memItemLeft" align="right" valign="top">booleen_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="entite_8c.html#ace25efd4d48bf1bbc85418207353c9a1">dans_mur</a> (entite_t *ent)</td></tr>
+<tr class="memdesc:ace25efd4d48bf1bbc85418207353c9a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vérifie si l'entité est dans un mur.  <a href="entite_8c.html#ace25efd4d48bf1bbc85418207353c9a1">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ace25efd4d48bf1bbc85418207353c9a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d581c0c76411e34320e99c50cc6deb6"><td class="memItemLeft" align="right" valign="top">pos_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="entite_8c.html#a5d581c0c76411e34320e99c50cc6deb6">mur_a_gauche</a> (entite_t *ent)</td></tr>
+<tr class="memdesc:a5d581c0c76411e34320e99c50cc6deb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vérifie si l'entité a un mur à sa gauche.  <a href="entite_8c.html#a5d581c0c76411e34320e99c50cc6deb6">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a5d581c0c76411e34320e99c50cc6deb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4207a8cc3046cfee2938c961699b727"><td class="memItemLeft" align="right" valign="top"><a id="af4207a8cc3046cfee2938c961699b727"></a>
+booleen_t&#160;</td><td class="memItemRight" valign="bottom"><b>est_dans_mur</b> (entite_t *ent)</td></tr>
+<tr class="separator:af4207a8cc3046cfee2938c961699b727"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a110b19b42cf3f72eb30b5c78d3827653"><td class="memItemLeft" align="right" valign="top">pos_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="entite_8c.html#a110b19b42cf3f72eb30b5c78d3827653">mur_a_droite</a> (entite_t *ent)</td></tr>
+<tr class="memdesc:a110b19b42cf3f72eb30b5c78d3827653"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vérifie si l'entité a un mur à sa droite.  <a href="entite_8c.html#a110b19b42cf3f72eb30b5c78d3827653">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a110b19b42cf3f72eb30b5c78d3827653"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f4abb4f43288fe3bd1b89932e4f17ed"><td class="memItemLeft" align="right" valign="top">pos_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="entite_8c.html#a4f4abb4f43288fe3bd1b89932e4f17ed">mur_en_haut</a> (entite_t *ent)</td></tr>
+<tr class="memdesc:a4f4abb4f43288fe3bd1b89932e4f17ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vérifie si l'entité a un mur au dessus.  <a href="entite_8c.html#a4f4abb4f43288fe3bd1b89932e4f17ed">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a4f4abb4f43288fe3bd1b89932e4f17ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a723fb7d59fa9ac247bfe7d446b8a145c"><td class="memItemLeft" align="right" valign="top">pos_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="entite_8c.html#a723fb7d59fa9ac247bfe7d446b8a145c">mur_en_bas</a> (entite_t *ent)</td></tr>
+<tr class="memdesc:a723fb7d59fa9ac247bfe7d446b8a145c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vérifie si l'entité a un mur au dessous.  <a href="entite_8c.html#a723fb7d59fa9ac247bfe7d446b8a145c">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a723fb7d59fa9ac247bfe7d446b8a145c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac3d848b9eee550fbfca0dbfe4a7f81e"><td class="memItemLeft" align="right" valign="top">pos_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="entite_8c.html#aac3d848b9eee550fbfca0dbfe4a7f81e">contact_pont</a> (entite_t *ent)</td></tr>
+<tr class="memdesc:aac3d848b9eee550fbfca0dbfe4a7f81e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vérifie si l'entité touche un pont.  <a href="entite_8c.html#aac3d848b9eee550fbfca0dbfe4a7f81e">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aac3d848b9eee550fbfca0dbfe4a7f81e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa69cd2093315f21227de46aacc97d148"><td class="memItemLeft" align="right" valign="top">pos_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="entite_8c.html#aa69cd2093315f21227de46aacc97d148">pont_en_bas</a> (entite_t *ent)</td></tr>
+<tr class="memdesc:aa69cd2093315f21227de46aacc97d148"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vérifie si l'entité est sur un pont.  <a href="entite_8c.html#aa69cd2093315f21227de46aacc97d148">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aa69cd2093315f21227de46aacc97d148"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a096a6b3f2208fd9a2f1a7bf096e58060"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="entite_8c.html#a096a6b3f2208fd9a2f1a7bf096e58060">replacer</a> (entite_t *ent, pos_t pos_mur, int direction)</td></tr>
+<tr class="memdesc:a096a6b3f2208fd9a2f1a7bf096e58060"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replacement d'une entité hors d'un obstacle.  <a href="entite_8c.html#a096a6b3f2208fd9a2f1a7bf096e58060">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a096a6b3f2208fd9a2f1a7bf096e58060"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a338c1cc52cb260874ae2f6b104a3f198"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="entite_8c.html#a338c1cc52cb260874ae2f6b104a3f198">str_creer_copier</a> (char *chaine_src)</td></tr>
+<tr class="memdesc:a338c1cc52cb260874ae2f6b104a3f198"><td class="mdescLeft">&#160;</td><td class="mdescRight">Créer une chaine de caractères identique à celle passée en paramètre.  <a href="entite_8c.html#a338c1cc52cb260874ae2f6b104a3f198">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a338c1cc52cb260874ae2f6b104a3f198"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac87e1335c75b5aaff02678e2c508baca"><td class="memItemLeft" align="right" valign="top">err_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="entite_8c.html#ac87e1335c75b5aaff02678e2c508baca">entite_detruire</a> (entite_t **ent)</td></tr>
+<tr class="memdesc:ac87e1335c75b5aaff02678e2c508baca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Détruit l'entité et tout ce qu'elle contient.  <a href="entite_8c.html#ac87e1335c75b5aaff02678e2c508baca">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ac87e1335c75b5aaff02678e2c508baca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a7abe357d78f262f433fbeffe94e200"><td class="memItemLeft" align="right" valign="top">booleen_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="entite_8c.html#a2a7abe357d78f262f433fbeffe94e200">entite_existe</a> (entite_t *ent)</td></tr>
+<tr class="memdesc:a2a7abe357d78f262f433fbeffe94e200"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vérifie si l'entité existe.  <a href="entite_8c.html#a2a7abe357d78f262f433fbeffe94e200">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a2a7abe357d78f262f433fbeffe94e200"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5857d8e5e1b09a4f866e2f93d1302cc3"><td class="memItemLeft" align="right" valign="top">entite_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="entite_8c.html#a5857d8e5e1b09a4f866e2f93d1302cc3">entite_creer</a> (char *nom, char *description, salle_t *salle, chunk_t *chunk, pos_t pos, float vitesse_x, float vitesse_y, float vitesse_max_y, float secSprite, int w, int h, int w_hitbox, int h_hitbox, int offset_hitbox, int nbTextures, SDL_Texture **textures)</td></tr>
+<tr class="memdesc:a5857d8e5e1b09a4f866e2f93d1302cc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Création d'une entité  <a href="entite_8c.html#a5857d8e5e1b09a4f866e2f93d1302cc3">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a5857d8e5e1b09a4f866e2f93d1302cc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p>Module entite \verion 1.0. </p>
+<dl class="section date"><dt>Date</dt><dd>Avril 2021 </dd></dl>
+</div><h2 class="groupheader">Documentation des fonctions</h2>
+<a id="a11eac8c60141de22af351f8bc381e611"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11eac8c60141de22af351f8bc381e611">&#9670;&nbsp;</a></span>afficher_tableau()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">err_t afficher_tableau </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>tab_ent</em>[NB_MAX_AFF], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Renderer *&#160;</td>
+          <td class="paramname"><em>ren</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>WINW</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>WINH</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Affiche dans le renderer le contenu du tableau d'entités passé en paramètre paramètres: </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">void</td><td>Tableau d'entités </td></tr>
+    <tr><td class="paramname">SDL_Renderer</td><td>Pointeur sur le renderer </td></tr>
+    <tr><td class="paramname">int</td><td>Largeur de la fenêtre </td></tr>
+    <tr><td class="paramname">int</td><td>Hauteur de la fenêtre </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ac3af91c3bc72ff28c5056ca47ced9254"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3af91c3bc72ff28c5056ca47ced9254">&#9670;&nbsp;</a></span>ajouter_tableaux()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ajouter_tableaux </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>tab</em>[NB_MAX_AFF], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">err_t(*[])(void **)&#160;</td>
+          <td class="paramname"><em>NB_MAX_AFF</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">err_t(*)(void **)&#160;</td>
+          <td class="paramname"><em>fonction_dest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ajoute une entité dans le tableau d'entités, et la fonction de destruction correspondante dans l'autre tableau paramètres: </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">void</td><td>Tableau d'entités </td></tr>
+    <tr><td class="paramname">void</td><td>Entité à ajouter </td></tr>
+    <tr><td class="paramname">err_t</td><td>Tableau des fonctions de destructions </td></tr>
+    <tr><td class="paramname">err_t</td><td>Fonction de destruction </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Retourne 0 si l'ajout échoue </dd></dl>
+
+</div>
+</div>
+<a id="aac3d848b9eee550fbfca0dbfe4a7f81e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac3d848b9eee550fbfca0dbfe4a7f81e">&#9670;&nbsp;</a></span>contact_pont()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">pos_t contact_pont </td>
+          <td>(</td>
+          <td class="paramtype">entite_t *&#160;</td>
+          <td class="paramname"><em>ent</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vérifie si l'entité touche un pont. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entite_t</td><td>Entité dont on vérifie la localisation </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Retourne la position du pont </dd></dl>
+
+</div>
+</div>
+<a id="a6eca4c02bded2f16f72ef23125c63dd5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6eca4c02bded2f16f72ef23125c63dd5">&#9670;&nbsp;</a></span>creer_tableau_textures_chaine()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Texture** creer_tableau_textures_chaine </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Renderer *&#160;</td>
+          <td class="paramname"><em>ren</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>chaine</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>appel</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Crée de multiples textures à partir de noms stockés dans chaine. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">SDL_Renderer</td><td>Pointeur sur le renderer </td></tr>
+    <tr><td class="paramname">int</td><td>Increment </td></tr>
+    <tr><td class="paramname">char</td><td>Chaine de caractères </td></tr>
+    <tr><td class="paramname">appel</td><td>de fichier </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Les textures créées </dd></dl>
+
+</div>
+</div>
+<a id="a1ea0b47a6e2cc23b4972984c6383537f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ea0b47a6e2cc23b4972984c6383537f">&#9670;&nbsp;</a></span>creer_tableau_textures_manuel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Texture** creer_tableau_textures_manuel </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Renderer *&#160;</td>
+          <td class="paramname"><em>ren</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Crée de multiples textures à partir de noms donnés en arguments. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">SDL_Renderer</td><td>Pointeur sur le renderer </td></tr>
+    <tr><td class="paramname">int</td><td>Increment </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Les textures créées </dd></dl>
+
+</div>
+</div>
+<a id="ace25efd4d48bf1bbc85418207353c9a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace25efd4d48bf1bbc85418207353c9a1">&#9670;&nbsp;</a></span>dans_mur()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">booleen_t dans_mur </td>
+          <td>(</td>
+          <td class="paramtype">entite_t *&#160;</td>
+          <td class="paramname"><em>ent</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vérifie si l'entité est dans un mur. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entite_t</td><td>Entité dont on vérifie la localisation </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a5aa0c77426b06b615b2b6145686a1eae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5aa0c77426b06b615b2b6145686a1eae">&#9670;&nbsp;</a></span>echanger()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void echanger </td>
+          <td>(</td>
+          <td class="paramtype">void **&#160;</td>
+          <td class="paramname"><em>ptr1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void **&#160;</td>
+          <td class="paramname"><em>ptr2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Échange le contenu des deux pointeurs paramètres: </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">void</td><td>Premier pointeur </td></tr>
+    <tr><td class="paramname">void</td><td>Second pointeur </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a6338cb9bb0d6264afc0d2ac1d1ff14a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6338cb9bb0d6264afc0d2ac1d1ff14a6">&#9670;&nbsp;</a></span>enlever_element_tableau()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void enlever_element_tableau </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>tab</em>[NB_MAX_AFF], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">err_t(*[])(void **)&#160;</td>
+          <td class="paramname"><em>NB_MAX_AFF</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>element</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Détruit un élément particulier du tableau paramètres: </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">void</td><td>Tableau d'entités </td></tr>
+    <tr><td class="paramname">err_t</td><td>Tableau des fonctions de destructions </td></tr>
+    <tr><td class="paramname">void</td><td>Entité à chercher et detruire </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="afa90953de518d855eefda1a79c39af3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa90953de518d855eefda1a79c39af3d">&#9670;&nbsp;</a></span>enlever_tableaux()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void enlever_tableaux </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>tab</em>[NB_MAX_AFF], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">err_t(*[])(void **)&#160;</td>
+          <td class="paramname"><em>NB_MAX_AFF</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Détruit toutes les entités du tableau paramètres: </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">void</td><td>Tableau d'entités </td></tr>
+    <tr><td class="paramname">err_t</td><td>Tableau des fonctions de destructions </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a5857d8e5e1b09a4f866e2f93d1302cc3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5857d8e5e1b09a4f866e2f93d1302cc3">&#9670;&nbsp;</a></span>entite_creer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">entite_t* entite_creer </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>nom</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>description</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">salle_t *&#160;</td>
+          <td class="paramname"><em>salle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">chunk_t *&#160;</td>
+          <td class="paramname"><em>chunk</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">pos_t&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>vitesse_x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>vitesse_y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>vitesse_max_y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>secSprite</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>w_hitbox</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>h_hitbox</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>offset_hitbox</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>nbTextures</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Texture **&#160;</td>
+          <td class="paramname"><em>textures</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Création d'une entité </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">char</td><td>Nom de l'entité </td></tr>
+    <tr><td class="paramname">char</td><td>Descritption de l'entité </td></tr>
+    <tr><td class="paramname">salle_t</td><td>Salle de l'entité </td></tr>
+    <tr><td class="paramname">chunk_t</td><td>Chunk de l'entité </td></tr>
+    <tr><td class="paramname">pos_t</td><td>Position de l'entité </td></tr>
+    <tr><td class="paramname">float</td><td>Vitesse horizontale </td></tr>
+    <tr><td class="paramname">float</td><td>Vitesse verticale </td></tr>
+    <tr><td class="paramname">float</td><td>Vitesse verticale maximale </td></tr>
+    <tr><td class="paramname">int</td><td>Largeur </td></tr>
+    <tr><td class="paramname">int</td><td>Hauteur </td></tr>
+    <tr><td class="paramname">int</td><td>Largeur de la hitbox </td></tr>
+    <tr><td class="paramname">int</td><td>Hauteur de la hitbox </td></tr>
+    <tr><td class="paramname">int</td><td>Décalage de la hitbox </td></tr>
+    <tr><td class="paramname">int</td><td>Nombre de textures </td></tr>
+    <tr><td class="paramname">SDL_Texture</td><td>Texture SDL de l'entité </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Retourne l'entité créée </dd></dl>
+
+</div>
+</div>
+<a id="ac87e1335c75b5aaff02678e2c508baca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac87e1335c75b5aaff02678e2c508baca">&#9670;&nbsp;</a></span>entite_detruire()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">err_t entite_detruire </td>
+          <td>(</td>
+          <td class="paramtype">entite_t **&#160;</td>
+          <td class="paramname"><em>ent</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Détruit l'entité et tout ce qu'elle contient. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entite_t</td><td>Pointeur sur pointeur sur l'entite à supprimer </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Retourne OK si tout s'est bien passé </dd></dl>
+
+</div>
+</div>
+<a id="a2a7abe357d78f262f433fbeffe94e200"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a7abe357d78f262f433fbeffe94e200">&#9670;&nbsp;</a></span>entite_existe()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">booleen_t entite_existe </td>
+          <td>(</td>
+          <td class="paramtype">entite_t *&#160;</td>
+          <td class="paramname"><em>ent</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vérifie si l'entité existe. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entite_t</td><td>Pointeur sur pointeur sur l'entite à vérifier </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Retourne VRAI si l'entite existe, FAUX sinon </dd></dl>
+
+</div>
+</div>
+<a id="ac6f0ddf15f2cef4f8f6a69ec4747eb84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6f0ddf15f2cef4f8f6a69ec4747eb84">&#9670;&nbsp;</a></span>entre_guillemet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* entre_guillemet </td>
+          <td>(</td>
+          <td class="paramtype">FILE *&#160;</td>
+          <td class="paramname"><em>file</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Recherche une chaine entre guillements dans un fichier. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">FILE</td><td>Ficher dans lequel chercher </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Retourne la chaine trouvée, NULL sinon </dd></dl>
+
+</div>
+</div>
+<a id="a2d83378ea5ab10eea68dc189125e04fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d83378ea5ab10eea68dc189125e04fa">&#9670;&nbsp;</a></span>est_mur()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int est_mur </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>contenu</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vérifie si l'endroit pointé est dans un mur ou non paramètres: </p>
+<p>est_obstacle: </p><dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">int</td><td>Contenu d'une unité d'un chunk </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Retourne 1 si le contenu est un obstacle, 0 sinon </dd></dl>
+
+</div>
+</div>
+<a id="a38a897df1e1bf4dacc442858a2b5348a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38a897df1e1bf4dacc442858a2b5348a">&#9670;&nbsp;</a></span>est_pont()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int est_pont </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>contenu</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vérifie si l'endroit pointé est dans un pont ou non paramètres: </p>
+<p>est_obstacle: </p><dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">int</td><td>Contenu d'une unité d'un chunk </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Retourne 1 si le contenu est un obstacle, 0 sinon </dd></dl>
+
+</div>
+</div>
+<a id="a22f2cd496bf4933c24d79a2a7581eacd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22f2cd496bf4933c24d79a2a7581eacd">&#9670;&nbsp;</a></span>hitbox_tableau()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hitbox_tableau </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Renderer *&#160;</td>
+          <td class="paramname"><em>ren</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>tab</em>[NB_MAX_AFF], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>WINW</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>WINH</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Actualise les hitbox des tableaux paramètres: </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">SDL_Renderer</td><td>Pointeur sur le renderer </td></tr>
+    <tr><td class="paramname">void</td><td>Tableau d'entités </td></tr>
+    <tr><td class="paramname">int</td><td>Largeur de la fenêtre </td></tr>
+    <tr><td class="paramname">int</td><td>Hauteur de la fenêtre </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a18fd4ec58c2af12179bdb0d6e29de6cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18fd4ec58c2af12179bdb0d6e29de6cb">&#9670;&nbsp;</a></span>initTabDaffich()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void initTabDaffich </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>tab</em>[NB_MAX_AFF]</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initialise le tableau des entités. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">void</td><td>Le tableau d'entités à initialiser </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a110b19b42cf3f72eb30b5c78d3827653"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a110b19b42cf3f72eb30b5c78d3827653">&#9670;&nbsp;</a></span>mur_a_droite()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">pos_t mur_a_droite </td>
+          <td>(</td>
+          <td class="paramtype">entite_t *&#160;</td>
+          <td class="paramname"><em>ent</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vérifie si l'entité a un mur à sa droite. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entite_t</td><td>Entité dont on vérifie la localisation </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Retourne la position du mur </dd></dl>
+
+</div>
+</div>
+<a id="a5d581c0c76411e34320e99c50cc6deb6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d581c0c76411e34320e99c50cc6deb6">&#9670;&nbsp;</a></span>mur_a_gauche()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">pos_t mur_a_gauche </td>
+          <td>(</td>
+          <td class="paramtype">entite_t *&#160;</td>
+          <td class="paramname"><em>ent</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vérifie si l'entité a un mur à sa gauche. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entite_t</td><td>Entité dont on vérifie la localisation </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Retourne la position du mur </dd></dl>
+
+</div>
+</div>
+<a id="a723fb7d59fa9ac247bfe7d446b8a145c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a723fb7d59fa9ac247bfe7d446b8a145c">&#9670;&nbsp;</a></span>mur_en_bas()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">pos_t mur_en_bas </td>
+          <td>(</td>
+          <td class="paramtype">entite_t *&#160;</td>
+          <td class="paramname"><em>ent</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vérifie si l'entité a un mur au dessous. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entite_t</td><td>Entité dont on vérifie la localisation </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Retourne la position du mur </dd></dl>
+
+</div>
+</div>
+<a id="a4f4abb4f43288fe3bd1b89932e4f17ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f4abb4f43288fe3bd1b89932e4f17ed">&#9670;&nbsp;</a></span>mur_en_haut()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">pos_t mur_en_haut </td>
+          <td>(</td>
+          <td class="paramtype">entite_t *&#160;</td>
+          <td class="paramname"><em>ent</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vérifie si l'entité a un mur au dessus. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entite_t</td><td>Entité dont on vérifie la localisation </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Retourne la position du mur </dd></dl>
+
+</div>
+</div>
+<a id="aa69cd2093315f21227de46aacc97d148"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa69cd2093315f21227de46aacc97d148">&#9670;&nbsp;</a></span>pont_en_bas()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">pos_t pont_en_bas </td>
+          <td>(</td>
+          <td class="paramtype">entite_t *&#160;</td>
+          <td class="paramname"><em>ent</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vérifie si l'entité est sur un pont. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entite_t</td><td>Entité dont on vérifie la localisation </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Retourne la position du pont </dd></dl>
+
+</div>
+</div>
+<a id="a096a6b3f2208fd9a2f1a7bf096e58060"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a096a6b3f2208fd9a2f1a7bf096e58060">&#9670;&nbsp;</a></span>replacer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void replacer </td>
+          <td>(</td>
+          <td class="paramtype">entite_t *&#160;</td>
+          <td class="paramname"><em>ent</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">pos_t&#160;</td>
+          <td class="paramname"><em>pos_mur</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>direction</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Replacement d'une entité hors d'un obstacle. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entite_t</td><td>Entité a déplacer </td></tr>
+    <tr><td class="paramname">pos_t</td><td>Position du mur dont on doit sortir \int direction Orientation à donner à l'entité </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a97a255a14bd16f2eb4a8a9f6481a2e45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97a255a14bd16f2eb4a8a9f6481a2e45">&#9670;&nbsp;</a></span>seek_entity_type()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long seek_entity_type </td>
+          <td>(</td>
+          <td class="paramtype">FILE *&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>type</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Cherche un type d'entite dans un fichier. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">FILE</td><td>Fichier où chercher </td></tr>
+    <tr><td class="paramname">char</td><td>Chaine de caractères </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Place dans le fichier de l'entité trouvée, sinon -1. </dd></dl>
+
+</div>
+</div>
+<a id="a338c1cc52cb260874ae2f6b104a3f198"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a338c1cc52cb260874ae2f6b104a3f198">&#9670;&nbsp;</a></span>str_creer_copier()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* str_creer_copier </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>chaine_src</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Créer une chaine de caractères identique à celle passée en paramètre. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">La</td><td>chaine de caractères a copier </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Retourne un pointeur sur char différent de chaine_src mais avec la même chaine de caractères, NULL si ça s'est mal passé </dd></dl>
+
+</div>
+</div>
+<a id="adb2524592f5db55aee0b297ea703433b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb2524592f5db55aee0b297ea703433b">&#9670;&nbsp;</a></span>synchro_tableau()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void synchro_tableau </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>tab</em>[NB_MAX_AFF], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">err_t(*[])(void **)&#160;</td>
+          <td class="paramname"><em>NB_MAX_AFF</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>temps</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FILE *&#160;</td>
+          <td class="paramname"><em>file_gen</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Actualise les tableaux paramètres: </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">void</td><td>Tableau d'entités </td></tr>
+    <tr><td class="paramname">err_t</td><td>Tableau des fonctions de destruction </td></tr>
+    <tr><td class="paramname">double</td><td>Le temps </td></tr>
+    <tr><td class="paramname">FILE</td><td>fichier de génération </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a5bdb558f9863d8be82da772c1ac420ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5bdb558f9863d8be82da772c1ac420ed">&#9670;&nbsp;</a></span>tableau_agit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tableau_agit </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Renderer *&#160;</td>
+          <td class="paramname"><em>ren</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>tab</em>[NB_MAX_AFF], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">err_t(*[])(void **)&#160;</td>
+          <td class="paramname"><em>NB_MAX_AFF</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>ent_a_verif</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FILE *&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>appel</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Execute une série d'action paramètres: </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">SDL_Renderer</td><td>Pointeur sur le renderer </td></tr>
+    <tr><td class="paramname">void</td><td>Tableau d'entités </td></tr>
+    <tr><td class="paramname">err_t</td><td>Tableau des fonctions de destruction </td></tr>
+    <tr><td class="paramname">void</td><td>Entite qui subit l'action </td></tr>
+    <tr><td class="paramname">FILE</td><td>fichier de génération </td></tr>
+    <tr><td class="paramname">appel</td><td>de fichier </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a9e44f0c691813be1eb502504c82cc1cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e44f0c691813be1eb502504c82cc1cd">&#9670;&nbsp;</a></span>update_ennemis_input()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void update_ennemis_input </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>tab</em>[NB_MAX_AFF], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">perso_t *&#160;</td>
+          <td class="paramname"><em>joueur</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Actualise la vitesse des entités du tableau passé en paramètre par rapport au personnage donné paramètres: </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">void</td><td>Tableau d'entités </td></tr>
+    <tr><td class="paramname">perso_t</td><td>Personnage ciblé par les déplacements </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a13add93614f42c61d5495a9141775189"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13add93614f42c61d5495a9141775189">&#9670;&nbsp;</a></span>vider_tableaux()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vider_tableaux </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>tab</em>[NB_MAX_AFF], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">err_t(*[])(void **)&#160;</td>
+          <td class="paramname"><em>NB_MAX_AFF</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Détruit toutes les entités du tableau paramètres: </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">void</td><td>Tableau d'entités </td></tr>
+    <tr><td class="paramname">err_t</td><td>Tableau des fonctions de destructions </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré par&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+</small></address>
+</body>
+</html>

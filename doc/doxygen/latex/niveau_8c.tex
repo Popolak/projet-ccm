@@ -1,0 +1,115 @@
+\hypertarget{niveau_8c}{}\doxysection{Référence du fichier src/niveaux/niveau.c}
+\label{niveau_8c}\index{src/niveaux/niveau.c@{src/niveaux/niveau.c}}
+
+
+Module niveau \textbackslash{}verion 1.\+0.  
+
+
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}../../lib/niveaux/niveau.\+h\char`\"{}}\newline
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+err\+\_\+t \mbox{\hyperlink{niveau_8c_a4a0c795be342d6b817ef65a96eb068cb}{relier\+\_\+portes}} (FILE $\ast$fichier, niveau\+\_\+t $\ast$niveau)
+\begin{DoxyCompactList}\small\item\em Relier les portesdu niveau entres elles. \end{DoxyCompactList}\item 
+err\+\_\+t \mbox{\hyperlink{niveau_8c_aec692ac7b8c97d5162a882b97403cdf3}{creer\+\_\+pont}} (FILE $\ast$fichier, niveau\+\_\+t $\ast$niv)
+\begin{DoxyCompactList}\small\item\em Création des ponts d\textquotesingle{}un niveau. \end{DoxyCompactList}\item 
+booleen\+\_\+t \mbox{\hyperlink{niveau_8c_a14dcfcee4ad19554b04f702da8faf008}{niveau\+\_\+existe}} (niveau\+\_\+t $\ast$niveau)
+\begin{DoxyCompactList}\small\item\em Vérification d\textquotesingle{}existence du niveau passé en paramètre. \end{DoxyCompactList}\item 
+niveau\+\_\+t $\ast$ \mbox{\hyperlink{niveau_8c_ac59a5cde34509dac36214df46e10dc71}{niveau\+\_\+creer}} (char $\ast$nom\+\_\+fichier)
+\begin{DoxyCompactList}\small\item\em Création du niveau. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{niveau_8c_af8e906a918506d11b5af941429d84270}\label{niveau_8c_af8e906a918506d11b5af941429d84270}} 
+void \mbox{\hyperlink{niveau_8c_af8e906a918506d11b5af941429d84270}{niveau\+\_\+afficher\+\_\+ref}} ()
+\begin{DoxyCompactList}\small\item\em Affiche la référence du niveau par printf. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{niveau_8c_a16098d9aceedf49af34e22ec5a03efdc}\label{niveau_8c_a16098d9aceedf49af34e22ec5a03efdc}} 
+int {\bfseries cpt\+\_\+niveau} =0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Module niveau \textbackslash{}verion 1.\+0. 
+
+\begin{DoxyDate}{Date}
+Avril 2021 
+\end{DoxyDate}
+
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{niveau_8c_aec692ac7b8c97d5162a882b97403cdf3}\label{niveau_8c_aec692ac7b8c97d5162a882b97403cdf3}} 
+\index{niveau.c@{niveau.c}!creer\_pont@{creer\_pont}}
+\index{creer\_pont@{creer\_pont}!niveau.c@{niveau.c}}
+\doxysubsubsection{\texorpdfstring{creer\_pont()}{creer\_pont()}}
+{\footnotesize\ttfamily err\+\_\+t creer\+\_\+pont (\begin{DoxyParamCaption}\item[{FILE $\ast$}]{fichier,  }\item[{niveau\+\_\+t $\ast$}]{niv }\end{DoxyParamCaption})}
+
+
+
+Création des ponts d\textquotesingle{}un niveau. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em FILE} & Fichier de création du niveau \\
+\hline
+{\em niveau\+\_\+t} & Pointeur sur le niveau à afficher \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{niveau_8c_ac59a5cde34509dac36214df46e10dc71}\label{niveau_8c_ac59a5cde34509dac36214df46e10dc71}} 
+\index{niveau.c@{niveau.c}!niveau\_creer@{niveau\_creer}}
+\index{niveau\_creer@{niveau\_creer}!niveau.c@{niveau.c}}
+\doxysubsubsection{\texorpdfstring{niveau\_creer()}{niveau\_creer()}}
+{\footnotesize\ttfamily niveau\+\_\+t$\ast$ niveau\+\_\+creer (\begin{DoxyParamCaption}\item[{char $\ast$}]{nom\+\_\+fichier }\end{DoxyParamCaption})}
+
+
+
+Création du niveau. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em char} & Nom\+\_\+fichier\+: chaine de caractères contenant le nom du fichier de génération du niveau \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Retourne un pointeur sur niveau\+\_\+t si tout fonctionne bien, NULL sinon 
+\end{DoxyReturn}
+\mbox{\Hypertarget{niveau_8c_a14dcfcee4ad19554b04f702da8faf008}\label{niveau_8c_a14dcfcee4ad19554b04f702da8faf008}} 
+\index{niveau.c@{niveau.c}!niveau\_existe@{niveau\_existe}}
+\index{niveau\_existe@{niveau\_existe}!niveau.c@{niveau.c}}
+\doxysubsubsection{\texorpdfstring{niveau\_existe()}{niveau\_existe()}}
+{\footnotesize\ttfamily booleen\+\_\+t niveau\+\_\+existe (\begin{DoxyParamCaption}\item[{niveau\+\_\+t $\ast$}]{niveau }\end{DoxyParamCaption})}
+
+
+
+Vérification d\textquotesingle{}existence du niveau passé en paramètre. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em niveau\+\_\+t} & Pointeur sur le niveau à tester \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Retourne VRAI si niveau existe, FAUX sinon 
+\end{DoxyReturn}
+\mbox{\Hypertarget{niveau_8c_a4a0c795be342d6b817ef65a96eb068cb}\label{niveau_8c_a4a0c795be342d6b817ef65a96eb068cb}} 
+\index{niveau.c@{niveau.c}!relier\_portes@{relier\_portes}}
+\index{relier\_portes@{relier\_portes}!niveau.c@{niveau.c}}
+\doxysubsubsection{\texorpdfstring{relier\_portes()}{relier\_portes()}}
+{\footnotesize\ttfamily err\+\_\+t relier\+\_\+portes (\begin{DoxyParamCaption}\item[{FILE $\ast$}]{fichier,  }\item[{niveau\+\_\+t $\ast$}]{niveau }\end{DoxyParamCaption})}
+
+
+
+Relier les portesdu niveau entres elles. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em FILE} & Pointeur sur FILE \\
+\hline
+{\em niveau\+\_\+t} & Niveau où relier les portes \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Retourne OK si l\textquotesingle{}opération réussi, sinon un code erreur. 
+\end{DoxyReturn}
+On cherche la première porte

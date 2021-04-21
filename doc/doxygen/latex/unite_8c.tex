@@ -1,0 +1,72 @@
+\hypertarget{unite_8c}{}\doxysection{Référence du fichier src/niveaux/unite.c}
+\label{unite_8c}\index{src/niveaux/unite.c@{src/niveaux/unite.c}}
+
+
+Module unité \textbackslash{}verion 1.\+0.  
+
+
+{\ttfamily \#include \char`\"{}../../lib/niveaux/unite.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}stdlib.\+h\char`\"{}}\newline
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+booleen\+\_\+t \mbox{\hyperlink{unite_8c_a11096f1a6877ac6840e998af96c1367b}{unite\+\_\+existe}} (unite\+\_\+t $\ast$unite)
+\begin{DoxyCompactList}\small\item\em Verification d\textquotesingle{}existence d\textquotesingle{}une unité \end{DoxyCompactList}\item 
+unite\+\_\+t $\ast$ \mbox{\hyperlink{unite_8c_a27eb36badae8a811ea9b83f81690275d}{unite\+\_\+creer}} (int contenu)
+\begin{DoxyCompactList}\small\item\em Création d\textquotesingle{}une unité \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{unite_8c_a73dce66710915c892ea8bac5a27853c0}\label{unite_8c_a73dce66710915c892ea8bac5a27853c0}} 
+void \mbox{\hyperlink{unite_8c_a73dce66710915c892ea8bac5a27853c0}{unite\+\_\+afficher\+\_\+ref}} ()
+\begin{DoxyCompactList}\small\item\em Affiche la référence de l\textquotesingle{}unité par printf. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{unite_8c_af114e0958dbd2beb14f9657f32498ec9}\label{unite_8c_af114e0958dbd2beb14f9657f32498ec9}} 
+int {\bfseries cpt\+\_\+unite} =0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Module unité \textbackslash{}verion 1.\+0. 
+
+\begin{DoxyDate}{Date}
+Avril 2021 
+\end{DoxyDate}
+
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{unite_8c_a27eb36badae8a811ea9b83f81690275d}\label{unite_8c_a27eb36badae8a811ea9b83f81690275d}} 
+\index{unite.c@{unite.c}!unite\_creer@{unite\_creer}}
+\index{unite\_creer@{unite\_creer}!unite.c@{unite.c}}
+\doxysubsubsection{\texorpdfstring{unite\_creer()}{unite\_creer()}}
+{\footnotesize\ttfamily unite\+\_\+t$\ast$ unite\+\_\+creer (\begin{DoxyParamCaption}\item[{int}]{contenu }\end{DoxyParamCaption})}
+
+
+
+Création d\textquotesingle{}une unité 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em int} & Contenu de l\textquotesingle{}unite \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Retourne l\textquotesingle{}unité si elle est crée, NULL sinon 
+\end{DoxyReturn}
+\mbox{\Hypertarget{unite_8c_a11096f1a6877ac6840e998af96c1367b}\label{unite_8c_a11096f1a6877ac6840e998af96c1367b}} 
+\index{unite.c@{unite.c}!unite\_existe@{unite\_existe}}
+\index{unite\_existe@{unite\_existe}!unite.c@{unite.c}}
+\doxysubsubsection{\texorpdfstring{unite\_existe()}{unite\_existe()}}
+{\footnotesize\ttfamily booleen\+\_\+t unite\+\_\+existe (\begin{DoxyParamCaption}\item[{unite\+\_\+t $\ast$}]{unite }\end{DoxyParamCaption})}
+
+
+
+Verification d\textquotesingle{}existence d\textquotesingle{}une unité 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em unite\+\_\+t} & Pointeur sur l\textquotesingle{}unite a tester \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Retourne VRAI si l\textquotesingle{}unite existe, FAUX sinon 
+\end{DoxyReturn}

@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Foodungeon: Référence du fichier src/niveaux/salle.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Foodungeon
+   </div>
+   <div id="projectbrief">Foodungeon est un jeu de type Roguelike.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a736ac6b7f9b5884ec538f40e9b0a17c.html">niveaux</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Fonctions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle">
+<div class="title">Référence du fichier salle.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>Module salle \verion 1.0.  
+<a href="#details">Plus de détails...</a></p>
+<div class="textblock"><code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &lt;ctype.h&gt;</code><br />
+<code>#include &quot;../../lib/niveaux/salle.h&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:a093073cb307a705b1716f7c4ec7bec1e"><td class="memItemLeft" align="right" valign="top">booleen_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="salle_8c.html#a093073cb307a705b1716f7c4ec7bec1e">type_correct</a> (char *type)</td></tr>
+<tr class="memdesc:a093073cb307a705b1716f7c4ec7bec1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vérification du type.  <a href="salle_8c.html#a093073cb307a705b1716f7c4ec7bec1e">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a093073cb307a705b1716f7c4ec7bec1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a188e6f1645e19b47747e987b90276dcd"><td class="memItemLeft" align="right" valign="top">booleen_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="salle_8c.html#a188e6f1645e19b47747e987b90276dcd">salle_existe</a> (salle_t *salle)</td></tr>
+<tr class="memdesc:a188e6f1645e19b47747e987b90276dcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vérification d'existence d'une salle \salle_t Pointeur sur la salle à tester.  <a href="salle_8c.html#a188e6f1645e19b47747e987b90276dcd">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a188e6f1645e19b47747e987b90276dcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af53800d4fb0dbb27cd3e1475b7672b92"><td class="memItemLeft" align="right" valign="top">salle_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="salle_8c.html#af53800d4fb0dbb27cd3e1475b7672b92">salle_creer_type</a> (char *type)</td></tr>
+<tr class="memdesc:af53800d4fb0dbb27cd3e1475b7672b92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Création d'une salle a partir d'une référence.  <a href="salle_8c.html#af53800d4fb0dbb27cd3e1475b7672b92">Plus de détails...</a><br /></td></tr>
+<tr class="separator:af53800d4fb0dbb27cd3e1475b7672b92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae65ce537b937ea29686dae98c636459c"><td class="memItemLeft" align="right" valign="top">salle_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="salle_8c.html#ae65ce537b937ea29686dae98c636459c">salle_creer</a> (char *type)</td></tr>
+<tr class="memdesc:ae65ce537b937ea29686dae98c636459c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Création d'une salle.  <a href="salle_8c.html#ae65ce537b937ea29686dae98c636459c">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ae65ce537b937ea29686dae98c636459c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae078eea91377921e0df6ab9699d6a20f"><td class="memItemLeft" align="right" valign="top"><a id="ae078eea91377921e0df6ab9699d6a20f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="salle_8c.html#ae078eea91377921e0df6ab9699d6a20f">salle_afficher_ref</a> ()</td></tr>
+<tr class="memdesc:ae078eea91377921e0df6ab9699d6a20f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Affiche la référence de la salle par printf. <br /></td></tr>
+<tr class="separator:ae078eea91377921e0df6ab9699d6a20f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a58441aeaf7c929ab95a06da1a3b5b8c8"><td class="memItemLeft" align="right" valign="top"><a id="a58441aeaf7c929ab95a06da1a3b5b8c8"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>cpt_salle</b> =0</td></tr>
+<tr class="separator:a58441aeaf7c929ab95a06da1a3b5b8c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p>Module salle \verion 1.0. </p>
+<dl class="section date"><dt>Date</dt><dd>Avril 2021 </dd></dl>
+</div><h2 class="groupheader">Documentation des fonctions</h2>
+<a id="ae65ce537b937ea29686dae98c636459c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae65ce537b937ea29686dae98c636459c">&#9670;&nbsp;</a></span>salle_creer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">salle_t* salle_creer </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Création d'une salle. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">char</td><td>Chaine de caractères (cf ./generation/generation_explication.txt) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Retourne un pointeur sur la salle créée, NULL sinon </dd></dl>
+
+</div>
+</div>
+<a id="af53800d4fb0dbb27cd3e1475b7672b92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af53800d4fb0dbb27cd3e1475b7672b92">&#9670;&nbsp;</a></span>salle_creer_type()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">salle_t* salle_creer_type </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Création d'une salle a partir d'une référence. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">char</td><td>Chaine de caractères (cf ./generation/generation_explication.txt) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Retourne un pointeur sur salle_t si la salle est crée, NULL sinon </dd></dl>
+
+</div>
+</div>
+<a id="a188e6f1645e19b47747e987b90276dcd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a188e6f1645e19b47747e987b90276dcd">&#9670;&nbsp;</a></span>salle_existe()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">booleen_t salle_existe </td>
+          <td>(</td>
+          <td class="paramtype">salle_t *&#160;</td>
+          <td class="paramname"><em>salle</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vérification d'existence d'une salle \salle_t Pointeur sur la salle à tester. </p>
+<dl class="section return"><dt>Renvoie</dt><dd>Retourne VRAI si la salle existe, FAUX sinon </dd></dl>
+
+</div>
+</div>
+<a id="a093073cb307a705b1716f7c4ec7bec1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a093073cb307a705b1716f7c4ec7bec1e">&#9670;&nbsp;</a></span>type_correct()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">booleen_t type_correct </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vérification du type. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">char</td><td>Position de la porte </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Retourne VRAI si le type est correcte, FAUX sinon </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré par&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+</small></address>
+</body>
+</html>

@@ -1,0 +1,225 @@
+\hypertarget{personnage_8c}{}\doxysection{Référence du fichier src/entite/personnage.c}
+\label{personnage_8c}\index{src/entite/personnage.c@{src/entite/personnage.c}}
+
+
+Module personnage \textbackslash{}verion 1.\+0.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}../../lib/entite/personnage.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../../lib/generation/element\+\_\+generation.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../../lib/entite/ennemi.\+h\char`\"{}}\newline
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+booleen\+\_\+t \mbox{\hyperlink{personnage_8c_abeff07de8e928a9a5420562efed92388}{perso\+\_\+existe}} (perso\+\_\+t $\ast$const personnage)
+\begin{DoxyCompactList}\small\item\em Vérifie si le personnage passé en paramêtre existe. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{personnage_8c_a09f7ab0b637d0d3c61c26902c731a6cd}{perso\+\_\+barre\+\_\+vie}} (SDL\+\_\+\+Renderer $\ast$ren, perso\+\_\+t $\ast$personnage, int WINW, int WINH)
+\begin{DoxyCompactList}\small\item\em Affiche la barre de vie du personnage. \end{DoxyCompactList}\item 
+err\+\_\+t \mbox{\hyperlink{personnage_8c_acac3b26e6227cbc33691c1675a253df2}{perso\+\_\+detruire}} (perso\+\_\+t $\ast$$\ast$personnage)
+\begin{DoxyCompactList}\small\item\em libère l\textquotesingle{}espace du personnage et toutes les allocation reliées a lui \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{personnage_8c_af41862f49744c1fcc413919f61188d19}{fait\+\_\+partie\+\_\+bin}} (int tot\+\_\+bin, int nombre\+\_\+puis\+\_\+2)
+\begin{DoxyCompactList}\small\item\em Vérifie si un bit appartient à tot\+\_\+bin. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{personnage_8c_a8bfda94f4e6032c12f942b8d01e09dda}{perso\+\_\+pos\+\_\+relative}} (perso\+\_\+t $\ast$perso)
+\begin{DoxyCompactList}\small\item\em Vérifie quel coin du chunk est le plus proche du personnage passé en paramètre. \end{DoxyCompactList}\item 
+err\+\_\+t \mbox{\hyperlink{personnage_8c_acfe94638bf7a8828869fa06d077d5de2}{remplir\+\_\+tableaux}} (SDL\+\_\+\+Renderer $\ast$ren, perso\+\_\+t $\ast$perso, void $\ast$tab\mbox{[}NB\+\_\+\+MAX\+\_\+\+AFF\mbox{]}, err\+\_\+t($\ast$tab\+\_\+destr\mbox{[}NB\+\_\+\+MAX\+\_\+\+AFF\mbox{]})(void $\ast$$\ast$), char $\ast$appel, FILE $\ast$index, FILE $\ast$file\+\_\+gen)
+\begin{DoxyCompactList}\small\item\em Remplit les tableaux à partir de fichiers de génération pour la salle où le personnage se trouve. \end{DoxyCompactList}\item 
+perso\+\_\+t $\ast$ \mbox{\hyperlink{personnage_8c_aea5852b23a6c078f6ae0c88bd5cc1911}{perso\+\_\+creer}} (char $\ast$nom, char $\ast$description, int vie, salle\+\_\+t $\ast$salle, chunk\+\_\+t $\ast$chunk, pos\+\_\+t pos, float vitesse\+\_\+x, float vitesse\+\_\+y, float vitesse\+\_\+max\+\_\+y, float vitesse\+\_\+saut, int w, int h, int w\+\_\+hitbox, int h\+\_\+hitbox, int offset\+\_\+hitbox, float sec\+Sprite, float vit\+\_\+attack, int degats, char $\ast$nom\+\_\+attaque, int nb\+Textures, SDL\+\_\+\+Texture $\ast$$\ast$textures)
+\begin{DoxyCompactList}\small\item\em Création d\textquotesingle{}un personnage. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Module personnage \textbackslash{}verion 1.\+0. 
+
+\begin{DoxyDate}{Date}
+Avril 2021 
+\end{DoxyDate}
+
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{personnage_8c_af41862f49744c1fcc413919f61188d19}\label{personnage_8c_af41862f49744c1fcc413919f61188d19}} 
+\index{personnage.c@{personnage.c}!fait\_partie\_bin@{fait\_partie\_bin}}
+\index{fait\_partie\_bin@{fait\_partie\_bin}!personnage.c@{personnage.c}}
+\doxysubsubsection{\texorpdfstring{fait\_partie\_bin()}{fait\_partie\_bin()}}
+{\footnotesize\ttfamily int fait\+\_\+partie\+\_\+bin (\begin{DoxyParamCaption}\item[{int}]{tot\+\_\+bin,  }\item[{int}]{nombre\+\_\+puis\+\_\+2 }\end{DoxyParamCaption})}
+
+
+
+Vérifie si un bit appartient à tot\+\_\+bin. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em int} & tot\+\_\+bin \+: nombre total \\
+\hline
+{\em int} & nombre\+\_\+puis\+\_\+2 \+: puissance de 2 pour vérifier si un certain bit appartient a tot\+\_\+bin \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Retourne un nombre si vrai, 0 sinon 
+\end{DoxyReturn}
+\mbox{\Hypertarget{personnage_8c_a09f7ab0b637d0d3c61c26902c731a6cd}\label{personnage_8c_a09f7ab0b637d0d3c61c26902c731a6cd}} 
+\index{personnage.c@{personnage.c}!perso\_barre\_vie@{perso\_barre\_vie}}
+\index{perso\_barre\_vie@{perso\_barre\_vie}!personnage.c@{personnage.c}}
+\doxysubsubsection{\texorpdfstring{perso\_barre\_vie()}{perso\_barre\_vie()}}
+{\footnotesize\ttfamily void perso\+\_\+barre\+\_\+vie (\begin{DoxyParamCaption}\item[{SDL\+\_\+\+Renderer $\ast$}]{ren,  }\item[{perso\+\_\+t $\ast$}]{personnage,  }\item[{int}]{WINW,  }\item[{int}]{WINH }\end{DoxyParamCaption})}
+
+
+
+Affiche la barre de vie du personnage. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em SDL\+\_\+\+Renderer} & Pointeur vers le renderer \\
+\hline
+{\em perso\+\_\+t} & Le personnage dont on affiche la vie \\
+\hline
+{\em int} & Largeur de la fenêtre \\
+\hline
+{\em int} & Hauteur de la fenêtre \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Retourne VRAI si le personnage existe, FAUX sinon 
+\end{DoxyReturn}
+\mbox{\Hypertarget{personnage_8c_aea5852b23a6c078f6ae0c88bd5cc1911}\label{personnage_8c_aea5852b23a6c078f6ae0c88bd5cc1911}} 
+\index{personnage.c@{personnage.c}!perso\_creer@{perso\_creer}}
+\index{perso\_creer@{perso\_creer}!personnage.c@{personnage.c}}
+\doxysubsubsection{\texorpdfstring{perso\_creer()}{perso\_creer()}}
+{\footnotesize\ttfamily perso\+\_\+t$\ast$ perso\+\_\+creer (\begin{DoxyParamCaption}\item[{char $\ast$}]{nom,  }\item[{char $\ast$}]{description,  }\item[{int}]{vie,  }\item[{salle\+\_\+t $\ast$}]{salle,  }\item[{chunk\+\_\+t $\ast$}]{chunk,  }\item[{pos\+\_\+t}]{pos,  }\item[{float}]{vitesse\+\_\+x,  }\item[{float}]{vitesse\+\_\+y,  }\item[{float}]{vitesse\+\_\+max\+\_\+y,  }\item[{float}]{vitesse\+\_\+saut,  }\item[{int}]{w,  }\item[{int}]{h,  }\item[{int}]{w\+\_\+hitbox,  }\item[{int}]{h\+\_\+hitbox,  }\item[{int}]{offset\+\_\+hitbox,  }\item[{float}]{sec\+Sprite,  }\item[{float}]{vit\+\_\+attack,  }\item[{int}]{degats,  }\item[{char $\ast$}]{nom\+\_\+attaque,  }\item[{int}]{nb\+Textures,  }\item[{SDL\+\_\+\+Texture $\ast$$\ast$}]{textures }\end{DoxyParamCaption})}
+
+
+
+Création d\textquotesingle{}un personnage. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em char} & Nom du personnage \\
+\hline
+{\em char} & Description du personnage \\
+\hline
+{\em salle\+\_\+t} & Salle \\
+\hline
+{\em chunk\+\_\+t} & Chunk du personnage \\
+\hline
+{\em pos\+\_\+t} & Position dans le chunk \\
+\hline
+{\em float} & Vitesse horizontale du personnage \\
+\hline
+{\em float} & Vitesse sur l\textquotesingle{}axe des ordonnées \\
+\hline
+{\em float} & Vitesse maximale sur l\textquotesingle{}axe des ordonnées \\
+\hline
+{\em float} & vitesse de saut \\
+\hline
+{\em int} & Largeur du personnage \\
+\hline
+{\em int} & Hauteur du personnage \\
+\hline
+{\em int} & Largeur de la hitbox \\
+\hline
+{\em int} & Hauteur du personnage \\
+\hline
+{\em int} & Décalage de la hitbox \\
+\hline
+{\em float} & Sprite secondaires \\
+\hline
+{\em float} & Vitesse d\textquotesingle{}attaque \\
+\hline
+{\em int} & Dégâts d\textquotesingle{}attaque \\
+\hline
+{\em char} & Nom de l\textquotesingle{}attaque \\
+\hline
+{\em int} & Nombre de textures \\
+\hline
+{\em SDL\+\_\+\+Texture} & Sprite du personnage \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Retourne le personnage créé. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{personnage_8c_acac3b26e6227cbc33691c1675a253df2}\label{personnage_8c_acac3b26e6227cbc33691c1675a253df2}} 
+\index{personnage.c@{personnage.c}!perso\_detruire@{perso\_detruire}}
+\index{perso\_detruire@{perso\_detruire}!personnage.c@{personnage.c}}
+\doxysubsubsection{\texorpdfstring{perso\_detruire()}{perso\_detruire()}}
+{\footnotesize\ttfamily err\+\_\+t perso\+\_\+detruire (\begin{DoxyParamCaption}\item[{perso\+\_\+t $\ast$$\ast$}]{personnage }\end{DoxyParamCaption})}
+
+
+
+libère l\textquotesingle{}espace du personnage et toutes les allocation reliées a lui 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em perso\+\_\+t} & Pointeur sur pointeur sur perso\+\_\+t \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Retourne OK si tout s\textquotesingle{}est bien passé 
+\end{DoxyReturn}
+\mbox{\Hypertarget{personnage_8c_abeff07de8e928a9a5420562efed92388}\label{personnage_8c_abeff07de8e928a9a5420562efed92388}} 
+\index{personnage.c@{personnage.c}!perso\_existe@{perso\_existe}}
+\index{perso\_existe@{perso\_existe}!personnage.c@{personnage.c}}
+\doxysubsubsection{\texorpdfstring{perso\_existe()}{perso\_existe()}}
+{\footnotesize\ttfamily booleen\+\_\+t perso\+\_\+existe (\begin{DoxyParamCaption}\item[{perso\+\_\+t $\ast$const}]{personnage }\end{DoxyParamCaption})}
+
+
+
+Vérifie si le personnage passé en paramêtre existe. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em perso\+\_\+t} & Le personnage à tester \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Retourne VRAI si le personnage existe, FAUX sinon 
+\end{DoxyReturn}
+\mbox{\Hypertarget{personnage_8c_a8bfda94f4e6032c12f942b8d01e09dda}\label{personnage_8c_a8bfda94f4e6032c12f942b8d01e09dda}} 
+\index{personnage.c@{personnage.c}!perso\_pos\_relative@{perso\_pos\_relative}}
+\index{perso\_pos\_relative@{perso\_pos\_relative}!personnage.c@{personnage.c}}
+\doxysubsubsection{\texorpdfstring{perso\_pos\_relative()}{perso\_pos\_relative()}}
+{\footnotesize\ttfamily int perso\+\_\+pos\+\_\+relative (\begin{DoxyParamCaption}\item[{perso\+\_\+t $\ast$}]{perso }\end{DoxyParamCaption})}
+
+
+
+Vérifie quel coin du chunk est le plus proche du personnage passé en paramètre. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em perso\+\_\+t} & Personnage à vérifier \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Combinaison de deux lettres\+: H/B pour Haut/\+Bas et G/D pour Gauche/\+Droite 
+\end{DoxyReturn}
+\mbox{\Hypertarget{personnage_8c_acfe94638bf7a8828869fa06d077d5de2}\label{personnage_8c_acfe94638bf7a8828869fa06d077d5de2}} 
+\index{personnage.c@{personnage.c}!remplir\_tableaux@{remplir\_tableaux}}
+\index{remplir\_tableaux@{remplir\_tableaux}!personnage.c@{personnage.c}}
+\doxysubsubsection{\texorpdfstring{remplir\_tableaux()}{remplir\_tableaux()}}
+{\footnotesize\ttfamily err\+\_\+t remplir\+\_\+tableaux (\begin{DoxyParamCaption}\item[{SDL\+\_\+\+Renderer $\ast$}]{ren,  }\item[{perso\+\_\+t $\ast$}]{perso,  }\item[{void $\ast$}]{tab\mbox{[}\+NB\+\_\+\+MAX\+\_\+\+AFF\mbox{]},  }\item[{err\+\_\+t($\ast$\mbox{[}$\,$\mbox{]})(void $\ast$$\ast$)}]{NB\+\_\+\+MAX\+\_\+\+AFF,  }\item[{char $\ast$}]{appel,  }\item[{FILE $\ast$}]{index,  }\item[{FILE $\ast$}]{file\+\_\+gen }\end{DoxyParamCaption})}
+
+
+
+Remplit les tableaux à partir de fichiers de génération pour la salle où le personnage se trouve. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em SDL\+\_\+\+Renderer} & Pointeur sur le renderer \\
+\hline
+{\em perso\+\_\+t} & Pointeur sur personnage \\
+\hline
+{\em void} & Tableau d\textquotesingle{}entités \\
+\hline
+{\em err\+\_\+t} & Tableaux de fonctions de destruction \\
+\hline
+{\em FILE} & Fichier \\
+\hline
+{\em FILE} & Fichier de génération \\
+\hline
+{\em char} & appel de fichier \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Retourne 0 si tout se passe bien, 1 en cas d\textquotesingle{}erreur 
+\end{DoxyReturn}

@@ -6,10 +6,20 @@
 #include "../../lib/generation/element_generation.h"
 #include "../../lib/entite/ennemi.h"
 
-
+/**
+* \file personnage.c
+* \brief Module personnage
+* \verion 1.0
+* \date Avril 2021
+*/
 /* Par Matthis */
 /* Fonctions */
 
+/**
+    \brief Le personnage disparait de sa salle
+    \param perso_t Le personnage à faire disparaitre
+    \return Retourne OK après le traitement
+*/
 static
 err_t perso_depop(perso_t * perso){
 	perso->chunk=NULL;
@@ -17,6 +27,12 @@ err_t perso_depop(perso_t * perso){
 	return OK;
 }
 
+/**
+    \brief Copie le personnage persoSrc dans le personnage persoDst
+    \param perso_t Le personnage dans lequel on copie
+    \param perso_t Le personnage à copier
+    \return Retourne OK après le traitement
+*/
 static 
 err_t perso_copie_partiel(perso_t * persoDst, perso_t * persoSrc){
 	persoDst->pos=persoSrc->pos;
@@ -31,6 +47,11 @@ err_t perso_copie_partiel(perso_t * persoDst, perso_t * persoSrc){
 	return OK;
 }
 
+/**
+    \brief Vérifie si le personnage passé en paramêtre existe
+    \param perso_t Le personnage à tester
+    \return Retourne VRAI si le personnage existe, FAUX sinon
+*/
 extern
 booleen_t perso_existe( perso_t * const personnage )
 {
@@ -40,7 +61,14 @@ booleen_t perso_existe( perso_t * const personnage )
     return VRAI;
 }
 
-
+/**
+    \brief Affiche la barre de vie du personnage
+    \param SDL_Renderer Pointeur vers le renderer
+    \param perso_t Le personnage dont on affiche la vie
+    \param int Largeur de la fenêtre
+    \param int Hauteur de la fenêtre
+    \return Retourne VRAI si le personnage existe, FAUX sinon
+*/
 void perso_barre_vie(SDL_Renderer * ren,perso_t * personnage, int WINW, int WINH){
 
    //création de la barre de vie
@@ -67,6 +95,15 @@ void perso_barre_vie(SDL_Renderer * ren,perso_t * personnage, int WINW, int WINH
     SDL_RenderFillRect(ren, &bdv);
 }
 
+
+/**
+    \brief Affichage d'un personnage dans le chunk
+    \param SDL_Renderer Pointeur vers le renderer
+    \param void Entité à afficher
+    \param int Hauteur de la fenêtre
+    \param int Largeur de la fenêtre
+    \return Retourne OK après le traitement
+*/
 static err_t perso_afficher_dans_chunk(SDL_Renderer *ren,void *element,int WINH,int WINW){
     SDL_Texture * a_afficher=NULL;
     int w,h, w_immo,h_immo;
@@ -138,14 +175,11 @@ static err_t perso_afficher_dans_chunk(SDL_Renderer *ren,void *element,int WINH,
 	perso_barre_vie(ren,entite,WINW,WINH);
 }
 
-/*
-	perso_detruire
-	paramètre:
-		pointeur sur pointeur sur perso_t
-	retourne OK si tout s'est bien passé
-	libère l'espace du personnage et toutes les allocation reliées a lui
+/**
+	\brief libère l'espace du personnage et toutes les allocation reliées a lui
+	\param perso_t Pointeur sur pointeur sur perso_t
+	\return Retourne OK si tout s'est bien passé
 */
-
 extern 
 err_t perso_detruire( perso_t ** personnage){  
 	entite_t * ent=NULL;
@@ -165,12 +199,11 @@ err_t perso_detruire( perso_t ** personnage){
 	return OK;
 }
 
-/*
-	fait_partie_bin
-	paramètres:
-		int tot_bin : nombre total
-		int nombre_puis_2 : puissance de 2 pour vérifier si un certain bit appartient a tot_bin
-	retourne un nombre si vrai, 0 sinon
+/**
+	\brief Vérifie si un bit appartient à tot_bin
+	\param int tot_bin : nombre total
+	\param int nombre_puis_2 : puissance de 2 pour vérifier si un certain bit appartient a tot_bin
+	\return Retourne un nombre si vrai, 0 sinon
 */
 extern 
 int fait_partie_bin (int tot_bin, int nombre_puis_2){
@@ -178,6 +211,16 @@ int fait_partie_bin (int tot_bin, int nombre_puis_2){
 }
 
 
+/**
+	\brief Ajoute L'attaque d'un personnage au tableau des attaques, ainsi que la fonction de destruction dans son tableau
+	\param SDL_Renderer Pointeur sur le renderer
+	\param attaque_t Tableau des attaques
+	\param err_t Tableau des fonctions de destruction
+	\param perso_t Personnage dont on ajoute les attauques
+	\param FILE Ficher dans lequel chercher
+	\param char appel de fichier
+	\return Retourne 0 à l'issu de l'opération
+*/
 static
 int perso_creer_ajouter_attaque(SDL_Renderer *ren,attaque_t * tab[NB_MAX_ATT],err_t (**tab_destr)(void ** ), perso_t * perso, FILE * index, char * appel ){
 	int n;
@@ -189,13 +232,12 @@ int perso_creer_ajouter_attaque(SDL_Renderer *ren,attaque_t * tab[NB_MAX_ATT],er
 	return 0;
 }
 
-/*
-	input_update_speed
-	paramètres:	
-		pointeur sur perso_t
-		int tot_touche, le total des touches (ex: 110 donne KEY_LEFT et KEY_JUMP)
-	
-	En fonction du total de touches on actualise la vitesse du personnage
+/**
+	\brief En fonction du total de touches on actualise la vitesse du personnage	
+	\param void Pointeur sur perso_t
+	\param void Pointeur sur Joueur
+	\param int Le total des touches (ex: 110 donne KEY_LEFT et KEY_JUMP)
+	\return 1 si on met à jour la vitesse, 0 sinon
 */
 static 
 int input_update_speed (void * element, void * joueur,int tot_touche){
@@ -223,12 +265,28 @@ int input_update_speed (void * element, void * joueur,int tot_touche){
 	
 }
 
+/**
+	\brief Une entité execute une action sur une autre
+	\param SDL_Renderer Pointeur sur le renderer
+	\param void Entite qui agit
+	\param void Entite qui subit
+	\param void Tableau des entité
+	\param err_t Tableau des fonctions de destruction
+	\param FILE Fichier dans lequel chercher
+	\param char appel de fichier
+*/
 static 
 void perso_action_agit(SDL_Renderer * ren,void * ent_courante, void * ent_subit, void * tab[NB_MAX_AFF],err_t (*tab_destr[NB_MAX_AFF])(void ** ), FILE * index, char * appel ){
 	if(((entite_t*)ent_courante)->contact(ent_courante,ent_subit))
 		((entite_t*)ent_subit)->action_subit((entite_t*)ent_subit, ((perso_t*)ent_courante)->degats);
 }
 
+
+/**
+	\brief Une entité execute une action sur une autre
+	\param void Entité qui subit
+	\param int Dégâts
+*/
 static 
 void perso_action_subit(void * ent_courante, int degats){
 	if(((perso_t*)ent_courante)->temps_inv < 0 && degats > 0){
@@ -243,6 +301,12 @@ void perso_action_subit(void * ent_courante, int degats){
 }
 
 
+/**
+	\brief Deplacement d'un personnage
+	\param void Entité à déplacer
+	\param double le temps
+	\return Retourne 1 si les coordonnées sont bonnes, 2 si elles mènent en dehors de la salle, ou 0 sinon.
+*/
 static 
 int perso_deplacement(void * element,double temps ){
     pos_t pos_mur;
@@ -394,6 +458,11 @@ int perso_deplacement(void * element,double temps ){
 }
 
 
+/**
+	\brief Vérifie quel coin du chunk est le plus proche du personnage passé en paramètre
+	\param perso_t Personnage à vérifier
+	\return Combinaison de deux lettres: H/B pour Haut/Bas et G/D pour Gauche/Droite
+*/
 int perso_pos_relative(perso_t * perso){
 	if(perso->pos.x < CHUNKH/2){
 		if(perso->pos.y < CHUNKW/2){
@@ -409,6 +478,11 @@ int perso_pos_relative(perso_t * perso){
 	}
 }
 
+/**
+	\brief Change un personnage de salle pour l'amener dans l'endroit courant
+	\param perso_t Personnage à déplacer
+	\return Retourne OK à l'issu du déplacement
+*/
 static
 err_t perso_change_salle(perso_t * perso){
 	int posit_porte;
@@ -439,11 +513,27 @@ err_t perso_change_salle(perso_t * perso){
 
 }
 
+/**
+	\brief Baisse la vie du personnage de dégâts
+	\param perso_t Personnage blessé
+	\param int Dégâts infligés
+*/
 static
 void perso_prendre_coup(perso_t * personnage, int degats){
 	personnage->vie -= degats;
 }
 
+/**
+	\brief Remplit les tableaux à partir de fichiers de génération pour la salle où le personnage se trouve
+	\param SDL_Renderer Pointeur sur le renderer
+	\param perso_t Pointeur sur personnage
+	\param void Tableau d'entités
+	\param err_t Tableaux de fonctions de destruction
+	\param FILE Fichier
+	\param FILE Fichier de génération
+	\param char appel de fichier
+	\return Retourne 0 si tout se passe bien, 1 en cas d'erreur
+*/
 extern
 err_t remplir_tableaux(SDL_Renderer * ren,perso_t *perso, void * tab[NB_MAX_AFF], err_t (*tab_destr[NB_MAX_AFF])(void ** ),char * appel ,FILE * index, FILE * file_gen){
 	void * element;
@@ -485,6 +575,17 @@ err_t remplir_tableaux(SDL_Renderer * ren,perso_t *perso, void * tab[NB_MAX_AFF]
 	return 0;
 }
 
+/**
+	\brief Changer le perosnnage de chunk
+	\param SDL_Renderer Pointeur sur le renderer
+	\param perso_t Pointeur sur personnage
+	\param void Tableau d'entités
+	\param err_t Tableaux de fonctions de destruction
+	\param attaque_t Tableau des attaques
+	\param FILE Fichier
+	\param FILE Fichier de génération
+	\param char appel de fichier
+*/
 static 
 err_t perso_change_chunk( SDL_Renderer * ren, perso_t * perso,  void * tab[NB_MAX_AFF], err_t (*tab_destr[NB_MAX_AFF])(void ** ),attaque_t * tab_attaque[NB_MAX_ATT], FILE *index, FILE * file_gen, char * appel){
 	vider_tableaux(tab, tab_destr);
@@ -492,6 +593,11 @@ err_t perso_change_chunk( SDL_Renderer * ren, perso_t * perso,  void * tab[NB_MA
 	remplir_tableaux(ren,perso,tab,tab_destr,appel,index,file_gen);
 }
 
+/**
+	\brief Vérifie si le personnage est en vie
+	\param perso_t Personnage que l'on vérifie
+	\return Retourne VRAI si le personnage a plus de 0 points de vie, FAUX sinon.
+*/
 static
 booleen_t en_vie(perso_t * personnage){
 
@@ -502,6 +608,30 @@ booleen_t en_vie(perso_t * personnage){
 
 }
 
+/**
+	\brief Création d'un personnage
+	\param char Nom du personnage
+	\param char Description du personnage
+	\param salle_t Salle
+	\param chunk_t Chunk du personnage
+	\param pos_t Position dans le chunk
+	\param float Vitesse horizontale du personnage
+	\param float Vitesse sur l'axe des ordonnées
+	\param float Vitesse maximale sur l'axe des ordonnées
+	\param float vitesse de saut
+	\param int Largeur du personnage
+	\param int Hauteur du personnage
+	\param int Largeur de la hitbox
+	\param int Hauteur du personnage
+	\param int Décalage de la hitbox
+	\param float Sprite secondaires
+	\param float Vitesse d'attaque
+	\param int Dégâts d'attaque
+	\param char Nom de l'attaque
+	\param int Nombre de textures
+	\param SDL_Texture Sprite du personnage
+	\return Retourne le personnage créé.
+*/
 extern
 perso_t * perso_creer(char * nom, 
 					 char *description,

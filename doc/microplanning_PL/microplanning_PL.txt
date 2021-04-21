@@ -1,0 +1,6 @@
+09/02 - Définition de la structure ennemis
+12/03 - Amélioration des ennemis (ajout defense, vitesse, vitesse d'attaque, quelques fonctions)
+19/03 - Début structure inventaire
+
+
+

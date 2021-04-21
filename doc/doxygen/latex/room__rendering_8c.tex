@@ -1,0 +1,178 @@
+\hypertarget{room__rendering_8c}{}\doxysection{Référence du fichier src/affichage/room\+\_\+rendering.c}
+\label{room__rendering_8c}\index{src/affichage/room\_rendering.c@{src/affichage/room\_rendering.c}}
+
+
+Module de rendu des environnements.  
+
+
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}../../lib/affichage/room\+\_\+rendering.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../../lib/niveaux/niveau.\+h\char`\"{}}\newline
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+SDL\+\_\+\+Texture $\ast$ \mbox{\hyperlink{room__rendering_8c_a454d965c7f071ec3c7f89c3e4241edb7}{creer\+\_\+texture\+\_\+image}} (SDL\+\_\+\+Renderer $\ast$ren, char $\ast$nom\+\_\+image)
+\begin{DoxyCompactList}\small\item\em transforme une image en texture utilisable par SDL2 paramètres \+: \end{DoxyCompactList}\item 
+err\+\_\+t \mbox{\hyperlink{room__rendering_8c_a0e05d4fcd6cc3b8f282fc61988b4514c}{render\+\_\+mur\+\_\+chunk}} (SDL\+\_\+\+Renderer $\ast$ren, SDL\+\_\+\+Texture $\ast$texture\+\_\+mur, salle\+\_\+t $\ast$salle, chunk\+\_\+t $\ast$chunk, int WINW, int WINH)
+\begin{DoxyCompactList}\small\item\em Crée les murs d\textquotesingle{}un chunk paramètres \+: \end{DoxyCompactList}\item 
+err\+\_\+t \mbox{\hyperlink{room__rendering_8c_a28be6145accf33465a684dc2f226594f}{render\+\_\+pont\+\_\+chunk}} (SDL\+\_\+\+Renderer $\ast$ren, SDL\+\_\+\+Texture $\ast$texture\+\_\+pont, salle\+\_\+t $\ast$salle, chunk\+\_\+t $\ast$chunk, int WINW, int WINH)
+\begin{DoxyCompactList}\small\item\em Crée les ponts d\textquotesingle{}un chunk paramètres \+: \end{DoxyCompactList}\item 
+err\+\_\+t \mbox{\hyperlink{room__rendering_8c_a6a956c13f7046ae3250715f17896f000}{render\+\_\+background}} (SDL\+\_\+\+Renderer $\ast$ren, salle\+\_\+t $\ast$salle, chunk\+\_\+t $\ast$chunk, SDL\+\_\+\+Texture $\ast$texture\+\_\+sol, SDL\+\_\+\+Texture $\ast$texture\+\_\+air, int WINW, int WINH)
+\begin{DoxyCompactList}\small\item\em Crée le fond d\textquotesingle{}écran d\textquotesingle{}un chunk paramètres \+: \end{DoxyCompactList}\item 
+err\+\_\+t \mbox{\hyperlink{room__rendering_8c_a6d67f0267140265aa12e8552fa1b64df}{render\+\_\+chunk\+\_\+unite}} (void $\ast$tab\mbox{[}NB\+\_\+\+MAX\+\_\+\+AFF\mbox{]}, attaque\+\_\+t $\ast$tab\+\_\+attaque\mbox{[}NB\+\_\+\+MAX\+\_\+\+ATT\mbox{]}, SDL\+\_\+\+Renderer $\ast$ren, SDL\+\_\+\+Texture $\ast$texture\+\_\+pont, SDL\+\_\+\+Texture $\ast$texture\+\_\+mur, salle\+\_\+t $\ast$salle, chunk\+\_\+t $\ast$chunk, int WINW, int WINH)
+\begin{DoxyCompactList}\small\item\em Crée les entités d\textquotesingle{}un chunk paramètres \+: \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Module de rendu des environnements. 
+
+\begin{DoxyAuthor}{Auteur}
+Matthis \textbackslash{}verion 1.\+0 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+Avril 2021 
+\end{DoxyDate}
+
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{room__rendering_8c_a454d965c7f071ec3c7f89c3e4241edb7}\label{room__rendering_8c_a454d965c7f071ec3c7f89c3e4241edb7}} 
+\index{room\_rendering.c@{room\_rendering.c}!creer\_texture\_image@{creer\_texture\_image}}
+\index{creer\_texture\_image@{creer\_texture\_image}!room\_rendering.c@{room\_rendering.c}}
+\doxysubsubsection{\texorpdfstring{creer\_texture\_image()}{creer\_texture\_image()}}
+{\footnotesize\ttfamily SDL\+\_\+\+Texture$\ast$ creer\+\_\+texture\+\_\+image (\begin{DoxyParamCaption}\item[{SDL\+\_\+\+Renderer $\ast$}]{ren,  }\item[{char $\ast$}]{nom\+\_\+image }\end{DoxyParamCaption})}
+
+
+
+transforme une image en texture utilisable par SDL2 paramètres \+: 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em SDL\+\_\+\+Renderer} & ren le pointeur sur renderer \\
+\hline
+{\em char} & nom\+\_\+image le pointeur nom du fichier de l\textquotesingle{}image a utiliser retourne \+: \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Un pointeur sur SDL\+\_\+\+Texture, la texture créée a partir de l\textquotesingle{}image en paramètres. En cas d\textquotesingle{}echec rien n\textquotesingle{}est retourné. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{room__rendering_8c_a6a956c13f7046ae3250715f17896f000}\label{room__rendering_8c_a6a956c13f7046ae3250715f17896f000}} 
+\index{room\_rendering.c@{room\_rendering.c}!render\_background@{render\_background}}
+\index{render\_background@{render\_background}!room\_rendering.c@{room\_rendering.c}}
+\doxysubsubsection{\texorpdfstring{render\_background()}{render\_background()}}
+{\footnotesize\ttfamily err\+\_\+t render\+\_\+background (\begin{DoxyParamCaption}\item[{SDL\+\_\+\+Renderer $\ast$}]{ren,  }\item[{salle\+\_\+t $\ast$}]{salle,  }\item[{chunk\+\_\+t $\ast$}]{chunk,  }\item[{SDL\+\_\+\+Texture $\ast$}]{texture\+\_\+sol,  }\item[{SDL\+\_\+\+Texture $\ast$}]{texture\+\_\+air,  }\item[{int}]{WINW,  }\item[{int}]{WINH }\end{DoxyParamCaption})}
+
+
+
+Crée le fond d\textquotesingle{}écran d\textquotesingle{}un chunk paramètres \+: 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em SDL\+\_\+\+Renderer} & ren le pointeur sur renderer \\
+\hline
+{\em salle\+\_\+t} & salle, pointeur sur la salle dans laquelle dessiner \\
+\hline
+{\em chunk\+\_\+t} & chunk, pointeur sur le chunk dans lequel dessiner \\
+\hline
+{\em SDL\+\_\+\+Texture} & texture\+\_\+sol, la texture du sol créée au préalable \\
+\hline
+{\em SDL\+\_\+\+Texture} & texture\+\_\+air, la texture de l\textquotesingle{}air créée au préalable \\
+\hline
+{\em int} & WINW largeur de la fenêtre \\
+\hline
+{\em int} & WINH hauteur de la fenetre retourne\+: \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+OK Si tout s\textquotesingle{}est bien passé render tous les ponts d\textquotesingle{}un chunk 
+\end{DoxyReturn}
+\mbox{\Hypertarget{room__rendering_8c_a6d67f0267140265aa12e8552fa1b64df}\label{room__rendering_8c_a6d67f0267140265aa12e8552fa1b64df}} 
+\index{room\_rendering.c@{room\_rendering.c}!render\_chunk\_unite@{render\_chunk\_unite}}
+\index{render\_chunk\_unite@{render\_chunk\_unite}!room\_rendering.c@{room\_rendering.c}}
+\doxysubsubsection{\texorpdfstring{render\_chunk\_unite()}{render\_chunk\_unite()}}
+{\footnotesize\ttfamily err\+\_\+t render\+\_\+chunk\+\_\+unite (\begin{DoxyParamCaption}\item[{void $\ast$}]{tab\mbox{[}\+NB\+\_\+\+MAX\+\_\+\+AFF\mbox{]},  }\item[{attaque\+\_\+t $\ast$}]{tab\+\_\+attaque\mbox{[}\+NB\+\_\+\+MAX\+\_\+\+ATT\mbox{]},  }\item[{SDL\+\_\+\+Renderer $\ast$}]{ren,  }\item[{SDL\+\_\+\+Texture $\ast$}]{texture\+\_\+pont,  }\item[{SDL\+\_\+\+Texture $\ast$}]{texture\+\_\+mur,  }\item[{salle\+\_\+t $\ast$}]{salle,  }\item[{chunk\+\_\+t $\ast$}]{chunk,  }\item[{int}]{WINW,  }\item[{int}]{WINH }\end{DoxyParamCaption})}
+
+
+
+Crée les entités d\textquotesingle{}un chunk paramètres \+: 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em void} & tab un tableau de pointeurs sur entités \\
+\hline
+{\em attaque\+\_\+t} & tab\+\_\+attaque un tableau de pointeurs sur des structure \\
+\hline
+{\em SDL\+\_\+\+Renderer} & ren le pointeur sur renderer \\
+\hline
+{\em SDL\+\_\+\+Texture} & texture\+\_\+pont, la texture du pont créée au préalable \\
+\hline
+{\em SDL\+\_\+\+Texture} & texture\+\_\+mur, la texture du mur créée au préalable \\
+\hline
+{\em salle\+\_\+t} & salle, pointeur sur la salle à afficher \\
+\hline
+{\em chunk\+\_\+t} & chunk, pointeur sur le chunk à afficher \\
+\hline
+{\em int} & WINW largeur de la fenêtre \\
+\hline
+{\em int} & WINH hauteur de la fenetre retourne\+: \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+OK Si tout s\textquotesingle{}est bien passé render tous les ponts d\textquotesingle{}un chunk 
+\end{DoxyReturn}
+\mbox{\Hypertarget{room__rendering_8c_a0e05d4fcd6cc3b8f282fc61988b4514c}\label{room__rendering_8c_a0e05d4fcd6cc3b8f282fc61988b4514c}} 
+\index{room\_rendering.c@{room\_rendering.c}!render\_mur\_chunk@{render\_mur\_chunk}}
+\index{render\_mur\_chunk@{render\_mur\_chunk}!room\_rendering.c@{room\_rendering.c}}
+\doxysubsubsection{\texorpdfstring{render\_mur\_chunk()}{render\_mur\_chunk()}}
+{\footnotesize\ttfamily err\+\_\+t render\+\_\+mur\+\_\+chunk (\begin{DoxyParamCaption}\item[{SDL\+\_\+\+Renderer $\ast$}]{ren,  }\item[{SDL\+\_\+\+Texture $\ast$}]{texture\+\_\+mur,  }\item[{salle\+\_\+t $\ast$}]{salle,  }\item[{chunk\+\_\+t $\ast$}]{chunk,  }\item[{int}]{WINW,  }\item[{int}]{WINH }\end{DoxyParamCaption})}
+
+
+
+Crée les murs d\textquotesingle{}un chunk paramètres \+: 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em SDL\+\_\+\+Renderer} & ren le pointeur sur renderer \\
+\hline
+{\em SDL\+\_\+\+Texture} & texture\+\_\+mur, la texture du mur créer au préalable \\
+\hline
+{\em salle\+\_\+t} & salle, pointeur sur la salle où afficher \\
+\hline
+{\em chunk\+\_\+t} & chunk, pointeur sur le chunk où afficher \\
+\hline
+{\em int} & WINW largeur de la fenêtre \\
+\hline
+{\em int} & WINH hauteur de la fenetre retourne\+: \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+OK Si tout s\textquotesingle{}est bien passé render tous les murs d\textquotesingle{}un chunk 
+\end{DoxyReturn}
+\mbox{\Hypertarget{room__rendering_8c_a28be6145accf33465a684dc2f226594f}\label{room__rendering_8c_a28be6145accf33465a684dc2f226594f}} 
+\index{room\_rendering.c@{room\_rendering.c}!render\_pont\_chunk@{render\_pont\_chunk}}
+\index{render\_pont\_chunk@{render\_pont\_chunk}!room\_rendering.c@{room\_rendering.c}}
+\doxysubsubsection{\texorpdfstring{render\_pont\_chunk()}{render\_pont\_chunk()}}
+{\footnotesize\ttfamily err\+\_\+t render\+\_\+pont\+\_\+chunk (\begin{DoxyParamCaption}\item[{SDL\+\_\+\+Renderer $\ast$}]{ren,  }\item[{SDL\+\_\+\+Texture $\ast$}]{texture\+\_\+pont,  }\item[{salle\+\_\+t $\ast$}]{salle,  }\item[{chunk\+\_\+t $\ast$}]{chunk,  }\item[{int}]{WINW,  }\item[{int}]{WINH }\end{DoxyParamCaption})}
+
+
+
+Crée les ponts d\textquotesingle{}un chunk paramètres \+: 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em SDL\+\_\+\+Renderer} & ren le pointeur sur renderer \\
+\hline
+{\em SDL\+\_\+\+Texture} & texture\+\_\+pont, la texture du pont créer au préalable \\
+\hline
+{\em salle\+\_\+t} & salle, pointeur sur la salle où afficher \\
+\hline
+{\em chunk\+\_\+t} & chunk, pointeur sur le chunk où afficher \\
+\hline
+{\em int} & WINW largeur de la fenêtre \\
+\hline
+{\em int} & WINH hauteur de la fenetre retourne\+: \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+OK Si tout s\textquotesingle{}est bien passé render tous les ponts d\textquotesingle{}un chunk 
+\end{DoxyReturn}

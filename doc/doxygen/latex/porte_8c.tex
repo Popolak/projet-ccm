@@ -1,0 +1,89 @@
+\hypertarget{porte_8c}{}\doxysection{Référence du fichier src/niveaux/porte.c}
+\label{porte_8c}\index{src/niveaux/porte.c@{src/niveaux/porte.c}}
+
+
+Module porte \textbackslash{}verion 1.\+0.  
+
+
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}../../lib/niveaux/porte.\+h\char`\"{}}\newline
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+booleen\+\_\+t \mbox{\hyperlink{porte_8c_a7742e46ee082aa100edb8208933c4935}{pos\+\_\+correcte}} (int pos)
+\begin{DoxyCompactList}\small\item\em Vérification de position d\textquotesingle{}une porte. \end{DoxyCompactList}\item 
+booleen\+\_\+t \mbox{\hyperlink{porte_8c_aec65f18cd45985a790e37734e3290906}{porte\+\_\+existe}} (porte\+\_\+t $\ast$porte)
+\begin{DoxyCompactList}\small\item\em Vérification d\textquotesingle{}existence d\textquotesingle{}une porte. \end{DoxyCompactList}\item 
+porte\+\_\+t $\ast$ \mbox{\hyperlink{porte_8c_a13bddb49d88492a6d879ef4fe6c10696}{porte\+\_\+creer}} (porte\+\_\+t $\ast$porte\+Dest, int pos, salle\+\_\+t $\ast$salle, chunk\+\_\+t $\ast$chunk)
+\begin{DoxyCompactList}\small\item\em Création d\textquotesingle{}une porte. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Module porte \textbackslash{}verion 1.\+0. 
+
+\begin{DoxyDate}{Date}
+Avril 2021 
+\end{DoxyDate}
+
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{porte_8c_a13bddb49d88492a6d879ef4fe6c10696}\label{porte_8c_a13bddb49d88492a6d879ef4fe6c10696}} 
+\index{porte.c@{porte.c}!porte\_creer@{porte\_creer}}
+\index{porte\_creer@{porte\_creer}!porte.c@{porte.c}}
+\doxysubsubsection{\texorpdfstring{porte\_creer()}{porte\_creer()}}
+{\footnotesize\ttfamily porte\+\_\+t$\ast$ porte\+\_\+creer (\begin{DoxyParamCaption}\item[{porte\+\_\+t $\ast$}]{porte\+Dest,  }\item[{int}]{pos,  }\item[{salle\+\_\+t $\ast$}]{salle,  }\item[{chunk\+\_\+t $\ast$}]{chunk }\end{DoxyParamCaption})}
+
+
+
+Création d\textquotesingle{}une porte. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em porte\+\_\+t} & Pointeur sur porte de destination \\
+\hline
+{\em int} & Position de la porte \\
+\hline
+{\em salle\+\_\+t} & Salle où est placée la porte \\
+\hline
+{\em chunk\+\_\+t} & Chunk de la porte \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Retourne un pointeur sur porte\+\_\+t si la création s\textquotesingle{}est bien passé, NULL sinon 
+\end{DoxyReturn}
+\mbox{\Hypertarget{porte_8c_aec65f18cd45985a790e37734e3290906}\label{porte_8c_aec65f18cd45985a790e37734e3290906}} 
+\index{porte.c@{porte.c}!porte\_existe@{porte\_existe}}
+\index{porte\_existe@{porte\_existe}!porte.c@{porte.c}}
+\doxysubsubsection{\texorpdfstring{porte\_existe()}{porte\_existe()}}
+{\footnotesize\ttfamily booleen\+\_\+t porte\+\_\+existe (\begin{DoxyParamCaption}\item[{porte\+\_\+t $\ast$}]{porte }\end{DoxyParamCaption})}
+
+
+
+Vérification d\textquotesingle{}existence d\textquotesingle{}une porte. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em porte\+\_\+t} & Pointeur sur la porte à tester \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Retourne VRAI si la porte existe, sinon FAUX 
+\end{DoxyReturn}
+\mbox{\Hypertarget{porte_8c_a7742e46ee082aa100edb8208933c4935}\label{porte_8c_a7742e46ee082aa100edb8208933c4935}} 
+\index{porte.c@{porte.c}!pos\_correcte@{pos\_correcte}}
+\index{pos\_correcte@{pos\_correcte}!porte.c@{porte.c}}
+\doxysubsubsection{\texorpdfstring{pos\_correcte()}{pos\_correcte()}}
+{\footnotesize\ttfamily booleen\+\_\+t pos\+\_\+correcte (\begin{DoxyParamCaption}\item[{int}]{pos }\end{DoxyParamCaption})}
+
+
+
+Vérification de position d\textquotesingle{}une porte. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em int} & Position de la porte \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Retourne VRAI si la position est correcte, FAUX sinon 
+\end{DoxyReturn}

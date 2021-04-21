@@ -1,0 +1,221 @@
+\hypertarget{chunk_8c}{}\doxysection{Référence du fichier src/niveaux/chunk.c}
+\label{chunk_8c}\index{src/niveaux/chunk.c@{src/niveaux/chunk.c}}
+
+
+Module chunk \textbackslash{}verion 1.\+0.  
+
+
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$ctype.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}../../lib/niveaux/chunk.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../../lib/niveaux/salle.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}string.\+h\char`\"{}}\newline
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+booleen\+\_\+t \mbox{\hyperlink{chunk_8c_ae4d1134652a5962887fcf3b755edd9ef}{coord\+\_\+correcte}} (int x, int y)
+\begin{DoxyCompactList}\small\item\em Vérification de coordonnées. \end{DoxyCompactList}\item 
+pos\+\_\+t \mbox{\hyperlink{chunk_8c_ac6f0a714fa768859369f228e784f2f35}{prochain\+\_\+mur}} (int x, int y, chunk\+\_\+t $\ast$chunk)
+\begin{DoxyCompactList}\small\item\em Cherche les coordonnées du mur le plus proche. \end{DoxyCompactList}\item 
+pos\+\_\+t \mbox{\hyperlink{chunk_8c_a3175ef0265a064910e1f21d6e8e09a48}{prochain\+\_\+pont}} (int x, int y, chunk\+\_\+t $\ast$chunk)
+\begin{DoxyCompactList}\small\item\em Cherche les coordonnées du pont le plus proche. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{chunk_8c_a59f4013906d5252469d6405534f88b58}{attribut\+\_\+mur}} (int x, int y, int $\ast$w, int $\ast$h, chunk\+\_\+t $\ast$chunk)
+\begin{DoxyCompactList}\small\item\em Calcule la taille d\textquotesingle{}un mur. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{chunk_8c_a59a87b5d870f67bc9d818bb95ee40974}{attribut\+\_\+pont}} (int x, int y, int $\ast$w, chunk\+\_\+t $\ast$chunk)
+\begin{DoxyCompactList}\small\item\em Calcule la taille d\textquotesingle{}un pont. \end{DoxyCompactList}\item 
+booleen\+\_\+t \mbox{\hyperlink{chunk_8c_a6852d17d451be78817d7c11a6857f89f}{chunk\+\_\+existe}} (chunk\+\_\+t $\ast$chunk)
+\begin{DoxyCompactList}\small\item\em Vérifie si un chunk existe. \end{DoxyCompactList}\item 
+err\+\_\+t \mbox{\hyperlink{chunk_8c_af67a8aaa2ded9149f37a6203e24b8573}{creer\+\_\+pont\+\_\+chaine}} (chunk\+\_\+t $\ast$chunk, char $\ast$type)
+\begin{DoxyCompactList}\small\item\em Création de pont. \end{DoxyCompactList}\item 
+chunk\+\_\+t $\ast$ \mbox{\hyperlink{chunk_8c_af87d0a18b4a280703d317cbd7ea8285d}{chunk\+\_\+creer}} (salle\+\_\+t $\ast$salle, int x, int y, int nb\+\_\+portes, char $\ast$type)
+\begin{DoxyCompactList}\small\item\em Fonction de création de chunk. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{chunk_8c_aabdc8115ca752e955e3909c90c27afdf}\label{chunk_8c_aabdc8115ca752e955e3909c90c27afdf}} 
+void \mbox{\hyperlink{chunk_8c_aabdc8115ca752e955e3909c90c27afdf}{chunk\+\_\+afficher\+\_\+ref}} ()
+\begin{DoxyCompactList}\small\item\em Affiche dans un printf le nombre de référence du chunk. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{chunk_8c_a6298021354a2f3dac7f3a9a5f8076a2e}\label{chunk_8c_a6298021354a2f3dac7f3a9a5f8076a2e}} 
+int {\bfseries cpt\+\_\+chunk} =0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Module chunk \textbackslash{}verion 1.\+0. 
+
+\begin{DoxyDate}{Date}
+Avril 2021 
+\end{DoxyDate}
+
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{chunk_8c_a59f4013906d5252469d6405534f88b58}\label{chunk_8c_a59f4013906d5252469d6405534f88b58}} 
+\index{chunk.c@{chunk.c}!attribut\_mur@{attribut\_mur}}
+\index{attribut\_mur@{attribut\_mur}!chunk.c@{chunk.c}}
+\doxysubsubsection{\texorpdfstring{attribut\_mur()}{attribut\_mur()}}
+{\footnotesize\ttfamily void attribut\+\_\+mur (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y,  }\item[{int $\ast$}]{w,  }\item[{int $\ast$}]{h,  }\item[{chunk\+\_\+t $\ast$}]{chunk }\end{DoxyParamCaption})}
+
+
+
+Calcule la taille d\textquotesingle{}un mur. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em int} & Coordonnée d\textquotesingle{}abscisse \\
+\hline
+{\em int} & Coordonnée d\textquotesingle{}ordonnée \\
+\hline
+{\em int} & Pointeur sur la largeur du mur sue l\textquotesingle{}on mesure, sera édité \\
+\hline
+{\em int} & Pointeur sur la hauteur du mur sue l\textquotesingle{}on mesure, sera édité \\
+\hline
+{\em chunk\+\_\+t} & Chunk où l\textquotesingle{}on recherche \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{chunk_8c_a59a87b5d870f67bc9d818bb95ee40974}\label{chunk_8c_a59a87b5d870f67bc9d818bb95ee40974}} 
+\index{chunk.c@{chunk.c}!attribut\_pont@{attribut\_pont}}
+\index{attribut\_pont@{attribut\_pont}!chunk.c@{chunk.c}}
+\doxysubsubsection{\texorpdfstring{attribut\_pont()}{attribut\_pont()}}
+{\footnotesize\ttfamily void attribut\+\_\+pont (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y,  }\item[{int $\ast$}]{w,  }\item[{chunk\+\_\+t $\ast$}]{chunk }\end{DoxyParamCaption})}
+
+
+
+Calcule la taille d\textquotesingle{}un pont. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em int} & Coordonnée d\textquotesingle{}abscisse \\
+\hline
+{\em int} & Coordonnée d\textquotesingle{}ordonnée \\
+\hline
+{\em int} & Pointeur sur la largeur du pont sue l\textquotesingle{}on mesure, sera édité \\
+\hline
+{\em int} & Pointeur sur la hauteur du pont sue l\textquotesingle{}on mesure, sera édité \\
+\hline
+{\em chunk\+\_\+t} & Chunk où l\textquotesingle{}on recherche \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{chunk_8c_af87d0a18b4a280703d317cbd7ea8285d}\label{chunk_8c_af87d0a18b4a280703d317cbd7ea8285d}} 
+\index{chunk.c@{chunk.c}!chunk\_creer@{chunk\_creer}}
+\index{chunk\_creer@{chunk\_creer}!chunk.c@{chunk.c}}
+\doxysubsubsection{\texorpdfstring{chunk\_creer()}{chunk\_creer()}}
+{\footnotesize\ttfamily chunk\+\_\+t$\ast$ chunk\+\_\+creer (\begin{DoxyParamCaption}\item[{salle\+\_\+t $\ast$}]{salle,  }\item[{int}]{x,  }\item[{int}]{y,  }\item[{int}]{nb\+\_\+portes,  }\item[{char $\ast$}]{type }\end{DoxyParamCaption})}
+
+
+
+Fonction de création de chunk. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em int} & Position d\textquotesingle{}abscisse du chunk dans la salle \\
+\hline
+{\em int} & Position d\textquotesingle{}ordonnée du chunk dans la salle \\
+\hline
+{\em int} & Nombres de portes dans le chunk \\
+\hline
+{\em char} & chaine donnant les positions de chaque porte \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Le chunk créé 
+\end{DoxyReturn}
+\mbox{\Hypertarget{chunk_8c_a6852d17d451be78817d7c11a6857f89f}\label{chunk_8c_a6852d17d451be78817d7c11a6857f89f}} 
+\index{chunk.c@{chunk.c}!chunk\_existe@{chunk\_existe}}
+\index{chunk\_existe@{chunk\_existe}!chunk.c@{chunk.c}}
+\doxysubsubsection{\texorpdfstring{chunk\_existe()}{chunk\_existe()}}
+{\footnotesize\ttfamily booleen\+\_\+t chunk\+\_\+existe (\begin{DoxyParamCaption}\item[{chunk\+\_\+t $\ast$}]{chunk }\end{DoxyParamCaption})}
+
+
+
+Vérifie si un chunk existe. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em chunk\+\_\+t} & Pointeur sur le chunk à vérifier \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Retourne VRAI si le chunk existe, FAUX sinon 
+\end{DoxyReturn}
+\mbox{\Hypertarget{chunk_8c_ae4d1134652a5962887fcf3b755edd9ef}\label{chunk_8c_ae4d1134652a5962887fcf3b755edd9ef}} 
+\index{chunk.c@{chunk.c}!coord\_correcte@{coord\_correcte}}
+\index{coord\_correcte@{coord\_correcte}!chunk.c@{chunk.c}}
+\doxysubsubsection{\texorpdfstring{coord\_correcte()}{coord\_correcte()}}
+{\footnotesize\ttfamily booleen\+\_\+t coord\+\_\+correcte (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y }\end{DoxyParamCaption})}
+
+
+
+Vérification de coordonnées. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em int} & Coordonnée d\textquotesingle{}abscisse \\
+\hline
+{\em int} & Coordonnée d\textquotesingle{}ordonnée \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+VRAI si les coordonnées sont correctes, FAUX sinon 
+\end{DoxyReturn}
+\mbox{\Hypertarget{chunk_8c_af67a8aaa2ded9149f37a6203e24b8573}\label{chunk_8c_af67a8aaa2ded9149f37a6203e24b8573}} 
+\index{chunk.c@{chunk.c}!creer\_pont\_chaine@{creer\_pont\_chaine}}
+\index{creer\_pont\_chaine@{creer\_pont\_chaine}!chunk.c@{chunk.c}}
+\doxysubsubsection{\texorpdfstring{creer\_pont\_chaine()}{creer\_pont\_chaine()}}
+{\footnotesize\ttfamily err\+\_\+t creer\+\_\+pont\+\_\+chaine (\begin{DoxyParamCaption}\item[{chunk\+\_\+t $\ast$}]{chunk,  }\item[{char $\ast$}]{type }\end{DoxyParamCaption})}
+
+
+
+Création de pont. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em chunk\+\_\+t} & Pointeur sur le chunk où créer \\
+\hline
+{\em char} & Pointeur sur la position des ponts \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Retourne OK après la création 
+\end{DoxyReturn}
+\mbox{\Hypertarget{chunk_8c_ac6f0a714fa768859369f228e784f2f35}\label{chunk_8c_ac6f0a714fa768859369f228e784f2f35}} 
+\index{chunk.c@{chunk.c}!prochain\_mur@{prochain\_mur}}
+\index{prochain\_mur@{prochain\_mur}!chunk.c@{chunk.c}}
+\doxysubsubsection{\texorpdfstring{prochain\_mur()}{prochain\_mur()}}
+{\footnotesize\ttfamily pos\+\_\+t prochain\+\_\+mur (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y,  }\item[{chunk\+\_\+t $\ast$}]{chunk }\end{DoxyParamCaption})}
+
+
+
+Cherche les coordonnées du mur le plus proche. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em int} & Coordonnée d\textquotesingle{}abscisse \\
+\hline
+{\em int} & Coordonnée d\textquotesingle{}ordonnée \textbackslash{}chunk\+\_\+t Chunk où l\textquotesingle{}on recherche \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Retourne la position de l\textquotesingle{}élément si on le trouve, sinon pos.\+x = -\/1. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{chunk_8c_a3175ef0265a064910e1f21d6e8e09a48}\label{chunk_8c_a3175ef0265a064910e1f21d6e8e09a48}} 
+\index{chunk.c@{chunk.c}!prochain\_pont@{prochain\_pont}}
+\index{prochain\_pont@{prochain\_pont}!chunk.c@{chunk.c}}
+\doxysubsubsection{\texorpdfstring{prochain\_pont()}{prochain\_pont()}}
+{\footnotesize\ttfamily pos\+\_\+t prochain\+\_\+pont (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y,  }\item[{chunk\+\_\+t $\ast$}]{chunk }\end{DoxyParamCaption})}
+
+
+
+Cherche les coordonnées du pont le plus proche. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em int} & Coordonnée d\textquotesingle{}abscisse \\
+\hline
+{\em int} & Coordonnée d\textquotesingle{}ordonnée \\
+\hline
+{\em chunk\+\_\+t} & Chunk où l\textquotesingle{}on recherche \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Retourne la position de l\textquotesingle{}élément si on le trouve, sinon pos.\+x = -\/1. 
+\end{DoxyReturn}

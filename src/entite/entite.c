@@ -5,10 +5,18 @@
 #include "../../lib/entite/entite.h"
 #include "../../lib/affichage/room_rendering.h"
 
-
-/* Par Matthis */
+/**
+* \file entite.c
+* \brief Module entite
+* \verion 1.0
+* \date Avril 2021
+*/
 /*Fonctions*/
 
+/**
+    \brief Initialise le tableau des entités
+    \param void Le tableau d'entités à initialiser
+*/
 extern 
 void initTabDaffich(void * tab[NB_MAX_AFF]){
     int i;
@@ -17,6 +25,11 @@ void initTabDaffich(void * tab[NB_MAX_AFF]){
     }
 }
 
+/**
+    \brief Vidage et passage à NULL du tableau de textures d'une entite
+    \param entite_t L'entite dont les textures doivent disparaitre
+    \return Retoure OK à la fin du traitement
+*/
 static
 err_t detruire_tabl_textures(entite_t **ent){
     int i;
@@ -33,6 +46,11 @@ err_t detruire_tabl_textures(entite_t **ent){
     return OK;
 }
 
+/**
+    \brief Recherche une chaine entre guillements dans un fichier
+    \param FILE Ficher dans lequel chercher
+    \return Retourne la chaine trouvée, NULL sinon
+*/
 extern 
 char * entre_guillemet(FILE * file){
     char c,*chaine=NULL;
@@ -52,6 +70,14 @@ char * entre_guillemet(FILE * file){
     return chaine;
 }
 
+/**
+    \brief Crée de multiples textures à partir de noms stockés dans chaine
+    \param SDL_Renderer Pointeur sur le renderer
+    \param int Increment
+    \param char Chaine de caractères
+    \param appel de fichier
+    \return Les textures créées
+*/
 extern 
 SDL_Texture ** creer_tableau_textures_chaine(SDL_Renderer *ren, int *n,char * chaine, char * appel){
     *n=0;
@@ -92,6 +118,12 @@ SDL_Texture ** creer_tableau_textures_chaine(SDL_Renderer *ren, int *n,char * ch
     
 }
 
+/**
+    \brief Crée de multiples textures à partir de noms donnés en arguments
+    \param SDL_Renderer Pointeur sur le renderer
+    \param int Increment
+    \return Les textures créées
+*/
 extern 
 SDL_Texture ** creer_tableau_textures_manuel(SDL_Renderer * ren, int *n,...){
     *n=0;
@@ -111,6 +143,12 @@ SDL_Texture ** creer_tableau_textures_manuel(SDL_Renderer * ren, int *n,...){
     return tableau;
 }
 
+/**
+    \brief Cherche un type d'entite dans un fichier
+    \param FILE Fichier où chercher
+    \param char Chaine de caractères
+    \return Place dans le fichier de l'entité trouvée, sinon -1.
+*/
 extern 
 long seek_entity_type(FILE * index,char *type){
     char chaine[40], str[300];    
@@ -127,23 +165,35 @@ long seek_entity_type(FILE * index,char *type){
     return (ftell(index));
 }
 
-/*
+/**
     est_obstacle:
+    \brief Vérifie si l'endroit pointé est dans un mur ou non
     paramètres:
-        int contenu, contenu d'une unité d'un chunk
-        int dir, direction d'une entité
-    retourne 1 si le contenu est un obstacle a une entité compte tenu de la direction de l'entité 
+    \param int Contenu d'une unité d'un chunk
+    \return Retourne 1 si le contenu est un obstacle, 0 sinon
 */
 extern 
 int est_mur(int contenu){
     return (contenu==MUR );
 }
 
+/**
+    est_obstacle:
+    \brief Vérifie si l'endroit pointé est dans un pont ou non
+    paramètres:
+    \param int Contenu d'une unité d'un chunk
+    \return Retourne 1 si le contenu est un obstacle, 0 sinon
+*/
 extern int est_pont(int contenu){
     return contenu==PONT;
 }
 
-
+/** 
+    \brief Échange le contenu des deux pointeurs
+    paramètres:
+    \param void Premier pointeur
+    \param void Second pointeur
+*/
 extern
 void echanger(void ** ptr1,void **ptr2 ){
     void * tempo=NULL;
@@ -153,6 +203,14 @@ void echanger(void ** ptr1,void **ptr2 ){
 }
 
 
+/** 
+    \brief Affiche dans le renderer le contenu du tableau d'entités passé en paramètre
+    paramètres:
+    \param void Tableau d'entités
+    \param SDL_Renderer Pointeur sur le renderer
+    \param int Largeur de la fenêtre
+    \param int Hauteur de la fenêtre
+*/
 extern err_t afficher_tableau (void * tab_ent[NB_MAX_AFF], SDL_Renderer * ren, int WINW, int WINH){
     int i;
     for(i=0;i<NB_MAX_AFF && tab_ent[i]!=NULL; i++){
@@ -161,6 +219,15 @@ extern err_t afficher_tableau (void * tab_ent[NB_MAX_AFF], SDL_Renderer * ren, i
     return OK;
 }
 
+/** 
+    \brief Ajoute une entité dans le tableau d'entités, et la fonction de destruction correspondante dans l'autre tableau
+    paramètres:
+    \param void Tableau d'entités
+    \param void Entité à ajouter
+    \param err_t Tableau des fonctions de destructions
+    \param err_t Fonction de destruction
+    \return Retourne 0 si l'ajout échoue
+*/
 extern 
 int ajouter_tableaux( void * tab[NB_MAX_AFF], err_t (*tab_destr[NB_MAX_AFF])(void ** ), void * ptr, err_t (*fonction_dest)(void **)){
     int i;
@@ -171,6 +238,12 @@ int ajouter_tableaux( void * tab[NB_MAX_AFF], err_t (*tab_destr[NB_MAX_AFF])(voi
     tab_destr[i]=fonction_dest;
 }
 
+/** 
+    \brief Détruit toutes les entités du tableau
+    paramètres:
+    \param void Tableau d'entités
+    \param err_t Tableau des fonctions de destructions
+*/
 extern 
 void enlever_tableaux(void * tab[NB_MAX_AFF] , err_t (*tab_destr[NB_MAX_AFF])(void ** )){
     int i;
@@ -183,6 +256,12 @@ void enlever_tableaux(void * tab[NB_MAX_AFF] , err_t (*tab_destr[NB_MAX_AFF])(vo
     tab_destr[i]=NULL;
 }
 
+/** 
+    \brief Détruit toutes les entités du tableau
+    paramètres:
+    \param void Tableau d'entités
+    \param err_t Tableau des fonctions de destructions
+*/
 extern 
 void vider_tableaux(void * tab[NB_MAX_AFF] , err_t (*tab_destr[NB_MAX_AFF])(void ** )){
     int i;
@@ -191,6 +270,13 @@ void vider_tableaux(void * tab[NB_MAX_AFF] , err_t (*tab_destr[NB_MAX_AFF])(void
     }
 }
 
+/** 
+    \brief Détruit un élément particulier du tableau
+    paramètres:
+    \param void Tableau d'entités
+    \param err_t Tableau des fonctions de destructions
+    \param void Entité à chercher et detruire
+*/
 extern
 void enlever_element_tableau(void * tab[NB_MAX_AFF], err_t (*tab_destr[NB_MAX_AFF])(void ** ),void *element ){
     int i,j;
@@ -205,6 +291,12 @@ void enlever_element_tableau(void * tab[NB_MAX_AFF], err_t (*tab_destr[NB_MAX_AF
     }
 }
 
+/** 
+    \brief Actualise la vitesse des entités du tableau passé en paramètre par rapport au personnage donné
+    paramètres:
+    \param void Tableau d'entités
+    \param perso_t Personnage ciblé par les déplacements
+*/
 extern
 void update_ennemis_input(void * tab[NB_MAX_AFF], perso_t * joueur){
     int i;
@@ -213,6 +305,14 @@ void update_ennemis_input(void * tab[NB_MAX_AFF], perso_t * joueur){
     }
 }
 
+/** 
+    \brief Actualise les tableaux
+    paramètres:
+    \param void Tableau d'entités
+    \param err_t Tableau des fonctions de destruction
+    \param double Le temps
+    \param FILE fichier de génération
+*/
 extern 
 void synchro_tableau(void * tab[NB_MAX_AFF], err_t (*tab_destr[NB_MAX_AFF])(void ** ),double temps,  FILE * file_gen){
     int i,j;
@@ -223,6 +323,14 @@ void synchro_tableau(void * tab[NB_MAX_AFF], err_t (*tab_destr[NB_MAX_AFF])(void
     }
 }
 
+/** 
+    \brief Actualise les hitbox des tableaux
+    paramètres:
+    \param SDL_Renderer Pointeur sur le renderer
+    \param void Tableau d'entités
+    \param int Largeur de la fenêtre
+    \param int Hauteur de la fenêtre
+*/
 extern 
 void hitbox_tableau(SDL_Renderer * ren, void * tab[NB_MAX_AFF], int WINW, int WINH){
     int i;
@@ -231,6 +339,16 @@ void hitbox_tableau(SDL_Renderer * ren, void * tab[NB_MAX_AFF], int WINW, int WI
     }
 }
 
+/** 
+    \brief Execute une série d'action
+    paramètres:
+    \param SDL_Renderer Pointeur sur le renderer
+    \param void Tableau d'entités
+    \param err_t Tableau des fonctions de destruction
+    \param void Entite qui subit l'action
+    \param FILE fichier de génération
+    \param appel de fichier
+*/
 extern 
 void tableau_agit ( SDL_Renderer* ren, void * tab[NB_MAX_AFF], err_t (*tab_destr[NB_MAX_AFF])(void ** ),void * ent_a_verif, FILE * index, char * appel){
     int i;
@@ -254,18 +372,16 @@ void entite_action_agit(SDL_Renderer * ren,void * ent_courante, void * ent_subit
 
 
 
-/*
+/**
     afficher_dans_chunk:
+    \brief Affiche les entités qui sont sur le chunk
     paramètres: 
-        pointeur sur SDL_Renderer, le renderer
-        pointeur sur entite_t, l'entite a afficher
-        int WINW,int WINH, la hauteur et la largeur de la fenetre
-    retourne OK si tout s'est bien passé, une erreur sinon
-
-    Utilisé pour afficher les entités qui sont sur le chunk a afficher
+        \param SDL_Renderer Pointeur sur SDL_Renderer, le renderer
+        \param void Pointeur sur entite_t, l'entite a afficher
+        \param int La hauteur de la fenêtre
+        \param int La largeur de la fenetre
+    \return Retourne OK si tout s'est bien passé, une erreur sinon
 */
-
-
 static err_t afficher_dans_chunk(SDL_Renderer *ren,void *element,int WINH,int WINW){
     SDL_Texture * a_afficher=NULL;
     int w,h, w_immo,h_immo;
@@ -331,6 +447,16 @@ static err_t afficher_dans_chunk(SDL_Renderer *ren,void *element,int WINH,int WI
 }
 
 
+/**
+    afficher_dans_chunk:
+    \brief Affiche les entités qui sont sur le chunk
+    paramètres: 
+        \param SDL_Renderer Pointeur sur SDL_Renderer, le renderer
+        \param void Pointeur sur entite_t, l'entite a afficher
+        \param int La hauteur de la fenêtre
+        \param int La largeur de la fenetre
+    \return Retourne OK si tout s'est bien passé, une erreur sinon
+*/
 static 
 void afficher_hitbox(SDL_Renderer * ren, entite_t * ent, int WINH, int WINW){
     SDL_Rect hitbox;
@@ -342,15 +468,18 @@ void afficher_hitbox(SDL_Renderer * ren, entite_t * ent, int WINH, int WINW){
     SDL_RenderDrawRect(ren,&hitbox);
 }
 
-/*
-    afficher dans fenetre
+/**
+    \brief Afficher dans fenetre
     paramètres:
-        pointeur sur SDL_Renderer, le renderer
-        pointeur sur entite_t, l'entite a afficher
-        int w, h la hauteur et largeur (en pixel) de l'entité a afficher
-        int x, y les les coordonées (en pixel) de l'entité a afficher 
-        pointeur sur SDL_Texture, la texture a utiliser
-    retourne OK si tout se passe bien
+        \param SDL_Renderer Pointeur sur le renderer
+        \param entite_t Pointeur sur entite_t, l'entite a afficher
+        \param int Largeur de l'entite
+        \param int Hauteur de l'entité a afficher
+        \param int Coordonnée sur l'axe d'abscisse de l'entite
+        \param int Coordonnée sur l'axe d'ordonnée de l'entite
+        \param pointeur sur SDL_Texture, la texture a utiliser
+        \param SDL_Texture Texture à afficher
+    \return Retourne OK si tout se passe bien, un message d'erreur en cas de problème
 */
 
 static err_t afficher_dans_fenetre(SDL_Renderer * ren,entite_t * entite, int w, int h, int x, int y, SDL_Texture * texture){
@@ -387,6 +516,10 @@ static err_t afficher_dans_fenetre(SDL_Renderer * ren,entite_t * entite, int w, 
 
 }
 
+/**
+    \brief Vérifie si l'entité est dans un mur
+    \param entite_t Entité dont on vérifie la localisation
+*/
 extern booleen_t dans_mur(entite_t * ent){
     pos_t pos_mur={-1,-1};
     return (mur_en_haut(ent).x!=-1 || 
@@ -404,6 +537,11 @@ extern booleen_t dans_mur(entite_t * ent){
     Ces 4 fonctions vérifient si l'entité est en collision avec un mur de chaque coté (gauch droit haut bas)
 */
 
+/**
+    \brief Vérifie si l'entité a un mur à sa gauche
+    \param entite_t Entité dont on vérifie la localisation
+    \return Retourne la position du mur
+*/
 extern
 pos_t mur_a_gauche(entite_t * ent){
     int i,j, add=0;
@@ -429,6 +567,11 @@ booleen_t est_dans_mur (entite_t * ent){
 
 }
 
+/**
+    \brief Vérifie si l'entité a un mur à sa droite
+    \param entite_t Entité dont on vérifie la localisation
+    \return Retourne la position du mur
+*/
 extern
 pos_t mur_a_droite(entite_t * ent){
     int i,j, add=0;
@@ -449,6 +592,11 @@ pos_t mur_a_droite(entite_t * ent){
     return pos_mur;
 }
 
+/**
+    \brief Vérifie si l'entité a un mur au dessus
+    \param entite_t Entité dont on vérifie la localisation
+    \return Retourne la position du mur
+*/
 extern
 pos_t mur_en_haut(entite_t * ent){
     int i,j, add=0;
@@ -469,6 +617,11 @@ pos_t mur_en_haut(entite_t * ent){
     return pos_mur;
 }
 
+/**
+    \brief Vérifie si l'entité a un mur au dessous
+    \param entite_t Entité dont on vérifie la localisation
+    \return Retourne la position du mur
+*/
 extern
 pos_t mur_en_bas(entite_t * ent){
     int i,j, add=0;
@@ -490,6 +643,11 @@ pos_t mur_en_bas(entite_t * ent){
     return pos_mur;
 }
 
+/**
+    \brief Vérifie si l'entité touche un pont
+    \param entite_t Entité dont on vérifie la localisation
+    \return Retourne la position du pont
+*/
 pos_t contact_pont(entite_t * ent){
  pos_t pos_mur={-1,-1};
     int i;
@@ -503,6 +661,11 @@ pos_t contact_pont(entite_t * ent){
     return pos_mur;
 }
 
+/**
+    \brief Vérifie si l'entité est sur un pont
+    \param entite_t Entité dont on vérifie la localisation
+    \return Retourne la position du pont
+*/
 extern
 pos_t pont_en_bas(entite_t * ent ){
     int i,j, add=0;
@@ -517,7 +680,11 @@ pos_t pont_en_bas(entite_t * ent ){
         pointeur sur entite_t
     retourne VRAI si l'entité ne touche pas d'obstacle en dessous d'elle, FAUX sinon
 */
-
+/**
+    \brief Vérifie si l'entité est en l'air
+    \param entite_t Entité dont on vérifie la position
+    \return Retourne VRAI si l'entité est en l'air, FAUX sinon
+*/
 static 
 booleen_t en_lair(entite_t * ent){
     pos_t pos_mur;
@@ -537,6 +704,12 @@ booleen_t en_lair(entite_t * ent){
         pos_t pos_mur, la position du mur
         int direction, la direction dans laquelle on doit replacer l'entité
     
+*/
+/**
+    \brief Replacement d'une entité hors d'un obstacle
+    \param entite_t Entité a déplacer
+    \param pos_t Position du mur dont on doit sortir
+    \int direction Orientation à donner à l'entité
 */
 extern
 void replacer(entite_t * ent, pos_t pos_mur, int direction){
@@ -569,7 +742,12 @@ void replacer(entite_t * ent, pos_t pos_mur, int direction){
     déplace l'entité en fonction de ses vitesses et du chunk
 */
 
-
+/**
+    \brief Dépacement d'une entité
+    \param void Entité a déplacer
+    \param double Le temps
+    \return Retourne 1 si les coordonnés sont bonnes, 0 sinon
+*/
 static 
 int entite_deplacement(void * element,double temps ){
     pos_t pos_mur;
@@ -660,6 +838,12 @@ int entite_deplacement(void * element,double temps ){
         2 pointeur sur entite_t
     Retourne VRAI si les deux entités sont en collision de hitbox, FAUX sinon
 */
+/**
+    \brief Vérifie si deux entités sont en collision
+    \param entite_t Entité principale
+    \param entite_t Entité dont on vérifie la localisation
+    \return Retourne VRAI en cas de collision, FAUX sinon
+*/
 static
 booleen_t en_contact(entite_t * ent_courante, entite_t * ent_a_verif){
     if(ent_a_verif->chunk !=  ent_courante->chunk)
@@ -673,7 +857,11 @@ booleen_t en_contact(entite_t * ent_courante, entite_t * ent_a_verif){
     return FAUX;
 }
 
-
+/**
+    \brief Vérifie si une entité touche une porte
+    \param entite_t Entité à vérifier
+    \return Retourne VRAI en cas de contact, FAUX sinon
+*/
 static booleen_t en_contact_porte(entite_t * ent){
     int i,j, add=0;
     for(i= ent->pos.x -ent->h/2 < 0 ? 0 :  (int)(ent->pos.x -ent->h); i< (int)(ent->pos.x+ent->h/2); i++){
@@ -684,13 +872,12 @@ static booleen_t en_contact_porte(entite_t * ent){
     }
     return FAUX;
 }
-/*
-    str_creer_copier
-    paramètre:
-        chaine de caractères, chaine source a copier
-    retourne un pointeur sur char différent de chaine_src mais avec la même chaine de caractères, NULL si ça s'est mal passé 
-*/
 
+/**
+    \brief Créer une chaine de caractères identique à celle passée en paramètre
+    \param La chaine de caractères a copier
+    \return Retourne un pointeur sur char différent de chaine_src mais avec la même chaine de caractères, NULL si ça s'est mal passé 
+*/
 extern 
 char * str_creer_copier( char * chaine_src){
     char *chaine_dest=NULL;
@@ -705,26 +892,20 @@ char * str_creer_copier( char * chaine_src){
     return chaine_dest;
 }
 
-/*
-    entite_lire
-    paramètre:
-        pointeur sur entite_t
-    affiche le nom et la description de l'entité
+/**
+    \brief Affiche avec des print le nom et la description d'une entité
+    \param entite_t Pointeur sur l'entité a afficher
 */
 static 
 void entite_lire(entite_t * ent){
     printf ("%s :\n%s", ent->nom, ent->description);
 }
 
-/*
-    entite_detruire 
-    paramètre:
-        pointeur sur pointeur sur entite_t
-    retourne OK si tout s'est bien passé
-
-    libère l'entité et toutes les allocations reliées a celle ci
+/**
+    \brief Détruit l'entité et tout ce qu'elle contient.
+    \param entite_t Pointeur sur pointeur sur l'entite à supprimer
+    \return Retourne OK si tout s'est bien passé
 */
-
 extern 
 err_t entite_detruire(entite_t ** ent){
     if(*ent){
@@ -746,6 +927,12 @@ err_t entite_detruire(entite_t ** ent){
     return OK;
 }
 
+
+/**
+    \brief Vérifie si l'entité existe
+    \param entite_t Pointeur sur pointeur sur l'entite à vérifier
+    \return Retourne VRAI si l'entite existe, FAUX sinon
+*/
 extern 
 booleen_t entite_existe(entite_t * ent){
     if (ent==NULL)
@@ -753,6 +940,25 @@ booleen_t entite_existe(entite_t * ent){
     return VRAI;
 }
 
+/**
+    \brief Création d'une entité
+    \param char Nom de l'entité
+    \param char Descritption de l'entité
+    \param salle_t Salle de l'entité
+    \param chunk_t Chunk de l'entité
+    \param pos_t Position de l'entité
+    \param float Vitesse horizontale
+    \param float Vitesse verticale
+    \param float Vitesse verticale maximale
+    \param int Largeur
+    \param int Hauteur
+    \param int Largeur de la hitbox
+    \param int Hauteur de la hitbox
+    \param int Décalage de la hitbox
+    \param int Nombre de textures
+    \param SDL_Texture Texture SDL de l'entité
+    \return Retourne l'entité créée
+*/
 extern 
 entite_t * entite_creer(char * nom, 
                         char *description,

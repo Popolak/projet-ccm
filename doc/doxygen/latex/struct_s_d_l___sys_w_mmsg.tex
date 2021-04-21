@@ -1,0 +1,64 @@
+\hypertarget{struct_s_d_l___sys_w_mmsg}{}\doxysection{Référence de la structure SDL\+\_\+\+Sys\+WMmsg}
+\label{struct_s_d_l___sys_w_mmsg}\index{SDL\_SysWMmsg@{SDL\_SysWMmsg}}
+
+
+{\ttfamily \#include $<$SDL\+\_\+syswm.\+h$>$}
+
+\doxysubsection*{Attributs publics}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_s_d_l___sys_w_mmsg_a95f9aae58d18ee8fac556416b322a5fb}\label{struct_s_d_l___sys_w_mmsg_a95f9aae58d18ee8fac556416b322a5fb}} 
+\mbox{\hyperlink{struct_s_d_l__version}{SDL\+\_\+version}} {\bfseries version}
+\item 
+\mbox{\Hypertarget{struct_s_d_l___sys_w_mmsg_a7c3900af5ea797f1318fc77ee0ecd11b}\label{struct_s_d_l___sys_w_mmsg_a7c3900af5ea797f1318fc77ee0ecd11b}} 
+\mbox{\hyperlink{_s_d_l__syswm_8h_a064c26598287280fff2a00d6758ac4f7}{SDL\+\_\+\+SYSWM\+\_\+\+TYPE}} {\bfseries subsystem}
+\item 
+\mbox{\Hypertarget{struct_s_d_l___sys_w_mmsg_a9acb6f64c766b8a6b6dc8da1c13ebec1}\label{struct_s_d_l___sys_w_mmsg_a9acb6f64c766b8a6b6dc8da1c13ebec1}} 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>struct \{\\
+\>\>HWND \mbox{\hyperlink{struct_s_d_l___sys_w_mmsg_a55cf9583b5eddfe60a5c9851f9cce457}{hwnd}}\\
+\>\>UINT \mbox{\hyperlink{struct_s_d_l___sys_w_mmsg_a74894ed060d5508ab06aac584154d61e}{msg}}\\
+\>\>WPARAM \mbox{\hyperlink{struct_s_d_l___sys_w_mmsg_a7463730478d90ebc031d83098f3f74fc}{wParam}}\\
+\>\>LPARAM \mbox{\hyperlink{struct_s_d_l___sys_w_mmsg_a24c1e4c3cb8d9781d34e5d99df66ac36}{lParam}}\\
+\>\} {\bfseries win}\\
+\>int {\bfseries dummy}\\
+\} {\bfseries msg}\\
+
+\end{tabbing}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+The custom event structure. 
+
+\doxysubsection{Documentation des données membres}
+\mbox{\Hypertarget{struct_s_d_l___sys_w_mmsg_a55cf9583b5eddfe60a5c9851f9cce457}\label{struct_s_d_l___sys_w_mmsg_a55cf9583b5eddfe60a5c9851f9cce457}} 
+\index{SDL\_SysWMmsg@{SDL\_SysWMmsg}!hwnd@{hwnd}}
+\index{hwnd@{hwnd}!SDL\_SysWMmsg@{SDL\_SysWMmsg}}
+\doxysubsubsection{\texorpdfstring{hwnd}{hwnd}}
+{\footnotesize\ttfamily HWND SDL\+\_\+\+Sys\+WMmsg\+::hwnd}
+
+The window for the message \mbox{\Hypertarget{struct_s_d_l___sys_w_mmsg_a24c1e4c3cb8d9781d34e5d99df66ac36}\label{struct_s_d_l___sys_w_mmsg_a24c1e4c3cb8d9781d34e5d99df66ac36}} 
+\index{SDL\_SysWMmsg@{SDL\_SysWMmsg}!lParam@{lParam}}
+\index{lParam@{lParam}!SDL\_SysWMmsg@{SDL\_SysWMmsg}}
+\doxysubsubsection{\texorpdfstring{lParam}{lParam}}
+{\footnotesize\ttfamily LPARAM SDL\+\_\+\+Sys\+WMmsg\+::l\+Param}
+
+LONG message parameter \mbox{\Hypertarget{struct_s_d_l___sys_w_mmsg_a74894ed060d5508ab06aac584154d61e}\label{struct_s_d_l___sys_w_mmsg_a74894ed060d5508ab06aac584154d61e}} 
+\index{SDL\_SysWMmsg@{SDL\_SysWMmsg}!msg@{msg}}
+\index{msg@{msg}!SDL\_SysWMmsg@{SDL\_SysWMmsg}}
+\doxysubsubsection{\texorpdfstring{msg}{msg}}
+{\footnotesize\ttfamily UINT SDL\+\_\+\+Sys\+WMmsg\+::msg}
+
+The type of message \mbox{\Hypertarget{struct_s_d_l___sys_w_mmsg_a7463730478d90ebc031d83098f3f74fc}\label{struct_s_d_l___sys_w_mmsg_a7463730478d90ebc031d83098f3f74fc}} 
+\index{SDL\_SysWMmsg@{SDL\_SysWMmsg}!wParam@{wParam}}
+\index{wParam@{wParam}!SDL\_SysWMmsg@{SDL\_SysWMmsg}}
+\doxysubsubsection{\texorpdfstring{wParam}{wParam}}
+{\footnotesize\ttfamily WPARAM SDL\+\_\+\+Sys\+WMmsg\+::w\+Param}
+
+WORD message parameter 
+
+La documentation de cette structure a été générée à partir du fichier suivant \+:\begin{DoxyCompactItemize}
+\item 
+SDL/include/\mbox{\hyperlink{_s_d_l__syswm_8h}{SDL\+\_\+syswm.\+h}}\end{DoxyCompactItemize}

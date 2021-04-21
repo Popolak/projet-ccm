@@ -1,0 +1,88 @@
+\hypertarget{ennemi_8c}{}\doxysection{Référence du fichier src/entite/ennemi.c}
+\label{ennemi_8c}\index{src/entite/ennemi.c@{src/entite/ennemi.c}}
+
+
+Module ennemi \textbackslash{}verion 1.\+0.  
+
+
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}../../lib/entite/ennemi.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../../lib/generation/element\+\_\+generation.\+h\char`\"{}}\newline
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+ennemi\+\_\+t $\ast$ \mbox{\hyperlink{ennemi_8c_a2a743183518000d24093d64a3642ec51}{ennemi\+\_\+creer}} (char $\ast$nom, char $\ast$description, int vie, salle\+\_\+t $\ast$salle, chunk\+\_\+t $\ast$chunk, pos\+\_\+t pos, float vitesse\+\_\+x, float vitesse\+\_\+y, float vitesse\+\_\+max\+\_\+y, float vitesse\+\_\+saut, int w, int h, int w\+\_\+hitbox, int h\+\_\+hitbox, int offset\+\_\+hitbox, float sec\+Sprite, float vit\+\_\+attack, int degats, char $\ast$nom\+\_\+attaque, int range, int nb\+Textures, SDL\+\_\+\+Texture $\ast$$\ast$textures)
+\begin{DoxyCompactList}\small\item\em Création d\textquotesingle{}un ennemi. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Module ennemi \textbackslash{}verion 1.\+0. 
+
+\begin{DoxyDate}{Date}
+Avril 2021 
+\end{DoxyDate}
+
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{ennemi_8c_a2a743183518000d24093d64a3642ec51}\label{ennemi_8c_a2a743183518000d24093d64a3642ec51}} 
+\index{ennemi.c@{ennemi.c}!ennemi\_creer@{ennemi\_creer}}
+\index{ennemi\_creer@{ennemi\_creer}!ennemi.c@{ennemi.c}}
+\doxysubsubsection{\texorpdfstring{ennemi\_creer()}{ennemi\_creer()}}
+{\footnotesize\ttfamily ennemi\+\_\+t$\ast$ ennemi\+\_\+creer (\begin{DoxyParamCaption}\item[{char $\ast$}]{nom,  }\item[{char $\ast$}]{description,  }\item[{int}]{vie,  }\item[{salle\+\_\+t $\ast$}]{salle,  }\item[{chunk\+\_\+t $\ast$}]{chunk,  }\item[{pos\+\_\+t}]{pos,  }\item[{float}]{vitesse\+\_\+x,  }\item[{float}]{vitesse\+\_\+y,  }\item[{float}]{vitesse\+\_\+max\+\_\+y,  }\item[{float}]{vitesse\+\_\+saut,  }\item[{int}]{w,  }\item[{int}]{h,  }\item[{int}]{w\+\_\+hitbox,  }\item[{int}]{h\+\_\+hitbox,  }\item[{int}]{offset\+\_\+hitbox,  }\item[{float}]{sec\+Sprite,  }\item[{float}]{vit\+\_\+attack,  }\item[{int}]{degats,  }\item[{char $\ast$}]{nom\+\_\+attaque,  }\item[{int}]{range,  }\item[{int}]{nb\+Textures,  }\item[{SDL\+\_\+\+Texture $\ast$$\ast$}]{textures }\end{DoxyParamCaption})}
+
+
+
+Création d\textquotesingle{}un ennemi. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em char} & Nom de l\textquotesingle{}ennemi \\
+\hline
+{\em char} & Description \\
+\hline
+{\em int} & Vie \\
+\hline
+{\em salle\+\_\+t} & Pointeur sur salle de l\textquotesingle{}ennemi \\
+\hline
+{\em chunk\+\_\+t} & Pointeur sur chunk de l\textquotesingle{}ennemi \\
+\hline
+{\em pos\+\_\+t} & Posistion dans la salle \\
+\hline
+{\em float} & Vitesse horizontale \\
+\hline
+{\em float} & Vitesse Verticale \\
+\hline
+{\em float} & Vitesse verticale maximale \\
+\hline
+{\em float} & vitesse de saut \\
+\hline
+{\em int} & Largeur \\
+\hline
+{\em int} & Hauteur \\
+\hline
+{\em int} & Largeur de la hitbox \\
+\hline
+{\em int} & Hauteur de la hitbox \\
+\hline
+{\em int} & Décalage de la hitbox \\
+\hline
+{\em float} & Sprite secondaire \\
+\hline
+{\em float} & Vitesse d\textquotesingle{}attaque \\
+\hline
+{\em int} & Attaque \\
+\hline
+{\em char} & Nom de l\textquotesingle{}attaque \\
+\hline
+{\em int} & Portée d\textquotesingle{}attaque \\
+\hline
+{\em int} & Nombre de texture \\
+\hline
+{\em SDL\+\_\+\+Texture} & Texture de l\textquotesingle{}ennemi \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Retourne l\textquotesingle{}entité créée 
+\end{DoxyReturn}

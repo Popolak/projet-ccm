@@ -1,0 +1,108 @@
+\hypertarget{salle_8c}{}\doxysection{Référence du fichier src/niveaux/salle.c}
+\label{salle_8c}\index{src/niveaux/salle.c@{src/niveaux/salle.c}}
+
+
+Module salle \textbackslash{}verion 1.\+0.  
+
+
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$ctype.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}../../lib/niveaux/salle.\+h\char`\"{}}\newline
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+booleen\+\_\+t \mbox{\hyperlink{salle_8c_a093073cb307a705b1716f7c4ec7bec1e}{type\+\_\+correct}} (char $\ast$type)
+\begin{DoxyCompactList}\small\item\em Vérification du type. \end{DoxyCompactList}\item 
+booleen\+\_\+t \mbox{\hyperlink{salle_8c_a188e6f1645e19b47747e987b90276dcd}{salle\+\_\+existe}} (salle\+\_\+t $\ast$salle)
+\begin{DoxyCompactList}\small\item\em Vérification d\textquotesingle{}existence d\textquotesingle{}une salle \textbackslash{}salle\+\_\+t Pointeur sur la salle à tester. \end{DoxyCompactList}\item 
+salle\+\_\+t $\ast$ \mbox{\hyperlink{salle_8c_af53800d4fb0dbb27cd3e1475b7672b92}{salle\+\_\+creer\+\_\+type}} (char $\ast$type)
+\begin{DoxyCompactList}\small\item\em Création d\textquotesingle{}une salle a partir d\textquotesingle{}une référence. \end{DoxyCompactList}\item 
+salle\+\_\+t $\ast$ \mbox{\hyperlink{salle_8c_ae65ce537b937ea29686dae98c636459c}{salle\+\_\+creer}} (char $\ast$type)
+\begin{DoxyCompactList}\small\item\em Création d\textquotesingle{}une salle. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{salle_8c_ae078eea91377921e0df6ab9699d6a20f}\label{salle_8c_ae078eea91377921e0df6ab9699d6a20f}} 
+void \mbox{\hyperlink{salle_8c_ae078eea91377921e0df6ab9699d6a20f}{salle\+\_\+afficher\+\_\+ref}} ()
+\begin{DoxyCompactList}\small\item\em Affiche la référence de la salle par printf. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{salle_8c_a58441aeaf7c929ab95a06da1a3b5b8c8}\label{salle_8c_a58441aeaf7c929ab95a06da1a3b5b8c8}} 
+int {\bfseries cpt\+\_\+salle} =0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Module salle \textbackslash{}verion 1.\+0. 
+
+\begin{DoxyDate}{Date}
+Avril 2021 
+\end{DoxyDate}
+
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{salle_8c_ae65ce537b937ea29686dae98c636459c}\label{salle_8c_ae65ce537b937ea29686dae98c636459c}} 
+\index{salle.c@{salle.c}!salle\_creer@{salle\_creer}}
+\index{salle\_creer@{salle\_creer}!salle.c@{salle.c}}
+\doxysubsubsection{\texorpdfstring{salle\_creer()}{salle\_creer()}}
+{\footnotesize\ttfamily salle\+\_\+t$\ast$ salle\+\_\+creer (\begin{DoxyParamCaption}\item[{char $\ast$}]{type }\end{DoxyParamCaption})}
+
+
+
+Création d\textquotesingle{}une salle. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em char} & Chaine de caractères (cf ./generation/generation\+\_\+explication.txt) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Retourne un pointeur sur la salle créée, NULL sinon 
+\end{DoxyReturn}
+\mbox{\Hypertarget{salle_8c_af53800d4fb0dbb27cd3e1475b7672b92}\label{salle_8c_af53800d4fb0dbb27cd3e1475b7672b92}} 
+\index{salle.c@{salle.c}!salle\_creer\_type@{salle\_creer\_type}}
+\index{salle\_creer\_type@{salle\_creer\_type}!salle.c@{salle.c}}
+\doxysubsubsection{\texorpdfstring{salle\_creer\_type()}{salle\_creer\_type()}}
+{\footnotesize\ttfamily salle\+\_\+t$\ast$ salle\+\_\+creer\+\_\+type (\begin{DoxyParamCaption}\item[{char $\ast$}]{type }\end{DoxyParamCaption})}
+
+
+
+Création d\textquotesingle{}une salle a partir d\textquotesingle{}une référence. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em char} & Chaine de caractères (cf ./generation/generation\+\_\+explication.txt) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Retourne un pointeur sur salle\+\_\+t si la salle est crée, NULL sinon 
+\end{DoxyReturn}
+\mbox{\Hypertarget{salle_8c_a188e6f1645e19b47747e987b90276dcd}\label{salle_8c_a188e6f1645e19b47747e987b90276dcd}} 
+\index{salle.c@{salle.c}!salle\_existe@{salle\_existe}}
+\index{salle\_existe@{salle\_existe}!salle.c@{salle.c}}
+\doxysubsubsection{\texorpdfstring{salle\_existe()}{salle\_existe()}}
+{\footnotesize\ttfamily booleen\+\_\+t salle\+\_\+existe (\begin{DoxyParamCaption}\item[{salle\+\_\+t $\ast$}]{salle }\end{DoxyParamCaption})}
+
+
+
+Vérification d\textquotesingle{}existence d\textquotesingle{}une salle \textbackslash{}salle\+\_\+t Pointeur sur la salle à tester. 
+
+\begin{DoxyReturn}{Renvoie}
+Retourne VRAI si la salle existe, FAUX sinon 
+\end{DoxyReturn}
+\mbox{\Hypertarget{salle_8c_a093073cb307a705b1716f7c4ec7bec1e}\label{salle_8c_a093073cb307a705b1716f7c4ec7bec1e}} 
+\index{salle.c@{salle.c}!type\_correct@{type\_correct}}
+\index{type\_correct@{type\_correct}!salle.c@{salle.c}}
+\doxysubsubsection{\texorpdfstring{type\_correct()}{type\_correct()}}
+{\footnotesize\ttfamily booleen\+\_\+t type\+\_\+correct (\begin{DoxyParamCaption}\item[{char $\ast$}]{type }\end{DoxyParamCaption})}
+
+
+
+Vérification du type. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em char} & Position de la porte \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Retourne VRAI si le type est correcte, FAUX sinon 
+\end{DoxyReturn}

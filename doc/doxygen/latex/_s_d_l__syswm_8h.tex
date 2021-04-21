@@ -1,0 +1,92 @@
+\hypertarget{_s_d_l__syswm_8h}{}\doxysection{Référence du fichier SDL/include/\+SDL\+\_\+syswm.h}
+\label{_s_d_l__syswm_8h}\index{SDL/include/SDL\_syswm.h@{SDL/include/SDL\_syswm.h}}
+{\ttfamily \#include \char`\"{}SDL\+\_\+stdinc.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}SDL\+\_\+error.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}SDL\+\_\+video.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}SDL\+\_\+version.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$windows.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}begin\+\_\+code.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}close\+\_\+code.\+h\char`\"{}}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_s_d_l___sys_w_mmsg}{SDL\+\_\+\+Sys\+WMmsg}}
+\item 
+struct \mbox{\hyperlink{struct_s_d_l___sys_w_minfo}{SDL\+\_\+\+Sys\+WMinfo}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Définitions de type}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{_s_d_l__syswm_8h_a25c885f5150c5d1202a70a6a4a135a4a}\label{_s_d_l__syswm_8h_a25c885f5150c5d1202a70a6a4a135a4a}} 
+typedef struct \mbox{\hyperlink{struct_s_d_l___sys_w_minfo}{SDL\+\_\+\+Sys\+WMinfo}} {\bfseries SDL\+\_\+\+Sys\+WMinfo}
+\end{DoxyCompactItemize}
+\doxysubsection*{Énumérations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{_s_d_l__syswm_8h_a064c26598287280fff2a00d6758ac4f7}{SDL\+\_\+\+SYSWM\+\_\+\+TYPE}} \{ \newline
+{\bfseries SDL\+\_\+\+SYSWM\+\_\+\+UNKNOWN}
+, {\bfseries SDL\+\_\+\+SYSWM\+\_\+\+WINDOWS}
+, {\bfseries SDL\+\_\+\+SYSWM\+\_\+\+X11}
+, {\bfseries SDL\+\_\+\+SYSWM\+\_\+\+DIRECTFB}
+, \newline
+{\bfseries SDL\+\_\+\+SYSWM\+\_\+\+COCOA}
+, {\bfseries SDL\+\_\+\+SYSWM\+\_\+\+UIKIT}
+, {\bfseries SDL\+\_\+\+SYSWM\+\_\+\+WAYLAND}
+, {\bfseries SDL\+\_\+\+SYSWM\+\_\+\+MIR}
+, \newline
+{\bfseries SDL\+\_\+\+SYSWM\+\_\+\+WINRT}
+, {\bfseries SDL\+\_\+\+SYSWM\+\_\+\+ANDROID}
+, {\bfseries SDL\+\_\+\+SYSWM\+\_\+\+VIVANTE}
+, {\bfseries SDL\+\_\+\+SYSWM\+\_\+\+OS2}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+DECLSPEC SDL\+\_\+bool SDLCALL \mbox{\hyperlink{_s_d_l__syswm_8h_ad6e40121a96c88af20d9469a04706fef}{SDL\+\_\+\+Get\+Window\+WMInfo}} (\mbox{\hyperlink{_s_d_l__video_8h_a55a196c7d3b8497538632c79ae1e6392}{SDL\+\_\+\+Window}} $\ast$window, \mbox{\hyperlink{struct_s_d_l___sys_w_minfo}{SDL\+\_\+\+Sys\+WMinfo}} $\ast$info)
+\begin{DoxyCompactList}\small\item\em This function allows access to driver-\/dependent window information. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Include file for SDL custom system window manager hooks.
+
+Your application has access to a special type of event \mbox{\hyperlink{_s_d_l__events_8h_a3b589e89be6b35c02e0dd34a55f3fccaa73749d735a18ce6ef17a09ee70d5dbe7}{SDL\+\_\+\+SYSWMEVENT}}, which contains window-\/manager specific information and arrives whenever an unhandled window event occurs. This event is ignored by default, but you can enable it with \mbox{\hyperlink{_s_d_l__events_8h_afb772893e1c46f186fa39a4defe76df3}{SDL\+\_\+\+Event\+State()}}. 
+
+\doxysubsection{Documentation du type de l\textquotesingle{}énumération}
+\mbox{\Hypertarget{_s_d_l__syswm_8h_a064c26598287280fff2a00d6758ac4f7}\label{_s_d_l__syswm_8h_a064c26598287280fff2a00d6758ac4f7}} 
+\index{SDL\_syswm.h@{SDL\_syswm.h}!SDL\_SYSWM\_TYPE@{SDL\_SYSWM\_TYPE}}
+\index{SDL\_SYSWM\_TYPE@{SDL\_SYSWM\_TYPE}!SDL\_syswm.h@{SDL\_syswm.h}}
+\doxysubsubsection{\texorpdfstring{SDL\_SYSWM\_TYPE}{SDL\_SYSWM\_TYPE}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{_s_d_l__syswm_8h_a064c26598287280fff2a00d6758ac4f7}{SDL\+\_\+\+SYSWM\+\_\+\+TYPE}}}
+
+These are the various supported windowing subsystems 
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{_s_d_l__syswm_8h_ad6e40121a96c88af20d9469a04706fef}\label{_s_d_l__syswm_8h_ad6e40121a96c88af20d9469a04706fef}} 
+\index{SDL\_syswm.h@{SDL\_syswm.h}!SDL\_GetWindowWMInfo@{SDL\_GetWindowWMInfo}}
+\index{SDL\_GetWindowWMInfo@{SDL\_GetWindowWMInfo}!SDL\_syswm.h@{SDL\_syswm.h}}
+\doxysubsubsection{\texorpdfstring{SDL\_GetWindowWMInfo()}{SDL\_GetWindowWMInfo()}}
+{\footnotesize\ttfamily DECLSPEC SDL\+\_\+bool SDLCALL SDL\+\_\+\+Get\+Window\+WMInfo (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_s_d_l__video_8h_a55a196c7d3b8497538632c79ae1e6392}{SDL\+\_\+\+Window}} $\ast$}]{window,  }\item[{\mbox{\hyperlink{struct_s_d_l___sys_w_minfo}{SDL\+\_\+\+Sys\+WMinfo}} $\ast$}]{info }\end{DoxyParamCaption})}
+
+
+
+This function allows access to driver-\/dependent window information. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em window} & The window about which information is being requested \\
+\hline
+{\em info} & This structure must be initialized with the SDL version, and is then filled in with information about the given window.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+SDL\+\_\+\+TRUE if the function is implemented and the version member of the {\ttfamily info} struct is valid, SDL\+\_\+\+FALSE otherwise.
+\end{DoxyReturn}
+You typically use this function like this\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{struct_s_d_l___sys_w_minfo}{SDL\_SysWMinfo}} info;}
+\DoxyCodeLine{\mbox{\hyperlink{_s_d_l__version_8h_a7154bc5c2a95a644b5187e4225cdcbd0}{SDL\_VERSION}}(\&info.version);}
+\DoxyCodeLine{\textcolor{keywordflow}{if} ( \mbox{\hyperlink{_s_d_l__syswm_8h_ad6e40121a96c88af20d9469a04706fef}{SDL\_GetWindowWMInfo}}(window, \&info) ) \{ ... \}}
+
+\end{DoxyCode}
+ 

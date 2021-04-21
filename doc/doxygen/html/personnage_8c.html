@@ -1,0 +1,533 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Foodungeon: Référence du fichier src/entite/personnage.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Foodungeon
+   </div>
+   <div id="projectbrief">Foodungeon est un jeu de type Roguelike.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_0f1727641c541944a68db6b639684ad8.html">entite</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Fonctions</a>  </div>
+  <div class="headertitle">
+<div class="title">Référence du fichier personnage.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>Module personnage \verion 1.0.  
+<a href="#details">Plus de détails...</a></p>
+<div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
+<code>#include &quot;../../lib/entite/personnage.h&quot;</code><br />
+<code>#include &quot;../../lib/generation/element_generation.h&quot;</code><br />
+<code>#include &quot;../../lib/entite/ennemi.h&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:abeff07de8e928a9a5420562efed92388"><td class="memItemLeft" align="right" valign="top">booleen_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="personnage_8c.html#abeff07de8e928a9a5420562efed92388">perso_existe</a> (perso_t *const personnage)</td></tr>
+<tr class="memdesc:abeff07de8e928a9a5420562efed92388"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vérifie si le personnage passé en paramêtre existe.  <a href="personnage_8c.html#abeff07de8e928a9a5420562efed92388">Plus de détails...</a><br /></td></tr>
+<tr class="separator:abeff07de8e928a9a5420562efed92388"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09f7ab0b637d0d3c61c26902c731a6cd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="personnage_8c.html#a09f7ab0b637d0d3c61c26902c731a6cd">perso_barre_vie</a> (SDL_Renderer *ren, perso_t *personnage, int WINW, int WINH)</td></tr>
+<tr class="memdesc:a09f7ab0b637d0d3c61c26902c731a6cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Affiche la barre de vie du personnage.  <a href="personnage_8c.html#a09f7ab0b637d0d3c61c26902c731a6cd">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a09f7ab0b637d0d3c61c26902c731a6cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acac3b26e6227cbc33691c1675a253df2"><td class="memItemLeft" align="right" valign="top">err_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="personnage_8c.html#acac3b26e6227cbc33691c1675a253df2">perso_detruire</a> (perso_t **personnage)</td></tr>
+<tr class="memdesc:acac3b26e6227cbc33691c1675a253df2"><td class="mdescLeft">&#160;</td><td class="mdescRight">libère l'espace du personnage et toutes les allocation reliées a lui  <a href="personnage_8c.html#acac3b26e6227cbc33691c1675a253df2">Plus de détails...</a><br /></td></tr>
+<tr class="separator:acac3b26e6227cbc33691c1675a253df2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af41862f49744c1fcc413919f61188d19"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="personnage_8c.html#af41862f49744c1fcc413919f61188d19">fait_partie_bin</a> (int tot_bin, int nombre_puis_2)</td></tr>
+<tr class="memdesc:af41862f49744c1fcc413919f61188d19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vérifie si un bit appartient à tot_bin.  <a href="personnage_8c.html#af41862f49744c1fcc413919f61188d19">Plus de détails...</a><br /></td></tr>
+<tr class="separator:af41862f49744c1fcc413919f61188d19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8bfda94f4e6032c12f942b8d01e09dda"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="personnage_8c.html#a8bfda94f4e6032c12f942b8d01e09dda">perso_pos_relative</a> (perso_t *perso)</td></tr>
+<tr class="memdesc:a8bfda94f4e6032c12f942b8d01e09dda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vérifie quel coin du chunk est le plus proche du personnage passé en paramètre.  <a href="personnage_8c.html#a8bfda94f4e6032c12f942b8d01e09dda">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a8bfda94f4e6032c12f942b8d01e09dda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfe94638bf7a8828869fa06d077d5de2"><td class="memItemLeft" align="right" valign="top">err_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="personnage_8c.html#acfe94638bf7a8828869fa06d077d5de2">remplir_tableaux</a> (SDL_Renderer *ren, perso_t *perso, void *tab[NB_MAX_AFF], err_t(*tab_destr[NB_MAX_AFF])(void **), char *appel, FILE *index, FILE *file_gen)</td></tr>
+<tr class="memdesc:acfe94638bf7a8828869fa06d077d5de2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remplit les tableaux à partir de fichiers de génération pour la salle où le personnage se trouve.  <a href="personnage_8c.html#acfe94638bf7a8828869fa06d077d5de2">Plus de détails...</a><br /></td></tr>
+<tr class="separator:acfe94638bf7a8828869fa06d077d5de2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea5852b23a6c078f6ae0c88bd5cc1911"><td class="memItemLeft" align="right" valign="top">perso_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="personnage_8c.html#aea5852b23a6c078f6ae0c88bd5cc1911">perso_creer</a> (char *nom, char *description, int vie, salle_t *salle, chunk_t *chunk, pos_t pos, float vitesse_x, float vitesse_y, float vitesse_max_y, float vitesse_saut, int w, int h, int w_hitbox, int h_hitbox, int offset_hitbox, float secSprite, float vit_attack, int degats, char *nom_attaque, int nbTextures, SDL_Texture **textures)</td></tr>
+<tr class="memdesc:aea5852b23a6c078f6ae0c88bd5cc1911"><td class="mdescLeft">&#160;</td><td class="mdescRight">Création d'un personnage.  <a href="personnage_8c.html#aea5852b23a6c078f6ae0c88bd5cc1911">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aea5852b23a6c078f6ae0c88bd5cc1911"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p>Module personnage \verion 1.0. </p>
+<dl class="section date"><dt>Date</dt><dd>Avril 2021 </dd></dl>
+</div><h2 class="groupheader">Documentation des fonctions</h2>
+<a id="af41862f49744c1fcc413919f61188d19"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af41862f49744c1fcc413919f61188d19">&#9670;&nbsp;</a></span>fait_partie_bin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int fait_partie_bin </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>tot_bin</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>nombre_puis_2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vérifie si un bit appartient à tot_bin. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">int</td><td>tot_bin : nombre total </td></tr>
+    <tr><td class="paramname">int</td><td>nombre_puis_2 : puissance de 2 pour vérifier si un certain bit appartient a tot_bin </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Retourne un nombre si vrai, 0 sinon </dd></dl>
+
+</div>
+</div>
+<a id="a09f7ab0b637d0d3c61c26902c731a6cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09f7ab0b637d0d3c61c26902c731a6cd">&#9670;&nbsp;</a></span>perso_barre_vie()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void perso_barre_vie </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Renderer *&#160;</td>
+          <td class="paramname"><em>ren</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">perso_t *&#160;</td>
+          <td class="paramname"><em>personnage</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>WINW</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>WINH</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Affiche la barre de vie du personnage. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">SDL_Renderer</td><td>Pointeur vers le renderer </td></tr>
+    <tr><td class="paramname">perso_t</td><td>Le personnage dont on affiche la vie </td></tr>
+    <tr><td class="paramname">int</td><td>Largeur de la fenêtre </td></tr>
+    <tr><td class="paramname">int</td><td>Hauteur de la fenêtre </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Retourne VRAI si le personnage existe, FAUX sinon </dd></dl>
+
+</div>
+</div>
+<a id="aea5852b23a6c078f6ae0c88bd5cc1911"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea5852b23a6c078f6ae0c88bd5cc1911">&#9670;&nbsp;</a></span>perso_creer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">perso_t* perso_creer </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>nom</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>description</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>vie</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">salle_t *&#160;</td>
+          <td class="paramname"><em>salle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">chunk_t *&#160;</td>
+          <td class="paramname"><em>chunk</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">pos_t&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>vitesse_x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>vitesse_y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>vitesse_max_y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>vitesse_saut</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>w_hitbox</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>h_hitbox</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>offset_hitbox</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>secSprite</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>vit_attack</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>degats</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>nom_attaque</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>nbTextures</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Texture **&#160;</td>
+          <td class="paramname"><em>textures</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Création d'un personnage. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">char</td><td>Nom du personnage </td></tr>
+    <tr><td class="paramname">char</td><td>Description du personnage </td></tr>
+    <tr><td class="paramname">salle_t</td><td>Salle </td></tr>
+    <tr><td class="paramname">chunk_t</td><td>Chunk du personnage </td></tr>
+    <tr><td class="paramname">pos_t</td><td>Position dans le chunk </td></tr>
+    <tr><td class="paramname">float</td><td>Vitesse horizontale du personnage </td></tr>
+    <tr><td class="paramname">float</td><td>Vitesse sur l'axe des ordonnées </td></tr>
+    <tr><td class="paramname">float</td><td>Vitesse maximale sur l'axe des ordonnées </td></tr>
+    <tr><td class="paramname">float</td><td>vitesse de saut </td></tr>
+    <tr><td class="paramname">int</td><td>Largeur du personnage </td></tr>
+    <tr><td class="paramname">int</td><td>Hauteur du personnage </td></tr>
+    <tr><td class="paramname">int</td><td>Largeur de la hitbox </td></tr>
+    <tr><td class="paramname">int</td><td>Hauteur du personnage </td></tr>
+    <tr><td class="paramname">int</td><td>Décalage de la hitbox </td></tr>
+    <tr><td class="paramname">float</td><td>Sprite secondaires </td></tr>
+    <tr><td class="paramname">float</td><td>Vitesse d'attaque </td></tr>
+    <tr><td class="paramname">int</td><td>Dégâts d'attaque </td></tr>
+    <tr><td class="paramname">char</td><td>Nom de l'attaque </td></tr>
+    <tr><td class="paramname">int</td><td>Nombre de textures </td></tr>
+    <tr><td class="paramname">SDL_Texture</td><td>Sprite du personnage </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Retourne le personnage créé. </dd></dl>
+
+</div>
+</div>
+<a id="acac3b26e6227cbc33691c1675a253df2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acac3b26e6227cbc33691c1675a253df2">&#9670;&nbsp;</a></span>perso_detruire()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">err_t perso_detruire </td>
+          <td>(</td>
+          <td class="paramtype">perso_t **&#160;</td>
+          <td class="paramname"><em>personnage</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>libère l'espace du personnage et toutes les allocation reliées a lui </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">perso_t</td><td>Pointeur sur pointeur sur perso_t </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Retourne OK si tout s'est bien passé </dd></dl>
+
+</div>
+</div>
+<a id="abeff07de8e928a9a5420562efed92388"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abeff07de8e928a9a5420562efed92388">&#9670;&nbsp;</a></span>perso_existe()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">booleen_t perso_existe </td>
+          <td>(</td>
+          <td class="paramtype">perso_t *const&#160;</td>
+          <td class="paramname"><em>personnage</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vérifie si le personnage passé en paramêtre existe. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">perso_t</td><td>Le personnage à tester </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Retourne VRAI si le personnage existe, FAUX sinon </dd></dl>
+
+</div>
+</div>
+<a id="a8bfda94f4e6032c12f942b8d01e09dda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8bfda94f4e6032c12f942b8d01e09dda">&#9670;&nbsp;</a></span>perso_pos_relative()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int perso_pos_relative </td>
+          <td>(</td>
+          <td class="paramtype">perso_t *&#160;</td>
+          <td class="paramname"><em>perso</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vérifie quel coin du chunk est le plus proche du personnage passé en paramètre. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">perso_t</td><td>Personnage à vérifier </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Combinaison de deux lettres: H/B pour Haut/Bas et G/D pour Gauche/Droite </dd></dl>
+
+</div>
+</div>
+<a id="acfe94638bf7a8828869fa06d077d5de2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acfe94638bf7a8828869fa06d077d5de2">&#9670;&nbsp;</a></span>remplir_tableaux()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">err_t remplir_tableaux </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Renderer *&#160;</td>
+          <td class="paramname"><em>ren</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">perso_t *&#160;</td>
+          <td class="paramname"><em>perso</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>tab</em>[NB_MAX_AFF], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">err_t(*[])(void **)&#160;</td>
+          <td class="paramname"><em>NB_MAX_AFF</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>appel</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FILE *&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FILE *&#160;</td>
+          <td class="paramname"><em>file_gen</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Remplit les tableaux à partir de fichiers de génération pour la salle où le personnage se trouve. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">SDL_Renderer</td><td>Pointeur sur le renderer </td></tr>
+    <tr><td class="paramname">perso_t</td><td>Pointeur sur personnage </td></tr>
+    <tr><td class="paramname">void</td><td>Tableau d'entités </td></tr>
+    <tr><td class="paramname">err_t</td><td>Tableaux de fonctions de destruction </td></tr>
+    <tr><td class="paramname">FILE</td><td>Fichier </td></tr>
+    <tr><td class="paramname">FILE</td><td>Fichier de génération </td></tr>
+    <tr><td class="paramname">char</td><td>appel de fichier </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Retourne 0 si tout se passe bien, 1 en cas d'erreur </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré par&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+</small></address>
+</body>
+</html>
